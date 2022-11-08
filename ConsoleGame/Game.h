@@ -8,7 +8,8 @@ namespace ConsoleGame
    enum class GameState;
    enum class GameCommand;
 
-   class Game : public IGameStateProvider, IGameCommandExecutor
+   class Game : public IGameStateProvider,
+                public IGameCommandExecutor
    {
    public:
       Game();

@@ -1,23 +1,22 @@
 #include "StartupStateInputHandler.h"
 #include "IGameInputReader.h"
-#include "IGameEventAggregator.h"
-#include "GameButton.h"
-#include "GameEvent.h"
+#include "IGameCommandExecutor.h"
+#include "GameCommand.h"
 
 using namespace std;
 using namespace ConsoleGame;
 
 StartupStateInputHandler::StartupStateInputHandler( const shared_ptr<IGameInputReader>& inputReader,
-                                                    const shared_ptr<IGameEventAggregator>& eventAggregator )
+                                                    const shared_ptr<IGameCommandExecutor>& commandExecutor )
    : _inputReader( inputReader ),
-     _eventAggregator( eventAggregator )
+     _commandExecutor( commandExecutor )
 {
 }
 
 void StartupStateInputHandler::HandleInput()
 {
-   if ( _inputReader->WasButtonPressed( GameButton::A ) )
+   if ( _inputReader->WasAnyButtonPressed() )
    {
-      _eventAggregator->RaiseEvent( GameEvent::Quit );
+      _commandExecutor->ExecuteCommand( GameCommand::Start );
    }
 }
