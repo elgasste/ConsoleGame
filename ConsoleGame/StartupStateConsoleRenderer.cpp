@@ -45,7 +45,7 @@ void StartupStateConsoleRenderer::DrawKeyBindings( int middleX, int top ) const
       string keyString( _inputConfig->KeyNames.at( keyCode ) );
       string buttonString( _inputConfig->ButtonNames.at( mappedButton ) );
 
-      _consoleDrawer->Draw( leftOfMiddleX - keyString.length() - 2, top, format( "{0} -> {1}", keyString, buttonString ) );
+      _consoleDrawer->Draw( leftOfMiddleX - (int)keyString.length() - 2, top, format( "{0} -> {1}", keyString, buttonString ) );
 
       top++;
    }
