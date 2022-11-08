@@ -20,6 +20,9 @@ namespace ConsoleGame
       void Render() override;
 
    private:
+      void DrawKeyBindings( int middleX, int top ) const;
+
+   private:
       const std::shared_ptr<IConsoleDrawer>& _consoleDrawer;
       const std::shared_ptr<GameRenderConfig>& _renderConfig;
       const std::shared_ptr<GameInputConfig>& _inputConfig;
