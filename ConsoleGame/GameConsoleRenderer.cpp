@@ -22,7 +22,7 @@ GameConsoleRenderer::GameConsoleRenderer( const shared_ptr<GameRenderConfig>& re
      _diagnosticsRenderer( diagnosticsRenderer ),
      _showDiagnostics( false )
 {
-   eventAggregator->RegisterEventHandler( GameEvent::Quit, std::bind( &GameConsoleRenderer::HandleQuitEvent, this ) );
+   eventAggregator->RegisterEventHandler( GameEvent::Shutdown, std::bind( &GameConsoleRenderer::HandleQuitEvent, this ) );
    eventAggregator->RegisterEventHandler( GameEvent::ToggleDiagnostics, std::bind( &GameConsoleRenderer::HandleToggleDiagnosticsEvent, this ) );
 
    consoleDrawer->Initialize();

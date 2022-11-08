@@ -18,6 +18,6 @@ void PlayingStateInputHandler::HandleInput()
 {
    if ( _inputReader->WasButtonPressed( GameButton::A ) )
    {
-      _eventAggregator->RaiseEvent( GameEvent::Quit );
+      _eventAggregator->RaiseEvent( GameEvent::Shutdown );
    }
 }
