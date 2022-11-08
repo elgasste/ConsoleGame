@@ -1,6 +1,7 @@
 #pragma once
 
 #include <map>
+#include <string>
 
 namespace ConsoleGame
 {
@@ -11,5 +12,8 @@ namespace ConsoleGame
    {
    public:
       std::map<KeyCode, GameButton> KeyMap;
+
+      std::map<KeyCode, std::string> KeyNames;
+      std::map<GameButton, std::string> ButtonNames;
    };
 }

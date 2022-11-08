@@ -1,19 +1,58 @@
+#include <string>
 #include <format>
 
 #include "StartupStateConsoleRenderer.h"
 #include "IConsoleDrawer.h"
+#include "GameRenderConfig.h"
+#include "GameInputConfig.h"
+#include "ConsoleColor.h"
 
 using namespace std;
 using namespace ConsoleGame;
 
-StartupStateConsoleRenderer::StartupStateConsoleRenderer( const shared_ptr<IConsoleDrawer>& consoleDrawer )
-   : _consoleDrawer( consoleDrawer )
+StartupStateConsoleRenderer::StartupStateConsoleRenderer( const shared_ptr<IConsoleDrawer>& consoleDrawer,
+                                                          const shared_ptr<GameRenderConfig>& renderConfig,
+                                                          const shared_ptr<GameInputConfig>& inputConfig )
+   : _consoleDrawer( consoleDrawer ),
+     _renderConfig( renderConfig ),
+     _inputConfig( inputConfig )
 {
 }
 
 void StartupStateConsoleRenderer::Render()
 {
-   _consoleDrawer->Draw( 2, 1, "Hi!" );
+   _consoleDrawer->SetDefaultBackgroundColor( ConsoleColor::DarkBlue );
+   _consoleDrawer->SetDefaultForegroundColor( ConsoleColor::White );
 
-   _consoleDrawer->Draw( 2, 3, "Press any button to start the game!" );
+   auto middleX = _renderConfig->ConsoleWidth / 2;
+
+   _consoleDrawer->Draw( middleX - 26, 2, ".==================================================." );
+   _consoleDrawer->Draw( middleX - 27, 3, "|          WELCOME TO (INSERT YOUR TITLE)!!          |" );
+   _consoleDrawer->Draw( middleX - 26, 4, "`=================================================='" );
+
+   _consoleDrawer->Draw( middleX - 30, 7, "They sky's the limit! Er, the console is the limit, I guess." );
+   _consoleDrawer->Draw( middleX - 40, 8, "Just to get you started, here's a list of which keys are bound to which buttons:" );
+
+   int top = 10;
+
+   DrawKeyBindings( middleX, top );
+
+   top += (int)_inputConfig->KeyMap.size() + 1;
+   _consoleDrawer->Draw( middleX - 17, top, "Press any button to play the game!" );
+   _consoleDrawer->Draw( middleX - 25, top + 1, "(remember, not every key is bound to a button....)" );
+}
+
+void StartupStateConsoleRenderer::DrawKeyBindings( int middleX, int top ) const
+{
+   auto leftOfMiddleX = middleX - 2;
+
+   for ( auto const& [keyCode, mappedButton] : _inputConfig->KeyMap )
+   {
+      string keyString( format( "{0} Key", _inputConfig->KeyNames.at(keyCode) ) );
+      string buttonString( format( "{0} Button", _inputConfig->ButtonNames.at(mappedButton) ) );
+
+      _consoleDrawer->Draw( leftOfMiddleX - (int)keyString.length() - 2, top, format( "{0} -> {1}", keyString, buttonString ) );
+
+      top++;
+   }
 }
