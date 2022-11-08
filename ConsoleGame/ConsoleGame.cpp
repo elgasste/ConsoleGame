@@ -76,7 +76,7 @@ shared_ptr<GameRenderConfig> BuildRenderConfig()
    auto renderConfig = make_shared<GameRenderConfig>();
 
    renderConfig->ConsoleWidth = 120;
-   renderConfig->ConsoleHeight = 35;
+   renderConfig->ConsoleHeight = 32;
 
    renderConfig->DefaultForegroundColor = ConsoleColor::Grey;
    renderConfig->DefaultBackgroundColor = ConsoleColor::Black;
