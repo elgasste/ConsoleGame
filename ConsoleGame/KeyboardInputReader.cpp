@@ -59,7 +59,9 @@ bool KeyboardInputReader::WasAnyButtonPressed() const
 {
    for ( int i = 0; i < (int)GameButton::GameButtonCount; i++ )
    {
-      if ( WasButtonPressed( (GameButton)i ) )
+      auto button = (GameButton)i;
+
+      if ( button != GameButton::Diagnostics && WasButtonPressed( button ) )
       {
          return true;
       }
