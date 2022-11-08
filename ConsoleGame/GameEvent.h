@@ -4,7 +4,7 @@ namespace ConsoleGame
 {
    enum class GameEvent
    {
-      Quit = 0,
+      Shutdown = 0,
       ToggleDiagnostics
    };
 }

@@ -2,6 +2,7 @@
 
 #include <memory>
 #include <map>
+#include <vector>
 
 #include "IGameInputReader.h"
 
@@ -31,8 +32,7 @@ namespace ConsoleGame
       bool IsKeyDown( KeyCode key ) const;
 
    private:
-      const std::shared_ptr<GameInputConfig>& _inputConfig;
-
       std::map<GameButton, ButtonState> _buttonStates;
+      std::map<GameButton, std::vector<KeyCode>> _buttonKeyBindings;
    };
 }

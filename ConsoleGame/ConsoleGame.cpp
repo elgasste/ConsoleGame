@@ -11,9 +11,11 @@
 #include "Game.h"
 #include "DiagnosticsConsoleRenderer.h"
 #include "StartupStateInputHandler.h"
+#include "PlayingStateInputHandler.h"
 #include "GameInputHandler.h"
 #include "ConsoleDrawer.h"
 #include "StartupStateConsoleRenderer.h"
+#include "PlayingStateConsoleRenderer.h"
 #include "GameConsoleRenderer.h"
 #include "GameRunner.h"
 #include "GameState.h"
@@ -41,19 +43,23 @@ int main()
    auto keyboardInputReader = shared_ptr<KeyboardInputReader>( new KeyboardInputReader( config->InputConfig ) );
 
    // game data objects
-   auto game = shared_ptr<Game>( new Game() );
+   auto game = shared_ptr<Game>( new Game( eventAggregator ) );
 
    // input objects
-   auto startupStateInputHandler = shared_ptr<StartupStateInputHandler>( new StartupStateInputHandler( keyboardInputReader, eventAggregator ) );
+   auto startupStateInputHandler = shared_ptr<StartupStateInputHandler>( new StartupStateInputHandler( keyboardInputReader, game ) );
+   auto playingStateInputHandler = shared_ptr<PlayingStateInputHandler>( new PlayingStateInputHandler( keyboardInputReader, game ) );
    auto inputHandler = shared_ptr<GameInputHandler>( new GameInputHandler( keyboardInputReader, game, eventAggregator ) );
    inputHandler->AddInputHandlerForGameState( GameState::Startup, startupStateInputHandler );
+   inputHandler->AddInputHandlerForGameState( GameState::Playing, playingStateInputHandler );
 
    // rendering objects
    auto consoleDrawer = shared_ptr<ConsoleDrawer>( new ConsoleDrawer( config->RenderConfig ) );
    auto diagnosticsRenderer = shared_ptr<DiagnosticsConsoleRenderer>( new DiagnosticsConsoleRenderer( consoleDrawer, clock, config->RenderConfig ) );
    auto startupStateConsoleRenderer = shared_ptr<StartupStateConsoleRenderer>( new StartupStateConsoleRenderer( consoleDrawer ) );
+   auto playingStateConsoleRenderer = shared_ptr<PlayingStateConsoleRenderer>( new PlayingStateConsoleRenderer( consoleDrawer ) );
    auto consoleRenderer = shared_ptr<GameConsoleRenderer>( new GameConsoleRenderer( config->RenderConfig, consoleDrawer, game, diagnosticsRenderer, eventAggregator ) );
    consoleRenderer->AddRendererForGameState( GameState::Startup, startupStateConsoleRenderer );
+   consoleRenderer->AddRendererForGameState( GameState::Playing, playingStateConsoleRenderer );
 
    // game loop
    auto runner = shared_ptr<GameRunner>( new GameRunner( eventAggregator, clock, inputHandler, consoleRenderer ) );

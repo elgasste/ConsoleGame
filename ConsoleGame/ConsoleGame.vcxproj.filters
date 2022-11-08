@@ -72,6 +72,12 @@
     <ClCompile Include="DiagnosticsConsoleRenderer.cpp">
       <Filter>Source Files\Render</Filter>
     </ClCompile>
+    <ClCompile Include="PlayingStateInputHandler.cpp">
+      <Filter>Source Files\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayingStateConsoleRenderer.cpp">
+      <Filter>Source Files\Render</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameRunner.h">
@@ -153,6 +159,18 @@
       <Filter>Header Files\Config</Filter>
     </ClInclude>
     <ClInclude Include="DiagnosticsConsoleRenderer.h">
+      <Filter>Header Files\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="IGameCommandExecutor.h">
+      <Filter>Header Files\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="GameCommand.h">
+      <Filter>Header Files\DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayingStateInputHandler.h">
+      <Filter>Header Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayingStateConsoleRenderer.h">
       <Filter>Header Files\Render</Filter>
     </ClInclude>
   </ItemGroup>
