@@ -78,8 +78,8 @@ shared_ptr<GameRenderConfig> BuildRenderConfig()
    renderConfig->ConsoleWidth = 120;
    renderConfig->ConsoleHeight = 35;
 
-   renderConfig->DefaultForegroundColor = ConsoleColor::White;
-   renderConfig->DefaultBackgroundColor = ConsoleColor::DarkBlue;
+   renderConfig->DefaultForegroundColor = ConsoleColor::Grey;
+   renderConfig->DefaultBackgroundColor = ConsoleColor::Black;
 
    return renderConfig;
 }
