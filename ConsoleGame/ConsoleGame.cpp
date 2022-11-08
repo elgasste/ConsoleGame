@@ -88,6 +88,7 @@ shared_ptr<GameInputConfig> BuildInputConfig()
 {
    auto inputConfig = make_shared<GameInputConfig>();
 
+   // key code bindings
    inputConfig->KeyMap[KeyCode::Left] = GameButton::Left;
    inputConfig->KeyMap[KeyCode::Up] = GameButton::Up;
    inputConfig->KeyMap[KeyCode::Right] = GameButton::Right;
@@ -109,6 +110,41 @@ shared_ptr<GameInputConfig> BuildInputConfig()
    inputConfig->KeyMap[KeyCode::NumPad4] = GameButton::R2;
 
    inputConfig->KeyMap[KeyCode::F12] = GameButton::Diagnostics;
+
+   // key names
+   inputConfig->KeyNames[KeyCode::Left] = "Left Arrow";
+   inputConfig->KeyNames[KeyCode::Up] = "Up Arrow";
+   inputConfig->KeyNames[KeyCode::Right] = "Right Arrow";
+   inputConfig->KeyNames[KeyCode::Down] = "Down Arrow";
+   inputConfig->KeyNames[KeyCode::Return] = "Enter";
+   inputConfig->KeyNames[KeyCode::Space] = "Space Bar";
+   inputConfig->KeyNames[KeyCode::Tab] = "Tab";
+   inputConfig->KeyNames[KeyCode::A] = "A";
+   inputConfig->KeyNames[KeyCode::B] = "B";
+   inputConfig->KeyNames[KeyCode::X] = "X";
+   inputConfig->KeyNames[KeyCode::Y] = "Y";
+   inputConfig->KeyNames[KeyCode::NumPad1] = "1";
+   inputConfig->KeyNames[KeyCode::NumPad2] = "2";
+   inputConfig->KeyNames[KeyCode::NumPad3] = "3";
+   inputConfig->KeyNames[KeyCode::NumPad4] = "4";
+   inputConfig->KeyNames[KeyCode::F12] = "F12";
+
+   // button names
+   inputConfig->ButtonNames[GameButton::Left] = "Left";
+   inputConfig->ButtonNames[GameButton::Up] = "Up";
+   inputConfig->ButtonNames[GameButton::Right] = "Right";
+   inputConfig->ButtonNames[GameButton::Down] = "Down";
+   inputConfig->ButtonNames[GameButton::Start] = "Start";
+   inputConfig->ButtonNames[GameButton::Select] = "Select";
+   inputConfig->ButtonNames[GameButton::A] = "A";
+   inputConfig->ButtonNames[GameButton::B] = "B";
+   inputConfig->ButtonNames[GameButton::X] = "X";
+   inputConfig->ButtonNames[GameButton::Y] = "Y";
+   inputConfig->ButtonNames[GameButton::L1] = "L1";
+   inputConfig->ButtonNames[GameButton::L2] = "L2";
+   inputConfig->ButtonNames[GameButton::R1] = "R1";
+   inputConfig->ButtonNames[GameButton::R2] = "R2";
+   inputConfig->ButtonNames[GameButton::Diagnostics] = "Toggle Diagnostics";
 
    return inputConfig;
 }
