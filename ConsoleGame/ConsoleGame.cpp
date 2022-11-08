@@ -15,6 +15,7 @@
 #include "GameInputHandler.h"
 #include "ConsoleDrawer.h"
 #include "StartupStateConsoleRenderer.h"
+#include "PlayingStateConsoleRenderer.h"
 #include "GameConsoleRenderer.h"
 #include "GameRunner.h"
 #include "GameState.h"
@@ -55,8 +56,10 @@ int main()
    auto consoleDrawer = shared_ptr<ConsoleDrawer>( new ConsoleDrawer( config->RenderConfig ) );
    auto diagnosticsRenderer = shared_ptr<DiagnosticsConsoleRenderer>( new DiagnosticsConsoleRenderer( consoleDrawer, clock, config->RenderConfig ) );
    auto startupStateConsoleRenderer = shared_ptr<StartupStateConsoleRenderer>( new StartupStateConsoleRenderer( consoleDrawer ) );
+   auto playingStateConsoleRenderer = shared_ptr<PlayingStateConsoleRenderer>( new PlayingStateConsoleRenderer( consoleDrawer ) );
    auto consoleRenderer = shared_ptr<GameConsoleRenderer>( new GameConsoleRenderer( config->RenderConfig, consoleDrawer, game, diagnosticsRenderer, eventAggregator ) );
    consoleRenderer->AddRendererForGameState( GameState::Startup, startupStateConsoleRenderer );
+   consoleRenderer->AddRendererForGameState( GameState::Playing, playingStateConsoleRenderer );
 
    // game loop
    auto runner = shared_ptr<GameRunner>( new GameRunner( eventAggregator, clock, inputHandler, consoleRenderer ) );
