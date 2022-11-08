@@ -1,16 +1,16 @@
 #include "PlayingStateInputHandler.h"
 #include "IGameInputReader.h"
-#include "IGameEventAggregator.h"
+#include "IGameCommandExecutor.h"
 #include "GameButton.h"
-#include "GameEvent.h"
+#include "GameCommand.h"
 
 using namespace std;
 using namespace ConsoleGame;
 
 PlayingStateInputHandler::PlayingStateInputHandler( const shared_ptr<IGameInputReader>& inputReader,
-                                                    const shared_ptr<IGameEventAggregator>& eventAggregator )
+                                                    const shared_ptr<IGameCommandExecutor>& commandExecutor )
    : _inputReader( inputReader ),
-   _eventAggregator( eventAggregator )
+     _commandExecutor( commandExecutor )
 {
 }
 
@@ -18,6 +18,6 @@ void PlayingStateInputHandler::HandleInput()
 {
    if ( _inputReader->WasButtonPressed( GameButton::A ) )
    {
-      _eventAggregator->RaiseEvent( GameEvent::Shutdown );
+      _commandExecutor->ExecuteCommand( GameCommand::Quit );
    }
 }

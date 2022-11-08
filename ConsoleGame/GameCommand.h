@@ -4,6 +4,7 @@ namespace ConsoleGame
 {
    enum class GameCommand
    {
-      Start = 0
+      Start = 0,
+      Quit
    };
 }

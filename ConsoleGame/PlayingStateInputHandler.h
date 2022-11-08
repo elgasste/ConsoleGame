@@ -7,18 +7,18 @@
 namespace ConsoleGame
 {
    class IGameInputReader;
-   class IGameEventAggregator;
+   class IGameCommandExecutor;
 
    class PlayingStateInputHandler : public IGameInputHandler
    {
    public:
       PlayingStateInputHandler( const std::shared_ptr<IGameInputReader>& inputReader,
-                                const std::shared_ptr<IGameEventAggregator>& eventAggregator );
+                                const std::shared_ptr<IGameCommandExecutor>& commandExecutor );
 
       void HandleInput() override;
 
    private:
       const std::shared_ptr<IGameInputReader>& _inputReader;
-      const std::shared_ptr<IGameEventAggregator>& _eventAggregator;
+      const std::shared_ptr<IGameCommandExecutor>& _commandExecutor;
    };
 }

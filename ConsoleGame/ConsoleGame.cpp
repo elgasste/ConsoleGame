@@ -43,11 +43,11 @@ int main()
    auto keyboardInputReader = shared_ptr<KeyboardInputReader>( new KeyboardInputReader( config->InputConfig ) );
 
    // game data objects
-   auto game = shared_ptr<Game>( new Game() );
+   auto game = shared_ptr<Game>( new Game( eventAggregator ) );
 
    // input objects
    auto startupStateInputHandler = shared_ptr<StartupStateInputHandler>( new StartupStateInputHandler( keyboardInputReader, game ) );
-   auto playingStateInputHandler = shared_ptr<PlayingStateInputHandler>( new PlayingStateInputHandler( keyboardInputReader, eventAggregator ) );
+   auto playingStateInputHandler = shared_ptr<PlayingStateInputHandler>( new PlayingStateInputHandler( keyboardInputReader, game ) );
    auto inputHandler = shared_ptr<GameInputHandler>( new GameInputHandler( keyboardInputReader, game, eventAggregator ) );
    inputHandler->AddInputHandlerForGameState( GameState::Startup, startupStateInputHandler );
    inputHandler->AddInputHandlerForGameState( GameState::Playing, playingStateInputHandler );
