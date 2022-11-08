@@ -9,9 +9,11 @@ using namespace std;
 using namespace ConsoleGame;
 
 StartupStateConsoleRenderer::StartupStateConsoleRenderer( const shared_ptr<IConsoleDrawer>& consoleDrawer,
-                                                          const shared_ptr<GameRenderConfig>& renderConfig )
+                                                          const shared_ptr<GameRenderConfig>& renderConfig,
+                                                          const shared_ptr<GameInputConfig>& inputConfig )
    : _consoleDrawer( consoleDrawer ),
-     _renderConfig( renderConfig )
+     _renderConfig( renderConfig ),
+     _inputConfig( inputConfig )
 {
 }
 
