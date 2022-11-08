@@ -7,6 +7,6 @@ namespace ConsoleGame
    class _declspec( novtable ) IGameCommandExecutor
    {
    public:
-      virtual void Execute( GameCommand command ) = 0;
+      virtual void ExecuteCommand( GameCommand command ) = 0;
    };
 }
