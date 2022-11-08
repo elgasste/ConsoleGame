@@ -1,6 +1,5 @@
 #define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
-#include <vector>
 
 #include "KeyboardInputReader.h"
 #include "GameInputConfig.h"
@@ -11,36 +10,52 @@ using namespace std;
 using namespace ConsoleGame;
 
 KeyboardInputReader::KeyboardInputReader( const shared_ptr<GameInputConfig>& inputConfig )
-   : _inputConfig( inputConfig )
 {
    for ( int i = 0; i < (int)GameButton::GameButtonCount; i++ )
    {
       _buttonStates[(GameButton)i] = { false, false };
    }
+
+   // since we allow multiple keys to bind to a single button, creating this inverted
+   // map of button-to-keys makes the input reading logic much easier
+   for ( int i = 0; i < (int)GameButton::GameButtonCount; i++ )
+   {
+      auto button = (GameButton)i;
+
+      for ( auto const& [keyCode, mappedButton] : inputConfig->KeyMap )
+      {
+         if ( mappedButton == button )
+         {
+            _buttonKeyBindings[button].push_back( keyCode );
+         }
+      }
+   }
 }
 
 void KeyboardInputReader::ReadInput()
 {
-   std::vector<GameButton> checkedButtons;
-
-   for ( map<KeyCode, GameButton>::iterator it = _inputConfig->KeyMap.begin(); it != _inputConfig->KeyMap.end(); it++ )
+   for ( auto const& [button, keyCodes] : _buttonKeyBindings )
    {
-      if ( std::find( checkedButtons.begin(), checkedButtons.end(), it->second ) != checkedButtons.end() )
+      bool buttonIsDown = false;
+
+      for ( auto keyCode : keyCodes )
       {
-         continue; // already updated this button
+         if ( IsKeyDown( keyCode ) )
+         {
+            buttonIsDown = true;
+            break;
+         }
       }
 
-      if ( IsKeyDown( it->first ) )
+      if ( buttonIsDown )
       {
-         _buttonStates.at( it->second ).ButtonWasPressed = !_buttonStates.at( it->second ).ButtonIsDown;
-         _buttonStates.at( it->second ).ButtonIsDown = true;
-
-         checkedButtons.push_back( it->second );
+         _buttonStates.at( button ).ButtonWasPressed = !_buttonStates.at( button ).ButtonIsDown;
+         _buttonStates.at( button ).ButtonIsDown = true;
       }
       else
       {
-         _buttonStates.at( it->second ).ButtonWasPressed = false;
-         _buttonStates.at( it->second ).ButtonIsDown = false;
+         _buttonStates.at( button ).ButtonWasPressed = false;
+         _buttonStates.at( button ).ButtonIsDown = false;
       }
    }
 }
