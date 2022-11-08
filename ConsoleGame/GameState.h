@@ -4,6 +4,7 @@ namespace ConsoleGame
 {
    enum class GameState
    {
-      Startup = 0
+      Startup = 0,
+      Playing
    };
 }
