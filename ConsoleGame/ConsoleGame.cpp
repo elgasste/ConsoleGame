@@ -11,6 +11,7 @@
 #include "Game.h"
 #include "DiagnosticsConsoleRenderer.h"
 #include "StartupStateInputHandler.h"
+#include "PlayingStateInputHandler.h"
 #include "GameInputHandler.h"
 #include "ConsoleDrawer.h"
 #include "StartupStateConsoleRenderer.h"
@@ -45,8 +46,10 @@ int main()
 
    // input objects
    auto startupStateInputHandler = shared_ptr<StartupStateInputHandler>( new StartupStateInputHandler( keyboardInputReader, game ) );
+   auto playingStateInputHandler = shared_ptr<PlayingStateInputHandler>( new PlayingStateInputHandler( keyboardInputReader, eventAggregator ) );
    auto inputHandler = shared_ptr<GameInputHandler>( new GameInputHandler( keyboardInputReader, game, eventAggregator ) );
    inputHandler->AddInputHandlerForGameState( GameState::Startup, startupStateInputHandler );
+   inputHandler->AddInputHandlerForGameState( GameState::Playing, playingStateInputHandler );
 
    // rendering objects
    auto consoleDrawer = shared_ptr<ConsoleDrawer>( new ConsoleDrawer( config->RenderConfig ) );
