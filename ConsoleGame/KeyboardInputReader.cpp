@@ -34,14 +34,14 @@ void KeyboardInputReader::ReadInput()
       {
          _buttonStates.at( it->second ).ButtonWasPressed = !_buttonStates.at( it->second ).ButtonIsDown;
          _buttonStates.at( it->second ).ButtonIsDown = true;
+
+         checkedButtons.push_back( it->second );
       }
       else
       {
          _buttonStates.at( it->second ).ButtonWasPressed = false;
          _buttonStates.at( it->second ).ButtonIsDown = false;
       }
-
-      checkedButtons.push_back( it->second );
    }
 }
 
