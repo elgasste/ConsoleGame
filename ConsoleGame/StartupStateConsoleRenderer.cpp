@@ -2,12 +2,15 @@
 
 #include "StartupStateConsoleRenderer.h"
 #include "IConsoleDrawer.h"
+#include "GameRenderConfig.h"
 
 using namespace std;
 using namespace ConsoleGame;
 
-StartupStateConsoleRenderer::StartupStateConsoleRenderer( const shared_ptr<IConsoleDrawer>& consoleDrawer )
-   : _consoleDrawer( consoleDrawer )
+StartupStateConsoleRenderer::StartupStateConsoleRenderer( const shared_ptr<IConsoleDrawer>& consoleDrawer,
+                                                          const shared_ptr<GameRenderConfig>& renderConfig )
+   : _consoleDrawer( consoleDrawer ),
+     _renderConfig( renderConfig )
 {
 }
 
