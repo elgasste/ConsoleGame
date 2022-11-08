@@ -26,14 +26,20 @@ void StartupStateConsoleRenderer::Render()
 
    auto middleX = _renderConfig->ConsoleWidth / 2;
 
-   _consoleDrawer->Draw( middleX - 26, 1, ".==================================================." );
-   _consoleDrawer->Draw( middleX - 27, 2, "|          WELCOME TO (INSERT YOUR TITLE)!!          |" );
-   _consoleDrawer->Draw( middleX - 26, 3, "`=================================================='" );
+   _consoleDrawer->Draw( middleX - 26, 2, ".==================================================." );
+   _consoleDrawer->Draw( middleX - 27, 3, "|          WELCOME TO (INSERT YOUR TITLE)!!          |" );
+   _consoleDrawer->Draw( middleX - 26, 4, "`=================================================='" );
 
-   _consoleDrawer->Draw( middleX - 30, 6, "They sky's the limit! Er, the console is the limit, I guess." );
-   _consoleDrawer->Draw( middleX - 40, 7, "Just to get you started, here's a list of which keys are bound to which buttons:" );
+   _consoleDrawer->Draw( middleX - 30, 7, "They sky's the limit! Er, the console is the limit, I guess." );
+   _consoleDrawer->Draw( middleX - 40, 8, "Just to get you started, here's a list of which keys are bound to which buttons:" );
 
-   DrawKeyBindings( middleX, 9 );
+   int top = 10;
+
+   DrawKeyBindings( middleX, top );
+
+   top += (int)_inputConfig->KeyMap.size() + 1;
+   _consoleDrawer->Draw( middleX - 17, top, "Press any button to play the game!" );
+   _consoleDrawer->Draw( middleX - 25, top + 1, "(remember, not every key is bound to a button....)" );
 }
 
 void StartupStateConsoleRenderer::DrawKeyBindings( int middleX, int top ) const
@@ -42,8 +48,8 @@ void StartupStateConsoleRenderer::DrawKeyBindings( int middleX, int top ) const
 
    for ( auto const& [keyCode, mappedButton] : _inputConfig->KeyMap )
    {
-      string keyString( _inputConfig->KeyNames.at( keyCode ) );
-      string buttonString( _inputConfig->ButtonNames.at( mappedButton ) );
+      string keyString( format( "{0} Key", _inputConfig->KeyNames.at(keyCode) ) );
+      string buttonString( format( "{0} Button", _inputConfig->ButtonNames.at(mappedButton) ) );
 
       _consoleDrawer->Draw( leftOfMiddleX - (int)keyString.length() - 2, top, format( "{0} -> {1}", keyString, buttonString ) );
 
