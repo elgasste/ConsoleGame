@@ -22,9 +22,9 @@
 using namespace std;
 using namespace ConsoleGame;
 
-// MUFFINS: I suppose these configs should be loaded from files at some point,
+// TODO: I suppose these configs should be loaded from files at some point,
 // but at the very least they should all have default values, and those could
-// probably be set in a class somewhere instead of in here.
+// probably be set in some initializer instead of in here.
 shared_ptr<GameRenderConfig> BuildRenderConfig();
 shared_ptr<GameInputConfig> BuildInputConfig();
 shared_ptr<GameConfig> BuildGameConfig();

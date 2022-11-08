@@ -30,13 +30,13 @@ ConsoleDrawer::~ConsoleDrawer()
 
 void ConsoleDrawer::Initialize()
 {
-   // MUFFINS: maybe this is possible if we can get character size?
+   // TODO: can we get the character size and use it here?
    //auto consoleHandle = GetConsoleWindow();
    //RECT consoleRect;
    //GetWindowRect( consoleHandle, &consoleRect );
    //MoveWindow( consoleHandle, consoleRect.left, consoleRect.top, 800, 600, TRUE );
 
-   // MUFFINS: there HAS to be a better way to do this...
+   // TODO: there HAS to be a better way to do this, maybe with the code above...
    system( format("MODE CON COLS={0} LINES={1}", _consoleSize.X, _consoleSize.Y ).c_str() );
 
    SetCursorVisibility( false );
@@ -46,8 +46,8 @@ void ConsoleDrawer::Initialize()
 
 void ConsoleDrawer::CleanUp()
 {
-   // MUFFINS: resize the window back to its original dimensions.
-   // also, use the config to set default fg/bg colors, and restore them here as well.
+   // TODO: restore the original console dimensions (not so easy, see above).
+   // also restore the original fg/bg colors, that should be easier.
    SetDefaultForegroundColor( ConsoleColor::Grey );
    SetDefaultBackgroundColor( ConsoleColor::Black );
    ClearDrawBuffer();
