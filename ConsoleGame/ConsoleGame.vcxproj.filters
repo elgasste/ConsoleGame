@@ -72,6 +72,9 @@
     <ClCompile Include="DiagnosticsConsoleRenderer.cpp">
       <Filter>Source Files\Render</Filter>
     </ClCompile>
+    <ClCompile Include="PlayingStateInputHandler.cpp">
+      <Filter>Source Files\Input</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameRunner.h">
@@ -160,6 +163,9 @@
     </ClInclude>
     <ClInclude Include="GameCommand.h">
       <Filter>Header Files\DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayingStateInputHandler.h">
+      <Filter>Header Files\Input</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
