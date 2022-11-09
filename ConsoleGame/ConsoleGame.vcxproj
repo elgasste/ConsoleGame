@@ -164,6 +164,7 @@
     <ClInclude Include="ConsoleColor.h" />
     <ClInclude Include="ConsoleDrawer.h" />
     <ClInclude Include="DiagnosticsConsoleRenderer.h" />
+    <ClInclude Include="Direction.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameButton.h" />
     <ClInclude Include="GameClock.h" />
@@ -186,6 +187,7 @@
     <ClInclude Include="GameInputHandler.h" />
     <ClInclude Include="GameInputConfig.h" />
     <ClInclude Include="IGameStateProvider.h" />
+    <ClInclude Include="IPlayerInfoProvider.h" />
     <ClInclude Include="KeyboardInputReader.h" />
     <ClInclude Include="KeyCode.h" />
     <ClInclude Include="PlayingStateConsoleRenderer.h" />
