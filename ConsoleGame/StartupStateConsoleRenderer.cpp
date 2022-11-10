@@ -26,14 +26,14 @@ void StartupStateConsoleRenderer::Render()
 
    auto middleX = _renderConfig->ConsoleWidth / 2;
 
-   _consoleDrawer->Draw( middleX - 26, 2, ".==================================================." );
-   _consoleDrawer->Draw( middleX - 27, 3, "|          WELCOME TO (INSERT YOUR TITLE)!!          |" );
-   _consoleDrawer->Draw( middleX - 26, 4, "`=================================================='" );
+   _consoleDrawer->Draw( middleX - 26, 1, ".==================================================." );
+   _consoleDrawer->Draw( middleX - 27, 2, "|          WELCOME TO (INSERT YOUR TITLE)!!          |" );
+   _consoleDrawer->Draw( middleX - 26, 3, "`=================================================='" );
 
-   _consoleDrawer->Draw( middleX - 30, 7, "They sky's the limit! Er, the console is the limit, I guess." );
-   _consoleDrawer->Draw( middleX - 40, 8, "Just to get you started, here's a list of which keys are bound to which buttons:" );
+   _consoleDrawer->Draw( middleX - 30, 6, "They sky's the limit! Er, the console is the limit, I guess." );
+   _consoleDrawer->Draw( middleX - 40, 7, "Just to get you started, here's a list of which keys are bound to which buttons:" );
 
-   int top = 10;
+   int top = 9;
 
    DrawKeyBindings( middleX, top );
 

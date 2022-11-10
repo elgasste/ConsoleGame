@@ -75,8 +75,10 @@ shared_ptr<GameRenderConfig> BuildRenderConfig()
 {
    auto renderConfig = make_shared<GameRenderConfig>();
 
+   // TODO: don't change these dimensions until we figure out the issue with console resizing.
+   // (see ConsoleDrawer.cpp)
    renderConfig->ConsoleWidth = 120;
-   renderConfig->ConsoleHeight = 32;
+   renderConfig->ConsoleHeight = 30;
 
    renderConfig->DefaultForegroundColor = ConsoleColor::Grey;
    renderConfig->DefaultBackgroundColor = ConsoleColor::Black;
