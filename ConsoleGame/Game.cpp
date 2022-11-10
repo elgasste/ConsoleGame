@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "GameConfig.h"
 #include "GameState.h"
 #include "GameCommand.h"
 #include "IGameEventAggregator.h"
@@ -8,8 +9,10 @@
 using namespace std;
 using namespace ConsoleGame;
 
-Game::Game( const std::shared_ptr<IGameEventAggregator>& eventAggregator )
-   : _eventAggregator( eventAggregator ),
+Game::Game( const std::shared_ptr<GameConfig>& config,
+            const std::shared_ptr<IGameEventAggregator>& eventAggregator )
+   : _config( config ),
+     _eventAggregator( eventAggregator ),
      _state( GameState::Startup ),
      _playerDirection( Direction::Right ),
      _playerPositionX( 0 ),
@@ -28,19 +31,31 @@ void Game::ExecuteCommand( GameCommand command )
          _eventAggregator->RaiseEvent( GameEvent::Shutdown );
          break;
       case GameCommand::MovePlayerLeft:
-         _playerPositionX--;
+         if ( _playerPositionX > 0 )
+         {
+            _playerPositionX--;
+         }
          _playerDirection = Direction::Left;
          break;
       case GameCommand::MovePlayerUp:
-         _playerPositionY--;
+         if ( _playerPositionY > 0 )
+         {
+            _playerPositionY--;
+         }
          _playerDirection = Direction::Up;
          break;
       case GameCommand::MovePlayerRight:
-         _playerPositionX++;
+         if ( _playerPositionX < _config->ArenaWidth - 1 )
+         {
+            _playerPositionX++;
+         }
          _playerDirection = Direction::Right;
          break;
       case GameCommand::MovePlayerDown:
-         _playerPositionY++;
+         if ( _playerPositionY < _config->ArenaHeight - 1 )
+         {
+            _playerPositionY++;
+         }
          _playerDirection = Direction::Down;
          break;
    }

@@ -10,6 +10,9 @@ namespace ConsoleGame
       short ConsoleWidth;
       short ConsoleHeight;
 
+      short ArenaFenceX;
+      short ArenaFenceY;
+
       ConsoleColor DefaultForegroundColor;
       ConsoleColor DefaultBackgroundColor;
    };

@@ -43,7 +43,7 @@ int main()
    auto keyboardInputReader = shared_ptr<KeyboardInputReader>( new KeyboardInputReader( config->InputConfig ) );
 
    // game data objects
-   auto game = shared_ptr<Game>( new Game( eventAggregator ) );
+   auto game = shared_ptr<Game>( new Game( config, eventAggregator ) );
 
    // input objects
    auto startupStateInputHandler = shared_ptr<StartupStateInputHandler>( new StartupStateInputHandler( keyboardInputReader, game ) );
@@ -56,7 +56,7 @@ int main()
    auto consoleDrawer = shared_ptr<ConsoleDrawer>( new ConsoleDrawer( config->RenderConfig ) );
    auto diagnosticsRenderer = shared_ptr<DiagnosticsConsoleRenderer>( new DiagnosticsConsoleRenderer( consoleDrawer, clock, config->RenderConfig ) );
    auto startupStateConsoleRenderer = shared_ptr<StartupStateConsoleRenderer>( new StartupStateConsoleRenderer( consoleDrawer, config->RenderConfig, config->InputConfig ) );
-   auto playingStateConsoleRenderer = shared_ptr<PlayingStateConsoleRenderer>( new PlayingStateConsoleRenderer( consoleDrawer, config->RenderConfig, game ) );
+   auto playingStateConsoleRenderer = shared_ptr<PlayingStateConsoleRenderer>( new PlayingStateConsoleRenderer( consoleDrawer, config->RenderConfig, config, game ) );
    auto consoleRenderer = shared_ptr<GameConsoleRenderer>( new GameConsoleRenderer( config->RenderConfig, consoleDrawer, game, diagnosticsRenderer, eventAggregator ) );
    consoleRenderer->AddRendererForGameState( GameState::Startup, startupStateConsoleRenderer );
    consoleRenderer->AddRendererForGameState( GameState::Playing, playingStateConsoleRenderer );
@@ -79,6 +79,9 @@ shared_ptr<GameRenderConfig> BuildRenderConfig()
    // (see ConsoleDrawer.cpp)
    renderConfig->ConsoleWidth = 120;
    renderConfig->ConsoleHeight = 30;
+
+   renderConfig->ArenaFenceX = 2;
+   renderConfig->ArenaFenceY = 3;
 
    renderConfig->DefaultForegroundColor = ConsoleColor::Grey;
    renderConfig->DefaultBackgroundColor = ConsoleColor::Black;
@@ -156,8 +159,12 @@ shared_ptr<GameConfig> BuildGameConfig()
    auto config = make_shared<GameConfig>();
 
    config->FramesPerSecond = 60;
+
    config->RenderConfig = BuildRenderConfig();
    config->InputConfig = BuildInputConfig();
+
+   config->ArenaWidth = config->RenderConfig->ConsoleWidth - 6;
+   config->ArenaHeight = config->RenderConfig->ConsoleHeight - 6;
 
    return config;
 }

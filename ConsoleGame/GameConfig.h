@@ -12,6 +12,9 @@ namespace ConsoleGame
    public:
       int FramesPerSecond;
 
+      short ArenaWidth;
+      short ArenaHeight;
+
       std::shared_ptr<GameRenderConfig> RenderConfig;
       std::shared_ptr<GameInputConfig> InputConfig;
    };
