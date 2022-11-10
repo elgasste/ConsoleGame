@@ -30,14 +30,17 @@ ConsoleDrawer::~ConsoleDrawer()
 
 void ConsoleDrawer::Initialize()
 {
-   // TODO: can we get the character size and use it here?
-   //auto consoleHandle = GetConsoleWindow();
-   //RECT consoleRect;
-   //GetWindowRect( consoleHandle, &consoleRect );
-   //MoveWindow( consoleHandle, consoleRect.left, consoleRect.top, 800, 600, TRUE );
+   SetConsoleScreenBufferSize( _outputHandle, { _consoleSize.X, _consoleSize.Y } );
 
-   // TODO: there HAS to be a better way to do this, maybe with the code above...
-   system( format("MODE CON COLS={0} LINES={1}", _consoleSize.X, _consoleSize.Y ).c_str() );
+   // TODO: as of the Windows 11 update I installed on 11/09/2022,
+   // SetConsoleWindowInfo is no longer resizing the console window.
+   // I'm commenting this out because it actually causes a weird issue
+   // where the console scrolls downward indefinitely.
+   SMALL_RECT windowCoords{ 0, 0, _consoleSize.X - 1, _consoleSize.Y - 1 };
+   SetConsoleWindowInfo( _outputHandle, TRUE, &windowCoords);
+
+   // TODO: I tried this as well, it doesn't work either.
+   //system( format("MODE CON COLS={0} LINES={1}", _consoleSize.X, _consoleSize.Y ).c_str() );
 
    SetCursorVisibility( false );
    ClearDrawBuffer();
@@ -118,6 +121,7 @@ void ConsoleDrawer::Draw( int left, int top, const string& buffer, ConsoleColor 
 
 void ConsoleDrawer::FlipDrawBuffer()
 {
+   // MUFFINS: the console is scrolling super fast, why is it scrolling at all?
    WriteConsoleOutput( _outputHandle, _drawBuffer, _consoleSize, _zeroCoordinate, &_outputRect );
 }
 
