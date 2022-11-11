@@ -18,11 +18,11 @@ namespace ConsoleGame
    class GameConsoleRenderer : public IGameRenderer
    {
    public:
-      GameConsoleRenderer( const std::shared_ptr<GameRenderConfig>& renderConfig,
-                           const std::shared_ptr<IConsoleDrawer>& consoleDrawer,
-                           const std::shared_ptr<IGameStateProvider>& stateProvider,
-                           const std::shared_ptr<IGameRenderer>& diagnosticsRenderer,
-                           const std::shared_ptr<IGameEventAggregator>& eventAggregator );
+      GameConsoleRenderer( const std::shared_ptr<GameRenderConfig> renderConfig,
+                           const std::shared_ptr<IConsoleDrawer> consoleDrawer,
+                           const std::shared_ptr<IGameStateProvider> stateProvider,
+                           const std::shared_ptr<IGameRenderer> diagnosticsRenderer,
+                           const std::shared_ptr<IGameEventAggregator> eventAggregator );
 
       void AddRendererForGameState( GameState state, std::shared_ptr<IGameRenderer> renderer );
 
@@ -33,9 +33,9 @@ namespace ConsoleGame
       void HandleToggleDiagnosticsEvent();
 
    private:
-      const std::shared_ptr<IConsoleDrawer>& _consoleDrawer;
-      const std::shared_ptr<IGameStateProvider>& _stateProvider;
-      const std::shared_ptr<IGameRenderer>& _diagnosticsRenderer;
+      const std::shared_ptr<IConsoleDrawer> _consoleDrawer;
+      const std::shared_ptr<IGameStateProvider> _stateProvider;
+      const std::shared_ptr<IGameRenderer> _diagnosticsRenderer;
 
       std::map<GameState, std::shared_ptr<IGameRenderer>> _stateRenderers;
 

@@ -13,9 +13,9 @@ namespace ConsoleGame
    class StartupStateConsoleRenderer : public IGameRenderer
    {
    public:
-      StartupStateConsoleRenderer( const std::shared_ptr<IConsoleDrawer>& consoleDrawer,
-                                   const std::shared_ptr<GameRenderConfig>& renderConfig,
-                                   const std::shared_ptr<GameInputConfig>& inputConfig );
+      StartupStateConsoleRenderer( const std::shared_ptr<IConsoleDrawer> consoleDrawer,
+                                   const std::shared_ptr<GameRenderConfig> renderConfig,
+                                   const std::shared_ptr<GameInputConfig> inputConfig );
 
       void Render() override;
 
@@ -23,8 +23,8 @@ namespace ConsoleGame
       void DrawKeyBindings( int middleX, int top ) const;
 
    private:
-      const std::shared_ptr<IConsoleDrawer>& _consoleDrawer;
-      const std::shared_ptr<GameRenderConfig>& _renderConfig;
-      const std::shared_ptr<GameInputConfig>& _inputConfig;
+      const std::shared_ptr<IConsoleDrawer> _consoleDrawer;
+      const std::shared_ptr<GameRenderConfig> _renderConfig;
+      const std::shared_ptr<GameInputConfig> _inputConfig;
    };
 }

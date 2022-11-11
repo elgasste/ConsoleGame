@@ -9,7 +9,7 @@
 using namespace std;
 using namespace ConsoleGame;
 
-KeyboardInputReader::KeyboardInputReader( const shared_ptr<GameInputConfig>& inputConfig )
+KeyboardInputReader::KeyboardInputReader( const shared_ptr<GameInputConfig> inputConfig )
 {
    for ( int i = 0; i < (int)GameButton::GameButtonCount; i++ )
    {

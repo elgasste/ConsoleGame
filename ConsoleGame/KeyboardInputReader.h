@@ -21,7 +21,7 @@ namespace ConsoleGame
    class KeyboardInputReader : public IGameInputReader
    {
    public:
-      KeyboardInputReader( const std::shared_ptr<GameInputConfig>& inputConfig );
+      KeyboardInputReader( const std::shared_ptr<GameInputConfig> inputConfig );
 
       void ReadInput() override;
       bool WasButtonPressed( GameButton button ) const override;

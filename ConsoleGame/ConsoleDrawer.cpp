@@ -7,7 +7,7 @@
 using namespace std;
 using namespace ConsoleGame;
 
-ConsoleDrawer::ConsoleDrawer( const shared_ptr<GameRenderConfig>& renderConfig )
+ConsoleDrawer::ConsoleDrawer( const shared_ptr<GameRenderConfig> renderConfig )
    : _renderConfig( renderConfig ),
      _outputHandle( GetStdHandle( STD_OUTPUT_HANDLE ) ),
      _consoleSize( { _renderConfig->ConsoleWidth, _renderConfig->ConsoleHeight } ),

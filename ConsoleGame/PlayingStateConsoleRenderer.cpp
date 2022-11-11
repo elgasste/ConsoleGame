@@ -9,10 +9,10 @@
 using namespace std;
 using namespace ConsoleGame;
 
-PlayingStateConsoleRenderer::PlayingStateConsoleRenderer( const shared_ptr<IConsoleDrawer>& consoleDrawer,
-                                                          const shared_ptr<GameRenderConfig>& renderConfig,
-                                                          const shared_ptr<GameConfig>& gameConfig,
-                                                          const shared_ptr<IPlayerInfoProvider>& playerInfoProvider )
+PlayingStateConsoleRenderer::PlayingStateConsoleRenderer( const shared_ptr<IConsoleDrawer> consoleDrawer,
+                                                          const shared_ptr<GameRenderConfig> renderConfig,
+                                                          const shared_ptr<GameConfig> gameConfig,
+                                                          const shared_ptr<IPlayerInfoProvider> playerInfoProvider )
    : _consoleDrawer( consoleDrawer ),
      _renderConfig( renderConfig ),
      _gameConfig( gameConfig ),

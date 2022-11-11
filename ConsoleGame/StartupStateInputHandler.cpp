@@ -6,8 +6,8 @@
 using namespace std;
 using namespace ConsoleGame;
 
-StartupStateInputHandler::StartupStateInputHandler( const shared_ptr<IGameInputReader>& inputReader,
-                                                    const shared_ptr<IGameCommandExecutor>& commandExecutor )
+StartupStateInputHandler::StartupStateInputHandler( const shared_ptr<IGameInputReader> inputReader,
+                                                    const shared_ptr<IGameCommandExecutor> commandExecutor )
    : _inputReader( inputReader ),
      _commandExecutor( commandExecutor )
 {
