@@ -9,6 +9,9 @@
     <ClInclude Include="mock_GameEventAggregator.h">
       <Filter>Mocks</Filter>
     </ClInclude>
+    <ClInclude Include="mock_GameInputReader.h">
+      <Filter>Mocks</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Mocks">
