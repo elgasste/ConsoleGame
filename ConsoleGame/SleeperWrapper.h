@@ -4,7 +4,7 @@
 
 namespace ConsoleGame
 {
-   class SleeperWrapper : ISleeper
+   class SleeperWrapper : public ISleeper
    {
    public:
       void Sleep( unsigned long milliseconds ) override;

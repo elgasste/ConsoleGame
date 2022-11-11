@@ -7,5 +7,5 @@ using namespace ConsoleGame;
 
 void SleeperWrapper::Sleep( unsigned long milliseconds )
 {
-   Sleep( milliseconds );
+   ::Sleep( milliseconds );
 }
