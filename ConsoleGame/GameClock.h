@@ -1,7 +1,6 @@
 #pragma once
 
 #include <memory>
-#include <chrono>
 
 #include "IGameClock.h"
 
@@ -32,7 +31,7 @@ namespace ConsoleGame
       int _framesPerSecond;
       long long _totalFrameCount;
       long long _lagFrameCount;
-      std::chrono::steady_clock::time_point _frameStartTimeNano;
+      long long _frameStartTimeNano;
       long long _nanoSecondsPerFrame;
       bool _isRunning;
    };

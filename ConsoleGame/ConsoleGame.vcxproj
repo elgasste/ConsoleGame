@@ -154,6 +154,7 @@
     <ClCompile Include="GameEventAggregator.cpp" />
     <ClCompile Include="GameRunner.cpp" />
     <ClCompile Include="GameInputHandler.cpp" />
+    <ClCompile Include="HighResolutionClockWrapper.cpp" />
     <ClCompile Include="KeyboardInputReader.cpp" />
     <ClCompile Include="PlayingStateConsoleRenderer.cpp" />
     <ClCompile Include="PlayingStateInputHandler.cpp" />

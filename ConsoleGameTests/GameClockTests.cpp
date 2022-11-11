@@ -24,7 +24,7 @@ public:
                                        _sleeperMock,
                                        _framesPerSecond ) );
 
-      ON_CALL( *_highResolutionClockMock, Now() ).WillByDefault( Return( chrono::steady_clock::time_point() ) );
+      ON_CALL( *_highResolutionClockMock, Now() ).WillByDefault( Return( 0ll ) );
    }
 
 protected:
