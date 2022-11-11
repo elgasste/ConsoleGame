@@ -21,6 +21,12 @@
     <ClInclude Include="mock_GameInputHandler.h">
       <Filter>Mocks</Filter>
     </ClInclude>
+    <ClInclude Include="mock_HighResolutionClock.h">
+      <Filter>Mocks</Filter>
+    </ClInclude>
+    <ClInclude Include="mock_Sleeper.h">
+      <Filter>Mocks</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Mocks">
