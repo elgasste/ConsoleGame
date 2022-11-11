@@ -121,7 +121,6 @@ void ConsoleDrawer::Draw( int left, int top, const string& buffer, ConsoleColor 
 
 void ConsoleDrawer::FlipDrawBuffer()
 {
-   // MUFFINS: the console is scrolling super fast, why is it scrolling at all?
    WriteConsoleOutput( _outputHandle, _drawBuffer, _consoleSize, _zeroCoordinate, &_outputRect );
 }
 
