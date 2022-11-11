@@ -187,6 +187,7 @@
     <ClInclude Include="GameInputHandler.h" />
     <ClInclude Include="GameInputConfig.h" />
     <ClInclude Include="IGameStateProvider.h" />
+    <ClInclude Include="IHighResolutionClock.h" />
     <ClInclude Include="IPlayerInfoProvider.h" />
     <ClInclude Include="KeyboardInputReader.h" />
     <ClInclude Include="KeyCode.h" />
