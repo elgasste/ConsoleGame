@@ -44,6 +44,7 @@
     <ClInclude Include="mock_Sleeper.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="GameClockTests.cpp" />
     <ClCompile Include="GameInputHandlerTests.cpp" />
     <ClCompile Include="GameTests.cpp" />
   </ItemGroup>

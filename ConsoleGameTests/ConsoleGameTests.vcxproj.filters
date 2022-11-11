@@ -7,6 +7,9 @@
     <ClCompile Include="GameInputHandlerTests.cpp">
       <Filter>Tests\Input</Filter>
     </ClCompile>
+    <ClCompile Include="GameClockTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mock_GameEventAggregator.h">
