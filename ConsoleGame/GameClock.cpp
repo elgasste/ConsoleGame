@@ -39,7 +39,9 @@ void GameClock::Tick()
       return;
    }
 
-   auto elapsedFrameTimeNano = _highResolutionClock->Now() - _frameStartTimeNano;
+   auto nowNano = _highResolutionClock->Now();
+
+   auto elapsedFrameTimeNano = nowNano - _frameStartTimeNano;
    auto remainingFrameTimeNano = _nanoSecondsPerFrame - elapsedFrameTimeNano;
 
    if ( remainingFrameTimeNano > 0ll )
@@ -52,7 +54,7 @@ void GameClock::Tick()
    }
 
    _totalFrameCount++;
-   _frameStartTimeNano = _highResolutionClock->Now();
+   _frameStartTimeNano = nowNano;
 }
 
 void GameClock::Stop()
