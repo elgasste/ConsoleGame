@@ -11,17 +11,35 @@
 
 #include "mock_GameEventAggregator.h"
 
+using namespace std;
+using namespace testing;
 using namespace ConsoleGame;
 
-TEST( Game, Constructor_Always_SetsGameStateToStartup )
+class GameTests : public Test
 {
-   auto game = std::shared_ptr<Game>( new Game( std::make_shared<GameConfig>(),
-                                                std::make_shared<mock_GameEventAggregator>() ) );
+public:
+   void SetUp() override
+   {
+      _config.reset( new GameConfig() );
+      _eventAggregatorMock.reset( new mock_GameEventAggregator() );
 
-   EXPECT_EQ( game->GetGameState(), GameState::Startup );
+      _game.reset( new Game( _config,
+                             _eventAggregatorMock ) );
+   }
+
+protected:
+   shared_ptr<GameConfig> _config;
+   shared_ptr<mock_GameEventAggregator> _eventAggregatorMock;
+
+   shared_ptr<Game> _game;
+};
+
+TEST_F( GameTests, Constructor_Always_SetsGameStateToStartup )
+{
+   EXPECT_EQ( _game->GetGameState(), GameState::Startup );
 }
 
-TEST( Game, Constructor_Always_SetsPlayerInfoBasedOnConfig )
+TEST_F( GameTests, Constructor_Always_SetsPlayerInfoBasedOnConfig )
 {
    auto config = std::make_shared<GameConfig>();
    config->PlayerStartDirection = Direction::Down;
@@ -36,29 +54,21 @@ TEST( Game, Constructor_Always_SetsPlayerInfoBasedOnConfig )
    EXPECT_EQ( game->GetPlayerYPosition(), 20 );
 }
 
-TEST( Game, ExecuteCommand_Start_SetsGameStateToPlaying )
+TEST_F( GameTests, ExecuteCommand_Start_SetsGameStateToPlaying )
 {
-   auto game = std::shared_ptr<Game>( new Game( std::make_shared<GameConfig>(),
-                                                std::make_shared<mock_GameEventAggregator>() ) );
+   _game->ExecuteCommand( GameCommand::Start );
 
-   game->ExecuteCommand( GameCommand::Start );
-
-   EXPECT_EQ( game->GetGameState(), GameState::Playing );
+   EXPECT_EQ( _game->GetGameState(), GameState::Playing );
 }
 
-TEST( Game, ExecuteCommand_Quit_RaisesShutdownEvent )
+TEST_F( GameTests, ExecuteCommand_Quit_RaisesShutdownEvent )
 {
-   auto eventAggregatorMock = std::make_shared<mock_GameEventAggregator>();
+   EXPECT_CALL( *_eventAggregatorMock, RaiseEvent( GameEvent::Shutdown ) ).Times( 1 );
 
-   auto game = std::shared_ptr<Game>( new Game( std::make_shared<GameConfig>(),
-                                                eventAggregatorMock ) );
-
-   EXPECT_CALL( *eventAggregatorMock, RaiseEvent( GameEvent::Shutdown ) ).Times( 1 );
-
-   game->ExecuteCommand( GameCommand::Quit );
+   _game->ExecuteCommand( GameCommand::Quit );
 }
 
-TEST( Game, ExecuteCommand_MovePlayerLeftWithinArenaBounds_UpdatesPlayerInfo )
+TEST_F( GameTests, ExecuteCommand_MovePlayerLeftWithinArenaBounds_UpdatesPlayerInfo )
 {
    auto config = std::make_shared<GameConfig>();
    config->ArenaWidth = 50;
@@ -77,7 +87,7 @@ TEST( Game, ExecuteCommand_MovePlayerLeftWithinArenaBounds_UpdatesPlayerInfo )
    EXPECT_EQ( game->GetPlayerYPosition(), 20 );
 }
 
-TEST( Game, ExecuteCommand_MovePlayerUpWithinArenaBounds_UpdatesPlayerInfo )
+TEST_F( GameTests, ExecuteCommand_MovePlayerUpWithinArenaBounds_UpdatesPlayerInfo )
 {
    auto config = std::make_shared<GameConfig>();
    config->PlayerStartDirection = Direction::Down;
@@ -96,7 +106,7 @@ TEST( Game, ExecuteCommand_MovePlayerUpWithinArenaBounds_UpdatesPlayerInfo )
    EXPECT_EQ( game->GetPlayerYPosition(), 19 );
 }
 
-TEST( Game, ExecuteCommand_MovePlayerRightaWithinArenaBounds_UpdatesPlayerInfo )
+TEST_F( GameTests, ExecuteCommand_MovePlayerRightaWithinArenaBounds_UpdatesPlayerInfo )
 {
    auto config = std::make_shared<GameConfig>();
    config->ArenaWidth = 50;
@@ -115,7 +125,7 @@ TEST( Game, ExecuteCommand_MovePlayerRightaWithinArenaBounds_UpdatesPlayerInfo )
    EXPECT_EQ( game->GetPlayerYPosition(), 20 );
 }
 
-TEST( Game, ExecuteCommand_MovePlayerDownWithinArenaBounds_UpdatesPlayerInfo )
+TEST_F( GameTests, ExecuteCommand_MovePlayerDownWithinArenaBounds_UpdatesPlayerInfo )
 {
    auto config = std::make_shared<GameConfig>();
    config->ArenaWidth = 50;
@@ -134,7 +144,7 @@ TEST( Game, ExecuteCommand_MovePlayerDownWithinArenaBounds_UpdatesPlayerInfo )
    EXPECT_EQ( game->GetPlayerYPosition(), 21 );
 }
 
-TEST( Game, ExecuteCommand_MovePlayerLeftOutsideArenaBounds_DoesNotUpdatePlayerPosition )
+TEST_F( GameTests, ExecuteCommand_MovePlayerLeftOutsideArenaBounds_DoesNotUpdatePlayerPosition )
 {
    auto config = std::make_shared<GameConfig>();
    config->ArenaWidth = 50;
@@ -153,7 +163,7 @@ TEST( Game, ExecuteCommand_MovePlayerLeftOutsideArenaBounds_DoesNotUpdatePlayerP
    EXPECT_EQ( game->GetPlayerYPosition(), 20 );
 }
 
-TEST( Game, ExecuteCommand_MovePlayerUpOutsideArenaBounds_DoesNotUpdatePlayerPosition )
+TEST_F( GameTests, ExecuteCommand_MovePlayerUpOutsideArenaBounds_DoesNotUpdatePlayerPosition )
 {
    auto config = std::make_shared<GameConfig>();
    config->ArenaWidth = 50;
@@ -172,7 +182,7 @@ TEST( Game, ExecuteCommand_MovePlayerUpOutsideArenaBounds_DoesNotUpdatePlayerPos
    EXPECT_EQ( game->GetPlayerYPosition(), 0 );
 }
 
-TEST( Game, ExecuteCommand_MovePlayerRightOutsideArenaBounds_DoesNotUpdatePlayerPosition )
+TEST_F( GameTests, ExecuteCommand_MovePlayerRightOutsideArenaBounds_DoesNotUpdatePlayerPosition )
 {
    auto config = std::make_shared<GameConfig>();
    config->ArenaWidth = 50;
@@ -191,7 +201,7 @@ TEST( Game, ExecuteCommand_MovePlayerRightOutsideArenaBounds_DoesNotUpdatePlayer
    EXPECT_EQ( game->GetPlayerYPosition(), 20 );
 }
 
-TEST( Game, ExecuteCommand_MovePlayerDownOutsideArenaBounds_DoesNotUpdatePlayerPosition )
+TEST_F( GameTests, ExecuteCommand_MovePlayerDownOutsideArenaBounds_DoesNotUpdatePlayerPosition )
 {
    auto config = std::make_shared<GameConfig>();
    config->ArenaWidth = 50;

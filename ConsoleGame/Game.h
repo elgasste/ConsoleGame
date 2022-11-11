@@ -19,8 +19,8 @@ namespace ConsoleGame
       public IPlayerInfoProvider
    {
    public:
-      Game( const std::shared_ptr<GameConfig>& config,
-            const std::shared_ptr<IGameEventAggregator>& eventAggregator );
+      Game( const std::shared_ptr<GameConfig> config,
+            const std::shared_ptr<IGameEventAggregator> eventAggregator );
 
       GameState GetGameState() const override { return _state; }
 
@@ -31,8 +31,8 @@ namespace ConsoleGame
       int GetPlayerYPosition() const override { return _playerPositionY; }
 
    private:
-      const std::shared_ptr<GameConfig>& _config;
-      const std::shared_ptr<IGameEventAggregator>& _eventAggregator;
+      const std::shared_ptr<GameConfig> _config;
+      const std::shared_ptr<IGameEventAggregator> _eventAggregator;
 
       GameState _state;
 
