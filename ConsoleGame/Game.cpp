@@ -14,9 +14,9 @@ Game::Game( const std::shared_ptr<GameConfig>& config,
    : _config( config ),
      _eventAggregator( eventAggregator ),
      _state( GameState::Startup ),
-     _playerDirection( Direction::Right ),
-     _playerPositionX( 0 ),
-     _playerPositionY( 0 )
+     _playerDirection( config->PlayerStartDirection ),
+     _playerPositionX( config->PlayerStartX ),
+     _playerPositionY( config->PlayerStartY )
 {
 }
 

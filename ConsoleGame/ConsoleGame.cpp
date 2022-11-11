@@ -20,6 +20,7 @@
 #include "GameRunner.h"
 #include "GameState.h"
 #include "ConsoleColor.h"
+#include "Direction.h"
 
 using namespace std;
 using namespace ConsoleGame;
@@ -165,6 +166,10 @@ shared_ptr<GameConfig> BuildGameConfig()
 
    config->ArenaWidth = config->RenderConfig->ConsoleWidth - 6;
    config->ArenaHeight = config->RenderConfig->ConsoleHeight - 6;
+
+   config->PlayerStartDirection = Direction::Down;
+   config->PlayerStartX = config->ArenaWidth / 2;
+   config->PlayerStartY = config->ArenaHeight / 2;
 
    return config;
 }
