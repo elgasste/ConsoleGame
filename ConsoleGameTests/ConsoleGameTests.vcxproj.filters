@@ -4,6 +4,9 @@
     <ClCompile Include="GameTests.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
+    <ClCompile Include="GameInputHandlerTests.cpp">
+      <Filter>Tests\Input</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mock_GameEventAggregator.h">
@@ -15,6 +18,9 @@
     <ClInclude Include="mock_GameInputReader.h">
       <Filter>Mocks</Filter>
     </ClInclude>
+    <ClInclude Include="mock_GameInputHandler.h">
+      <Filter>Mocks</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Mocks">
@@ -22,6 +28,9 @@
     </Filter>
     <Filter Include="Tests">
       <UniqueIdentifier>{13933dfa-aac8-49da-a1ea-e0c8b889f9d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Input">
+      <UniqueIdentifier>{700158eb-2489-40b4-b065-d241c20a0716}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
