@@ -188,5 +188,8 @@
     <ClInclude Include="HighResolutionClockWrapper.h">
       <Filter>Header Files\Wrappers</Filter>
     </ClInclude>
+    <ClInclude Include="ISleeper.h">
+      <Filter>Header Files\Interfaces</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

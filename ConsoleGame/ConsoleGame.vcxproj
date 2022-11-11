@@ -190,6 +190,7 @@
     <ClInclude Include="IGameStateProvider.h" />
     <ClInclude Include="IHighResolutionClock.h" />
     <ClInclude Include="IPlayerInfoProvider.h" />
+    <ClInclude Include="ISleeper.h" />
     <ClInclude Include="KeyboardInputReader.h" />
     <ClInclude Include="KeyCode.h" />
     <ClInclude Include="PlayingStateConsoleRenderer.h" />
