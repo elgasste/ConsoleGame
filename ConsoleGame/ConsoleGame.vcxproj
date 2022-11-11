@@ -176,6 +176,7 @@
     <ClInclude Include="GameRenderConfig.h" />
     <ClInclude Include="GameRunner.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="HighResolutionClockWrapper.h" />
     <ClInclude Include="IGameCommandExecutor.h" />
     <ClInclude Include="IConsoleDrawer.h" />
     <ClInclude Include="IGameClock.h" />
