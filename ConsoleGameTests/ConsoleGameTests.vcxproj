@@ -38,6 +38,7 @@
   <ItemGroup>
     <ClInclude Include="mock_GameEventAggregator.h" />
     <ClInclude Include="mock_GameInputReader.h" />
+    <ClInclude Include="mock_GameStateProvider.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameTests.cpp" />

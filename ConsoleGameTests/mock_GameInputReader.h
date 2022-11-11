@@ -4,8 +4,6 @@
 
 #include <ConsoleGame/IGameInputReader.h>
 
-enum class ConsoleGame::GameButton;
-
 class mock_GameInputReader : public ConsoleGame::IGameInputReader
 {
 public:
