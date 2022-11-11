@@ -37,6 +37,9 @@
     <Filter Include="Header Files\Wrappers">
       <UniqueIdentifier>{82f7e089-e48f-47eb-a1b9-e2f92e1392e4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Wrappers">
+      <UniqueIdentifier>{60b226f4-2879-4bda-8b14-6cffa8d37e50}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ConsoleGame.cpp">
@@ -80,6 +83,9 @@
     </ClCompile>
     <ClCompile Include="PlayingStateConsoleRenderer.cpp">
       <Filter>Source Files\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="SleeperWrapper.cpp">
+      <Filter>Source Files\Wrappers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -190,6 +196,9 @@
     </ClInclude>
     <ClInclude Include="ISleeper.h">
       <Filter>Header Files\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="SleeperWrapper.h">
+      <Filter>Header Files\Wrappers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
