@@ -18,34 +18,34 @@ class StartupStateInputHandlerTests : public Test
 public:
    void SetUp() override
    {
-      _inputReader.reset( new mock_GameInputReader() );
-      _commandExecutor.reset( new mock_GameCommandExecutor() );
+      _inputReaderMock.reset( new NiceMock<mock_GameInputReader> );
+      _commandExecutorMock.reset( new NiceMock<mock_GameCommandExecutor> );
 
-      _inputHandler.reset( new StartupStateInputHandler( _inputReader,
-                                                         _commandExecutor ) );
+      _inputHandler.reset( new StartupStateInputHandler( _inputReaderMock,
+                                                         _commandExecutorMock ) );
    }
 
 protected:
-   shared_ptr<mock_GameInputReader> _inputReader;
-   shared_ptr<mock_GameCommandExecutor> _commandExecutor;
+   shared_ptr<mock_GameInputReader> _inputReaderMock;
+   shared_ptr<mock_GameCommandExecutor> _commandExecutorMock;
 
    shared_ptr<StartupStateInputHandler> _inputHandler;
 };
 
 TEST_F( StartupStateInputHandlerTests, HandleInput_NoButtonsWerePressed_DoesNotExecuteAnyCommand )
 {
-   EXPECT_CALL( *_inputReader, WasAnyButtonPressed() ).WillRepeatedly( Return( false ) );
+   ON_CALL( *_inputReaderMock, WasAnyButtonPressed() ).WillByDefault( Return( false ) );
 
-   EXPECT_CALL( *_commandExecutor, ExecuteCommand( _ ) ).Times( 0 );
+   EXPECT_CALL( *_commandExecutorMock, ExecuteCommand( _ ) ).Times( 0 );
 
    _inputHandler->HandleInput();
 }
 
 TEST_F( StartupStateInputHandlerTests, HandleInput_ButtonWasPressed_ExecutesStartCommand )
 {
-   EXPECT_CALL( *_inputReader, WasAnyButtonPressed() ).WillOnce( Return( true ) );
+   ON_CALL( *_inputReaderMock, WasAnyButtonPressed() ).WillByDefault( Return( true ) );
 
-   EXPECT_CALL( *_commandExecutor, ExecuteCommand( GameCommand::Start ) );
+   EXPECT_CALL( *_commandExecutorMock, ExecuteCommand( GameCommand::Start ) );
 
    _inputHandler->HandleInput();
 }
