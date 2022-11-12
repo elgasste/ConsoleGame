@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameClockTests.cpp" />
+    <ClCompile Include="GameEventAggregatorTests.cpp" />
     <ClCompile Include="GameInputHandlerTests.cpp" />
     <ClCompile Include="GameTests.cpp" />
     <ClCompile Include="KeyboardInputReaderTests.cpp" />
