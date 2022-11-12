@@ -50,6 +50,7 @@
     <ClCompile Include="GameInputHandlerTests.cpp" />
     <ClCompile Include="GameTests.cpp" />
     <ClCompile Include="KeyboardInputReaderTests.cpp" />
+    <ClCompile Include="PlayingStateInputHandlerTests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ConsoleGame\ConsoleGame.vcxproj">

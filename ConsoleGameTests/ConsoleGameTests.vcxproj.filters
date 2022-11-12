@@ -13,6 +13,9 @@
     <ClCompile Include="KeyboardInputReaderTests.cpp">
       <Filter>Tests\Input</Filter>
     </ClCompile>
+    <ClCompile Include="PlayingStateInputHandlerTests.cpp">
+      <Filter>Tests\Input</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mock_GameEventAggregator.h">
