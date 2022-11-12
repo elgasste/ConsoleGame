@@ -16,8 +16,8 @@ class GameClockTests : public Test
 public:
    void SetUp() override
    {
-      _highResolutionClockMock.reset( new mock_HighResolutionClock() );
-      _sleeperMock.reset( new mock_Sleeper() );
+      _highResolutionClockMock.reset( new NiceMock<mock_HighResolutionClock> );
+      _sleeperMock.reset( new NiceMock<mock_Sleeper> );
       _framesPerSecond = 100;
 
       _gameClock.reset( new GameClock( _highResolutionClockMock,
@@ -52,18 +52,12 @@ TEST_F( GameClockTests, Start_AlreadyRunning_DoesNotChangeValues )
 
 TEST_F( GameClockTests, Start_AfterPreviousRun_ResetsAllValues )
 {
-   EXPECT_CALL( *_highResolutionClockMock, Now() );
-
    _gameClock->Start();
 
-   EXPECT_CALL( *_highResolutionClockMock, Now() ).WillOnce( Return( 1'000'000ll ) );
-   EXPECT_CALL( *_sleeperMock, Sleep( _ ) );
+   ON_CALL( *_highResolutionClockMock, Now() ).WillByDefault( Return( 1'000'000ll ) );
 
    _gameClock->Tick();
    _gameClock->Stop();
-
-   EXPECT_CALL( *_highResolutionClockMock, Now() );
-
    _gameClock->Start();
 
    EXPECT_EQ( _gameClock->GetFramesPerSecond(), 100 );
@@ -80,12 +74,9 @@ TEST_F( GameClockTests, Tick_NotRunning_DoesNothing )
 
 TEST_F( GameClockTests, Tick_FrameIsCounted_IncrementsTotalFrames )
 {
-   EXPECT_CALL( *_highResolutionClockMock, Now() );
-
    _gameClock->Start();
 
-   EXPECT_CALL( *_highResolutionClockMock, Now() ).WillOnce( Return( 1ll ) );
-   EXPECT_CALL( *_sleeperMock, Sleep( _ ) );
+   ON_CALL( *_highResolutionClockMock, Now() ).WillByDefault( Return( 1ll ) );
 
    _gameClock->Tick();
 
@@ -94,11 +85,10 @@ TEST_F( GameClockTests, Tick_FrameIsCounted_IncrementsTotalFrames )
 
 TEST_F( GameClockTests, Tick_TimeIsLeftInFrame_SleepsForRemainingTime )
 {
-   EXPECT_CALL( *_highResolutionClockMock, Now() );
-
    _gameClock->Start();
 
-   EXPECT_CALL( *_highResolutionClockMock, Now() ).WillOnce( Return( 1'000'000ll ) );
+   ON_CALL( *_highResolutionClockMock, Now() ).WillByDefault( Return( 1'000'000ll ) );
+
    EXPECT_CALL( *_sleeperMock, Sleep( 9 ) );
 
    _gameClock->Tick();
@@ -106,13 +96,12 @@ TEST_F( GameClockTests, Tick_TimeIsLeftInFrame_SleepsForRemainingTime )
 
 TEST_F( GameClockTests, Tick_FrameIsOverTime_IncrementsLagFrames )
 {
-   EXPECT_CALL( *_highResolutionClockMock, Now() );
-
    _gameClock->Start();
 
    auto nanoSecondsPerFrame = 1'000'000'000ll / _framesPerSecond;
 
-   EXPECT_CALL( *_highResolutionClockMock, Now() ).WillOnce( Return( nanoSecondsPerFrame + 1ll ) );
+   ON_CALL( *_highResolutionClockMock, Now() ).WillByDefault( Return( nanoSecondsPerFrame + 1ll ) );
+
    EXPECT_CALL( *_sleeperMock, Sleep( _ ) ).Times( 0 );
 
    _gameClock->Tick();
