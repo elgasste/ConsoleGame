@@ -18,8 +18,8 @@ class KeyboardInputReaderTests : public Test
 public:
    void SetUp() override
    {
-      _inputConfig.reset( new GameInputConfig() );
-      _keyboardMock.reset( new NiceMock<mock_Keyboard>() );
+      _inputConfig.reset( new GameInputConfig );
+      _keyboardMock.reset( new NiceMock<mock_Keyboard> );
    }
 
    void AddKeyBinding( KeyCode keyCode, GameButton gameButton )
