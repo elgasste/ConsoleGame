@@ -156,6 +156,7 @@
     <ClCompile Include="GameInputHandler.cpp" />
     <ClCompile Include="HighResolutionClockWrapper.cpp" />
     <ClCompile Include="KeyboardInputReader.cpp" />
+    <ClCompile Include="KeyboardWrapper.cpp" />
     <ClCompile Include="PlayingStateConsoleRenderer.cpp" />
     <ClCompile Include="PlayingStateInputHandler.cpp" />
     <ClCompile Include="SleeperWrapper.cpp" />
@@ -178,6 +179,7 @@
     <ClInclude Include="GameRenderConfig.h" />
     <ClInclude Include="GameRunner.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="KeyboardWrapper.h" />
     <ClInclude Include="HighResolutionClockWrapper.h" />
     <ClInclude Include="IGameCommandExecutor.h" />
     <ClInclude Include="IConsoleDrawer.h" />
@@ -191,6 +193,7 @@
     <ClInclude Include="GameInputConfig.h" />
     <ClInclude Include="IGameStateProvider.h" />
     <ClInclude Include="IHighResolutionClock.h" />
+    <ClInclude Include="IKeyboard.h" />
     <ClInclude Include="IPlayerInfoProvider.h" />
     <ClInclude Include="ISleeper.h" />
     <ClInclude Include="KeyboardInputReader.h" />

@@ -90,6 +90,9 @@
     <ClCompile Include="HighResolutionClockWrapper.cpp">
       <Filter>Source Files\Wrappers</Filter>
     </ClCompile>
+    <ClCompile Include="KeyboardWrapper.cpp">
+      <Filter>Source Files\Wrappers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameRunner.h">
@@ -201,6 +204,12 @@
       <Filter>Header Files\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="SleeperWrapper.h">
+      <Filter>Header Files\Wrappers</Filter>
+    </ClInclude>
+    <ClInclude Include="IKeyboard.h">
+      <Filter>Header Files\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyboardWrapper.h">
       <Filter>Header Files\Wrappers</Filter>
     </ClInclude>
   </ItemGroup>
