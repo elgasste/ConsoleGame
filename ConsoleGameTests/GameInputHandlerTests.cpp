@@ -61,7 +61,7 @@ TEST_F( GameInputHandlerTests, HandleInput_DiagnosticsButtonWasNotPressed_DoesNo
 
 TEST_F( GameInputHandlerTests, HandleInput_DiagnosticsButtonWasPressed_RaisesToggleDiagnosticsEvent )
 {
-   EXPECT_CALL( *_inputReaderMock, WasButtonPressed( GameButton::Diagnostics ) ).WillOnce( Return( true ) );
+   ON_CALL( *_inputReaderMock, WasButtonPressed( GameButton::Diagnostics ) ).WillByDefault( Return( true ) );
    EXPECT_CALL( *_eventAggregatorMock, RaiseEvent( GameEvent::ToggleDiagnostics ) );
 
    _inputHandler->HandleInput();
@@ -69,7 +69,7 @@ TEST_F( GameInputHandlerTests, HandleInput_DiagnosticsButtonWasPressed_RaisesTog
 
 TEST_F( GameInputHandlerTests, HandleInput_InputHandlerNotFoundForState_ThrowsException )
 {
-   EXPECT_CALL( *_stateProviderMock, GetGameState() ).WillRepeatedly( Return( GameState::Playing ) );
+   ON_CALL( *_stateProviderMock, GetGameState() ).WillByDefault( Return( GameState::Playing ) );
 
    EXPECT_THROW( _inputHandler->HandleInput(), std::out_of_range );
 }
