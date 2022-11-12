@@ -48,6 +48,7 @@
     <ClCompile Include="GameClockTests.cpp" />
     <ClCompile Include="GameInputHandlerTests.cpp" />
     <ClCompile Include="GameTests.cpp" />
+    <ClCompile Include="KeyboardInputReaderTests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ConsoleGame\ConsoleGame.vcxproj">
