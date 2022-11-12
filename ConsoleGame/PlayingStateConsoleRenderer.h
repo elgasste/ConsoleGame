@@ -15,10 +15,10 @@ namespace ConsoleGame
    class PlayingStateConsoleRenderer : public IGameRenderer
    {
    public:
-      PlayingStateConsoleRenderer( const std::shared_ptr<IConsoleDrawer>& consoleDrawer,
-                                   const std::shared_ptr<GameRenderConfig>& renderConfig,
-                                   const std::shared_ptr<GameConfig>& gameConfig,
-                                   const std::shared_ptr<IPlayerInfoProvider>& playerInfoProvider );
+      PlayingStateConsoleRenderer( const std::shared_ptr<IConsoleDrawer> consoleDrawer,
+                                   const std::shared_ptr<GameRenderConfig> renderConfig,
+                                   const std::shared_ptr<GameConfig> gameConfig,
+                                   const std::shared_ptr<IPlayerInfoProvider> playerInfoProvider );
 
       void Render() override;
 
@@ -27,9 +27,9 @@ namespace ConsoleGame
       char GetPlayerCharFromDirection( Direction direction );
 
    private:
-      const std::shared_ptr<IConsoleDrawer>& _consoleDrawer;
-      const std::shared_ptr<GameRenderConfig>& _renderConfig;
-      const std::shared_ptr<GameConfig>& _gameConfig;
-      const std::shared_ptr<IPlayerInfoProvider>& _playerInfoProvider;
+      const std::shared_ptr<IConsoleDrawer> _consoleDrawer;
+      const std::shared_ptr<GameRenderConfig> _renderConfig;
+      const std::shared_ptr<GameConfig> _gameConfig;
+      const std::shared_ptr<IPlayerInfoProvider> _playerInfoProvider;
    };
 }

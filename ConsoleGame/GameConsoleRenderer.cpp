@@ -12,11 +12,11 @@
 using namespace std;
 using namespace ConsoleGame;
 
-GameConsoleRenderer::GameConsoleRenderer( const shared_ptr<GameRenderConfig>& renderConfig,
-                                          const shared_ptr<IConsoleDrawer>& consoleDrawer,
-                                          const shared_ptr<IGameStateProvider>& stateProvider,
-                                          const shared_ptr<IGameRenderer>& diagnosticsRenderer,
-                                          const shared_ptr<IGameEventAggregator>& eventAggregator )
+GameConsoleRenderer::GameConsoleRenderer( const shared_ptr<GameRenderConfig> renderConfig,
+                                          const shared_ptr<IConsoleDrawer> consoleDrawer,
+                                          const shared_ptr<IGameStateProvider> stateProvider,
+                                          const shared_ptr<IGameRenderer> diagnosticsRenderer,
+                                          const shared_ptr<IGameEventAggregator> eventAggregator )
    : _consoleDrawer( consoleDrawer ),
      _stateProvider( stateProvider ),
      _diagnosticsRenderer( diagnosticsRenderer ),

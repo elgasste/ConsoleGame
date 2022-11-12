@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="GameTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="GameInputHandlerTests.cpp">
+      <Filter>Tests\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="GameClockTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyboardInputReaderTests.cpp">
+      <Filter>Tests\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayingStateInputHandlerTests.cpp">
+      <Filter>Tests\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="StartupStateInputHandlerTests.cpp">
+      <Filter>Tests\Input</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="mock_GameEventAggregator.h">
+      <Filter>Mocks</Filter>
+    </ClInclude>
+    <ClInclude Include="mock_GameStateProvider.h">
+      <Filter>Mocks</Filter>
+    </ClInclude>
+    <ClInclude Include="mock_GameInputReader.h">
+      <Filter>Mocks</Filter>
+    </ClInclude>
+    <ClInclude Include="mock_GameInputHandler.h">
+      <Filter>Mocks</Filter>
+    </ClInclude>
+    <ClInclude Include="mock_HighResolutionClock.h">
+      <Filter>Mocks</Filter>
+    </ClInclude>
+    <ClInclude Include="mock_Sleeper.h">
+      <Filter>Mocks</Filter>
+    </ClInclude>
+    <ClInclude Include="mock_Keyboard.h">
+      <Filter>Mocks</Filter>
+    </ClInclude>
+    <ClInclude Include="mock_GameCommandExecutor.h">
+      <Filter>Mocks</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Mocks">
+      <UniqueIdentifier>{a125ac42-bdf3-4553-a036-5b08f971d7d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests">
+      <UniqueIdentifier>{13933dfa-aac8-49da-a1ea-e0c8b889f9d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Input">
+      <UniqueIdentifier>{700158eb-2489-40b4-b065-d241c20a0716}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -12,13 +12,13 @@ namespace ConsoleGame
    class StartupStateInputHandler : public IGameInputHandler
    {
    public:
-      StartupStateInputHandler( const std::shared_ptr<IGameInputReader>& inputReader,
-                                const std::shared_ptr<IGameCommandExecutor>& commandExecutor );
+      StartupStateInputHandler( const std::shared_ptr<IGameInputReader> inputReader,
+                                const std::shared_ptr<IGameCommandExecutor> commandExecutor );
 
       void HandleInput() override;
 
    private:
-      const std::shared_ptr<IGameInputReader>& _inputReader;
-      const std::shared_ptr<IGameCommandExecutor>& _commandExecutor;
+      const std::shared_ptr<IGameInputReader> _inputReader;
+      const std::shared_ptr<IGameCommandExecutor> _commandExecutor;
    };
 }

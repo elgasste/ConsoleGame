@@ -9,9 +9,9 @@
 using namespace std;
 using namespace ConsoleGame;
 
-GameInputHandler::GameInputHandler( const shared_ptr<IGameInputReader>& inputReader,
-                                    const shared_ptr<IGameStateProvider>& stateProvider,
-                                    const shared_ptr<IGameEventAggregator>& eventAggregator )
+GameInputHandler::GameInputHandler( const shared_ptr<IGameInputReader> inputReader,
+                                    const shared_ptr<IGameStateProvider> stateProvider,
+                                    const shared_ptr<IGameEventAggregator> eventAggregator )
    : _inputReader( inputReader ),
      _stateProvider( stateProvider ),
      _eventAggregator( eventAggregator )

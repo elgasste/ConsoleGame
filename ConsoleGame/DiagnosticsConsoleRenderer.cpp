@@ -11,9 +11,9 @@
 using namespace std;
 using namespace ConsoleGame;
 
-DiagnosticsConsoleRenderer::DiagnosticsConsoleRenderer( const shared_ptr<IConsoleDrawer>& consoleDrawer,
-                                                        const shared_ptr<IGameClock>& clock,
-                                                        const shared_ptr<GameRenderConfig>& renderConfig )
+DiagnosticsConsoleRenderer::DiagnosticsConsoleRenderer( const shared_ptr<IConsoleDrawer> consoleDrawer,
+                                                        const shared_ptr<IGameClock> clock,
+                                                        const shared_ptr<GameRenderConfig> renderConfig )
    : _consoleDrawer( consoleDrawer ),
      _clock( clock ),
      _renderConfig( renderConfig )

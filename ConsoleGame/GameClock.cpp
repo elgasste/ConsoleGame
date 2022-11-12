@@ -1,13 +1,16 @@
-#define WIN32_LEAN_AND_MEAN
-#include <Windows.h>
-
 #include "GameClock.h"
+#include "IHighResolutionClock.h"
+#include "ISleeper.h"
 
 using namespace std;
 using namespace ConsoleGame;
 
-GameClock::GameClock( int framesPerSecond )
-   : _framesPerSecond( framesPerSecond ),
+GameClock::GameClock( const shared_ptr<IHighResolutionClock> highResolutionClock,
+                      const shared_ptr<ISleeper> sleeper,
+                      int framesPerSecond )
+   : _highResolutionClock( highResolutionClock ),
+     _sleeper( sleeper ),
+     _framesPerSecond( framesPerSecond ),
      _totalFrameCount( 0 ),
      _lagFrameCount( 0 ),
      _frameStartTimeNano(),
@@ -26,7 +29,7 @@ void GameClock::Start()
    _lagFrameCount = 0;
    _isRunning = true;
 
-   _frameStartTimeNano = chrono::high_resolution_clock::now();
+   _frameStartTimeNano = _highResolutionClock->Now();
 }
 
 void GameClock::Tick()
@@ -36,12 +39,14 @@ void GameClock::Tick()
       return;
    }
 
-   auto elapsedFrameTimeNano = chrono::high_resolution_clock::now() - _frameStartTimeNano;
-   auto remainingFrameTimeNano = _nanoSecondsPerFrame - elapsedFrameTimeNano.count();
+   auto nowNano = _highResolutionClock->Now();
+
+   auto elapsedFrameTimeNano = nowNano - _frameStartTimeNano;
+   auto remainingFrameTimeNano = _nanoSecondsPerFrame - elapsedFrameTimeNano;
 
    if ( remainingFrameTimeNano > 0ll )
    {
-      Sleep( (DWORD)( remainingFrameTimeNano / 1'000'000 ) ); // Sleep() uses milliseconds
+      _sleeper->Sleep( (unsigned long)( remainingFrameTimeNano / 1'000'000 ) ); // Sleep() uses milliseconds
    }
    else if ( remainingFrameTimeNano < 0ll )
    {
@@ -49,7 +54,7 @@ void GameClock::Tick()
    }
 
    _totalFrameCount++;
-   _frameStartTimeNano = chrono::high_resolution_clock::now();
+   _frameStartTimeNano = nowNano;
 }
 
 void GameClock::Stop()

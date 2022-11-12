@@ -1,15 +1,15 @@
-#define WIN32_LEAN_AND_MEAN
-#include <Windows.h>
-
 #include "KeyboardInputReader.h"
 #include "GameInputConfig.h"
+#include "IKeyboard.h"
 #include "KeyCode.h"
 #include "GameButton.h"
 
 using namespace std;
 using namespace ConsoleGame;
 
-KeyboardInputReader::KeyboardInputReader( const shared_ptr<GameInputConfig>& inputConfig )
+KeyboardInputReader::KeyboardInputReader( const shared_ptr<GameInputConfig> inputConfig,
+                                          const shared_ptr<IKeyboard> keyboard )
+   : _keyboard( keyboard )
 {
    for ( int i = 0; i < (int)GameButton::GameButtonCount; i++ )
    {
@@ -40,7 +40,7 @@ void KeyboardInputReader::ReadInput()
 
       for ( auto keyCode : keyCodes )
       {
-         if ( IsKeyDown( keyCode ) )
+         if ( _keyboard->IsKeyDown( keyCode ) )
          {
             buttonIsDown = true;
             break;
@@ -83,9 +83,4 @@ bool KeyboardInputReader::WasAnyButtonPressed() const
    }
 
    return false;
-}
-
-bool KeyboardInputReader::IsKeyDown( KeyCode keyCode ) const
-{
-   return GetKeyState( (int)keyCode ) & 0x800; // if the high-order bit is 1, the key is down
 }

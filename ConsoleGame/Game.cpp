@@ -9,8 +9,8 @@
 using namespace std;
 using namespace ConsoleGame;
 
-Game::Game( const std::shared_ptr<GameConfig>& config,
-            const std::shared_ptr<IGameEventAggregator>& eventAggregator )
+Game::Game( const std::shared_ptr<GameConfig> config,
+            const std::shared_ptr<IGameEventAggregator> eventAggregator )
    : _config( config ),
      _eventAggregator( eventAggregator ),
      _state( GameState::Startup ),
