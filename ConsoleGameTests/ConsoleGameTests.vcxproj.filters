@@ -24,6 +24,9 @@
     <ClCompile Include="GameEventAggregatorTests.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
+    <ClCompile Include="GameConsoleRendererTests.cpp">
+      <Filter>Tests\Render</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mock_GameEventAggregator.h">
@@ -66,6 +69,9 @@
     </Filter>
     <Filter Include="Tests\Input">
       <UniqueIdentifier>{700158eb-2489-40b4-b065-d241c20a0716}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Render">
+      <UniqueIdentifier>{c17d64d4-63ff-4094-8067-b00dbb5c4561}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

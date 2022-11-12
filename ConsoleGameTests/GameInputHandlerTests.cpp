@@ -71,7 +71,7 @@ TEST_F( GameInputHandlerTests, HandleInput_InputHandlerNotFoundForState_ThrowsEx
 {
    ON_CALL( *_stateProviderMock, GetGameState() ).WillByDefault( Return( GameState::Playing ) );
 
-   EXPECT_THROW( _inputHandler->HandleInput(), std::out_of_range );
+   EXPECT_THROW( _inputHandler->HandleInput(), out_of_range );
 }
 
 TEST_F( GameInputHandlerTests, HandleInput_InputHandlerFoundForState_HandlesInputForState )

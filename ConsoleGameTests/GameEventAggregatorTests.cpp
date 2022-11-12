@@ -28,7 +28,7 @@ class GameEventAggregatorTests : public Test
 public:
    void SetUp() override
    {
-      _eventAggregator.reset( new GameEventAggregator() );
+      _eventAggregator.reset( new GameEventAggregator );
    }
 
 protected:

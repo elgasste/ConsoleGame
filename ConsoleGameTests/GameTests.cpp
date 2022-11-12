@@ -20,7 +20,7 @@ class GameTests : public Test
 public:
    void SetUp() override
    {
-      _config.reset( new GameConfig() );
+      _config.reset( new GameConfig );
       _eventAggregatorMock.reset( new NiceMock<mock_GameEventAggregator> );
    }
 
