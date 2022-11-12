@@ -7,6 +7,7 @@
 #include "GameButton.h"
 #include "HighResolutionClockWrapper.h"
 #include "SleeperWrapper.h"
+#include "KeyboardWrapper.h"
 #include "GameEventAggregator.h"
 #include "GameClock.h"
 #include "KeyboardInputReader.h"
@@ -41,13 +42,14 @@ int main()
    auto config = BuildGameConfig();
 
    // wrappers
-   auto highResolutionClockWrapper = shared_ptr<HighResolutionClockWrapper>( new HighResolutionClockWrapper() );
-   auto sleeperWrapper = shared_ptr<SleeperWrapper>( new SleeperWrapper() );
+   auto highResolutionClock = shared_ptr<HighResolutionClockWrapper>( new HighResolutionClockWrapper() );
+   auto sleeper = shared_ptr<SleeperWrapper>( new SleeperWrapper() );
+   auto keyboard = shared_ptr<IKeyboard>( new KeyboardWrapper() );
 
    // auxiliary objects
    auto eventAggregator = shared_ptr<GameEventAggregator>( new GameEventAggregator() );
-   auto clock = shared_ptr<GameClock>( new GameClock( highResolutionClockWrapper, sleeperWrapper, config->FramesPerSecond ) );
-   auto keyboardInputReader = shared_ptr<KeyboardInputReader>( new KeyboardInputReader( config->InputConfig ) );
+   auto clock = shared_ptr<GameClock>( new GameClock( highResolutionClock, sleeper, config->FramesPerSecond ) );
+   auto keyboardInputReader = shared_ptr<KeyboardInputReader>( new KeyboardInputReader( config->InputConfig, keyboard ) );
 
    // game data objects
    auto game = shared_ptr<Game>( new Game( config, eventAggregator ) );

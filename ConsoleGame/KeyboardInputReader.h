@@ -15,13 +15,15 @@ namespace ConsoleGame
    };
 
    class GameInputConfig;
+   class IKeyboard;
    enum class KeyCode;
    enum class GameButton;
 
    class KeyboardInputReader : public IGameInputReader
    {
    public:
-      KeyboardInputReader( const std::shared_ptr<GameInputConfig> inputConfig );
+      KeyboardInputReader( const std::shared_ptr<GameInputConfig> inputConfig,
+                           const std::shared_ptr<IKeyboard> keyboard );
 
       void ReadInput() override;
       bool WasButtonPressed( GameButton button ) const override;
@@ -29,9 +31,8 @@ namespace ConsoleGame
       bool WasAnyButtonPressed() const override;
 
    private:
-      bool IsKeyDown( KeyCode key ) const;
+      std::shared_ptr<IKeyboard> _keyboard;
 
-   private:
       std::map<GameButton, ButtonState> _buttonStates;
       std::map<GameButton, std::vector<KeyCode>> _buttonKeyBindings;
    };
