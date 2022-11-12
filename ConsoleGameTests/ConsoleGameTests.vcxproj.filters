@@ -50,6 +50,9 @@
     <ClInclude Include="mock_GameCommandExecutor.h">
       <Filter>Mocks</Filter>
     </ClInclude>
+    <ClInclude Include="mock_ConsoleDrawer.h">
+      <Filter>Mocks</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Mocks">
