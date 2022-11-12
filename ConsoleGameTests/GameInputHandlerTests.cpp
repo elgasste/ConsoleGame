@@ -36,9 +36,6 @@ public:
       ON_CALL( *_inputReaderMock, WasButtonPressed( _ ) ).WillByDefault( Return( false ) );
    }
 
-   void TearDown() override
-   { }
-
 protected:
    shared_ptr<mock_GameInputReader> _inputReaderMock;
    shared_ptr<mock_GameStateProvider> _stateProviderMock;
