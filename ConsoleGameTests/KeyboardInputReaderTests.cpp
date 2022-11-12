@@ -19,7 +19,7 @@ public:
    void SetUp() override
    {
       _inputConfig.reset( new GameInputConfig() );
-      _keyboardMock.reset( new mock_Keyboard() );
+      _keyboardMock.reset( new NiceMock<mock_Keyboard>() );
    }
 
    void AddKeyBinding( KeyCode keyCode, GameButton gameButton )
