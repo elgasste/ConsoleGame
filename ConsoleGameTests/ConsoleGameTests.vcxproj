@@ -53,6 +53,7 @@
     <ClCompile Include="GameConsoleRendererTests.cpp" />
     <ClCompile Include="GameEventAggregatorTests.cpp" />
     <ClCompile Include="GameInputHandlerTests.cpp" />
+    <ClCompile Include="GameRunnerTests.cpp" />
     <ClCompile Include="GameTests.cpp" />
     <ClCompile Include="KeyboardInputReaderTests.cpp" />
     <ClCompile Include="PlayingStateInputHandlerTests.cpp" />

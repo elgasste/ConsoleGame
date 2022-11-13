@@ -22,7 +22,7 @@ namespace ConsoleGame
       void Run() override;
 
    private:
-      void HandleQuitEvent();
+      void HandleShutdownEvent();
 
    private:
       const std::shared_ptr<IGameClock> _clock;

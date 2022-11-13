@@ -27,6 +27,9 @@
     <ClCompile Include="GameConsoleRendererTests.cpp">
       <Filter>Tests\Render</Filter>
     </ClCompile>
+    <ClCompile Include="GameRunnerTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mock_GameEventAggregator.h">
