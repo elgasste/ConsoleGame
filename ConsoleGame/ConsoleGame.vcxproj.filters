@@ -212,5 +212,8 @@
     <ClInclude Include="KeyboardWrapper.h">
       <Filter>Header Files\Wrappers</Filter>
     </ClInclude>
+    <ClInclude Include="GameCommandArgs.h">
+      <Filter>Header Files\DataTypes</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

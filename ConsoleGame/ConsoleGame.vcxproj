@@ -172,6 +172,7 @@
     <ClInclude Include="GameButton.h" />
     <ClInclude Include="GameClock.h" />
     <ClInclude Include="GameCommand.h" />
+    <ClInclude Include="GameCommandArgs.h" />
     <ClInclude Include="GameConfig.h" />
     <ClInclude Include="GameConsoleRenderer.h" />
     <ClInclude Include="GameEvent.h" />
