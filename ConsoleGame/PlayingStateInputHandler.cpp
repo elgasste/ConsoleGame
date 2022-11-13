@@ -3,6 +3,8 @@
 #include "IGameCommandExecutor.h"
 #include "GameButton.h"
 #include "GameCommand.h"
+#include "MovePlayerCommandArgs.h"
+#include "Direction.h"
 
 using namespace std;
 using namespace ConsoleGame;
@@ -22,18 +24,22 @@ void PlayingStateInputHandler::HandleInput()
    }
    else if ( _inputReader->IsButtonDown( GameButton::Left ) )
    {
-      _commandExecutor->ExecuteCommand( GameCommand::MovePlayerLeft );
+      _commandExecutor->ExecuteCommand( GameCommand::MovePlayer,
+                                        shared_ptr<MovePlayerCommandArgs>( new MovePlayerCommandArgs( Direction::Left ) ) );
    }
    else if ( _inputReader->IsButtonDown( GameButton::Up ) )
    {
-      _commandExecutor->ExecuteCommand( GameCommand::MovePlayerUp );
+      _commandExecutor->ExecuteCommand( GameCommand::MovePlayer,
+                                        shared_ptr<MovePlayerCommandArgs>( new MovePlayerCommandArgs( Direction::Up ) ) );
    }
    else if ( _inputReader->IsButtonDown( GameButton::Right ) )
    {
-      _commandExecutor->ExecuteCommand( GameCommand::MovePlayerRight );
+      _commandExecutor->ExecuteCommand( GameCommand::MovePlayer,
+                                        shared_ptr<MovePlayerCommandArgs>( new MovePlayerCommandArgs( Direction::Right ) ) );
    }
    else if ( _inputReader->IsButtonDown( GameButton::Down ) )
    {
-      _commandExecutor->ExecuteCommand( GameCommand::MovePlayerDown );
+      _commandExecutor->ExecuteCommand( GameCommand::MovePlayer,
+                                        shared_ptr<MovePlayerCommandArgs>( new MovePlayerCommandArgs( Direction::Down ) ) );
    }
 }

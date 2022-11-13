@@ -8,6 +8,7 @@
 #include <ConsoleGame/Direction.h>
 #include <ConsoleGame/GameCommand.h>
 #include <ConsoleGame/GameEvent.h>
+#include <ConsoleGame/MovePlayerCommandArgs.h>
 
 #include "mock_GameEventAggregator.h"
 
@@ -84,7 +85,8 @@ TEST_F( GameTests, ExecuteCommand_MovePlayerLeftWithinArenaBounds_UpdatesPlayerI
 
    BuildGame();
 
-   _game->ExecuteCommand( GameCommand::MovePlayerLeft );
+   _game->ExecuteCommand( GameCommand::MovePlayer,
+                          shared_ptr<MovePlayerCommandArgs>( new MovePlayerCommandArgs( Direction::Left ) ) );
 
    EXPECT_EQ( _game->GetPlayerDirection(), Direction::Left );
    EXPECT_EQ( _game->GetPlayerXPosition(), 9 );
@@ -101,7 +103,8 @@ TEST_F( GameTests, ExecuteCommand_MovePlayerUpWithinArenaBounds_UpdatesPlayerInf
 
    BuildGame();
 
-   _game->ExecuteCommand( GameCommand::MovePlayerUp );
+   _game->ExecuteCommand( GameCommand::MovePlayer,
+                          shared_ptr<MovePlayerCommandArgs>( new MovePlayerCommandArgs( Direction::Up ) ) );
 
    EXPECT_EQ( _game->GetPlayerDirection(), Direction::Up );
    EXPECT_EQ( _game->GetPlayerXPosition(), 10 );
@@ -118,7 +121,8 @@ TEST_F( GameTests, ExecuteCommand_MovePlayerRightaWithinArenaBounds_UpdatesPlaye
 
    BuildGame();
 
-   _game->ExecuteCommand( GameCommand::MovePlayerRight );
+   _game->ExecuteCommand( GameCommand::MovePlayer,
+                          shared_ptr<MovePlayerCommandArgs>( new MovePlayerCommandArgs( Direction::Right ) ) );
 
    EXPECT_EQ( _game->GetPlayerDirection(), Direction::Right );
    EXPECT_EQ( _game->GetPlayerXPosition(), 11 );
@@ -135,7 +139,8 @@ TEST_F( GameTests, ExecuteCommand_MovePlayerDownWithinArenaBounds_UpdatesPlayerI
 
    BuildGame();
 
-   _game->ExecuteCommand( GameCommand::MovePlayerDown );
+   _game->ExecuteCommand( GameCommand::MovePlayer,
+                          shared_ptr<MovePlayerCommandArgs>( new MovePlayerCommandArgs( Direction::Down ) ) );
 
    EXPECT_EQ( _game->GetPlayerDirection(), Direction::Down );
    EXPECT_EQ( _game->GetPlayerXPosition(), 10 );
@@ -152,7 +157,8 @@ TEST_F( GameTests, ExecuteCommand_MovePlayerLeftOutsideArenaBounds_DoesNotUpdate
 
    BuildGame();
 
-   _game->ExecuteCommand( GameCommand::MovePlayerLeft );
+   _game->ExecuteCommand( GameCommand::MovePlayer,
+                          shared_ptr<MovePlayerCommandArgs>( new MovePlayerCommandArgs( Direction::Left ) ) );
 
    EXPECT_EQ( _game->GetPlayerDirection(), Direction::Left );
    EXPECT_EQ( _game->GetPlayerXPosition(), 0 );
@@ -169,7 +175,8 @@ TEST_F( GameTests, ExecuteCommand_MovePlayerUpOutsideArenaBounds_DoesNotUpdatePl
 
    BuildGame();
 
-   _game->ExecuteCommand( GameCommand::MovePlayerUp );
+   _game->ExecuteCommand( GameCommand::MovePlayer,
+                          shared_ptr<MovePlayerCommandArgs>( new MovePlayerCommandArgs( Direction::Up ) ) );
 
    EXPECT_EQ( _game->GetPlayerDirection(), Direction::Up );
    EXPECT_EQ( _game->GetPlayerXPosition(), 10 );
@@ -186,7 +193,8 @@ TEST_F( GameTests, ExecuteCommand_MovePlayerRightOutsideArenaBounds_DoesNotUpdat
 
    BuildGame();
 
-   _game->ExecuteCommand( GameCommand::MovePlayerRight );
+   _game->ExecuteCommand( GameCommand::MovePlayer,
+                          shared_ptr<MovePlayerCommandArgs>( new MovePlayerCommandArgs( Direction::Right ) ) );
 
    EXPECT_EQ( _game->GetPlayerDirection(), Direction::Right );
    EXPECT_EQ( _game->GetPlayerXPosition(), 49 );
@@ -203,7 +211,8 @@ TEST_F( GameTests, ExecuteCommand_MovePlayerDownOutsideArenaBounds_DoesNotUpdate
 
    BuildGame();
 
-   _game->ExecuteCommand( GameCommand::MovePlayerDown );
+   _game->ExecuteCommand( GameCommand::MovePlayer,
+                          shared_ptr<MovePlayerCommandArgs>( new MovePlayerCommandArgs( Direction::Down ) ) );
 
    EXPECT_EQ( _game->GetPlayerDirection(), Direction::Down );
    EXPECT_EQ( _game->GetPlayerXPosition(), 10 );

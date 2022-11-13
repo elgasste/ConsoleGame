@@ -172,6 +172,7 @@
     <ClInclude Include="GameButton.h" />
     <ClInclude Include="GameClock.h" />
     <ClInclude Include="GameCommand.h" />
+    <ClInclude Include="GameCommandArgs.h" />
     <ClInclude Include="GameConfig.h" />
     <ClInclude Include="GameConsoleRenderer.h" />
     <ClInclude Include="GameEvent.h" />
@@ -198,6 +199,7 @@
     <ClInclude Include="ISleeper.h" />
     <ClInclude Include="KeyboardInputReader.h" />
     <ClInclude Include="KeyCode.h" />
+    <ClInclude Include="MovePlayerCommandArgs.h" />
     <ClInclude Include="PlayingStateConsoleRenderer.h" />
     <ClInclude Include="PlayingStateInputHandler.h" />
     <ClInclude Include="SleeperWrapper.h" />
