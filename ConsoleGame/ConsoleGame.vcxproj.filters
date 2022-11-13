@@ -221,5 +221,11 @@
     <ClInclude Include="MovePlayerCommandArgs.h">
       <Filter>Header Files\CommandArgs</Filter>
     </ClInclude>
+    <ClInclude Include="ConsolePixel.h">
+      <Filter>Header Files\DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="ConsoleSprite.h">
+      <Filter>Header Files\DataTypes</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
