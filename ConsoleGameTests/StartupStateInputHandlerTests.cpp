@@ -5,6 +5,7 @@
 #include <ConsoleGame/StartupStateInputHandler.h>
 #include <ConsoleGame/GameButton.h>
 #include <ConsoleGame/GameCommand.h>
+#include <ConsoleGame/GameCommandArgs.h>
 
 #include "mock_GameInputReader.h"
 #include "mock_GameCommandExecutor.h"
@@ -36,7 +37,7 @@ TEST_F( StartupStateInputHandlerTests, HandleInput_NoButtonsWerePressed_DoesNotE
 {
    ON_CALL( *_inputReaderMock, WasAnyButtonPressed() ).WillByDefault( Return( false ) );
 
-   EXPECT_CALL( *_commandExecutorMock, ExecuteCommand( _ ) ).Times( 0 );
+   EXPECT_CALL( *_commandExecutorMock, ExecuteCommand( _, _ ) ).Times( 0 );
 
    _inputHandler->HandleInput();
 }
@@ -45,6 +46,7 @@ TEST_F( StartupStateInputHandlerTests, HandleInput_ButtonWasPressed_ExecutesStar
 {
    ON_CALL( *_inputReaderMock, WasAnyButtonPressed() ).WillByDefault( Return( true ) );
 
+   auto args = shared_ptr<GameCommandArgs>();
    EXPECT_CALL( *_commandExecutorMock, ExecuteCommand( GameCommand::Start ) );
 
    _inputHandler->HandleInput();

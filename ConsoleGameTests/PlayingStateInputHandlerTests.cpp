@@ -5,6 +5,8 @@
 #include <ConsoleGame/PlayingStateInputHandler.h>
 #include <ConsoleGame/GameButton.h>
 #include <ConsoleGame/GameCommand.h>
+#include <ConsoleGame/MovePlayerCommandArgs.h>
+#include <ConsoleGame/Direction.h>
 
 #include "mock_GameInputReader.h"
 #include "mock_GameCommandExecutor.h"
@@ -45,39 +47,51 @@ TEST_F( PlayingStateInputHandlerTests, HandleInput_AButtonWasPressed_ExecutesQui
 
 TEST_F( PlayingStateInputHandlerTests, HandleInput_LeftButtonIsDown_ExecutesMovePlayerLeftCommand )
 {
+   shared_ptr<GameCommandArgs> moveArgs;
    ON_CALL( *_inputReaderMock, IsButtonDown( GameButton::Left ) ).WillByDefault( Return( true ) );
-   EXPECT_CALL( *_commandExecutorMock, ExecuteCommand( GameCommand::MovePlayerLeft ) );
+   EXPECT_CALL( *_commandExecutorMock, ExecuteCommand( GameCommand::MovePlayer, _ ) ).WillOnce( SaveArg<1>( &moveArgs ) );
 
    _inputHandler->HandleInput();
+
+   EXPECT_EQ( static_pointer_cast<MovePlayerCommandArgs>( moveArgs )->Direction, Direction::Left );
 }
 
 TEST_F( PlayingStateInputHandlerTests, HandleInput_UpButtonIsDown_ExecutesMovePlayerUpCommand )
 {
+   shared_ptr<GameCommandArgs> moveArgs;
    ON_CALL( *_inputReaderMock, IsButtonDown( GameButton::Up ) ).WillByDefault( Return( true ) );
-   EXPECT_CALL( *_commandExecutorMock, ExecuteCommand( GameCommand::MovePlayerUp ) );
+   EXPECT_CALL( *_commandExecutorMock, ExecuteCommand( GameCommand::MovePlayer, _ ) ).WillOnce( SaveArg<1>( &moveArgs ) );
 
    _inputHandler->HandleInput();
+
+   EXPECT_EQ( static_pointer_cast<MovePlayerCommandArgs>( moveArgs )->Direction, Direction::Up );
 }
 
 TEST_F( PlayingStateInputHandlerTests, HandleInput_RightButtonIsDown_ExecutesMovePlayerRightCommand )
 {
+   shared_ptr<GameCommandArgs> moveArgs;
    ON_CALL( *_inputReaderMock, IsButtonDown( GameButton::Right ) ).WillByDefault( Return( true ) );
-   EXPECT_CALL( *_commandExecutorMock, ExecuteCommand( GameCommand::MovePlayerRight ) );
+   EXPECT_CALL( *_commandExecutorMock, ExecuteCommand( GameCommand::MovePlayer, _ ) ).WillOnce( SaveArg<1>( &moveArgs ) );
 
    _inputHandler->HandleInput();
+
+   EXPECT_EQ( static_pointer_cast<MovePlayerCommandArgs>( moveArgs )->Direction, Direction::Right );
 }
 
 TEST_F( PlayingStateInputHandlerTests, HandleInput_DownButtonIsDown_ExecutesMovePlayerDownCommand )
 {
+   shared_ptr<GameCommandArgs> moveArgs;
    ON_CALL( *_inputReaderMock, IsButtonDown( GameButton::Down ) ).WillByDefault( Return( true ) );
-   EXPECT_CALL( *_commandExecutorMock, ExecuteCommand( GameCommand::MovePlayerDown ) );
+   EXPECT_CALL( *_commandExecutorMock, ExecuteCommand( GameCommand::MovePlayer, _ ) ).WillOnce( SaveArg<1>( &moveArgs ) );
 
    _inputHandler->HandleInput();
+
+   EXPECT_EQ( static_pointer_cast<MovePlayerCommandArgs>( moveArgs )->Direction, Direction::Down );
 }
 
 TEST_F( PlayingStateInputHandlerTests, HandleInput_NoButtonsDown_DoesNotExecuteAnyCommand )
 {
-   EXPECT_CALL( *_commandExecutorMock, ExecuteCommand( _ ) ).Times( 0 );
+   EXPECT_CALL( *_commandExecutorMock, ExecuteCommand( _, _ ) ).Times( 0 );
 
    _inputHandler->HandleInput();
 }

@@ -9,6 +9,10 @@ namespace ConsoleGame
    class MovePlayerCommandArgs : public GameCommandArgs
    {
    public:
+      MovePlayerCommandArgs( Direction direction )
+         : Direction ( direction )
+      { }
+
       Direction Direction;
    };
 }

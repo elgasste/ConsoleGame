@@ -9,8 +9,6 @@
 namespace ConsoleGame
 {
    class GameConfig;
-   enum class GameState;
-   enum class GameCommand;
    enum class Direction;
    class IGameEventAggregator;
 
@@ -24,11 +22,15 @@ namespace ConsoleGame
 
       GameState GetGameState() const override { return _state; }
 
-      void ExecuteCommand( GameCommand command );
+      void ExecuteCommand( GameCommand command ) override;
+      void ExecuteCommand( GameCommand command, const std::shared_ptr<GameCommandArgs> args ) override;
 
       Direction GetPlayerDirection() const override{ return _playerDirection; }
       int GetPlayerXPosition() const override { return _playerPositionX; }
       int GetPlayerYPosition() const override { return _playerPositionY; }
+
+   private:
+      void MovePlayer( Direction direction );
 
    private:
       const std::shared_ptr<GameConfig> _config;
