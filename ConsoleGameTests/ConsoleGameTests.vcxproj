@@ -36,6 +36,7 @@
     <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
   </PropertyGroup>
   <ItemGroup>
+    <ClInclude Include="mock_GameClock.h" />
     <ClInclude Include="mock_ConsoleDrawer.h" />
     <ClInclude Include="mock_GameCommandExecutor.h" />
     <ClInclude Include="mock_GameEventAggregator.h" />
@@ -52,6 +53,7 @@
     <ClCompile Include="GameConsoleRendererTests.cpp" />
     <ClCompile Include="GameEventAggregatorTests.cpp" />
     <ClCompile Include="GameInputHandlerTests.cpp" />
+    <ClCompile Include="GameRunnerTests.cpp" />
     <ClCompile Include="GameTests.cpp" />
     <ClCompile Include="KeyboardInputReaderTests.cpp" />
     <ClCompile Include="PlayingStateInputHandlerTests.cpp" />

@@ -16,7 +16,7 @@ GameRunner::GameRunner( const std::shared_ptr<IGameEventAggregator> eventAggrega
      _renderer( renderer ),
      _isRunning( false )
 {
-   eventAggregator->RegisterEventHandler( GameEvent::Shutdown, std::bind( &GameRunner::HandleQuitEvent, this ) );
+   eventAggregator->RegisterEventHandler( GameEvent::Shutdown, std::bind( &GameRunner::HandleShutdownEvent, this ) );
 }
 
 void GameRunner::Run()
@@ -35,7 +35,7 @@ void GameRunner::Run()
    _isRunning = false;
 }
 
-void GameRunner::HandleQuitEvent()
+void GameRunner::HandleShutdownEvent()
 {
    _isRunning = false;
 }
