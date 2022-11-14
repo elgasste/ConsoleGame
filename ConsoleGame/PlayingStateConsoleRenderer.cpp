@@ -5,6 +5,8 @@
 #include "IPlayerInfoProvider.h"
 #include "ConsoleColor.h"
 #include "Direction.h"
+#include "ConsoleSprite.h"
+#include "ConsolePixel.h"
 
 using namespace std;
 using namespace ConsoleGame;
@@ -18,6 +20,34 @@ PlayingStateConsoleRenderer::PlayingStateConsoleRenderer( const shared_ptr<ICons
      _gameConfig( gameConfig ),
      _playerInfoProvider( playerInfoProvider )
 {
+   auto leftSprite = shared_ptr<ConsoleSprite>( new ConsoleSprite );
+   leftSprite->Width = 2;
+   leftSprite->Height = 1;
+   leftSprite->Pixels.push_back( { 'L', ConsoleColor::White } );
+   leftSprite->Pixels.push_back( { '-', ConsoleColor::White } );
+
+   auto rightSprite = shared_ptr<ConsoleSprite>( new ConsoleSprite );
+   rightSprite->Width = 2;
+   rightSprite->Height = 1;
+   rightSprite->Pixels.push_back( { '-', ConsoleColor::White } );
+   rightSprite->Pixels.push_back( { 'R', ConsoleColor::White } );
+
+   auto upSprite = shared_ptr<ConsoleSprite>( new ConsoleSprite );
+   upSprite->Width = 1;
+   upSprite->Height = 2;
+   upSprite->Pixels.push_back( { 'U', ConsoleColor::White } );
+   upSprite->Pixels.push_back( { '|', ConsoleColor::White } );
+
+   auto downSprite = shared_ptr<ConsoleSprite>( new ConsoleSprite );
+   downSprite->Width = 1;
+   downSprite->Height = 2;
+   downSprite->Pixels.push_back( { '|', ConsoleColor::White } );
+   downSprite->Pixels.push_back( { 'D', ConsoleColor::White } );
+
+   _playerSpriteMap[Direction::Left] = leftSprite;
+   _playerSpriteMap[Direction::Up] = upSprite;
+   _playerSpriteMap[Direction::Right] = rightSprite;
+   _playerSpriteMap[Direction::Down] = downSprite;
 }
 
 void PlayingStateConsoleRenderer::Render()
@@ -29,11 +59,24 @@ void PlayingStateConsoleRenderer::Render()
 
    DrawArenaFence();
 
-   auto playerChar = GetPlayerCharFromDirection( _playerInfoProvider->GetPlayerDirection() );
    auto playerX = _playerInfoProvider->GetPlayerXPosition() + _renderConfig->ArenaFenceX + 1;
    auto playerY = _playerInfoProvider->GetPlayerYPosition() + _renderConfig->ArenaFenceY + 1;
 
-   _consoleDrawer->Draw( playerX, playerY, playerChar );
+   switch ( _playerInfoProvider->GetPlayerDirection() )
+   {
+      case Direction::Left:
+         _consoleDrawer->Draw( playerX, playerY, _playerSpriteMap[Direction::Left] );
+         break;
+      case Direction::Up:
+         _consoleDrawer->Draw( playerX, playerY, _playerSpriteMap[Direction::Up] );
+         break;
+      case Direction::Right:
+         _consoleDrawer->Draw( playerX - 1, playerY, _playerSpriteMap[Direction::Right] );
+         break;
+      case Direction::Down:
+         _consoleDrawer->Draw( playerX, playerY - 1, _playerSpriteMap[Direction::Down] );
+         break;
+   }
 }
 
 void PlayingStateConsoleRenderer::DrawArenaFence()
@@ -56,23 +99,5 @@ void PlayingStateConsoleRenderer::DrawArenaFence()
    {
       _consoleDrawer->Draw( _renderConfig->ArenaFenceX, top, '|' );
       _consoleDrawer->Draw( _renderConfig->ArenaFenceX + _gameConfig->ArenaWidth + 2, top, '|' );
-   }
-}
-
-char PlayingStateConsoleRenderer::GetPlayerCharFromDirection( Direction direction )
-{
-   switch ( direction )
-   {
-      case Direction::Left:
-         return '<';
-      case Direction::Up:
-         return '^';
-      case Direction::Right:
-         return '>';
-      case Direction::Down:
-         return 'V';
-
-      default:
-         return 'X';
    }
 }

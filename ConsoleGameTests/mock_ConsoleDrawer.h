@@ -1,7 +1,6 @@
 #pragma once
 
 #include <gmock/gmock.h>
-#include <string>
 
 #include <ConsoleGame/IConsoleDrawer.h>
 
@@ -21,6 +20,7 @@ public:
    MOCK_METHOD( void, Draw, ( int, int, const std::string& ), ( override ) );
    MOCK_METHOD( void, Draw, ( int, int, const std::string&, ConsoleGame::ConsoleColor ), ( override ) );
    MOCK_METHOD( void, Draw, ( int, int, const std::string&, ConsoleGame::ConsoleColor, ConsoleGame::ConsoleColor ), ( override ) );
+   MOCK_METHOD( void, Draw, ( int, int, const std::shared_ptr<ConsoleGame::ConsoleSprite> ), ( override ) );
 
    MOCK_METHOD( void, FlipDrawBuffer, ( ), ( override ) );
 };
