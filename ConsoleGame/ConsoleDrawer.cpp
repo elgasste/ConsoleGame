@@ -1,43 +1,61 @@
+#define WIN32_LEAN_AND_MEAN
+#include <Windows.h>
+
 #include <format>
 
 #include "ConsoleDrawer.h"
 #include "GameRenderConfig.h"
 #include "ConsoleColor.h"
 
+namespace ConsoleGame
+{
+   struct ConsoleBufferInfo
+   {
+      HANDLE OutputHandle;
+      COORD ConsoleSize;
+      int DrawBufferSize;
+      CHAR_INFO* DrawBuffer;
+      SMALL_RECT OutputRect;
+      COORD ZeroCoordinate = { 0, 0 };
+   };
+}
+
 using namespace std;
 using namespace ConsoleGame;
 
 ConsoleDrawer::ConsoleDrawer( const shared_ptr<GameRenderConfig> renderConfig )
    : _renderConfig( renderConfig ),
-     _outputHandle( GetStdHandle( STD_OUTPUT_HANDLE ) ),
-     _consoleSize( { _renderConfig->ConsoleWidth, _renderConfig->ConsoleHeight } ),
-     _drawBufferSize( _consoleSize.X * _consoleSize.Y ),
-     _drawBuffer( new CHAR_INFO[_drawBufferSize] ),
-     _outputRect( { 0, 0, _renderConfig->ConsoleWidth, _renderConfig->ConsoleHeight } ),
      _defaultForegroundColor( ConsoleColor::Grey ),
      _defaultBackgroundColor( ConsoleColor::Black )
 {
-   for ( int i = 0; i < _drawBufferSize; i++ )
+   _bufferInfo = shared_ptr<ConsoleBufferInfo>( new ConsoleBufferInfo );
+   _bufferInfo->OutputHandle = GetStdHandle( STD_OUTPUT_HANDLE );
+   _bufferInfo->ConsoleSize = { _renderConfig->ConsoleWidth, _renderConfig->ConsoleHeight };
+   _bufferInfo->DrawBufferSize = _renderConfig->ConsoleWidth * _renderConfig->ConsoleHeight;
+   _bufferInfo->DrawBuffer = new CHAR_INFO[_bufferInfo->DrawBufferSize];
+   _bufferInfo->OutputRect = { 0, 0, _renderConfig->ConsoleWidth, _renderConfig->ConsoleHeight };
+
+   for ( int i = 0; i < _bufferInfo->DrawBufferSize; i++ )
    {
-      _drawBuffer[i] = CHAR_INFO();
+      _bufferInfo->DrawBuffer[i] = CHAR_INFO();
    }
 }
 
 ConsoleDrawer::~ConsoleDrawer()
 {
-   delete[] _drawBuffer;
+   delete[] _bufferInfo->DrawBuffer;
 }
 
 void ConsoleDrawer::Initialize()
 {
-   SetConsoleScreenBufferSize( _outputHandle, { _consoleSize.X, _consoleSize.Y } );
+   SetConsoleScreenBufferSize( _bufferInfo->OutputHandle, { _bufferInfo->ConsoleSize.X, _bufferInfo->ConsoleSize.Y } );
 
    // TODO: as of the Windows 11 update I installed on 11/09/2022,
    // SetConsoleWindowInfo is no longer resizing the console window.
    // I'm commenting this out because it actually causes a weird issue
    // where the console scrolls downward indefinitely.
-   SMALL_RECT windowCoords{ 0, 0, _consoleSize.X - 1, _consoleSize.Y - 1 };
-   SetConsoleWindowInfo( _outputHandle, TRUE, &windowCoords);
+   SMALL_RECT windowCoords{ 0, 0, _bufferInfo->ConsoleSize.X - 1, _bufferInfo->ConsoleSize.Y - 1 };
+   SetConsoleWindowInfo( _bufferInfo->OutputHandle, TRUE, &windowCoords );
 
    // TODO: I tried this as well, it doesn't work either.
    //system( format("MODE CON COLS={0} LINES={1}", _consoleSize.X, _consoleSize.Y ).c_str() );
@@ -57,7 +75,7 @@ void ConsoleDrawer::CleanUp()
    FlipDrawBuffer();
 
    SetCursorVisibility( true );
-   SetConsoleCursorPosition( _outputHandle, { 0, 0 } );
+   SetConsoleCursorPosition( _bufferInfo->OutputHandle, { 0, 0 } );
 }
 
 void ConsoleDrawer::SetDefaultForegroundColor( ConsoleColor color )
@@ -72,10 +90,10 @@ void ConsoleDrawer::SetDefaultBackgroundColor( ConsoleColor color )
 
 void ConsoleDrawer::ClearDrawBuffer()
 {
-   for ( int i = 0; i < _drawBufferSize; i++ )
+   for ( int i = 0; i < _bufferInfo->DrawBufferSize; i++ )
    {
-      _drawBuffer[i].Char.AsciiChar = 0x20;
-      _drawBuffer[i].Attributes = ConsoleColorsToAttribute( _defaultForegroundColor, _defaultBackgroundColor );
+      _bufferInfo->DrawBuffer[i].Char.AsciiChar = 0x20;
+      _bufferInfo->DrawBuffer[i].Attributes = ConsoleColorsToAttribute( _defaultForegroundColor, _defaultBackgroundColor );
    }
 }
 
@@ -91,14 +109,14 @@ void ConsoleDrawer::Draw( int left, int top, char buffer, ConsoleColor foregroun
 
 void ConsoleDrawer::Draw( int left, int top, char buffer, ConsoleColor foregroundColor, ConsoleColor backgroundColor )
 {
-   if ( left < 0 || left >= _consoleSize.X || top < 0 || top >= _consoleSize.Y )
+   if ( left < 0 || left >= _bufferInfo->ConsoleSize.X || top < 0 || top >= _bufferInfo->ConsoleSize.Y )
    {
       return;
    }
 
-   auto bufferLocation = left + ( top * _consoleSize.X );
-   _drawBuffer[bufferLocation].Attributes = ConsoleColorsToAttribute( foregroundColor, backgroundColor );
-   _drawBuffer[bufferLocation].Char.AsciiChar = buffer;
+   auto bufferLocation = left + ( top * _bufferInfo->ConsoleSize.X );
+   _bufferInfo->DrawBuffer[bufferLocation].Attributes = ConsoleColorsToAttribute( foregroundColor, backgroundColor );
+   _bufferInfo->DrawBuffer[bufferLocation].Char.AsciiChar = buffer;
 }
 
 void ConsoleDrawer::Draw( int left, int top, const string& buffer )
@@ -121,15 +139,19 @@ void ConsoleDrawer::Draw( int left, int top, const string& buffer, ConsoleColor 
 
 void ConsoleDrawer::FlipDrawBuffer()
 {
-   WriteConsoleOutput( _outputHandle, _drawBuffer, _consoleSize, _zeroCoordinate, &_outputRect );
+   WriteConsoleOutput( _bufferInfo->OutputHandle,
+                       _bufferInfo->DrawBuffer,
+                       _bufferInfo->ConsoleSize,
+                       _bufferInfo->ZeroCoordinate,
+                       &( _bufferInfo->OutputRect ) );
 }
 
 void ConsoleDrawer::SetCursorVisibility( bool isVisible )
 {
    CONSOLE_CURSOR_INFO cursorInfo;
-   GetConsoleCursorInfo( _outputHandle, &cursorInfo );
+   GetConsoleCursorInfo( _bufferInfo->OutputHandle, &cursorInfo );
    cursorInfo.bVisible = isVisible;
-   SetConsoleCursorInfo( _outputHandle, &cursorInfo );
+   SetConsoleCursorInfo( _bufferInfo->OutputHandle, &cursorInfo );
 }
 
 unsigned short ConsoleDrawer::ConsoleColorsToAttribute( ConsoleColor foregroundColor, ConsoleColor backgroundColor )
