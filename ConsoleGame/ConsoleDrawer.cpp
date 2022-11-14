@@ -6,6 +6,8 @@
 #include "ConsoleDrawer.h"
 #include "GameRenderConfig.h"
 #include "ConsoleColor.h"
+#include "ConsoleSprite.h"
+#include "ConsolePixel.h"
 
 namespace ConsoleGame
 {
@@ -134,6 +136,24 @@ void ConsoleDrawer::Draw( int left, int top, const string& buffer, ConsoleColor 
    for ( int i = 0; i < (int)buffer.length(); i++ )
    {
       Draw( left + i, top, buffer[i], foregroundColor, backgroundColor );
+   }
+}
+
+void ConsoleDrawer::Draw( int left, int top, const std::shared_ptr<ConsoleSprite> sprite )
+{
+   int i = 0, j = 0;
+
+   for ( auto pixel : sprite->Pixels )
+   {
+      Draw( left + i, top + j, pixel.Value, pixel.Color );
+
+      i++;
+
+      if ( i == sprite->Width )
+      {
+         i = 0;
+         j++;
+      }
    }
 }
 
