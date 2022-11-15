@@ -54,7 +54,7 @@ void GameClock::Tick()
    }
 
    _totalFrameCount++;
-   _frameStartTimeNano = nowNano;
+   _frameStartTimeNano = _highResolutionClock->Now();
 }
 
 void GameClock::Stop()
