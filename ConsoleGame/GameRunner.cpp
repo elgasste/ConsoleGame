@@ -26,8 +26,8 @@ void GameRunner::Run()
 
    while ( _isRunning )
    {
-      _renderer->Render();
       _inputHandler->HandleInput();
+      _renderer->Render();
       _clock->Tick();
    }
 
