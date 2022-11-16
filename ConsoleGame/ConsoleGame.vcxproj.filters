@@ -170,10 +170,10 @@
     <ClInclude Include="GameConfig.h">
       <Filter>Header Files\Config</Filter>
     </ClInclude>
-    <ClInclude Include="GameRenderConfig.h">
+    <ClInclude Include="ConsoleRenderConfig.h">
       <Filter>Header Files\Config</Filter>
     </ClInclude>
-    <ClInclude Include="GameInputConfig.h">
+    <ClInclude Include="KeyboardInputConfig.h">
       <Filter>Header Files\Config</Filter>
     </ClInclude>
     <ClInclude Include="DiagnosticsConsoleRenderer.h">
@@ -226,6 +226,12 @@
     </ClInclude>
     <ClInclude Include="ConsoleSprite.h">
       <Filter>Header Files\DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="IGameRenderConfig.h">
+      <Filter>Header Files\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="IGameInputConfig.h">
+      <Filter>Header Files\Interfaces</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

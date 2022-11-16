@@ -4,8 +4,8 @@
 
 namespace ConsoleGame
 {
-   class GameRenderConfig;
-   class GameInputConfig;
+   class IGameRenderConfig;
+   class IGameInputConfig;
    enum class Direction;
 
    class GameConfig
@@ -20,7 +20,7 @@ namespace ConsoleGame
       short PlayerStartX;
       short PlayerStartY;
 
-      std::shared_ptr<GameRenderConfig> RenderConfig;
-      std::shared_ptr<GameInputConfig> InputConfig;
+      std::shared_ptr<IGameRenderConfig> RenderConfig;
+      std::shared_ptr<IGameInputConfig> InputConfig;
    };
 }

@@ -178,9 +178,11 @@
     <ClInclude Include="GameConsoleRenderer.h" />
     <ClInclude Include="GameEvent.h" />
     <ClInclude Include="GameEventAggregator.h" />
-    <ClInclude Include="GameRenderConfig.h" />
+    <ClInclude Include="ConsoleRenderConfig.h" />
     <ClInclude Include="GameRunner.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="IGameInputConfig.h" />
+    <ClInclude Include="IGameRenderConfig.h" />
     <ClInclude Include="KeyboardWrapper.h" />
     <ClInclude Include="HighResolutionClockWrapper.h" />
     <ClInclude Include="IGameCommandExecutor.h" />
@@ -192,7 +194,7 @@
     <ClInclude Include="IGameRenderer.h" />
     <ClInclude Include="IGameRunner.h" />
     <ClInclude Include="GameInputHandler.h" />
-    <ClInclude Include="GameInputConfig.h" />
+    <ClInclude Include="KeyboardInputConfig.h" />
     <ClInclude Include="IGameStateProvider.h" />
     <ClInclude Include="IHighResolutionClock.h" />
     <ClInclude Include="IKeyboard.h" />

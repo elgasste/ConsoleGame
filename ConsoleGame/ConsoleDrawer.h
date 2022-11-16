@@ -6,13 +6,13 @@
 
 namespace ConsoleGame
 {
-   class GameRenderConfig;
+   class ConsoleRenderConfig;
    struct ConsoleBufferInfo;
 
    class ConsoleDrawer : public IConsoleDrawer
    {
    public:
-      ConsoleDrawer( const std::shared_ptr<GameRenderConfig> renderConfig );
+      ConsoleDrawer( const std::shared_ptr<ConsoleRenderConfig> renderConfig );
       ~ConsoleDrawer();
 
       void Initialize() override;
@@ -37,7 +37,7 @@ namespace ConsoleGame
       unsigned short ConsoleColorsToAttribute( ConsoleColor foregroundColor, ConsoleColor backgroundColor );
 
    private:
-      const std::shared_ptr<GameRenderConfig> _renderConfig;
+      const std::shared_ptr<ConsoleRenderConfig> _renderConfig;
 
       std::shared_ptr<ConsoleBufferInfo> _bufferInfo;
 

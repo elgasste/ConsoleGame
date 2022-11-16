@@ -4,7 +4,7 @@
 #include <format>
 
 #include "ConsoleDrawer.h"
-#include "GameRenderConfig.h"
+#include "ConsoleRenderConfig.h"
 #include "ConsoleColor.h"
 #include "ConsoleSprite.h"
 #include "ConsolePixel.h"
@@ -25,7 +25,7 @@ namespace ConsoleGame
 using namespace std;
 using namespace ConsoleGame;
 
-ConsoleDrawer::ConsoleDrawer( const shared_ptr<GameRenderConfig> renderConfig )
+ConsoleDrawer::ConsoleDrawer( const shared_ptr<ConsoleRenderConfig> renderConfig )
    : _renderConfig( renderConfig ),
      _defaultForegroundColor( ConsoleColor::Grey ),
      _defaultBackgroundColor( ConsoleColor::Black )

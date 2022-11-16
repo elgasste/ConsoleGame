@@ -3,7 +3,7 @@
 #include <memory>
 
 #include <ConsoleGame/KeyboardInputReader.h>
-#include <ConsoleGame/GameInputConfig.h>
+#include <ConsoleGame/KeyboardInputConfig.h>
 #include <ConsoleGame/KeyCode.h>
 #include <ConsoleGame/GameButton.h>
 
@@ -18,7 +18,7 @@ class KeyboardInputReaderTests : public Test
 public:
    void SetUp() override
    {
-      _inputConfig.reset( new GameInputConfig );
+      _inputConfig.reset( new KeyboardInputConfig );
       _keyboardMock.reset( new NiceMock<mock_Keyboard> );
    }
 
@@ -34,7 +34,7 @@ public:
    }
 
 protected:
-   shared_ptr<GameInputConfig> _inputConfig;
+   shared_ptr<KeyboardInputConfig> _inputConfig;
    shared_ptr<mock_Keyboard> _keyboardMock;
 
    shared_ptr<KeyboardInputReader> _inputReader;

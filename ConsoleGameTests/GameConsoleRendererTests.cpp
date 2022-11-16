@@ -3,7 +3,7 @@
 #include <memory>
 
 #include <ConsoleGame/GameConsoleRenderer.h>
-#include <ConsoleGame/GameRenderConfig.h>
+#include <ConsoleGame/ConsoleRenderConfig.h>
 #include <ConsoleGame/IConsoleDrawer.h>
 #include <ConsoleGame/IGameStateProvider.h>
 #include <ConsoleGame/GameEventAggregator.h>
@@ -24,7 +24,7 @@ class GameConsoleRendererTests : public Test
 public:
    void SetUp() override
    {
-      _renderConfig.reset( new GameRenderConfig );
+      _renderConfig.reset( new ConsoleRenderConfig );
       _consoleDrawerMock.reset( new NiceMock<mock_ConsoleDrawer> );
       _stateProviderMock.reset( new NiceMock<mock_GameStateProvider> );
       _diagnosticsRendererMock.reset( new NiceMock<mock_GameRenderer> );
@@ -49,7 +49,7 @@ public:
    }
 
 protected:
-   shared_ptr<GameRenderConfig> _renderConfig;
+   shared_ptr<ConsoleRenderConfig> _renderConfig;
    shared_ptr<mock_ConsoleDrawer> _consoleDrawerMock;
    shared_ptr<mock_GameStateProvider> _stateProviderMock;
    shared_ptr<mock_GameRenderer> _diagnosticsRendererMock;

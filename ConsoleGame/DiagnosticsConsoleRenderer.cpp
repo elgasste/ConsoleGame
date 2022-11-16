@@ -3,7 +3,7 @@
 #include "DiagnosticsConsoleRenderer.h"
 #include "IConsoleDrawer.h"
 #include "IGameClock.h"
-#include "GameRenderConfig.h"
+#include "ConsoleRenderConfig.h"
 #include "ConsoleColor.h"
 
 #define DIAGNOSTICS_WIDTH 30
@@ -13,7 +13,7 @@ using namespace ConsoleGame;
 
 DiagnosticsConsoleRenderer::DiagnosticsConsoleRenderer( const shared_ptr<IConsoleDrawer> consoleDrawer,
                                                         const shared_ptr<IGameClock> clock,
-                                                        const shared_ptr<GameRenderConfig> renderConfig )
+                                                        const shared_ptr<ConsoleRenderConfig> renderConfig )
    : _consoleDrawer( consoleDrawer ),
      _clock( clock ),
      _renderConfig( renderConfig )

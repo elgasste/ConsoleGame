@@ -7,15 +7,15 @@
 namespace ConsoleGame
 {
    class IConsoleDrawer;
-   class GameRenderConfig;
-   class GameInputConfig;
+   class ConsoleRenderConfig;
+   class KeyboardInputConfig;
 
    class StartupStateConsoleRenderer : public IGameRenderer
    {
    public:
       StartupStateConsoleRenderer( const std::shared_ptr<IConsoleDrawer> consoleDrawer,
-                                   const std::shared_ptr<GameRenderConfig> renderConfig,
-                                   const std::shared_ptr<GameInputConfig> inputConfig );
+                                   const std::shared_ptr<ConsoleRenderConfig> renderConfig,
+                                   const std::shared_ptr<KeyboardInputConfig> inputConfig );
 
       void Render() override;
 
@@ -24,7 +24,7 @@ namespace ConsoleGame
 
    private:
       const std::shared_ptr<IConsoleDrawer> _consoleDrawer;
-      const std::shared_ptr<GameRenderConfig> _renderConfig;
-      const std::shared_ptr<GameInputConfig> _inputConfig;
+      const std::shared_ptr<ConsoleRenderConfig> _renderConfig;
+      const std::shared_ptr<KeyboardInputConfig> _inputConfig;
    };
 }

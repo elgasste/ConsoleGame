@@ -1,6 +1,6 @@
 #include "PlayingStateConsoleRenderer.h"
 #include "IConsoleDrawer.h"
-#include "GameRenderConfig.h"
+#include "ConsoleRenderConfig.h"
 #include "GameConfig.h"
 #include "IPlayerInfoProvider.h"
 #include "ConsoleColor.h"
@@ -12,7 +12,7 @@ using namespace std;
 using namespace ConsoleGame;
 
 PlayingStateConsoleRenderer::PlayingStateConsoleRenderer( const shared_ptr<IConsoleDrawer> consoleDrawer,
-                                                          const shared_ptr<GameRenderConfig> renderConfig,
+                                                          const shared_ptr<ConsoleRenderConfig> renderConfig,
                                                           const shared_ptr<GameConfig> gameConfig,
                                                           const shared_ptr<IPlayerInfoProvider> playerInfoProvider )
    : _consoleDrawer( consoleDrawer ),

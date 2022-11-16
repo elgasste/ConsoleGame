@@ -1,7 +1,7 @@
 #include <format>
 
 #include "GameConsoleRenderer.h"
-#include "GameRenderConfig.h"
+#include "ConsoleRenderConfig.h"
 #include "IConsoleDrawer.h"
 #include "IGameStateProvider.h"
 #include "IGameEventAggregator.h"
@@ -12,7 +12,7 @@
 using namespace std;
 using namespace ConsoleGame;
 
-GameConsoleRenderer::GameConsoleRenderer( const shared_ptr<GameRenderConfig> renderConfig,
+GameConsoleRenderer::GameConsoleRenderer( const shared_ptr<ConsoleRenderConfig> renderConfig,
                                           const shared_ptr<IConsoleDrawer> consoleDrawer,
                                           const shared_ptr<IGameStateProvider> stateProvider,
                                           const shared_ptr<IGameRenderer> diagnosticsRenderer,

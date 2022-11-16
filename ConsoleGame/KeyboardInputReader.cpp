@@ -1,5 +1,5 @@
 #include "KeyboardInputReader.h"
-#include "GameInputConfig.h"
+#include "KeyboardInputConfig.h"
 #include "IKeyboard.h"
 #include "KeyCode.h"
 #include "GameButton.h"
@@ -7,7 +7,7 @@
 using namespace std;
 using namespace ConsoleGame;
 
-KeyboardInputReader::KeyboardInputReader( const shared_ptr<GameInputConfig> inputConfig,
+KeyboardInputReader::KeyboardInputReader( const shared_ptr<KeyboardInputConfig> inputConfig,
                                           const shared_ptr<IKeyboard> keyboard )
    : _keyboard( keyboard )
 {
