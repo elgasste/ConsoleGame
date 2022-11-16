@@ -178,7 +178,7 @@
     <ClInclude Include="GameConsoleRenderer.h" />
     <ClInclude Include="GameEvent.h" />
     <ClInclude Include="GameEventAggregator.h" />
-    <ClInclude Include="GameRenderConfig.h" />
+    <ClInclude Include="ConsoleRenderConfig.h" />
     <ClInclude Include="GameRunner.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="IGameRenderConfig.h" />

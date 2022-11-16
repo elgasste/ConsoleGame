@@ -8,7 +8,7 @@
 
 namespace ConsoleGame
 {
-   class GameRenderConfig;
+   class ConsoleRenderConfig;
    class IConsoleDrawer;
    class IGameStateProvider;
    class IGameEventAggregator;
@@ -18,7 +18,7 @@ namespace ConsoleGame
    class GameConsoleRenderer : public IGameRenderer
    {
    public:
-      GameConsoleRenderer( const std::shared_ptr<GameRenderConfig> renderConfig,
+      GameConsoleRenderer( const std::shared_ptr<ConsoleRenderConfig> renderConfig,
                            const std::shared_ptr<IConsoleDrawer> consoleDrawer,
                            const std::shared_ptr<IGameStateProvider> stateProvider,
                            const std::shared_ptr<IGameRenderer> diagnosticsRenderer,

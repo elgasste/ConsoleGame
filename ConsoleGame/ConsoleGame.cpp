@@ -1,7 +1,7 @@
 #include <iostream>
 
 #include "GameConfig.h"
-#include "GameRenderConfig.h"
+#include "ConsoleRenderConfig.h"
 #include "GameInputConfig.h"
 #include "KeyCode.h"
 #include "GameButton.h"
@@ -32,7 +32,7 @@ using namespace ConsoleGame;
 // TODO: I suppose these configs should be loaded from files at some point,
 // but at the very least they should all have default values, and those could
 // probably be set in some initializer instead of in here.
-shared_ptr<GameRenderConfig> BuildRenderConfig();
+shared_ptr<ConsoleRenderConfig> BuildConsoleRenderConfig();
 shared_ptr<GameInputConfig> BuildInputConfig();
 shared_ptr<GameConfig> BuildGameConfig();
 
@@ -63,11 +63,12 @@ int main()
    inputHandler->AddInputHandlerForGameState( GameState::Playing, playingStateInputHandler );
 
    // rendering objects
-   auto consoleDrawer = shared_ptr<ConsoleDrawer>( new ConsoleDrawer( config->RenderConfig ) );
-   auto diagnosticsRenderer = shared_ptr<DiagnosticsConsoleRenderer>( new DiagnosticsConsoleRenderer( consoleDrawer, clock, config->RenderConfig ) );
-   auto startupStateConsoleRenderer = shared_ptr<StartupStateConsoleRenderer>( new StartupStateConsoleRenderer( consoleDrawer, config->RenderConfig, config->InputConfig ) );
-   auto playingStateConsoleRenderer = shared_ptr<PlayingStateConsoleRenderer>( new PlayingStateConsoleRenderer( consoleDrawer, config->RenderConfig, config, game ) );
-   auto consoleRenderer = shared_ptr<GameConsoleRenderer>( new GameConsoleRenderer( config->RenderConfig, consoleDrawer, game, diagnosticsRenderer, eventAggregator ) );
+   auto consoleRenderConfig = static_pointer_cast<ConsoleRenderConfig>( config->RenderConfig );
+   auto consoleDrawer = shared_ptr<ConsoleDrawer>( new ConsoleDrawer( consoleRenderConfig ) );
+   auto diagnosticsRenderer = shared_ptr<DiagnosticsConsoleRenderer>( new DiagnosticsConsoleRenderer( consoleDrawer, clock, consoleRenderConfig ) );
+   auto startupStateConsoleRenderer = shared_ptr<StartupStateConsoleRenderer>( new StartupStateConsoleRenderer( consoleDrawer, consoleRenderConfig, config->InputConfig ) );
+   auto playingStateConsoleRenderer = shared_ptr<PlayingStateConsoleRenderer>( new PlayingStateConsoleRenderer( consoleDrawer, consoleRenderConfig, config, game ) );
+   auto consoleRenderer = shared_ptr<GameConsoleRenderer>( new GameConsoleRenderer( consoleRenderConfig, consoleDrawer, game, diagnosticsRenderer, eventAggregator ) );
    consoleRenderer->AddRendererForGameState( GameState::Startup, startupStateConsoleRenderer );
    consoleRenderer->AddRendererForGameState( GameState::Playing, playingStateConsoleRenderer );
 
@@ -81,9 +82,9 @@ int main()
    cout << "Thanks for playing, enjoy your burrito!\n";
 }
 
-shared_ptr<GameRenderConfig> BuildRenderConfig()
+shared_ptr<ConsoleRenderConfig> BuildConsoleRenderConfig()
 {
-   auto renderConfig = make_shared<GameRenderConfig>();
+   auto renderConfig = make_shared<ConsoleRenderConfig>();
 
    // TODO: don't change these dimensions until we figure out the issue with console resizing.
    // (see ConsoleDrawer.cpp)
@@ -187,18 +188,20 @@ shared_ptr<GameInputConfig> BuildInputConfig()
 shared_ptr<GameConfig> BuildGameConfig()
 {
    auto config = make_shared<GameConfig>();
+   auto consoleRenderConfig = BuildConsoleRenderConfig();
+   auto inputConfig = BuildInputConfig();
 
    config->FramesPerSecond = 60;
 
-   config->RenderConfig = BuildRenderConfig();
-   config->InputConfig = BuildInputConfig();
-
-   config->ArenaWidth = config->RenderConfig->ConsoleWidth - 6;
-   config->ArenaHeight = config->RenderConfig->ConsoleHeight - 6;
+   config->ArenaWidth = consoleRenderConfig->ConsoleWidth - 6;
+   config->ArenaHeight = consoleRenderConfig->ConsoleHeight - 6;
 
    config->PlayerStartDirection = Direction::Down;
    config->PlayerStartX = config->ArenaWidth / 2;
    config->PlayerStartY = config->ArenaHeight / 2;
+
+   config->RenderConfig = consoleRenderConfig;
+   config->InputConfig = inputConfig;
 
    return config;
 }
