@@ -5,6 +5,6 @@ namespace ConsoleGame
    class __declspec( novtable ) ISleeper
    {
    public:
-      virtual void Sleep( unsigned long milliseconds ) = 0;
+      virtual void Sleep( long long nanoseconds ) = 0;
    };
 }
