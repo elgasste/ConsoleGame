@@ -39,12 +39,12 @@ void GameConsoleRenderer::Render()
 {
    _consoleDrawer->ClearDrawBuffer();
 
+   _stateRenderers.at( _stateProvider->GetGameState() )->Render();
+
    if ( _showDiagnostics )
    {
       _diagnosticsRenderer->Render();
    }
-
-   _stateRenderers.at( _stateProvider->GetGameState() )->Render();
 
    _consoleDrawer->FlipDrawBuffer();
 }
