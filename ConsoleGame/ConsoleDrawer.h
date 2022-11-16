@@ -1,7 +1,5 @@
 #pragma once
 
-#define WIN32_LEAN_AND_MEAN
-#include <Windows.h>
 #include <memory>
 
 #include "IConsoleDrawer.h"
@@ -9,7 +7,7 @@
 namespace ConsoleGame
 {
    class GameRenderConfig;
-   enum class ConsoleColor;
+   struct ConsoleBufferInfo;
 
    class ConsoleDrawer : public IConsoleDrawer
    {
@@ -30,6 +28,7 @@ namespace ConsoleGame
       void Draw( int left, int top, const std::string& buffer ) override;
       void Draw( int left, int top, const std::string& buffer, ConsoleColor foregroundColor ) override;
       void Draw( int left, int top, const std::string& buffer, ConsoleColor foregroundColor, ConsoleColor backgroundColor ) override;
+      void Draw( int left, int top, const ConsoleSprite& sprite ) override;
 
       void FlipDrawBuffer() override;
 
@@ -40,12 +39,7 @@ namespace ConsoleGame
    private:
       const std::shared_ptr<GameRenderConfig> _renderConfig;
 
-      HANDLE _outputHandle;
-      COORD _consoleSize;
-      int _drawBufferSize;
-      CHAR_INFO* _drawBuffer;
-      SMALL_RECT _outputRect;
-      COORD _zeroCoordinate = { 0, 0 };
+      std::shared_ptr<ConsoleBufferInfo> _bufferInfo;
 
       ConsoleColor _defaultForegroundColor;
       ConsoleColor _defaultBackgroundColor;

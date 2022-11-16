@@ -9,6 +9,7 @@
 #include <ConsoleGame/GameEventAggregator.h>
 #include <ConsoleGame/ConsoleColor.h>
 #include <ConsoleGame/GameState.h>
+#include <ConsoleGame/ConsoleSprite.h>
 
 #include "mock_ConsoleDrawer.h"
 #include "mock_GameStateProvider.h"

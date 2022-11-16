@@ -5,6 +5,8 @@
 #include "IPlayerInfoProvider.h"
 #include "ConsoleColor.h"
 #include "Direction.h"
+#include "ConsoleSprite.h"
+#include "ConsolePixel.h"
 
 using namespace std;
 using namespace ConsoleGame;
@@ -29,11 +31,24 @@ void PlayingStateConsoleRenderer::Render()
 
    DrawArenaFence();
 
-   auto playerChar = GetPlayerCharFromDirection( _playerInfoProvider->GetPlayerDirection() );
    auto playerX = _playerInfoProvider->GetPlayerXPosition() + _renderConfig->ArenaFenceX + 1;
    auto playerY = _playerInfoProvider->GetPlayerYPosition() + _renderConfig->ArenaFenceY + 1;
 
-   _consoleDrawer->Draw( playerX, playerY, playerChar );
+   switch ( _playerInfoProvider->GetPlayerDirection() )
+   {
+      case Direction::Left:
+         _consoleDrawer->Draw( playerX, playerY, _renderConfig->PlayerSpriteMap[Direction::Left] );
+         break;
+      case Direction::Up:
+         _consoleDrawer->Draw( playerX, playerY, _renderConfig->PlayerSpriteMap[Direction::Up] );
+         break;
+      case Direction::Right:
+         _consoleDrawer->Draw( playerX - 1, playerY, _renderConfig->PlayerSpriteMap[Direction::Right] );
+         break;
+      case Direction::Down:
+         _consoleDrawer->Draw( playerX, playerY - 1, _renderConfig->PlayerSpriteMap[Direction::Down] );
+         break;
+   }
 }
 
 void PlayingStateConsoleRenderer::DrawArenaFence()
@@ -56,23 +71,5 @@ void PlayingStateConsoleRenderer::DrawArenaFence()
    {
       _consoleDrawer->Draw( _renderConfig->ArenaFenceX, top, '|' );
       _consoleDrawer->Draw( _renderConfig->ArenaFenceX + _gameConfig->ArenaWidth + 2, top, '|' );
-   }
-}
-
-char PlayingStateConsoleRenderer::GetPlayerCharFromDirection( Direction direction )
-{
-   switch ( direction )
-   {
-      case Direction::Left:
-         return '<';
-      case Direction::Up:
-         return '^';
-      case Direction::Right:
-         return '>';
-      case Direction::Down:
-         return 'V';
-
-      default:
-         return 'X';
    }
 }

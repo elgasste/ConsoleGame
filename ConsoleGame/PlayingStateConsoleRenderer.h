@@ -10,7 +10,6 @@ namespace ConsoleGame
    class GameRenderConfig;
    class GameConfig;
    class IPlayerInfoProvider;
-   enum class Direction;
 
    class PlayingStateConsoleRenderer : public IGameRenderer
    {
@@ -24,7 +23,6 @@ namespace ConsoleGame
 
    private:
       void DrawArenaFence();
-      char GetPlayerCharFromDirection( Direction direction );
 
    private:
       const std::shared_ptr<IConsoleDrawer> _consoleDrawer;
