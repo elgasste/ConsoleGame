@@ -20,34 +20,6 @@ PlayingStateConsoleRenderer::PlayingStateConsoleRenderer( const shared_ptr<ICons
      _gameConfig( gameConfig ),
      _playerInfoProvider( playerInfoProvider )
 {
-   auto leftSprite = shared_ptr<ConsoleSprite>( new ConsoleSprite );
-   leftSprite->Width = 2;
-   leftSprite->Height = 1;
-   leftSprite->Pixels.push_back( { 'L', ConsoleColor::White } );
-   leftSprite->Pixels.push_back( { '-', ConsoleColor::White } );
-
-   auto rightSprite = shared_ptr<ConsoleSprite>( new ConsoleSprite );
-   rightSprite->Width = 2;
-   rightSprite->Height = 1;
-   rightSprite->Pixels.push_back( { '-', ConsoleColor::White } );
-   rightSprite->Pixels.push_back( { 'R', ConsoleColor::White } );
-
-   auto upSprite = shared_ptr<ConsoleSprite>( new ConsoleSprite );
-   upSprite->Width = 1;
-   upSprite->Height = 2;
-   upSprite->Pixels.push_back( { 'U', ConsoleColor::White } );
-   upSprite->Pixels.push_back( { '|', ConsoleColor::White } );
-
-   auto downSprite = shared_ptr<ConsoleSprite>( new ConsoleSprite );
-   downSprite->Width = 1;
-   downSprite->Height = 2;
-   downSprite->Pixels.push_back( { '|', ConsoleColor::White } );
-   downSprite->Pixels.push_back( { 'D', ConsoleColor::White } );
-
-   _playerSpriteMap[Direction::Left] = leftSprite;
-   _playerSpriteMap[Direction::Up] = upSprite;
-   _playerSpriteMap[Direction::Right] = rightSprite;
-   _playerSpriteMap[Direction::Down] = downSprite;
 }
 
 void PlayingStateConsoleRenderer::Render()
@@ -65,16 +37,16 @@ void PlayingStateConsoleRenderer::Render()
    switch ( _playerInfoProvider->GetPlayerDirection() )
    {
       case Direction::Left:
-         _consoleDrawer->Draw( playerX, playerY, _playerSpriteMap[Direction::Left] );
+         _consoleDrawer->Draw( playerX, playerY, _renderConfig->PlayerSpriteMap[Direction::Left] );
          break;
       case Direction::Up:
-         _consoleDrawer->Draw( playerX, playerY, _playerSpriteMap[Direction::Up] );
+         _consoleDrawer->Draw( playerX, playerY, _renderConfig->PlayerSpriteMap[Direction::Up] );
          break;
       case Direction::Right:
-         _consoleDrawer->Draw( playerX - 1, playerY, _playerSpriteMap[Direction::Right] );
+         _consoleDrawer->Draw( playerX - 1, playerY, _renderConfig->PlayerSpriteMap[Direction::Right] );
          break;
       case Direction::Down:
-         _consoleDrawer->Draw( playerX, playerY - 1, _playerSpriteMap[Direction::Down] );
+         _consoleDrawer->Draw( playerX, playerY - 1, _renderConfig->PlayerSpriteMap[Direction::Down] );
          break;
    }
 }

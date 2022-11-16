@@ -1,8 +1,12 @@
 #pragma once
 
+#include <map>
+
 namespace ConsoleGame
 {
    enum class ConsoleColor;
+   enum class Direction;
+   struct ConsoleSprite;
 
    class GameRenderConfig
    {
@@ -15,5 +19,7 @@ namespace ConsoleGame
 
       ConsoleColor DefaultForegroundColor;
       ConsoleColor DefaultBackgroundColor;
+
+      std::map<Direction, ConsoleSprite> PlayerSpriteMap;
    };
 }

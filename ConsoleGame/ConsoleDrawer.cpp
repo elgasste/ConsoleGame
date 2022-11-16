@@ -139,17 +139,17 @@ void ConsoleDrawer::Draw( int left, int top, const string& buffer, ConsoleColor 
    }
 }
 
-void ConsoleDrawer::Draw( int left, int top, const std::shared_ptr<ConsoleSprite> sprite )
+void ConsoleDrawer::Draw( int left, int top, const ConsoleSprite& sprite )
 {
    int i = 0, j = 0;
 
-   for ( auto pixel : sprite->Pixels )
+   for ( auto pixel : sprite.Pixels )
    {
       Draw( left + i, top + j, pixel.Value, pixel.Color );
 
       i++;
 
-      if ( i == sprite->Width )
+      if ( i == sprite.Width )
       {
          i = 0;
          j++;

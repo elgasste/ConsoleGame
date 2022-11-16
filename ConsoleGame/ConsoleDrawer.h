@@ -28,7 +28,7 @@ namespace ConsoleGame
       void Draw( int left, int top, const std::string& buffer ) override;
       void Draw( int left, int top, const std::string& buffer, ConsoleColor foregroundColor ) override;
       void Draw( int left, int top, const std::string& buffer, ConsoleColor foregroundColor, ConsoleColor backgroundColor ) override;
-      void Draw( int left, int top, const std::shared_ptr<ConsoleSprite> sprite ) override;
+      void Draw( int left, int top, const ConsoleSprite& sprite ) override;
 
       void FlipDrawBuffer() override;
 

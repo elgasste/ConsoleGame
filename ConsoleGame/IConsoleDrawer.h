@@ -24,7 +24,7 @@ namespace ConsoleGame
       virtual void Draw( int left, int top, const std::string& buffer ) = 0;
       virtual void Draw( int left, int top, const std::string& buffer, ConsoleColor foregroundColor ) = 0;
       virtual void Draw( int left, int top, const std::string& buffer, ConsoleColor foregroundColor, ConsoleColor backgroundColor ) = 0;
-      virtual void Draw( int left, int top, const std::shared_ptr<ConsoleSprite> sprite ) = 0;
+      virtual void Draw( int left, int top, const ConsoleSprite& sprite ) = 0;
 
       virtual void FlipDrawBuffer() = 0;
    };
