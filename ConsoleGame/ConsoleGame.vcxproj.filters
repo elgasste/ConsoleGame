@@ -173,7 +173,7 @@
     <ClInclude Include="ConsoleRenderConfig.h">
       <Filter>Header Files\Config</Filter>
     </ClInclude>
-    <ClInclude Include="GameInputConfig.h">
+    <ClInclude Include="KeyboardInputConfig.h">
       <Filter>Header Files\Config</Filter>
     </ClInclude>
     <ClInclude Include="DiagnosticsConsoleRenderer.h">

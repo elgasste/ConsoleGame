@@ -4,7 +4,7 @@
 #include "StartupStateConsoleRenderer.h"
 #include "IConsoleDrawer.h"
 #include "ConsoleRenderConfig.h"
-#include "GameInputConfig.h"
+#include "KeyboardInputConfig.h"
 #include "ConsoleColor.h"
 
 using namespace std;
@@ -12,7 +12,7 @@ using namespace ConsoleGame;
 
 StartupStateConsoleRenderer::StartupStateConsoleRenderer( const shared_ptr<IConsoleDrawer> consoleDrawer,
                                                           const shared_ptr<ConsoleRenderConfig> renderConfig,
-                                                          const shared_ptr<GameInputConfig> inputConfig )
+                                                          const shared_ptr<KeyboardInputConfig> inputConfig )
    : _consoleDrawer( consoleDrawer ),
      _renderConfig( renderConfig ),
      _inputConfig( inputConfig )

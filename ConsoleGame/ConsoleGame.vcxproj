@@ -194,7 +194,7 @@
     <ClInclude Include="IGameRenderer.h" />
     <ClInclude Include="IGameRunner.h" />
     <ClInclude Include="GameInputHandler.h" />
-    <ClInclude Include="GameInputConfig.h" />
+    <ClInclude Include="KeyboardInputConfig.h" />
     <ClInclude Include="IGameStateProvider.h" />
     <ClInclude Include="IHighResolutionClock.h" />
     <ClInclude Include="IKeyboard.h" />

@@ -5,7 +5,7 @@
 namespace ConsoleGame
 {
    class IGameRenderConfig;
-   class GameInputConfig;
+   class IGameInputConfig;
    enum class Direction;
 
    class GameConfig
@@ -21,6 +21,6 @@ namespace ConsoleGame
       short PlayerStartY;
 
       std::shared_ptr<IGameRenderConfig> RenderConfig;
-      std::shared_ptr<GameInputConfig> InputConfig;
+      std::shared_ptr<IGameInputConfig> InputConfig;
    };
 }

@@ -2,7 +2,7 @@
 
 #include "GameConfig.h"
 #include "ConsoleRenderConfig.h"
-#include "GameInputConfig.h"
+#include "KeyboardInputConfig.h"
 #include "KeyCode.h"
 #include "GameButton.h"
 #include "HighResolutionClockWrapper.h"
@@ -33,14 +33,17 @@ using namespace ConsoleGame;
 // but at the very least they should all have default values, and those could
 // probably be set in some initializer instead of in here.
 shared_ptr<ConsoleRenderConfig> BuildConsoleRenderConfig();
-shared_ptr<GameInputConfig> BuildInputConfig();
+shared_ptr<KeyboardInputConfig> BuildKeyboardInputConfig();
 shared_ptr<GameConfig> BuildGameConfig();
 
 int main()
 {
    cout << "Loading all the things...";
 
+   // configs
    auto config = BuildGameConfig();
+   auto consoleRenderConfig = static_pointer_cast<ConsoleRenderConfig>( config->RenderConfig );
+   auto keyboardInputConfig = static_pointer_cast<KeyboardInputConfig>( config->InputConfig );
 
    // wrappers
    auto highResolutionClock = shared_ptr<HighResolutionClockWrapper>( new HighResolutionClockWrapper() );
@@ -50,7 +53,7 @@ int main()
    // auxiliary objects
    auto eventAggregator = shared_ptr<GameEventAggregator>( new GameEventAggregator() );
    auto clock = shared_ptr<GameClock>( new GameClock( highResolutionClock, sleeper, config->FramesPerSecond ) );
-   auto keyboardInputReader = shared_ptr<KeyboardInputReader>( new KeyboardInputReader( config->InputConfig, keyboard ) );
+   auto keyboardInputReader = shared_ptr<KeyboardInputReader>( new KeyboardInputReader( keyboardInputConfig, keyboard ) );
 
    // game data objects
    auto game = shared_ptr<Game>( new Game( config, eventAggregator ) );
@@ -63,10 +66,9 @@ int main()
    inputHandler->AddInputHandlerForGameState( GameState::Playing, playingStateInputHandler );
 
    // rendering objects
-   auto consoleRenderConfig = static_pointer_cast<ConsoleRenderConfig>( config->RenderConfig );
    auto consoleDrawer = shared_ptr<ConsoleDrawer>( new ConsoleDrawer( consoleRenderConfig ) );
    auto diagnosticsRenderer = shared_ptr<DiagnosticsConsoleRenderer>( new DiagnosticsConsoleRenderer( consoleDrawer, clock, consoleRenderConfig ) );
-   auto startupStateConsoleRenderer = shared_ptr<StartupStateConsoleRenderer>( new StartupStateConsoleRenderer( consoleDrawer, consoleRenderConfig, config->InputConfig ) );
+   auto startupStateConsoleRenderer = shared_ptr<StartupStateConsoleRenderer>( new StartupStateConsoleRenderer( consoleDrawer, consoleRenderConfig, keyboardInputConfig ) );
    auto playingStateConsoleRenderer = shared_ptr<PlayingStateConsoleRenderer>( new PlayingStateConsoleRenderer( consoleDrawer, consoleRenderConfig, config, game ) );
    auto consoleRenderer = shared_ptr<GameConsoleRenderer>( new GameConsoleRenderer( consoleRenderConfig, consoleDrawer, game, diagnosticsRenderer, eventAggregator ) );
    consoleRenderer->AddRendererForGameState( GameState::Startup, startupStateConsoleRenderer );
@@ -120,9 +122,9 @@ shared_ptr<ConsoleRenderConfig> BuildConsoleRenderConfig()
    return renderConfig;
 }
 
-shared_ptr<GameInputConfig> BuildInputConfig()
+shared_ptr<KeyboardInputConfig> BuildKeyboardInputConfig()
 {
-   auto inputConfig = make_shared<GameInputConfig>();
+   auto inputConfig = make_shared<KeyboardInputConfig>();
 
    // key code bindings
    inputConfig->KeyMap[KeyCode::Left] = GameButton::Left;
@@ -189,7 +191,7 @@ shared_ptr<GameConfig> BuildGameConfig()
 {
    auto config = make_shared<GameConfig>();
    auto consoleRenderConfig = BuildConsoleRenderConfig();
-   auto inputConfig = BuildInputConfig();
+   auto keyboardInputConfig = BuildKeyboardInputConfig();
 
    config->FramesPerSecond = 60;
 
@@ -201,7 +203,7 @@ shared_ptr<GameConfig> BuildGameConfig()
    config->PlayerStartY = config->ArenaHeight / 2;
 
    config->RenderConfig = consoleRenderConfig;
-   config->InputConfig = inputConfig;
+   config->InputConfig = keyboardInputConfig;
 
    return config;
 }
