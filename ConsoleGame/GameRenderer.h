@@ -15,14 +15,14 @@ namespace ConsoleGame
    enum class GameState;
    enum class GameEvent;
 
-   class GameConsoleRenderer : public IGameRenderer
+   class GameRenderer : public IGameRenderer
    {
    public:
-      GameConsoleRenderer( const std::shared_ptr<ConsoleRenderConfig> renderConfig,
-                           const std::shared_ptr<IScreenBuffer> screenBuffer,
-                           const std::shared_ptr<IGameStateProvider> stateProvider,
-                           const std::shared_ptr<IGameRenderer> diagnosticsRenderer,
-                           const std::shared_ptr<IGameEventAggregator> eventAggregator );
+      GameRenderer( const std::shared_ptr<ConsoleRenderConfig> renderConfig,
+                    const std::shared_ptr<IScreenBuffer> screenBuffer,
+                    const std::shared_ptr<IGameStateProvider> stateProvider,
+                    const std::shared_ptr<IGameRenderer> diagnosticsRenderer,
+                    const std::shared_ptr<IGameEventAggregator> eventAggregator );
 
       void AddRendererForGameState( GameState state, std::shared_ptr<IGameRenderer> renderer );
 

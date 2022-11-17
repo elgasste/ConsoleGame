@@ -51,7 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameClockTests.cpp" />
-    <ClCompile Include="GameConsoleRendererTests.cpp" />
+    <ClCompile Include="GameRendererTests.cpp" />
     <ClCompile Include="GameEventAggregatorTests.cpp" />
     <ClCompile Include="GameInputHandlerTests.cpp" />
     <ClCompile Include="GameRunnerTests.cpp" />

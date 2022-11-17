@@ -24,7 +24,7 @@
     <ClCompile Include="GameEventAggregatorTests.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
-    <ClCompile Include="GameConsoleRendererTests.cpp">
+    <ClCompile Include="GameRendererTests.cpp">
       <Filter>Tests\Render</Filter>
     </ClCompile>
     <ClCompile Include="GameRunnerTests.cpp">

@@ -2,7 +2,7 @@
 
 #include <memory>
 
-#include <ConsoleGame/GameConsoleRenderer.h>
+#include <ConsoleGame/GameRenderer.h>
 #include <ConsoleGame/ConsoleRenderConfig.h>
 #include <ConsoleGame/IScreenBuffer.h>
 #include <ConsoleGame/IGameStateProvider.h>
@@ -19,7 +19,7 @@ using namespace std;
 using namespace testing;
 using namespace ConsoleGame;
 
-class GameConsoleRendererTests : public Test
+class GameRendererTests : public Test
 {
 public:
    void SetUp() override
@@ -39,13 +39,13 @@ public:
 
    void BuildRenderer()
    {
-      _consoleRenderer.reset( new GameConsoleRenderer( _renderConfig,
-                                                       _screenBufferMock,
-                                                       _stateProviderMock,
-                                                       _diagnosticsRendererMock,
-                                                       _eventAggregator ) );
+      _renderer.reset( new GameRenderer( _renderConfig,
+                                         _screenBufferMock,
+                                         _stateProviderMock,
+                                         _diagnosticsRendererMock,
+                                         _eventAggregator ) );
 
-      _consoleRenderer->AddRendererForGameState( GameState::Startup, _startupStateRendererMock );
+      _renderer->AddRendererForGameState( GameState::Startup, _startupStateRendererMock );
    }
 
 protected:
@@ -56,17 +56,17 @@ protected:
    shared_ptr<GameEventAggregator> _eventAggregator;
    shared_ptr<mock_GameRenderer> _startupStateRendererMock;
 
-   shared_ptr<GameConsoleRenderer> _consoleRenderer;
+   shared_ptr<GameRenderer> _renderer;
 };
 
-TEST_F( GameConsoleRendererTests, Constructor_Always_InitializesScreenBuffer )
+TEST_F( GameRendererTests, Constructor_Always_InitializesScreenBuffer )
 {
    EXPECT_CALL( *_screenBufferMock, Initialize() );
 
    BuildRenderer();
 }
 
-TEST_F( GameConsoleRendererTests, Render_IsCleaningUp_DoesNotRenderAnything )
+TEST_F( GameRendererTests, Render_IsCleaningUp_DoesNotRenderAnything )
 {
    BuildRenderer();
 
@@ -76,46 +76,46 @@ TEST_F( GameConsoleRendererTests, Render_IsCleaningUp_DoesNotRenderAnything )
    EXPECT_CALL( *_startupStateRendererMock, Render() ).Times( 0 );
    EXPECT_CALL( *_screenBufferMock, Flip() ).Times( 0 );
 
-   _consoleRenderer->Render();
+   _renderer->Render();
 }
 
-TEST_F( GameConsoleRendererTests, Render_IsNotCleaningUp_ClearsConsoleBuffer )
+TEST_F( GameRendererTests, Render_IsNotCleaningUp_ClearsConsoleBuffer )
 {
    BuildRenderer();
 
    EXPECT_CALL( *_screenBufferMock, Clear() );
 
-   _consoleRenderer->Render();
+   _renderer->Render();
 }
 
-TEST_F( GameConsoleRendererTests, Render_RendererNotFoundForState_ThrowsException )
+TEST_F( GameRendererTests, Render_RendererNotFoundForState_ThrowsException )
 {
    BuildRenderer();
 
    ON_CALL( *_stateProviderMock, GetGameState() ).WillByDefault( Return( GameState::Playing ) );
 
-   EXPECT_THROW( _consoleRenderer->Render(), out_of_range );
+   EXPECT_THROW( _renderer->Render(), out_of_range );
 }
 
-TEST_F( GameConsoleRendererTests, Render_RendererFoundForState_RendersState )
+TEST_F( GameRendererTests, Render_RendererFoundForState_RendersState )
 {
    BuildRenderer();
 
    EXPECT_CALL( *_startupStateRendererMock, Render() );
 
-   _consoleRenderer->Render();
+   _renderer->Render();
 }
 
-TEST_F( GameConsoleRendererTests, Render_StateWasRendered_FlipsConsoleBuffer )
+TEST_F( GameRendererTests, Render_StateWasRendered_FlipsConsoleBuffer )
 {
    BuildRenderer();
 
    EXPECT_CALL( *_screenBufferMock, Flip() );
 
-   _consoleRenderer->Render();
+   _renderer->Render();
 }
 
-TEST_F( GameConsoleRendererTests, ShutdownEventRaised_Always_CleansUpConsoleBuffer )
+TEST_F( GameRendererTests, ShutdownEventRaised_Always_CleansUpConsoleBuffer )
 {
    BuildRenderer();
 
@@ -124,7 +124,7 @@ TEST_F( GameConsoleRendererTests, ShutdownEventRaised_Always_CleansUpConsoleBuff
    _eventAggregator->RaiseEvent( GameEvent::Shutdown );
 }
 
-TEST_F( GameConsoleRendererTests, ToggleDiagnosticsEventRaised_DiagnosticsNotShowing_RendersDiagnostics )
+TEST_F( GameRendererTests, ToggleDiagnosticsEventRaised_DiagnosticsNotShowing_RendersDiagnostics )
 {
    BuildRenderer();
 
@@ -132,18 +132,18 @@ TEST_F( GameConsoleRendererTests, ToggleDiagnosticsEventRaised_DiagnosticsNotSho
 
    _eventAggregator->RaiseEvent( GameEvent::ToggleDiagnostics );
 
-   _consoleRenderer->Render();
+   _renderer->Render();
 }
 
-TEST_F( GameConsoleRendererTests, ToggleDiagnosticsEventRaised_DiagnosticsShowing_DoesNotRenderDiagnostics )
+TEST_F( GameRendererTests, ToggleDiagnosticsEventRaised_DiagnosticsShowing_DoesNotRenderDiagnostics )
 {
    BuildRenderer();
 
    _eventAggregator->RaiseEvent( GameEvent::ToggleDiagnostics );
-   _consoleRenderer->Render();
+   _renderer->Render();
    _eventAggregator->RaiseEvent( GameEvent::ToggleDiagnostics );
 
    EXPECT_CALL( *_diagnosticsRendererMock, Render() ).Times( 0 );
 
-   _consoleRenderer->Render();
+   _renderer->Render();
 }

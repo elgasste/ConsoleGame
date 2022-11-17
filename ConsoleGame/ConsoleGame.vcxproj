@@ -152,7 +152,7 @@
     <ClCompile Include="DiagnosticsConsoleRenderer.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameClock.cpp" />
-    <ClCompile Include="GameConsoleRenderer.cpp" />
+    <ClCompile Include="GameRenderer.cpp" />
     <ClCompile Include="GameEventAggregator.cpp" />
     <ClCompile Include="GameRunner.cpp" />
     <ClCompile Include="GameInputHandler.cpp" />
@@ -177,7 +177,7 @@
     <ClInclude Include="GameCommand.h" />
     <ClInclude Include="GameCommandArgs.h" />
     <ClInclude Include="GameConfig.h" />
-    <ClInclude Include="GameConsoleRenderer.h" />
+    <ClInclude Include="GameRenderer.h" />
     <ClInclude Include="GameEvent.h" />
     <ClInclude Include="GameEventAggregator.h" />
     <ClInclude Include="ConsoleRenderConfig.h" />
