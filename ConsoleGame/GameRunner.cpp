@@ -22,16 +22,15 @@ GameRunner::GameRunner( const std::shared_ptr<IGameEventAggregator> eventAggrega
 void GameRunner::Run()
 {
    _isRunning = true;
-   _clock->Start();
 
    while ( _isRunning )
    {
+      _clock->StartFrame();
       _inputHandler->HandleInput();
       _renderer->Render();
-      _clock->Tick();
+      _clock->WaitForNextFrame();
    }
 
-   _clock->Stop();
    _isRunning = false;
 }
 

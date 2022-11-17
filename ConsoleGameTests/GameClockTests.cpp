@@ -42,61 +42,46 @@ TEST_F( GameClockTests, Constructor_Always_InitializesAllValues )
    EXPECT_EQ( _gameClock->GetLagFrameCount(), 0 );
 }
 
-TEST_F( GameClockTests, Start_AlreadyRunning_DoesNotChangeValues )
+TEST_F( GameClockTests, StartFrame_Always_SetsFrameStartTime )
 {
-   EXPECT_CALL( *_highResolutionClockMock, Now() ).Times( 1 );
+   EXPECT_CALL( *_highResolutionClockMock, Now() );
 
-   _gameClock->Start();
-   _gameClock->Start();
+   _gameClock->StartFrame();
 }
 
-TEST_F( GameClockTests, Start_AfterPreviousRun_ResetsAllValues )
+TEST_F( GameClockTests, WaitForNextFrame_Always_SetsFrameEndTime )
 {
-   _gameClock->Start();
+   EXPECT_CALL( *_highResolutionClockMock, Now() );
 
-   ON_CALL( *_highResolutionClockMock, Now() ).WillByDefault( Return( 1'000'000ll ) );
+   _gameClock->StartFrame();
 
-   _gameClock->Tick();
-   _gameClock->Stop();
-   _gameClock->Start();
+   EXPECT_CALL( *_highResolutionClockMock, Now() );
 
-   EXPECT_EQ( _gameClock->GetFramesPerSecond(), 100 );
-   EXPECT_EQ( _gameClock->GetTotalFrameCount(), 0 );
-   EXPECT_EQ( _gameClock->GetLagFrameCount(), 0 );
+   _gameClock->WaitForNextFrame();
 }
 
-TEST_F( GameClockTests, Tick_NotRunning_DoesNothing )
+TEST_F( GameClockTests, WaitForNextFrame_Always_IncrementsTotalFrames )
 {
-   EXPECT_CALL( *_highResolutionClockMock, Now() ).Times( 0 );
-
-   _gameClock->Tick();
-}
-
-TEST_F( GameClockTests, Tick_FrameIsCounted_IncrementsTotalFrames )
-{
-   _gameClock->Start();
-
-   ON_CALL( *_highResolutionClockMock, Now() ).WillByDefault( Return( 1ll ) );
-
-   _gameClock->Tick();
+   _gameClock->StartFrame();
+   _gameClock->WaitForNextFrame();
 
    EXPECT_EQ( _gameClock->GetTotalFrameCount(), 1 );
 }
 
-TEST_F( GameClockTests, Tick_TimeIsLeftInFrame_SleepsForRemainingTime )
+TEST_F( GameClockTests, WaitForNextFrame_TimeIsLeftInFrame_SleepsForRemainingTime )
 {
-   _gameClock->Start();
+   _gameClock->StartFrame();
 
    ON_CALL( *_highResolutionClockMock, Now() ).WillByDefault( Return( 1'000'000ll ) );
 
    EXPECT_CALL( *_sleeperMock, Sleep( 9'000'000ll ) );
 
-   _gameClock->Tick();
+   _gameClock->WaitForNextFrame();
 }
 
-TEST_F( GameClockTests, Tick_FrameIsOverTime_IncrementsLagFrames )
+TEST_F( GameClockTests, WaitForNextFrame_FrameIsOverTime_IncrementsLagFrames )
 {
-   _gameClock->Start();
+   _gameClock->StartFrame();
 
    auto nanoSecondsPerFrame = 1'000'000'000ll / _framesPerSecond;
 
@@ -104,7 +89,7 @@ TEST_F( GameClockTests, Tick_FrameIsOverTime_IncrementsLagFrames )
 
    EXPECT_CALL( *_sleeperMock, Sleep( _ ) ).Times( 0 );
 
-   _gameClock->Tick();
+   _gameClock->WaitForNextFrame();
 
    EXPECT_EQ( _gameClock->GetLagFrameCount(), 1 );
 }

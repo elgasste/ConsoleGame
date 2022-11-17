@@ -15,11 +15,11 @@ using namespace std;
 using namespace testing;
 using namespace ConsoleGame;
 
-int TickCount = 0;
+int FrameCount = 0;
 int HandleInputCount = 0;
 int RenderCount = 0;
 
-void IncrementTickCount() { TickCount++; }
+void IncrementFrameCount() { FrameCount++; }
 void IncrementHandleInputCount () { HandleInputCount++; }
 void IncrementRenderCount () { RenderCount++; }
 
@@ -43,11 +43,11 @@ public:
                                      _inputHandlerMock,
                                      _rendererMock ) );
 
-      TickCount = 0;
+      FrameCount = 0;
       HandleInputCount = 0;
       RenderCount = 0;
 
-      ON_CALL( *_clockMock, Tick() ).WillByDefault( Invoke( IncrementTickCount ) );
+      ON_CALL( *_clockMock, WaitForNextFrame() ).WillByDefault( Invoke( IncrementFrameCount ) );
       ON_CALL( *_inputHandlerMock, HandleInput() ).WillByDefault( Invoke( IncrementHandleInputCount ) );
       ON_CALL( *_rendererMock, Render() ).WillByDefault( Invoke( IncrementRenderCount ) );
    }
@@ -61,23 +61,12 @@ protected:
    shared_ptr<GameRunner> _runner;
 };
 
-TEST_F( GameRunnerTests, Run_Always_StartsClock )
+TEST_F( GameRunnerTests, Run_EveryLoop_StartsFrameClock )
 {
-   EXPECT_CALL( *_clockMock, Start() );
+   EXPECT_CALL( *_clockMock, StartFrame() ).Times( 2 );
 
    thread runWorker( RunWorker, _runner );
-   while( TickCount == 0 ) { }
-   _eventAggregator->RaiseEvent( GameEvent::Shutdown );
-
-   runWorker.join();
-}
-
-TEST_F( GameRunnerTests, Run_Always_StopsClock )
-{
-   thread runWorker( RunWorker, _runner );
-
-   while( TickCount == 0 ) { }
-   EXPECT_CALL( *_clockMock, Stop() );
+   while( FrameCount == 0 ) { }
    _eventAggregator->RaiseEvent( GameEvent::Shutdown );
 
    runWorker.join();
@@ -86,21 +75,32 @@ TEST_F( GameRunnerTests, Run_Always_StopsClock )
 TEST_F( GameRunnerTests, Run_EveryLoop_RendersGame )
 {
    thread runWorker( RunWorker, _runner );
-   while( TickCount < 10 ) { }
+   while( FrameCount < 10 ) { }
    _eventAggregator->RaiseEvent( GameEvent::Shutdown );
 
    runWorker.join();
 
-   EXPECT_EQ( RenderCount, TickCount );
+   EXPECT_EQ( RenderCount, FrameCount );
 }
 
 TEST_F( GameRunnerTests, Run_EveryLoop_HandlesInput )
 {
    thread runWorker( RunWorker, _runner );
-   while( TickCount < 10 ) { }
+   while( FrameCount < 10 ) { }
    _eventAggregator->RaiseEvent( GameEvent::Shutdown );
 
    runWorker.join();
 
-   EXPECT_EQ( HandleInputCount, TickCount );
+   EXPECT_EQ( HandleInputCount, FrameCount );
+}
+
+TEST_F( GameRunnerTests, Run_EveryLoop_WaitsOnClockForNextFrame )
+{
+   EXPECT_CALL( *_clockMock, WaitForNextFrame() ).Times( 2 );
+
+   thread runWorker( RunWorker, _runner );
+   while( FrameCount == 0 ) { }
+   _eventAggregator->RaiseEvent( GameEvent::Shutdown );
+
+   runWorker.join();
 }

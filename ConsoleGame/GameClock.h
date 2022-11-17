@@ -16,9 +16,8 @@ namespace ConsoleGame
                  const std::shared_ptr<ISleeper> sleeper,
                  int framesPerSecond );
 
-      void Start() override;
-      void Tick() override;
-      void Stop() override;
+      void StartFrame() override;
+      void WaitForNextFrame() override;
 
       int GetFramesPerSecond() const override { return _framesPerSecond; }
       long long GetTotalFrameCount() const override { return _totalFrameCount; }
@@ -33,6 +32,5 @@ namespace ConsoleGame
       long long _lagFrameCount;
       long long _frameStartTimeNano;
       long long _nanoSecondsPerFrame;
-      bool _isRunning;
    };
 }
