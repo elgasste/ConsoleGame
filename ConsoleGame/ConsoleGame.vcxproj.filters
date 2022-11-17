@@ -233,5 +233,8 @@
     <ClInclude Include="IGameInputConfig.h">
       <Filter>Header Files\Interfaces</Filter>
     </ClInclude>
+    <ClInclude Include="IScreenBuffer.h">
+      <Filter>Header Files\Interfaces</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

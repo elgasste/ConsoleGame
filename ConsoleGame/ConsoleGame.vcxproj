@@ -185,6 +185,7 @@
     <ClInclude Include="GameState.h" />
     <ClInclude Include="IGameInputConfig.h" />
     <ClInclude Include="IGameRenderConfig.h" />
+    <ClInclude Include="IScreenBuffer.h" />
     <ClInclude Include="KeyboardWrapper.h" />
     <ClInclude Include="HighResolutionClockWrapper.h" />
     <ClInclude Include="IGameCommandExecutor.h" />
