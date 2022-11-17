@@ -14,31 +14,16 @@ GameClock::GameClock( const shared_ptr<IHighResolutionClock> highResolutionClock
      _totalFrameCount( 0 ),
      _lagFrameCount( 0 ),
      _frameStartTimeNano(),
-     _nanoSecondsPerFrame( 1'000'000'000ll / framesPerSecond ),
-     _isRunning( false )
+     _nanoSecondsPerFrame( 1'000'000'000ll / framesPerSecond )
 { }
 
-void GameClock::Start()
+void GameClock::StartFrame()
 {
-   if ( _isRunning )
-   {
-      return;
-   }
-
-   _totalFrameCount = 0;
-   _lagFrameCount = 0;
-   _isRunning = true;
-
    _frameStartTimeNano = _highResolutionClock->Now();
 }
 
-void GameClock::Tick()
+void GameClock::WaitForNextFrame()
 {
-   if ( !_isRunning )
-   {
-      return;
-   }
-
    auto frameEndTimeNano = _highResolutionClock->Now();
 
    auto elapsedFrameTimeNano = frameEndTimeNano - _frameStartTimeNano;
@@ -54,10 +39,4 @@ void GameClock::Tick()
    }
 
    _totalFrameCount++;
-   _frameStartTimeNano = _highResolutionClock->Now();
-}
-
-void GameClock::Stop()
-{
-   _isRunning = false;
 }
