@@ -2,7 +2,7 @@
 
 #include "GameConsoleRenderer.h"
 #include "ConsoleRenderConfig.h"
-#include "IConsoleBuffer.h"
+#include "IScreenBuffer.h"
 #include "IGameStateProvider.h"
 #include "IGameEventAggregator.h"
 #include "GameState.h"
@@ -13,11 +13,11 @@ using namespace std;
 using namespace ConsoleGame;
 
 GameConsoleRenderer::GameConsoleRenderer( const shared_ptr<ConsoleRenderConfig> renderConfig,
-                                          const shared_ptr<IConsoleBuffer> consoleBuffer,
+                                          const shared_ptr<IScreenBuffer> screenBuffer,
                                           const shared_ptr<IGameStateProvider> stateProvider,
                                           const shared_ptr<IGameRenderer> diagnosticsRenderer,
                                           const shared_ptr<IGameEventAggregator> eventAggregator )
-   : _consoleBuffer( consoleBuffer ),
+   : _screenBuffer( screenBuffer ),
      _stateProvider( stateProvider ),
      _diagnosticsRenderer( diagnosticsRenderer ),
      _showDiagnostics( false ),
@@ -26,9 +26,7 @@ GameConsoleRenderer::GameConsoleRenderer( const shared_ptr<ConsoleRenderConfig> 
    eventAggregator->RegisterEventHandler( GameEvent::Shutdown, std::bind( &GameConsoleRenderer::HandleQuitEvent, this ) );
    eventAggregator->RegisterEventHandler( GameEvent::ToggleDiagnostics, std::bind( &GameConsoleRenderer::HandleToggleDiagnosticsEvent, this ) );
 
-   _consoleBuffer->Initialize();
-   _consoleBuffer->SetDefaultForegroundColor( renderConfig->DefaultForegroundColor );
-   _consoleBuffer->SetDefaultBackgroundColor( renderConfig->DefaultBackgroundColor );
+   _screenBuffer->Initialize();
 }
 
 void GameConsoleRenderer::AddRendererForGameState( GameState state, shared_ptr<IGameRenderer> renderer )
@@ -43,7 +41,7 @@ void GameConsoleRenderer::Render()
       return;
    }
 
-   _consoleBuffer->Clear();
+   _screenBuffer->Clear();
 
    _stateRenderers.at( _stateProvider->GetGameState() )->Render();
 
@@ -52,13 +50,13 @@ void GameConsoleRenderer::Render()
       _diagnosticsRenderer->Render();
    }
 
-   _consoleBuffer->Flip();
+   _screenBuffer->Flip();
 }
 
 void GameConsoleRenderer::HandleQuitEvent()
 {
    _isCleaningUp = true;
-   _consoleBuffer->CleanUp();
+   _screenBuffer->CleanUp();
 }
 
 void GameConsoleRenderer::HandleToggleDiagnosticsEvent()

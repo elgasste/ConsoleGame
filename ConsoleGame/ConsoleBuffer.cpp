@@ -41,6 +41,9 @@ ConsoleBuffer::ConsoleBuffer( const shared_ptr<ConsoleRenderConfig> renderConfig
    {
       _bufferInfo->DrawBuffer[i] = CHAR_INFO();
    }
+
+   SetDefaultForegroundColor( renderConfig->DefaultForegroundColor );
+   SetDefaultBackgroundColor( renderConfig->DefaultBackgroundColor );
 }
 
 ConsoleBuffer::~ConsoleBuffer()

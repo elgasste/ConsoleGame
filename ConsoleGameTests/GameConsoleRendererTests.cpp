@@ -4,14 +4,14 @@
 
 #include <ConsoleGame/GameConsoleRenderer.h>
 #include <ConsoleGame/ConsoleRenderConfig.h>
-#include <ConsoleGame/IConsoleBuffer.h>
+#include <ConsoleGame/IScreenBuffer.h>
 #include <ConsoleGame/IGameStateProvider.h>
 #include <ConsoleGame/GameEventAggregator.h>
 #include <ConsoleGame/ConsoleColor.h>
 #include <ConsoleGame/GameState.h>
 #include <ConsoleGame/ConsoleSprite.h>
 
-#include "mock_ConsoleBuffer.h"
+#include "mock_ScreenBuffer.h"
 #include "mock_GameStateProvider.h"
 #include "mock_GameRenderer.h"
 
@@ -25,7 +25,7 @@ public:
    void SetUp() override
    {
       _renderConfig.reset( new ConsoleRenderConfig );
-      _consoleBufferMock.reset( new NiceMock<mock_ConsoleBuffer> );
+      _screenBufferMock.reset( new NiceMock<mock_ScreenBuffer> );
       _stateProviderMock.reset( new NiceMock<mock_GameStateProvider> );
       _diagnosticsRendererMock.reset( new NiceMock<mock_GameRenderer> );
       _eventAggregator.reset( new GameEventAggregator );
@@ -40,7 +40,7 @@ public:
    void BuildRenderer()
    {
       _consoleRenderer.reset( new GameConsoleRenderer( _renderConfig,
-                                                       _consoleBufferMock,
+                                                       _screenBufferMock,
                                                        _stateProviderMock,
                                                        _diagnosticsRendererMock,
                                                        _eventAggregator ) );
@@ -50,7 +50,7 @@ public:
 
 protected:
    shared_ptr<ConsoleRenderConfig> _renderConfig;
-   shared_ptr<mock_ConsoleBuffer> _consoleBufferMock;
+   shared_ptr<mock_ScreenBuffer> _screenBufferMock;
    shared_ptr<mock_GameStateProvider> _stateProviderMock;
    shared_ptr<mock_GameRenderer> _diagnosticsRendererMock;
    shared_ptr<GameEventAggregator> _eventAggregator;
@@ -59,14 +59,9 @@ protected:
    shared_ptr<GameConsoleRenderer> _consoleRenderer;
 };
 
-TEST_F( GameConsoleRendererTests, Constructor_Always_InitializesConsoleBuffer )
+TEST_F( GameConsoleRendererTests, Constructor_Always_InitializesScreenBuffer )
 {
-   _renderConfig->DefaultForegroundColor = ConsoleColor::DarkCyan;
-   _renderConfig->DefaultBackgroundColor = ConsoleColor::Magenta;
-
-   EXPECT_CALL( *_consoleBufferMock, Initialize() );
-   EXPECT_CALL( *_consoleBufferMock, SetDefaultForegroundColor( ConsoleColor::DarkCyan ) );
-   EXPECT_CALL( *_consoleBufferMock, SetDefaultBackgroundColor( ConsoleColor::Magenta ) );
+   EXPECT_CALL( *_screenBufferMock, Initialize() );
 
    BuildRenderer();
 }
@@ -77,9 +72,9 @@ TEST_F( GameConsoleRendererTests, Render_IsCleaningUp_DoesNotRenderAnything )
 
    _eventAggregator->RaiseEvent( GameEvent::Shutdown );
 
-   EXPECT_CALL( *_consoleBufferMock, Clear() ).Times( 0 );
+   EXPECT_CALL( *_screenBufferMock, Clear() ).Times( 0 );
    EXPECT_CALL( *_startupStateRendererMock, Render() ).Times( 0 );
-   EXPECT_CALL( *_consoleBufferMock, Flip() ).Times( 0 );
+   EXPECT_CALL( *_screenBufferMock, Flip() ).Times( 0 );
 
    _consoleRenderer->Render();
 }
@@ -88,7 +83,7 @@ TEST_F( GameConsoleRendererTests, Render_IsNotCleaningUp_ClearsConsoleBuffer )
 {
    BuildRenderer();
 
-   EXPECT_CALL( *_consoleBufferMock, Clear() );
+   EXPECT_CALL( *_screenBufferMock, Clear() );
 
    _consoleRenderer->Render();
 }
@@ -115,7 +110,7 @@ TEST_F( GameConsoleRendererTests, Render_StateWasRendered_FlipsConsoleBuffer )
 {
    BuildRenderer();
 
-   EXPECT_CALL( *_consoleBufferMock, Flip() );
+   EXPECT_CALL( *_screenBufferMock, Flip() );
 
    _consoleRenderer->Render();
 }
@@ -124,7 +119,7 @@ TEST_F( GameConsoleRendererTests, ShutdownEventRaised_Always_CleansUpConsoleBuff
 {
    BuildRenderer();
 
-   EXPECT_CALL( *_consoleBufferMock, CleanUp() );
+   EXPECT_CALL( *_screenBufferMock, CleanUp() );
 
    _eventAggregator->RaiseEvent( GameEvent::Shutdown );
 }
