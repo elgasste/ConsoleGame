@@ -7,6 +7,9 @@ namespace ConsoleGame
    class HighResolutionClockWrapper : public IHighResolutionClock
    {
    public:
+      HighResolutionClockWrapper();
+      ~HighResolutionClockWrapper();
+
       long long Now() override;
    };
 }
