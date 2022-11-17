@@ -37,7 +37,7 @@
   </PropertyGroup>
   <ItemGroup>
     <ClInclude Include="mock_GameClock.h" />
-    <ClInclude Include="mock_ConsoleDrawer.h" />
+    <ClInclude Include="mock_ConsoleBuffer.h" />
     <ClInclude Include="mock_GameCommandExecutor.h" />
     <ClInclude Include="mock_GameEventAggregator.h" />
     <ClInclude Include="mock_GameInputHandler.h" />
@@ -46,11 +46,12 @@
     <ClInclude Include="mock_GameStateProvider.h" />
     <ClInclude Include="mock_HighResolutionClock.h" />
     <ClInclude Include="mock_Keyboard.h" />
+    <ClInclude Include="mock_ScreenBuffer.h" />
     <ClInclude Include="mock_Sleeper.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameClockTests.cpp" />
-    <ClCompile Include="GameConsoleRendererTests.cpp" />
+    <ClCompile Include="GameRendererTests.cpp" />
     <ClCompile Include="GameEventAggregatorTests.cpp" />
     <ClCompile Include="GameInputHandlerTests.cpp" />
     <ClCompile Include="GameRunnerTests.cpp" />

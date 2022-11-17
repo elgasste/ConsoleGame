@@ -3,7 +3,7 @@
 
 #include <format>
 
-#include "ConsoleDrawer.h"
+#include "ConsoleBuffer.h"
 #include "ConsoleRenderConfig.h"
 #include "ConsoleColor.h"
 #include "ConsoleSprite.h"
@@ -25,10 +25,10 @@ namespace ConsoleGame
 using namespace std;
 using namespace ConsoleGame;
 
-ConsoleDrawer::ConsoleDrawer( const shared_ptr<ConsoleRenderConfig> renderConfig )
-   : _renderConfig( renderConfig ),
-     _defaultForegroundColor( ConsoleColor::Grey ),
-     _defaultBackgroundColor( ConsoleColor::Black )
+ConsoleBuffer::ConsoleBuffer( const shared_ptr<ConsoleRenderConfig> renderConfig ) :
+   _renderConfig( renderConfig ),
+   _defaultForegroundColor( ConsoleColor::Grey ),
+   _defaultBackgroundColor( ConsoleColor::Black )
 {
    _bufferInfo = shared_ptr<ConsoleBufferInfo>( new ConsoleBufferInfo );
    _bufferInfo->OutputHandle = GetStdHandle( STD_OUTPUT_HANDLE );
@@ -43,12 +43,12 @@ ConsoleDrawer::ConsoleDrawer( const shared_ptr<ConsoleRenderConfig> renderConfig
    }
 }
 
-ConsoleDrawer::~ConsoleDrawer()
+ConsoleBuffer::~ConsoleBuffer()
 {
    delete[] _bufferInfo->DrawBuffer;
 }
 
-void ConsoleDrawer::Initialize()
+void ConsoleBuffer::Initialize()
 {
    SetConsoleScreenBufferSize( _bufferInfo->OutputHandle, { _bufferInfo->ConsoleSize.X, _bufferInfo->ConsoleSize.Y } );
 
@@ -63,34 +63,38 @@ void ConsoleDrawer::Initialize()
    //system( format("MODE CON COLS={0} LINES={1}", _consoleSize.X, _consoleSize.Y ).c_str() );
 
    SetCursorVisibility( false );
-   ClearDrawBuffer();
-   FlipDrawBuffer();
+
+   SetDefaultForegroundColor( _renderConfig->DefaultForegroundColor );
+   SetDefaultBackgroundColor( _renderConfig->DefaultBackgroundColor );
+
+   Clear();
+   Flip();
 }
 
-void ConsoleDrawer::CleanUp()
+void ConsoleBuffer::CleanUp()
 {
    // TODO: restore the original console dimensions (not so easy, see above).
    // also restore the original fg/bg colors, that should be easier.
    SetDefaultForegroundColor( ConsoleColor::Grey );
    SetDefaultBackgroundColor( ConsoleColor::Black );
-   ClearDrawBuffer();
-   FlipDrawBuffer();
+   Clear();
+   Flip();
 
    SetCursorVisibility( true );
    SetConsoleCursorPosition( _bufferInfo->OutputHandle, { 0, 0 } );
 }
 
-void ConsoleDrawer::SetDefaultForegroundColor( ConsoleColor color )
+void ConsoleBuffer::SetDefaultForegroundColor( ConsoleColor color )
 {
    _defaultForegroundColor = color;
 }
 
-void ConsoleDrawer::SetDefaultBackgroundColor( ConsoleColor color )
+void ConsoleBuffer::SetDefaultBackgroundColor( ConsoleColor color )
 {
    _defaultBackgroundColor = color;
 }
 
-void ConsoleDrawer::ClearDrawBuffer()
+void ConsoleBuffer::Clear()
 {
    for ( int i = 0; i < _bufferInfo->DrawBufferSize; i++ )
    {
@@ -99,17 +103,17 @@ void ConsoleDrawer::ClearDrawBuffer()
    }
 }
 
-void ConsoleDrawer::Draw( int left, int top, char buffer )
+void ConsoleBuffer::Draw( int left, int top, char buffer )
 {
    Draw( left, top, buffer, _defaultForegroundColor );
 }
 
-void ConsoleDrawer::Draw( int left, int top, char buffer, ConsoleColor foregroundColor )
+void ConsoleBuffer::Draw( int left, int top, char buffer, ConsoleColor foregroundColor )
 {
    Draw( left, top, buffer, foregroundColor, _defaultBackgroundColor );
 }
 
-void ConsoleDrawer::Draw( int left, int top, char buffer, ConsoleColor foregroundColor, ConsoleColor backgroundColor )
+void ConsoleBuffer::Draw( int left, int top, char buffer, ConsoleColor foregroundColor, ConsoleColor backgroundColor )
 {
    if ( left < 0 || left >= _bufferInfo->ConsoleSize.X || top < 0 || top >= _bufferInfo->ConsoleSize.Y )
    {
@@ -121,17 +125,17 @@ void ConsoleDrawer::Draw( int left, int top, char buffer, ConsoleColor foregroun
    _bufferInfo->DrawBuffer[bufferLocation].Char.AsciiChar = buffer;
 }
 
-void ConsoleDrawer::Draw( int left, int top, const string& buffer )
+void ConsoleBuffer::Draw( int left, int top, const string& buffer )
 {
    Draw( left, top, buffer, _defaultForegroundColor );
 }
 
-void ConsoleDrawer::Draw( int left, int top, const string& buffer, ConsoleColor foregroundColor )
+void ConsoleBuffer::Draw( int left, int top, const string& buffer, ConsoleColor foregroundColor )
 {
    Draw( left, top, buffer, foregroundColor, _defaultBackgroundColor );
 }
 
-void ConsoleDrawer::Draw( int left, int top, const string& buffer, ConsoleColor foregroundColor, ConsoleColor backgroundColor )
+void ConsoleBuffer::Draw( int left, int top, const string& buffer, ConsoleColor foregroundColor, ConsoleColor backgroundColor )
 {
    for ( int i = 0; i < (int)buffer.length(); i++ )
    {
@@ -139,7 +143,7 @@ void ConsoleDrawer::Draw( int left, int top, const string& buffer, ConsoleColor 
    }
 }
 
-void ConsoleDrawer::Draw( int left, int top, const ConsoleSprite& sprite )
+void ConsoleBuffer::Draw( int left, int top, const ConsoleSprite& sprite )
 {
    int i = 0, j = 0;
 
@@ -157,7 +161,7 @@ void ConsoleDrawer::Draw( int left, int top, const ConsoleSprite& sprite )
    }
 }
 
-void ConsoleDrawer::FlipDrawBuffer()
+void ConsoleBuffer::Flip()
 {
    WriteConsoleOutput( _bufferInfo->OutputHandle,
                        _bufferInfo->DrawBuffer,
@@ -166,7 +170,7 @@ void ConsoleDrawer::FlipDrawBuffer()
                        &( _bufferInfo->OutputRect ) );
 }
 
-void ConsoleDrawer::SetCursorVisibility( bool isVisible )
+void ConsoleBuffer::SetCursorVisibility( bool isVisible )
 {
    CONSOLE_CURSOR_INFO cursorInfo;
    GetConsoleCursorInfo( _bufferInfo->OutputHandle, &cursorInfo );
@@ -174,7 +178,7 @@ void ConsoleDrawer::SetCursorVisibility( bool isVisible )
    SetConsoleCursorInfo( _bufferInfo->OutputHandle, &cursorInfo );
 }
 
-unsigned short ConsoleDrawer::ConsoleColorsToAttribute( ConsoleColor foregroundColor, ConsoleColor backgroundColor )
+unsigned short ConsoleBuffer::ConsoleColorsToAttribute( ConsoleColor foregroundColor, ConsoleColor backgroundColor )
 {
    return (unsigned short)( (int)foregroundColor | ( (int)backgroundColor << 0x4 ) );
 }

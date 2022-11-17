@@ -10,11 +10,11 @@ using namespace ConsoleGame;
 GameRunner::GameRunner( const std::shared_ptr<IGameEventAggregator> eventAggregator,
                         const std::shared_ptr<IGameClock> clock,
                         const std::shared_ptr<IGameInputHandler> inputHandler,
-                        const std::shared_ptr<IGameRenderer> renderer )
-   : _clock( clock ),
-     _inputHandler( inputHandler ),
-     _renderer( renderer ),
-     _isRunning( false )
+                        const std::shared_ptr<IGameRenderer> renderer ) :
+   _clock( clock ),
+   _inputHandler( inputHandler ),
+   _renderer( renderer ),
+   _isRunning( false )
 {
    eventAggregator->RegisterEventHandler( GameEvent::Shutdown, std::bind( &GameRunner::HandleShutdownEvent, this ) );
 }

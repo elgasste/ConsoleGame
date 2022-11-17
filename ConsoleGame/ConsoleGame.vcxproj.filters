@@ -63,10 +63,10 @@
     <ClCompile Include="KeyboardInputReader.cpp">
       <Filter>Source Files\Input</Filter>
     </ClCompile>
-    <ClCompile Include="GameConsoleRenderer.cpp">
+    <ClCompile Include="GameRenderer.cpp">
       <Filter>Source Files\Render</Filter>
     </ClCompile>
-    <ClCompile Include="ConsoleDrawer.cpp">
+    <ClCompile Include="ConsoleBuffer.cpp">
       <Filter>Source Files\Render</Filter>
     </ClCompile>
     <ClCompile Include="StartupStateInputHandler.cpp">
@@ -134,16 +134,16 @@
     <ClInclude Include="IGameInputReader.h">
       <Filter>Header Files\Interfaces</Filter>
     </ClInclude>
-    <ClInclude Include="IConsoleDrawer.h">
+    <ClInclude Include="IConsoleBuffer.h">
       <Filter>Header Files\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="ConsoleColor.h">
       <Filter>Header Files\DataTypes</Filter>
     </ClInclude>
-    <ClInclude Include="ConsoleDrawer.h">
+    <ClInclude Include="ConsoleBuffer.h">
       <Filter>Header Files\Render</Filter>
     </ClInclude>
-    <ClInclude Include="GameConsoleRenderer.h">
+    <ClInclude Include="GameRenderer.h">
       <Filter>Header Files\Render</Filter>
     </ClInclude>
     <ClInclude Include="GameInputHandler.h">
@@ -231,6 +231,9 @@
       <Filter>Header Files\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="IGameInputConfig.h">
+      <Filter>Header Files\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="IScreenBuffer.h">
       <Filter>Header Files\Interfaces</Filter>
     </ClInclude>
   </ItemGroup>

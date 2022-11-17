@@ -6,14 +6,14 @@
 
 namespace ConsoleGame
 {
-   class IConsoleDrawer;
+   class IConsoleBuffer;
    class ConsoleRenderConfig;
    class KeyboardInputConfig;
 
    class StartupStateConsoleRenderer : public IGameRenderer
    {
    public:
-      StartupStateConsoleRenderer( const std::shared_ptr<IConsoleDrawer> consoleDrawer,
+      StartupStateConsoleRenderer( const std::shared_ptr<IConsoleBuffer> consoleBuffer,
                                    const std::shared_ptr<ConsoleRenderConfig> renderConfig,
                                    const std::shared_ptr<KeyboardInputConfig> inputConfig );
 
@@ -23,7 +23,7 @@ namespace ConsoleGame
       void DrawKeyBindings( int middleX, int top ) const;
 
    private:
-      const std::shared_ptr<IConsoleDrawer> _consoleDrawer;
+      const std::shared_ptr<IConsoleBuffer> _consoleBuffer;
       const std::shared_ptr<ConsoleRenderConfig> _renderConfig;
       const std::shared_ptr<KeyboardInputConfig> _inputConfig;
    };

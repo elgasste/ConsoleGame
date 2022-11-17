@@ -24,7 +24,7 @@
     <ClCompile Include="GameEventAggregatorTests.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
-    <ClCompile Include="GameConsoleRendererTests.cpp">
+    <ClCompile Include="GameRendererTests.cpp">
       <Filter>Tests\Render</Filter>
     </ClCompile>
     <ClCompile Include="GameRunnerTests.cpp">
@@ -56,13 +56,16 @@
     <ClInclude Include="mock_GameCommandExecutor.h">
       <Filter>Mocks</Filter>
     </ClInclude>
-    <ClInclude Include="mock_ConsoleDrawer.h">
+    <ClInclude Include="mock_ConsoleBuffer.h">
       <Filter>Mocks</Filter>
     </ClInclude>
     <ClInclude Include="mock_GameRenderer.h">
       <Filter>Mocks</Filter>
     </ClInclude>
     <ClInclude Include="mock_GameClock.h">
+      <Filter>Mocks</Filter>
+    </ClInclude>
+    <ClInclude Include="mock_ScreenBuffer.h">
       <Filter>Mocks</Filter>
     </ClInclude>
   </ItemGroup>

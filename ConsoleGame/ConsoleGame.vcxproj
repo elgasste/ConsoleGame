@@ -147,12 +147,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ConsoleDrawer.cpp" />
+    <ClCompile Include="ConsoleBuffer.cpp" />
     <ClCompile Include="ConsoleGame.cpp" />
     <ClCompile Include="DiagnosticsConsoleRenderer.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameClock.cpp" />
-    <ClCompile Include="GameConsoleRenderer.cpp" />
+    <ClCompile Include="GameRenderer.cpp" />
     <ClCompile Include="GameEventAggregator.cpp" />
     <ClCompile Include="GameRunner.cpp" />
     <ClCompile Include="GameInputHandler.cpp" />
@@ -167,7 +167,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConsoleColor.h" />
-    <ClInclude Include="ConsoleDrawer.h" />
+    <ClInclude Include="ConsoleBuffer.h" />
     <ClInclude Include="ConsoleSprite.h" />
     <ClInclude Include="DiagnosticsConsoleRenderer.h" />
     <ClInclude Include="Direction.h" />
@@ -177,7 +177,7 @@
     <ClInclude Include="GameCommand.h" />
     <ClInclude Include="GameCommandArgs.h" />
     <ClInclude Include="GameConfig.h" />
-    <ClInclude Include="GameConsoleRenderer.h" />
+    <ClInclude Include="GameRenderer.h" />
     <ClInclude Include="GameEvent.h" />
     <ClInclude Include="GameEventAggregator.h" />
     <ClInclude Include="ConsoleRenderConfig.h" />
@@ -185,10 +185,11 @@
     <ClInclude Include="GameState.h" />
     <ClInclude Include="IGameInputConfig.h" />
     <ClInclude Include="IGameRenderConfig.h" />
+    <ClInclude Include="IScreenBuffer.h" />
     <ClInclude Include="KeyboardWrapper.h" />
     <ClInclude Include="HighResolutionClockWrapper.h" />
     <ClInclude Include="IGameCommandExecutor.h" />
-    <ClInclude Include="IConsoleDrawer.h" />
+    <ClInclude Include="IConsoleBuffer.h" />
     <ClInclude Include="IGameClock.h" />
     <ClInclude Include="IGameEventAggregator.h" />
     <ClInclude Include="IGameInputHandler.h" />

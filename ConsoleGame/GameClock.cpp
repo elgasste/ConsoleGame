@@ -7,15 +7,16 @@ using namespace ConsoleGame;
 
 GameClock::GameClock( const shared_ptr<IHighResolutionClock> highResolutionClock,
                       const shared_ptr<ISleeper> sleeper,
-                      int framesPerSecond )
-   : _highResolutionClock( highResolutionClock ),
-     _sleeper( sleeper ),
-     _framesPerSecond( framesPerSecond ),
-     _totalFrameCount( 0 ),
-     _lagFrameCount( 0 ),
-     _frameStartTimeNano(),
-     _nanoSecondsPerFrame( 1'000'000'000ll / framesPerSecond )
-{ }
+                      int framesPerSecond ) :
+   _highResolutionClock( highResolutionClock ),
+   _sleeper( sleeper ),
+   _framesPerSecond( framesPerSecond ),
+   _totalFrameCount( 0 ),
+   _lagFrameCount( 0 ),
+   _frameStartTimeNano(),
+   _nanoSecondsPerFrame( 1'000'000'000ll / framesPerSecond )
+{
+}
 
 void GameClock::StartFrame()
 {

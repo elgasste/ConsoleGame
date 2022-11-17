@@ -2,25 +2,25 @@
 
 #include <memory>
 
-#include "IConsoleDrawer.h"
+#include "IConsoleBuffer.h"
 
 namespace ConsoleGame
 {
    class ConsoleRenderConfig;
    struct ConsoleBufferInfo;
 
-   class ConsoleDrawer : public IConsoleDrawer
+   class ConsoleBuffer : public IConsoleBuffer
    {
    public:
-      ConsoleDrawer( const std::shared_ptr<ConsoleRenderConfig> renderConfig );
-      ~ConsoleDrawer();
+      ConsoleBuffer( const std::shared_ptr<ConsoleRenderConfig> renderConfig );
+      ~ConsoleBuffer();
 
       void Initialize() override;
       void CleanUp() override;
 
       void SetDefaultForegroundColor( ConsoleColor color ) override;
       void SetDefaultBackgroundColor( ConsoleColor color ) override;
-      void ClearDrawBuffer() override;
+      void Clear() override;
 
       void Draw( int left, int top, char buffer ) override;
       void Draw( int left, int top, char buffer, ConsoleColor foregroundColor ) override;
@@ -30,7 +30,7 @@ namespace ConsoleGame
       void Draw( int left, int top, const std::string& buffer, ConsoleColor foregroundColor, ConsoleColor backgroundColor ) override;
       void Draw( int left, int top, const ConsoleSprite& sprite ) override;
 
-      void FlipDrawBuffer() override;
+      void Flip() override;
 
    private:
       void SetCursorVisibility( bool isVisible );
