@@ -25,10 +25,10 @@ namespace ConsoleGame
 using namespace std;
 using namespace ConsoleGame;
 
-ConsoleBuffer::ConsoleBuffer( const shared_ptr<ConsoleRenderConfig> renderConfig )
-   : _renderConfig( renderConfig ),
-     _defaultForegroundColor( ConsoleColor::Grey ),
-     _defaultBackgroundColor( ConsoleColor::Black )
+ConsoleBuffer::ConsoleBuffer( const shared_ptr<ConsoleRenderConfig> renderConfig ) :
+   _renderConfig( renderConfig ),
+   _defaultForegroundColor( ConsoleColor::Grey ),
+   _defaultBackgroundColor( ConsoleColor::Black )
 {
    _bufferInfo = shared_ptr<ConsoleBufferInfo>( new ConsoleBufferInfo );
    _bufferInfo->OutputHandle = GetStdHandle( STD_OUTPUT_HANDLE );

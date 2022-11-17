@@ -12,10 +12,10 @@ using namespace ConsoleGame;
 
 StartupStateConsoleRenderer::StartupStateConsoleRenderer( const shared_ptr<IConsoleBuffer> consoleBuffer,
                                                           const shared_ptr<ConsoleRenderConfig> renderConfig,
-                                                          const shared_ptr<KeyboardInputConfig> inputConfig )
-   : _consoleBuffer( consoleBuffer ),
-     _renderConfig( renderConfig ),
-     _inputConfig( inputConfig )
+                                                          const shared_ptr<KeyboardInputConfig> inputConfig ) :
+   _consoleBuffer( consoleBuffer ),
+   _renderConfig( renderConfig ),
+   _inputConfig( inputConfig )
 {
 }
 

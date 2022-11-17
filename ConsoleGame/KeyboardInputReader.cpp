@@ -8,8 +8,8 @@ using namespace std;
 using namespace ConsoleGame;
 
 KeyboardInputReader::KeyboardInputReader( const shared_ptr<KeyboardInputConfig> inputConfig,
-                                          const shared_ptr<IKeyboard> keyboard )
-   : _keyboard( keyboard )
+                                          const shared_ptr<IKeyboard> keyboard ) :
+   _keyboard( keyboard )
 {
    for ( int i = 0; i < (int)GameButton::GameButtonCount; i++ )
    {

@@ -13,10 +13,10 @@ using namespace ConsoleGame;
 
 DiagnosticsConsoleRenderer::DiagnosticsConsoleRenderer( const shared_ptr<IConsoleBuffer> consoleBuffer,
                                                         const shared_ptr<IGameClock> clock,
-                                                        const shared_ptr<ConsoleRenderConfig> renderConfig )
-   : _consoleBuffer( consoleBuffer ),
-     _clock( clock ),
-     _renderConfig( renderConfig )
+                                                        const shared_ptr<ConsoleRenderConfig> renderConfig ) :
+   _consoleBuffer( consoleBuffer ),
+   _clock( clock ),
+   _renderConfig( renderConfig )
 {
 }
 

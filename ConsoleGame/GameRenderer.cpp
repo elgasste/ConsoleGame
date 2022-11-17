@@ -13,15 +13,15 @@ using namespace std;
 using namespace ConsoleGame;
 
 GameRenderer::GameRenderer( const shared_ptr<ConsoleRenderConfig> renderConfig,
-                                   const shared_ptr<IScreenBuffer> screenBuffer,
-                                   const shared_ptr<IGameStateProvider> stateProvider,
-                                   const shared_ptr<IGameRenderer> diagnosticsRenderer,
-                                   const shared_ptr<IGameEventAggregator> eventAggregator )
-   : _screenBuffer( screenBuffer ),
-     _stateProvider( stateProvider ),
-     _diagnosticsRenderer( diagnosticsRenderer ),
-     _showDiagnostics( false ),
-     _isCleaningUp( false )
+                            const shared_ptr<IScreenBuffer> screenBuffer,
+                            const shared_ptr<IGameStateProvider> stateProvider,
+                            const shared_ptr<IGameRenderer> diagnosticsRenderer,
+                            const shared_ptr<IGameEventAggregator> eventAggregator ) :
+   _screenBuffer( screenBuffer ),
+   _stateProvider( stateProvider ),
+   _diagnosticsRenderer( diagnosticsRenderer ),
+   _showDiagnostics( false ),
+   _isCleaningUp( false )
 {
    eventAggregator->RegisterEventHandler( GameEvent::Shutdown, std::bind( &GameRenderer::HandleQuitEvent, this ) );
    eventAggregator->RegisterEventHandler( GameEvent::ToggleDiagnostics, std::bind( &GameRenderer::HandleToggleDiagnosticsEvent, this ) );

@@ -14,11 +14,11 @@ using namespace ConsoleGame;
 PlayingStateConsoleRenderer::PlayingStateConsoleRenderer( const shared_ptr<IConsoleBuffer> consoleBuffer,
                                                           const shared_ptr<ConsoleRenderConfig> renderConfig,
                                                           const shared_ptr<GameConfig> gameConfig,
-                                                          const shared_ptr<IPlayerInfoProvider> playerInfoProvider )
-   : _consoleBuffer( consoleBuffer ),
-     _renderConfig( renderConfig ),
-     _gameConfig( gameConfig ),
-     _playerInfoProvider( playerInfoProvider )
+                                                          const shared_ptr<IPlayerInfoProvider> playerInfoProvider ) :
+   _consoleBuffer( consoleBuffer ),
+   _renderConfig( renderConfig ),
+   _gameConfig( gameConfig ),
+   _playerInfoProvider( playerInfoProvider )
 {
 }
 
