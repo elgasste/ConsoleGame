@@ -39,14 +39,14 @@ void GameClock::Tick()
       return;
    }
 
-   auto nowNano = _highResolutionClock->Now();
+   auto frameEndTimeNano = _highResolutionClock->Now();
 
-   auto elapsedFrameTimeNano = nowNano - _frameStartTimeNano;
+   auto elapsedFrameTimeNano = frameEndTimeNano - _frameStartTimeNano;
    auto remainingFrameTimeNano = _nanoSecondsPerFrame - elapsedFrameTimeNano;
 
    if ( remainingFrameTimeNano > 0ll )
    {
-      _sleeper->Sleep( (unsigned long)( remainingFrameTimeNano / 1'000'000 ) ); // Sleep() uses milliseconds
+      _sleeper->Sleep( remainingFrameTimeNano );
    }
    else if ( remainingFrameTimeNano < 0ll )
    {

@@ -7,5 +7,5 @@
 class mock_Sleeper : public ConsoleGame::ISleeper
 {
 public:
-   MOCK_METHOD( void, Sleep, ( unsigned long ), ( override ) );
+   MOCK_METHOD( void, Sleep, ( long long ), ( override ) );
 };

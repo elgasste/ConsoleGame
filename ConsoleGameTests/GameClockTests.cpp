@@ -89,7 +89,7 @@ TEST_F( GameClockTests, Tick_TimeIsLeftInFrame_SleepsForRemainingTime )
 
    ON_CALL( *_highResolutionClockMock, Now() ).WillByDefault( Return( 1'000'000ll ) );
 
-   EXPECT_CALL( *_sleeperMock, Sleep( 9 ) );
+   EXPECT_CALL( *_sleeperMock, Sleep( 9'000'000ll ) );
 
    _gameClock->Tick();
 }
