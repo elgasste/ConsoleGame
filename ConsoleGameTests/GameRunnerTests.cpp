@@ -63,7 +63,7 @@ protected:
 
 TEST_F( GameRunnerTests, Run_EveryLoop_StartsFrameClock )
 {
-   EXPECT_CALL( *_clockMock, StartFrame() ).Times( 2 );
+   EXPECT_CALL( *_clockMock, StartFrame() ).Times( AtLeast( 2 ) );
 
    thread runWorker( RunWorker, _runner );
    while( FrameCount == 0 ) { }
@@ -96,7 +96,7 @@ TEST_F( GameRunnerTests, Run_EveryLoop_HandlesInput )
 
 TEST_F( GameRunnerTests, Run_EveryLoop_WaitsOnClockForNextFrame )
 {
-   EXPECT_CALL( *_clockMock, WaitForNextFrame() ).Times( 2 );
+   EXPECT_CALL( *_clockMock, WaitForNextFrame() ).Times( AtLeast( 2 ) );
 
    thread runWorker( RunWorker, _runner );
    while( FrameCount == 0 ) { }
