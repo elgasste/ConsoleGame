@@ -71,7 +71,20 @@ TEST_F( GameConsoleRendererTests, Constructor_Always_InitializesConsoleDrawer )
    BuildRenderer();
 }
 
-TEST_F( GameConsoleRendererTests, Render_Always_ClearsConsoleDrawerBuffer )
+TEST_F( GameConsoleRendererTests, Render_IsCleaningUp_DoesNotRenderAnything )
+{
+   BuildRenderer();
+
+   _eventAggregator->RaiseEvent( GameEvent::Shutdown );
+
+   EXPECT_CALL( *_consoleDrawerMock, ClearDrawBuffer() ).Times( 0 );
+   EXPECT_CALL( *_startupStateRendererMock, Render() ).Times( 0 );
+   EXPECT_CALL( *_consoleDrawerMock, FlipDrawBuffer() ).Times( 0 );
+
+   _consoleRenderer->Render();
+}
+
+TEST_F( GameConsoleRendererTests, Render_IsNotCleaningUp_ClearsConsoleDrawerBuffer )
 {
    BuildRenderer();
 

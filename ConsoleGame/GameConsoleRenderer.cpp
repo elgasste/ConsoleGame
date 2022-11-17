@@ -20,7 +20,8 @@ GameConsoleRenderer::GameConsoleRenderer( const shared_ptr<ConsoleRenderConfig> 
    : _consoleDrawer( consoleDrawer ),
      _stateProvider( stateProvider ),
      _diagnosticsRenderer( diagnosticsRenderer ),
-     _showDiagnostics( false )
+     _showDiagnostics( false ),
+     _isCleaningUp( false )
 {
    eventAggregator->RegisterEventHandler( GameEvent::Shutdown, std::bind( &GameConsoleRenderer::HandleQuitEvent, this ) );
    eventAggregator->RegisterEventHandler( GameEvent::ToggleDiagnostics, std::bind( &GameConsoleRenderer::HandleToggleDiagnosticsEvent, this ) );
@@ -37,6 +38,11 @@ void GameConsoleRenderer::AddRendererForGameState( GameState state, shared_ptr<I
 
 void GameConsoleRenderer::Render()
 {
+   if ( _isCleaningUp )
+   {
+      return;
+   }
+
    _consoleDrawer->ClearDrawBuffer();
 
    _stateRenderers.at( _stateProvider->GetGameState() )->Render();
@@ -49,8 +55,9 @@ void GameConsoleRenderer::Render()
    _consoleDrawer->FlipDrawBuffer();
 }
 
-void GameConsoleRenderer::HandleQuitEvent() const
+void GameConsoleRenderer::HandleQuitEvent()
 {
+   _isCleaningUp = true;
    _consoleDrawer->CleanUp();
 }
 

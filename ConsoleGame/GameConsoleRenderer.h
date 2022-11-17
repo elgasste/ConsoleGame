@@ -29,7 +29,7 @@ namespace ConsoleGame
       void Render() override;
 
    private:
-      void HandleQuitEvent() const;
+      void HandleQuitEvent();
       void HandleToggleDiagnosticsEvent();
 
    private:
@@ -40,5 +40,6 @@ namespace ConsoleGame
       std::map<GameState, std::shared_ptr<IGameRenderer>> _stateRenderers;
 
       bool _showDiagnostics;
+      bool _isCleaningUp;
    };
 }
