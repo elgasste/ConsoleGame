@@ -41,9 +41,6 @@ ConsoleBuffer::ConsoleBuffer( const shared_ptr<ConsoleRenderConfig> renderConfig
    {
       _bufferInfo->DrawBuffer[i] = CHAR_INFO();
    }
-
-   SetDefaultForegroundColor( renderConfig->DefaultForegroundColor );
-   SetDefaultBackgroundColor( renderConfig->DefaultBackgroundColor );
 }
 
 ConsoleBuffer::~ConsoleBuffer()
@@ -66,6 +63,10 @@ void ConsoleBuffer::Initialize()
    //system( format("MODE CON COLS={0} LINES={1}", _consoleSize.X, _consoleSize.Y ).c_str() );
 
    SetCursorVisibility( false );
+
+   SetDefaultForegroundColor( _renderConfig->DefaultForegroundColor );
+   SetDefaultBackgroundColor( _renderConfig->DefaultBackgroundColor );
+
    Clear();
    Flip();
 }
