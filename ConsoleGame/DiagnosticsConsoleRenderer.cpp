@@ -1,7 +1,7 @@
 #include <format>
 
 #include "DiagnosticsConsoleRenderer.h"
-#include "IConsoleDrawer.h"
+#include "IConsoleBuffer.h"
 #include "IGameClock.h"
 #include "ConsoleRenderConfig.h"
 #include "ConsoleColor.h"
@@ -11,10 +11,10 @@
 using namespace std;
 using namespace ConsoleGame;
 
-DiagnosticsConsoleRenderer::DiagnosticsConsoleRenderer( const shared_ptr<IConsoleDrawer> consoleDrawer,
+DiagnosticsConsoleRenderer::DiagnosticsConsoleRenderer( const shared_ptr<IConsoleBuffer> consoleBuffer,
                                                         const shared_ptr<IGameClock> clock,
                                                         const shared_ptr<ConsoleRenderConfig> renderConfig )
-   : _consoleDrawer( consoleDrawer ),
+   : _consoleBuffer( consoleBuffer ),
      _clock( clock ),
      _renderConfig( renderConfig )
 {
@@ -32,7 +32,7 @@ void DiagnosticsConsoleRenderer::Render()
    while ( totalFramesString.length() < DIAGNOSTICS_WIDTH ) { totalFramesString += ' '; }
    while ( lagFramesString.length() < DIAGNOSTICS_WIDTH ) { lagFramesString += ' '; }
 
-   _consoleDrawer->Draw( left, 0, framesPerSecondString, ConsoleColor::DarkGrey, ConsoleColor::Black );
-   _consoleDrawer->Draw( left, 1, totalFramesString, ConsoleColor::DarkGrey, ConsoleColor::Black );
-   _consoleDrawer->Draw( left, 2, lagFramesString, ConsoleColor::DarkGrey, ConsoleColor::Black );
+   _consoleBuffer->Draw( left, 0, framesPerSecondString, ConsoleColor::DarkGrey, ConsoleColor::Black );
+   _consoleBuffer->Draw( left, 1, totalFramesString, ConsoleColor::DarkGrey, ConsoleColor::Black );
+   _consoleBuffer->Draw( left, 2, lagFramesString, ConsoleColor::DarkGrey, ConsoleColor::Black );
 }

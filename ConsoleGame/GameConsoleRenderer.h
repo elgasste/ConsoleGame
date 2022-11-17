@@ -9,7 +9,7 @@
 namespace ConsoleGame
 {
    class ConsoleRenderConfig;
-   class IConsoleDrawer;
+   class IConsoleBuffer;
    class IGameStateProvider;
    class IGameEventAggregator;
    enum class GameState;
@@ -19,7 +19,7 @@ namespace ConsoleGame
    {
    public:
       GameConsoleRenderer( const std::shared_ptr<ConsoleRenderConfig> renderConfig,
-                           const std::shared_ptr<IConsoleDrawer> consoleDrawer,
+                           const std::shared_ptr<IConsoleBuffer> consoleBuffer,
                            const std::shared_ptr<IGameStateProvider> stateProvider,
                            const std::shared_ptr<IGameRenderer> diagnosticsRenderer,
                            const std::shared_ptr<IGameEventAggregator> eventAggregator );
@@ -33,7 +33,7 @@ namespace ConsoleGame
       void HandleToggleDiagnosticsEvent();
 
    private:
-      const std::shared_ptr<IConsoleDrawer> _consoleDrawer;
+      const std::shared_ptr<IConsoleBuffer> _consoleBuffer;
       const std::shared_ptr<IGameStateProvider> _stateProvider;
       const std::shared_ptr<IGameRenderer> _diagnosticsRenderer;
 

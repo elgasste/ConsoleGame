@@ -56,7 +56,7 @@
     <ClInclude Include="mock_GameCommandExecutor.h">
       <Filter>Mocks</Filter>
     </ClInclude>
-    <ClInclude Include="mock_ConsoleDrawer.h">
+    <ClInclude Include="mock_ConsoleBuffer.h">
       <Filter>Mocks</Filter>
     </ClInclude>
     <ClInclude Include="mock_GameRenderer.h">
