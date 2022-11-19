@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "GameConfig.h"
 #include "PlayerConfig.h"
+#include "ArenaConfig.h"
 #include "IGameEventAggregator.h"
 #include "IPlayerFactory.h"
 #include "IPlayer.h"
@@ -20,22 +21,22 @@ Game::Game( const std::shared_ptr<GameConfig> config,
    _eventAggregator( eventAggregator ),
    _player( playerFactory->CreatePlayer() ),
    _state( GameState::Startup ),
-   _playerPositionX( config->PlayerStartX ),
-   _playerPositionY( config->PlayerStartY )
+   _arenaPlayerPositionX( config->ArenaConfig->PlayerStartX ),
+   _arenaPlayerPositionY( config->ArenaConfig->PlayerStartY )
 {
 }
 
 void Game::RunFrame()
 {
-   // MUFFINS
-   // if the game state is Playing:
-   // 1) _player->RunFrame()
-   //    - if the player was not pushed on this frame, then slow its velocity
-   // 2) actually move the player
-   // 3) if the player has hit a wall, call _player->StopX() or whatever
-
-   // MUFFINS: I don't think _player should have RunFrame(), maybe only this
-   // class should keep track of frame info
+   if ( _state == GameState::Playing )
+   {
+      // TODO
+      // 1) if the player was not pushed Left or Right on this frame, apply friction on X
+      // 2) if the player was not pushed Up or Down on this frame, apply friction on Y
+      // 3) actually move the player
+      // 4) if the player has hit a wall, call _player->StopX() or StopY()
+      // 5) reset the "was player pushed" flags
+   }
 }
 
 void Game::ExecuteCommand( GameCommand command )
@@ -70,27 +71,27 @@ void Game::MovePlayer( Direction direction )
    switch ( direction )
    {
       case Direction::Left:
-         if ( _playerPositionX > 0 )
+         if ( _arenaPlayerPositionX > 0 )
          {
-            _playerPositionX--;
+            _arenaPlayerPositionX--;
          }
          break;
       case Direction::Up:
-         if ( _playerPositionY > 0 )
+         if ( _arenaPlayerPositionY > 0 )
          {
-            _playerPositionY--;
+            _arenaPlayerPositionY--;
          }
          break;
       case Direction::Right:
-         if ( _playerPositionX < _config->ArenaWidth - 1 )
+         if ( _arenaPlayerPositionX < _config->ArenaConfig->Width - 1 )
          {
-            _playerPositionX++;
+            _arenaPlayerPositionX++;
          }
          break;
       case Direction::Down:
-         if ( _playerPositionY < _config->ArenaHeight - 1 )
+         if ( _arenaPlayerPositionY < _config->ArenaConfig->Height - 1 )
          {
-            _playerPositionY++;
+            _arenaPlayerPositionY++;
          }
          break;
    }

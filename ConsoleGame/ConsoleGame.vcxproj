@@ -168,6 +168,7 @@
     <ClCompile Include="StartupStateInputHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ArenaConfig.h" />
     <ClInclude Include="ConsoleColor.h" />
     <ClInclude Include="ConsoleBuffer.h" />
     <ClInclude Include="ConsoleSprite.h" />

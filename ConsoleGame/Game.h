@@ -36,8 +36,8 @@ namespace ConsoleGame
 
       Direction GetPlayerDirection() const override;
 
-      int GetArenaPlayerXPosition() const override { return _playerPositionX; }
-      int GetArenaPlayerYPosition() const override { return _playerPositionY; }
+      int GetArenaPlayerXPosition() const override { return _arenaPlayerPositionX; }
+      int GetArenaPlayerYPosition() const override { return _arenaPlayerPositionY; }
 
    private:
       void MovePlayer( Direction direction );
@@ -49,7 +49,7 @@ namespace ConsoleGame
 
       GameState _state;
 
-      int _playerPositionX;
-      int _playerPositionY;
+      int _arenaPlayerPositionX;
+      int _arenaPlayerPositionY;
    };
 }

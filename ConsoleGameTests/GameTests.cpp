@@ -5,6 +5,7 @@
 #include <ConsoleGame/Game.h>
 #include <ConsoleGame/GameConfig.h>
 #include <ConsoleGame/PlayerConfig.h>
+#include <ConsoleGame/ArenaConfig.h>
 #include <ConsoleGame/GameState.h>
 #include <ConsoleGame/Direction.h>
 #include <ConsoleGame/GameCommand.h>
@@ -26,6 +27,7 @@ public:
    {
       _config.reset( new GameConfig );
       _config->PlayerConfig.reset( new PlayerConfig );
+      _config->ArenaConfig.reset( new ArenaConfig );
       _eventAggregatorMock.reset( new NiceMock<mock_GameEventAggregator> );
       _playerFactoryMock.reset( new NiceMock<mock_PlayerFactory> );
       _playerMock.reset( new NiceMock<mock_Player> );
@@ -56,8 +58,8 @@ TEST_F( GameTests, Constructor_Always_SetsGameStateToStartup )
 
 TEST_F( GameTests, Constructor_Always_SetsPlayerInfoBasedOnConfig )
 {
-   _config->PlayerStartX = 10;
-   _config->PlayerStartY = 20;
+   _config->ArenaConfig->PlayerStartX = 10;
+   _config->ArenaConfig->PlayerStartY = 20;
 
    BuildGame();
 
@@ -85,10 +87,10 @@ TEST_F( GameTests, ExecuteCommand_Quit_RaisesShutdownEvent )
 
 TEST_F( GameTests, ExecuteCommand_MovePlayerLeftWithinArenaBounds_UpdatesPlayerInfo )
 {
-   _config->ArenaWidth = 50;
-   _config->ArenaHeight = 30;
-   _config->PlayerStartX = 10;
-   _config->PlayerStartY = 20;
+   _config->ArenaConfig->Width = 50;
+   _config->ArenaConfig->Height = 30;
+   _config->ArenaConfig->PlayerStartX = 10;
+   _config->ArenaConfig->PlayerStartY = 20;
 
    BuildGame();
 
@@ -101,10 +103,10 @@ TEST_F( GameTests, ExecuteCommand_MovePlayerLeftWithinArenaBounds_UpdatesPlayerI
 
 TEST_F( GameTests, ExecuteCommand_MovePlayerUpWithinArenaBounds_UpdatesPlayerInfo )
 {
-   _config->ArenaWidth = 50;
-   _config->ArenaHeight = 30;
-   _config->PlayerStartX = 10;
-   _config->PlayerStartY = 20;
+   _config->ArenaConfig->Width = 50;
+   _config->ArenaConfig->Height = 30;
+   _config->ArenaConfig->PlayerStartX = 10;
+   _config->ArenaConfig->PlayerStartY = 20;
 
    BuildGame();
 
@@ -117,10 +119,10 @@ TEST_F( GameTests, ExecuteCommand_MovePlayerUpWithinArenaBounds_UpdatesPlayerInf
 
 TEST_F( GameTests, ExecuteCommand_MovePlayerRightaWithinArenaBounds_UpdatesPlayerInfo )
 {
-   _config->ArenaWidth = 50;
-   _config->ArenaHeight = 30;
-   _config->PlayerStartX = 10;
-   _config->PlayerStartY = 20;
+   _config->ArenaConfig->Width = 50;
+   _config->ArenaConfig->Height = 30;
+   _config->ArenaConfig->PlayerStartX = 10;
+   _config->ArenaConfig->PlayerStartY = 20;
 
    BuildGame();
 
@@ -133,10 +135,10 @@ TEST_F( GameTests, ExecuteCommand_MovePlayerRightaWithinArenaBounds_UpdatesPlaye
 
 TEST_F( GameTests, ExecuteCommand_MovePlayerDownWithinArenaBounds_UpdatesPlayerInfo )
 {
-   _config->ArenaWidth = 50;
-   _config->ArenaHeight = 30;
-   _config->PlayerStartX = 10;
-   _config->PlayerStartY = 20;
+   _config->ArenaConfig->Width = 50;
+   _config->ArenaConfig->Height = 30;
+   _config->ArenaConfig->PlayerStartX = 10;
+   _config->ArenaConfig->PlayerStartY = 20;
 
    BuildGame();
 
@@ -149,10 +151,10 @@ TEST_F( GameTests, ExecuteCommand_MovePlayerDownWithinArenaBounds_UpdatesPlayerI
 
 TEST_F( GameTests, ExecuteCommand_MovePlayerLeftOutsideArenaBounds_DoesNotUpdatePlayerPosition )
 {
-   _config->ArenaWidth = 50;
-   _config->ArenaHeight = 30;
-   _config->PlayerStartX = 0;
-   _config->PlayerStartY = 20;
+   _config->ArenaConfig->Width = 50;
+   _config->ArenaConfig->Height = 30;
+   _config->ArenaConfig->PlayerStartX = 0;
+   _config->ArenaConfig->PlayerStartY = 20;
 
    BuildGame();
 
@@ -165,10 +167,10 @@ TEST_F( GameTests, ExecuteCommand_MovePlayerLeftOutsideArenaBounds_DoesNotUpdate
 
 TEST_F( GameTests, ExecuteCommand_MovePlayerUpOutsideArenaBounds_DoesNotUpdatePlayerPosition )
 {
-   _config->ArenaWidth = 50;
-   _config->ArenaHeight = 30;
-   _config->PlayerStartX = 10;
-   _config->PlayerStartY = 0;
+   _config->ArenaConfig->Width = 50;
+   _config->ArenaConfig->Height = 30;
+   _config->ArenaConfig->PlayerStartX = 10;
+   _config->ArenaConfig->PlayerStartY = 0;
 
    BuildGame();
 
@@ -181,10 +183,10 @@ TEST_F( GameTests, ExecuteCommand_MovePlayerUpOutsideArenaBounds_DoesNotUpdatePl
 
 TEST_F( GameTests, ExecuteCommand_MovePlayerRightOutsideArenaBounds_DoesNotUpdatePlayerPosition )
 {
-   _config->ArenaWidth = 50;
-   _config->ArenaHeight = 30;
-   _config->PlayerStartX = 49;
-   _config->PlayerStartY = 20;
+   _config->ArenaConfig->Width = 50;
+   _config->ArenaConfig->Height = 30;
+   _config->ArenaConfig->PlayerStartX = 49;
+   _config->ArenaConfig->PlayerStartY = 20;
 
    BuildGame();
 
@@ -197,10 +199,10 @@ TEST_F( GameTests, ExecuteCommand_MovePlayerRightOutsideArenaBounds_DoesNotUpdat
 
 TEST_F( GameTests, ExecuteCommand_MovePlayerDownOutsideArenaBounds_DoesNotUpdatePlayerPosition )
 {
-   _config->ArenaWidth = 50;
-   _config->ArenaHeight = 30;
-   _config->PlayerStartX = 10;
-   _config->PlayerStartY = 29;
+   _config->ArenaConfig->Width = 50;
+   _config->ArenaConfig->Height = 30;
+   _config->ArenaConfig->PlayerStartX = 10;
+   _config->ArenaConfig->PlayerStartY = 29;
 
    BuildGame();
 
