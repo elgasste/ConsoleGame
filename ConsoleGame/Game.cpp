@@ -27,6 +27,15 @@ Game::Game( const std::shared_ptr<GameConfig> config,
 
 void Game::RunFrame()
 {
+   // MUFFINS
+   // if the game state is Playing:
+   // 1) _player->RunFrame()
+   //    - if the player was not pushed on this frame, then slow its velocity
+   // 2) actually move the player
+   // 3) if the player has hit a wall, call _player->StopX() or whatever
+
+   // MUFFINS: I don't think _player should have RunFrame(), maybe only this
+   // class should keep track of frame info
 }
 
 void Game::ExecuteCommand( GameCommand command )

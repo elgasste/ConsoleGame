@@ -16,6 +16,8 @@ namespace ConsoleGame
       void Push( Direction direction ) override;
       void ApplyFrictionX() override;
       void ApplyFrictionY() override;
+      void StopX() override;
+      void StopY() override;
 
       int GetVelocityX() const override { return _velocityX; }
       int GetVelocityY() const override { return _velocityY; }

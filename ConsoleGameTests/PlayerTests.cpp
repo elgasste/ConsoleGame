@@ -221,3 +221,23 @@ TEST_F( PlayerTests, ApplyFrictionY_PlayerIsMovingDownAndHasNoVelocityToSpare_St
 
    EXPECT_EQ( _player->GetVelocityY(), 0 );
 }
+
+TEST_F( PlayerTests, StopX_Always_SetsXVelocityToZero )
+{
+   BuildPlayer();
+
+   _player->Push( Direction::Right );
+   _player->StopX();
+
+   EXPECT_EQ( _player->GetVelocityX(), 0 );
+}
+
+TEST_F( PlayerTests, StopY_Always_SetsYVelocityToZero )
+{
+   BuildPlayer();
+
+   _player->Push( Direction::Up );
+   _player->StopY();
+
+   EXPECT_EQ( _player->GetVelocityY(), 0 );
+}

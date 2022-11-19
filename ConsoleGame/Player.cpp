@@ -61,6 +61,16 @@ void Player::ApplyFrictionY()
    }
 }
 
+void Player::StopX()
+{
+   _velocityX = 0;
+}
+
+void Player::StopY()
+{
+   _velocityY = 0;
+}
+
 void Player::ClampVelocity()
 {
    if ( _velocityX < -( _config->MaxVelocityX ) )
