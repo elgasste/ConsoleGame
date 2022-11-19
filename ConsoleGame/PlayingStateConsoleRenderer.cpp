@@ -26,7 +26,6 @@ PlayingStateConsoleRenderer::PlayingStateConsoleRenderer( const shared_ptr<ICons
 
 void PlayingStateConsoleRenderer::Render()
 {
-   // MUFFINS: arena coords x converter = console coords
    _consoleBuffer->SetDefaultBackgroundColor( ConsoleColor::DarkGrey );
    _consoleBuffer->SetDefaultForegroundColor( ConsoleColor::White );
 

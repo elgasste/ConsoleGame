@@ -139,6 +139,22 @@ TEST_F( GameTests, GetPlayerDirection_Always_GetsDirectionFromPlayer )
    EXPECT_EQ( _game->GetPlayerDirection(), Direction::Up );
 }
 
+TEST_F( GameTests, GetArenaWidth_Always_GetsArenaWidthFromConfig )
+{
+   _config->ArenaConfig->Width = 11;
+   BuildGame();
+
+   EXPECT_EQ( _game->GetArenaWidth(), 11 );
+}
+
+TEST_F( GameTests, GetArenaHeight_Always_GetsArenaHeightFromConfig )
+{
+   _config->ArenaConfig->Height = 12;
+   BuildGame();
+
+   EXPECT_EQ( _game->GetArenaHeight(), 12 );
+}
+
 TEST_F( GameTests, RunFrame_GameStateIsNotPlaying_DoesNotChangePlayerInfo )
 {
    BuildGame();
