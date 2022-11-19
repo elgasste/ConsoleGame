@@ -36,6 +36,7 @@
     <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
   </PropertyGroup>
   <ItemGroup>
+    <ClInclude Include="mock_Game.h" />
     <ClInclude Include="mock_GameClock.h" />
     <ClInclude Include="mock_ConsoleBuffer.h" />
     <ClInclude Include="mock_GameCommandExecutor.h" />

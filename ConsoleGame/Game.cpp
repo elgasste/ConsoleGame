@@ -25,6 +25,10 @@ Game::Game( const std::shared_ptr<GameConfig> config,
 {
 }
 
+void Game::RunFrame()
+{
+}
+
 void Game::ExecuteCommand( GameCommand command )
 {
    ExecuteCommand( command, nullptr );

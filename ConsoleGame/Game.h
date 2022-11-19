@@ -2,6 +2,7 @@
 
 #include <memory>
 
+#include "IGame.h"
 #include "IGameStateProvider.h"
 #include "IGameCommandExecutor.h"
 #include "IPlayerInfoProvider.h"
@@ -15,7 +16,8 @@ namespace ConsoleGame
    class IPlayerFactory;
    class IPlayer;
 
-   class Game : public IGameStateProvider,
+   class Game : public IGame,
+                public IGameStateProvider,
                 public IGameCommandExecutor,
                 public IPlayerInfoProvider,
                 public IArenaInfoProvider
@@ -24,6 +26,8 @@ namespace ConsoleGame
       Game( const std::shared_ptr<GameConfig> config,
             const std::shared_ptr<IGameEventAggregator> eventAggregator,
             const std::shared_ptr<IPlayerFactory> playerFactory );
+
+      void RunFrame() override;
 
       GameState GetGameState() const override { return _state; }
 

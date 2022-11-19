@@ -79,7 +79,7 @@ int main()
    renderer->AddRendererForGameState( GameState::Playing, playingStateConsoleRenderer );
 
    // game loop
-   auto runner = shared_ptr<GameRunner>( new GameRunner( eventAggregator, clock, inputHandler, renderer ) );
+   auto runner = shared_ptr<GameRunner>( new GameRunner( eventAggregator, clock, inputHandler, renderer, game ) );
 
    cout << " done!\nLet's goooo!\n";
 
