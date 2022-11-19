@@ -185,6 +185,7 @@
     <ClInclude Include="ConsoleRenderConfig.h" />
     <ClInclude Include="GameRunner.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="IArenaInfoProvider.h" />
     <ClInclude Include="IGameInputConfig.h" />
     <ClInclude Include="IGameRenderConfig.h" />
     <ClInclude Include="IPlayer.h" />

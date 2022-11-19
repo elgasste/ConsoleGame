@@ -257,5 +257,8 @@
     <ClInclude Include="PlayerConfig.h">
       <Filter>Header Files\Config</Filter>
     </ClInclude>
+    <ClInclude Include="IArenaInfoProvider.h">
+      <Filter>Header Files\Interfaces</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
