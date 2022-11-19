@@ -12,6 +12,7 @@
 #include "GameEventAggregator.h"
 #include "GameClock.h"
 #include "KeyboardInputReader.h"
+#include "PlayerFactory.h"
 #include "Game.h"
 #include "DiagnosticsConsoleRenderer.h"
 #include "StartupStateInputHandler.h"
@@ -58,7 +59,8 @@ int main()
    auto keyboardInputReader = shared_ptr<KeyboardInputReader>( new KeyboardInputReader( keyboardInputConfig, keyboard ) );
 
    // game data objects
-   auto game = shared_ptr<Game>( new Game( config, eventAggregator ) );
+   auto playerFactory = shared_ptr<IPlayerFactory>( new PlayerFactory( config->PlayerConfig ) );
+   auto game = shared_ptr<Game>( new Game( config, eventAggregator, playerFactory ) );
 
    // input objects
    auto startupStateInputHandler = shared_ptr<StartupStateInputHandler>( new StartupStateInputHandler( keyboardInputReader, game ) );

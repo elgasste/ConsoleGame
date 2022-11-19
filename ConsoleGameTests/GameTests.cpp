@@ -12,6 +12,7 @@
 #include <ConsoleGame/MovePlayerCommandArgs.h>
 
 #include "mock_GameEventAggregator.h"
+#include "mock_PlayerFactory.h"
 
 using namespace std;
 using namespace testing;
@@ -25,16 +26,18 @@ public:
       _config.reset( new GameConfig );
       _config->PlayerConfig.reset( new PlayerConfig );
       _eventAggregatorMock.reset( new NiceMock<mock_GameEventAggregator> );
+      _playerFactoryMock.reset( new NiceMock<mock_PlayerFactory> );
    }
 
    void BuildGame()
    {
-      _game.reset( new Game( _config, _eventAggregatorMock ) );
+      _game.reset( new Game( _config, _eventAggregatorMock, _playerFactoryMock ) );
    }
 
 protected:
    shared_ptr<GameConfig> _config;
    shared_ptr<mock_GameEventAggregator> _eventAggregatorMock;
+   shared_ptr<mock_PlayerFactory> _playerFactoryMock;
 
    shared_ptr<Game> _game;
 };

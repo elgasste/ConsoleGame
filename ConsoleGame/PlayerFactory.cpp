@@ -5,8 +5,8 @@
 using namespace std;
 using namespace ConsoleGame;
 
-PlayerFactory::PlayerFactory( const shared_ptr<PlayerConfig> config )
-   : _config( config )
+PlayerFactory::PlayerFactory( const shared_ptr<PlayerConfig> config ) :
+   _config( config )
 {
 }
 

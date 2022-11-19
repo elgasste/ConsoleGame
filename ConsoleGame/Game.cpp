@@ -2,6 +2,8 @@
 #include "GameConfig.h"
 #include "PlayerConfig.h"
 #include "IGameEventAggregator.h"
+#include "IPlayerFactory.h"
+#include "IPlayer.h"
 #include "GameState.h"
 #include "GameCommand.h"
 #include "GameEvent.h"
@@ -12,9 +14,11 @@ using namespace std;
 using namespace ConsoleGame;
 
 Game::Game( const std::shared_ptr<GameConfig> config,
-            const std::shared_ptr<IGameEventAggregator> eventAggregator ) :
+            const std::shared_ptr<IGameEventAggregator> eventAggregator,
+            const std::shared_ptr<IPlayerFactory> playerFactory ) :
    _config( config ),
    _eventAggregator( eventAggregator ),
+   _player( playerFactory->CreatePlayer() ),
    _state( GameState::Startup ),
    _playerDirection( config->PlayerConfig->StartDirection ),
    _playerPositionX( config->PlayerStartX ),

@@ -11,14 +11,17 @@ namespace ConsoleGame
    class GameConfig;
    enum class Direction;
    class IGameEventAggregator;
+   class IPlayerFactory;
+   class IPlayer;
 
    class Game : public IGameStateProvider,
-      public IGameCommandExecutor,
-      public IPlayerInfoProvider
+                public IGameCommandExecutor,
+                public IPlayerInfoProvider
    {
    public:
       Game( const std::shared_ptr<GameConfig> config,
-            const std::shared_ptr<IGameEventAggregator> eventAggregator );
+            const std::shared_ptr<IGameEventAggregator> eventAggregator,
+            const std::shared_ptr<IPlayerFactory> playerFactory );
 
       GameState GetGameState() const override { return _state; }
 
@@ -35,6 +38,7 @@ namespace ConsoleGame
    private:
       const std::shared_ptr<GameConfig> _config;
       const std::shared_ptr<IGameEventAggregator> _eventAggregator;
+      const std::shared_ptr<IPlayer> _player;
 
       GameState _state;
 

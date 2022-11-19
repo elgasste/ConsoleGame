@@ -4,11 +4,11 @@
 using namespace std;
 using namespace ConsoleGame;
 
-Player::Player( const shared_ptr<PlayerConfig> config )
-   : _config( config ),
-     _velocityX( config->StartVelocityX ),
-     _velocityY( config->StartVelocityY ),
-     _direction( config->StartDirection )
+Player::Player( const shared_ptr<PlayerConfig> config ) :
+   _config( config ),
+   _velocityX( config->StartVelocityX ),
+   _velocityY( config->StartVelocityY ),
+   _direction( config->StartDirection )
 {
 }
 
