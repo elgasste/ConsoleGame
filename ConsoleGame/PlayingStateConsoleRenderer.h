@@ -8,7 +8,6 @@ namespace ConsoleGame
 {
    class IConsoleBuffer;
    class ConsoleRenderConfig;
-   class GameConfig;
    class IPlayerInfoProvider;
 
    class PlayingStateConsoleRenderer : public IGameRenderer
@@ -16,7 +15,6 @@ namespace ConsoleGame
    public:
       PlayingStateConsoleRenderer( const std::shared_ptr<IConsoleBuffer> consoleBuffer,
                                    const std::shared_ptr<ConsoleRenderConfig> renderConfig,
-                                   const std::shared_ptr<GameConfig> gameConfig,
                                    const std::shared_ptr<IPlayerInfoProvider> playerInfoProvider );
 
       void Render() override;
@@ -27,7 +25,6 @@ namespace ConsoleGame
    private:
       const std::shared_ptr<IConsoleBuffer> _consoleBuffer;
       const std::shared_ptr<ConsoleRenderConfig> _renderConfig;
-      const std::shared_ptr<GameConfig> _gameConfig;
       const std::shared_ptr<IPlayerInfoProvider> _playerInfoProvider;
    };
 }

@@ -6,6 +6,7 @@ namespace ConsoleGame
 {
    class IGameRenderConfig;
    class IGameInputConfig;
+   class PlayerConfig;
    enum class Direction;
 
    class GameConfig
@@ -13,14 +14,14 @@ namespace ConsoleGame
    public:
       int FramesPerSecond;
 
-      short ArenaWidth;
-      short ArenaHeight;
+      int ArenaWidth;
+      int ArenaHeight;
 
-      Direction PlayerStartDirection;
-      short PlayerStartX;
-      short PlayerStartY;
+      int PlayerStartX;
+      int PlayerStartY;
 
       std::shared_ptr<IGameRenderConfig> RenderConfig;
       std::shared_ptr<IGameInputConfig> InputConfig;
+      std::shared_ptr<PlayerConfig> PlayerConfig;
    };
 }

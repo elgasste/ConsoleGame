@@ -4,6 +4,7 @@
 
 #include <ConsoleGame/Game.h>
 #include <ConsoleGame/GameConfig.h>
+#include <ConsoleGame/PlayerConfig.h>
 #include <ConsoleGame/GameState.h>
 #include <ConsoleGame/Direction.h>
 #include <ConsoleGame/GameCommand.h>
@@ -22,6 +23,7 @@ public:
    void SetUp() override
    {
       _config.reset( new GameConfig );
+      _config->PlayerConfig.reset( new PlayerConfig );
       _eventAggregatorMock.reset( new NiceMock<mock_GameEventAggregator> );
    }
 
@@ -46,7 +48,7 @@ TEST_F( GameTests, Constructor_Always_SetsGameStateToStartup )
 
 TEST_F( GameTests, Constructor_Always_SetsPlayerInfoBasedOnConfig )
 {
-   _config->PlayerStartDirection = Direction::Down;
+   _config->PlayerConfig->StartDirection = Direction::Down;
    _config->PlayerStartX = 10;
    _config->PlayerStartY = 20;
 
@@ -79,7 +81,7 @@ TEST_F( GameTests, ExecuteCommand_MovePlayerLeftWithinArenaBounds_UpdatesPlayerI
 {
    _config->ArenaWidth = 50;
    _config->ArenaHeight = 30;
-   _config->PlayerStartDirection = Direction::Down;
+   _config->PlayerConfig->StartDirection = Direction::Down;
    _config->PlayerStartX = 10;
    _config->PlayerStartY = 20;
 
@@ -95,7 +97,7 @@ TEST_F( GameTests, ExecuteCommand_MovePlayerLeftWithinArenaBounds_UpdatesPlayerI
 
 TEST_F( GameTests, ExecuteCommand_MovePlayerUpWithinArenaBounds_UpdatesPlayerInfo )
 {
-   _config->PlayerStartDirection = Direction::Down;
+   _config->PlayerConfig->StartDirection = Direction::Down;
    _config->ArenaWidth = 50;
    _config->ArenaHeight = 30;
    _config->PlayerStartX = 10;
@@ -115,7 +117,7 @@ TEST_F( GameTests, ExecuteCommand_MovePlayerRightaWithinArenaBounds_UpdatesPlaye
 {
    _config->ArenaWidth = 50;
    _config->ArenaHeight = 30;
-   _config->PlayerStartDirection = Direction::Down;
+   _config->PlayerConfig->StartDirection = Direction::Down;
    _config->PlayerStartX = 10;
    _config->PlayerStartY = 20;
 
@@ -133,7 +135,7 @@ TEST_F( GameTests, ExecuteCommand_MovePlayerDownWithinArenaBounds_UpdatesPlayerI
 {
    _config->ArenaWidth = 50;
    _config->ArenaHeight = 30;
-   _config->PlayerStartDirection = Direction::Left;
+   _config->PlayerConfig->StartDirection = Direction::Left;
    _config->PlayerStartX = 10;
    _config->PlayerStartY = 20;
 
@@ -151,7 +153,7 @@ TEST_F( GameTests, ExecuteCommand_MovePlayerLeftOutsideArenaBounds_DoesNotUpdate
 {
    _config->ArenaWidth = 50;
    _config->ArenaHeight = 30;
-   _config->PlayerStartDirection = Direction::Down;
+   _config->PlayerConfig->StartDirection = Direction::Down;
    _config->PlayerStartX = 0;
    _config->PlayerStartY = 20;
 
@@ -169,7 +171,7 @@ TEST_F( GameTests, ExecuteCommand_MovePlayerUpOutsideArenaBounds_DoesNotUpdatePl
 {
    _config->ArenaWidth = 50;
    _config->ArenaHeight = 30;
-   _config->PlayerStartDirection = Direction::Down;
+   _config->PlayerConfig->StartDirection = Direction::Down;
    _config->PlayerStartX = 10;
    _config->PlayerStartY = 0;
 
@@ -187,7 +189,7 @@ TEST_F( GameTests, ExecuteCommand_MovePlayerRightOutsideArenaBounds_DoesNotUpdat
 {
    _config->ArenaWidth = 50;
    _config->ArenaHeight = 30;
-   _config->PlayerStartDirection = Direction::Down;
+   _config->PlayerConfig->StartDirection = Direction::Down;
    _config->PlayerStartX = 49;
    _config->PlayerStartY = 20;
 
@@ -205,7 +207,7 @@ TEST_F( GameTests, ExecuteCommand_MovePlayerDownOutsideArenaBounds_DoesNotUpdate
 {
    _config->ArenaWidth = 50;
    _config->ArenaHeight = 30;
-   _config->PlayerStartDirection = Direction::Up;
+   _config->PlayerConfig->StartDirection = Direction::Up;
    _config->PlayerStartX = 10;
    _config->PlayerStartY = 29;
 

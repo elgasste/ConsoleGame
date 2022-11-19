@@ -16,6 +16,9 @@ namespace ConsoleGame
       short ConsoleWidth;
       short ConsoleHeight;
 
+      short ArenaCharWidth;
+      short ArenaCharHeight;
+
       short ArenaFenceX;
       short ArenaFenceY;
 

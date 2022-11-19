@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "GameConfig.h"
+#include "PlayerConfig.h"
 #include "IGameEventAggregator.h"
 #include "GameState.h"
 #include "GameCommand.h"
@@ -15,7 +16,7 @@ Game::Game( const std::shared_ptr<GameConfig> config,
    _config( config ),
    _eventAggregator( eventAggregator ),
    _state( GameState::Startup ),
-   _playerDirection( config->PlayerStartDirection ),
+   _playerDirection( config->PlayerConfig->StartDirection ),
    _playerPositionX( config->PlayerStartX ),
    _playerPositionY( config->PlayerStartY )
 {

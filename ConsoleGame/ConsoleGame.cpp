@@ -3,6 +3,7 @@
 #include "GameConfig.h"
 #include "ConsoleRenderConfig.h"
 #include "KeyboardInputConfig.h"
+#include "PlayerConfig.h"
 #include "KeyCode.h"
 #include "GameButton.h"
 #include "HighResolutionClockWrapper.h"
@@ -34,6 +35,7 @@ using namespace ConsoleGame;
 // probably be set in some initializer instead of in here.
 shared_ptr<ConsoleRenderConfig> BuildConsoleRenderConfig();
 shared_ptr<KeyboardInputConfig> BuildKeyboardInputConfig();
+shared_ptr<PlayerConfig> BuildPlayerConfig();
 shared_ptr<GameConfig> BuildGameConfig();
 
 int main()
@@ -69,7 +71,7 @@ int main()
    auto consoleBuffer = shared_ptr<ConsoleBuffer>( new ConsoleBuffer( consoleRenderConfig ) );
    auto diagnosticsRenderer = shared_ptr<DiagnosticsConsoleRenderer>( new DiagnosticsConsoleRenderer( consoleBuffer, clock, consoleRenderConfig ) );
    auto startupStateConsoleRenderer = shared_ptr<StartupStateConsoleRenderer>( new StartupStateConsoleRenderer( consoleBuffer, consoleRenderConfig, keyboardInputConfig ) );
-   auto playingStateConsoleRenderer = shared_ptr<PlayingStateConsoleRenderer>( new PlayingStateConsoleRenderer( consoleBuffer, consoleRenderConfig, config, game ) );
+   auto playingStateConsoleRenderer = shared_ptr<PlayingStateConsoleRenderer>( new PlayingStateConsoleRenderer( consoleBuffer, consoleRenderConfig, game ) );
    auto renderer = shared_ptr<GameRenderer>( new GameRenderer( consoleRenderConfig, consoleBuffer, game, diagnosticsRenderer, eventAggregator ) );
    renderer->AddRendererForGameState( GameState::Startup, startupStateConsoleRenderer );
    renderer->AddRendererForGameState( GameState::Playing, playingStateConsoleRenderer );
@@ -92,6 +94,9 @@ shared_ptr<ConsoleRenderConfig> BuildConsoleRenderConfig()
    // (see ConsoleDrawer.cpp)
    renderConfig->ConsoleWidth = 120;
    renderConfig->ConsoleHeight = 30;
+
+   renderConfig->ArenaCharWidth = 114;
+   renderConfig->ArenaCharHeight = 24;
 
    renderConfig->ArenaFenceX = 2;
    renderConfig->ArenaFenceY = 3;
@@ -187,23 +192,42 @@ shared_ptr<KeyboardInputConfig> BuildKeyboardInputConfig()
    return inputConfig;
 }
 
+shared_ptr<PlayerConfig> BuildPlayerConfig()
+{
+   auto playerConfig = make_shared<PlayerConfig>();
+
+   playerConfig->StartVelocityX = 0;
+   playerConfig->StartVelocityY = 0;
+
+   playerConfig->MaxVelocityX = 1;
+   playerConfig->MaxVelocityY = 1;
+
+   playerConfig->VelocityDeltaX = 1;
+   playerConfig->VelocityDeltaY = 1;
+
+   playerConfig->StartDirection = Direction::Right;
+
+   return playerConfig;
+}
+
 shared_ptr<GameConfig> BuildGameConfig()
 {
    auto config = make_shared<GameConfig>();
    auto consoleRenderConfig = BuildConsoleRenderConfig();
    auto keyboardInputConfig = BuildKeyboardInputConfig();
+   auto playerConfig = BuildPlayerConfig();
 
    config->FramesPerSecond = 60;
 
-   config->ArenaWidth = consoleRenderConfig->ConsoleWidth - 6;
-   config->ArenaHeight = consoleRenderConfig->ConsoleHeight - 6;
+   config->ArenaWidth = consoleRenderConfig->ArenaCharWidth;
+   config->ArenaHeight = consoleRenderConfig->ArenaCharHeight;
 
-   config->PlayerStartDirection = Direction::Down;
    config->PlayerStartX = config->ArenaWidth / 2;
    config->PlayerStartY = config->ArenaHeight / 2;
 
    config->RenderConfig = consoleRenderConfig;
    config->InputConfig = keyboardInputConfig;
+   config->PlayerConfig = playerConfig;
 
    return config;
 }
