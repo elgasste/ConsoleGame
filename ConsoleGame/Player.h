@@ -14,6 +14,8 @@ namespace ConsoleGame
       Player( const std::shared_ptr<PlayerConfig> config );
 
       void Push( Direction direction ) override;
+      void ApplyFrictionX() override;
+      void ApplyFrictionY() override;
 
       int GetVelocityX() const override { return _velocityX; }
       int GetVelocityY() const override { return _velocityY; }

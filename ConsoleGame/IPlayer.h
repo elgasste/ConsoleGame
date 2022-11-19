@@ -8,6 +8,8 @@ namespace ConsoleGame
    {
    public:
       virtual void Push( Direction direction ) = 0;
+      virtual void ApplyFrictionX() = 0;
+      virtual void ApplyFrictionY() = 0;
 
       virtual int GetVelocityX() const = 0;
       virtual int GetVelocityY() const = 0;

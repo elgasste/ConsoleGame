@@ -1,3 +1,5 @@
+#include <algorithm>
+
 #include "Player.h"
 #include "PlayerConfig.h"
 
@@ -33,6 +35,30 @@ void Player::Push( Direction direction )
    }
 
    ClampVelocity();
+}
+
+void Player::ApplyFrictionX()
+{
+   if ( _velocityX < 0 )
+   {
+      _velocityX = min( _velocityX + _config->VelocityDeltaX, 0 );
+   }
+   else if ( _velocityX > 0 )
+   {
+      _velocityX = max( _velocityX - _config->VelocityDeltaX, 0 );
+   }
+}
+
+void Player::ApplyFrictionY()
+{
+   if ( _velocityY < 0 )
+   {
+      _velocityY = min( _velocityY + _config->VelocityDeltaY, 0 );
+   }
+   else if ( _velocityY > 0 )
+   {
+      _velocityY = max( _velocityY - _config->VelocityDeltaY, 0 );
+   }
 }
 
 void Player::ClampVelocity()

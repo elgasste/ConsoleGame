@@ -133,3 +133,91 @@ TEST_F( PlayerTests, Push_DownAndVelocityHasMaxedOut_ClampsToMaxVelocity )
 
    EXPECT_EQ( _player->GetVelocityY(), 10 );
 }
+
+TEST_F( PlayerTests, ApplyFrictionX_PlayerIsMovingLeftAndHasVelocityToSpare_DoesNotStop )
+{
+   BuildPlayer();
+
+   _player->Push( Direction::Left );
+   _player->Push( Direction::Left );
+   _player->ApplyFrictionX();
+
+   EXPECT_EQ( _player->GetVelocityX(), -2 );
+}
+
+TEST_F( PlayerTests, ApplyFrictionX_PlayerIsMovingRightAndHasVelocityToSpare_DoesNotStop )
+{
+   BuildPlayer();
+
+   _player->Push( Direction::Right );
+   _player->Push( Direction::Right );
+   _player->ApplyFrictionX();
+
+   EXPECT_EQ( _player->GetVelocityX(), 2 );
+}
+
+TEST_F( PlayerTests, ApplyFrictionY_PlayerIsMovingUpAndHasVelocityToSpare_DoesNotStop )
+{
+   BuildPlayer();
+
+   _player->Push( Direction::Up );
+   _player->Push( Direction::Up );
+   _player->ApplyFrictionY();
+
+   EXPECT_EQ( _player->GetVelocityY(), -2 );
+}
+
+TEST_F( PlayerTests, ApplyFrictionY_PlayerIsMovingDownAndHasVelocityToSpare_DoesNotStop )
+{
+   BuildPlayer();
+
+   _player->Push( Direction::Down );
+   _player->Push( Direction::Down );
+   _player->ApplyFrictionY();
+
+   EXPECT_EQ( _player->GetVelocityY(), 2 );
+}
+
+TEST_F( PlayerTests, ApplyFrictionX_PlayerIsMovingLeftAndHasNoVelocityToSpare_Stops )
+{
+   _config->StartVelocityX = -1;
+   _config->MaxVelocityX = 2;
+   BuildPlayer();
+
+   _player->ApplyFrictionX();
+
+   EXPECT_EQ( _player->GetVelocityX(), 0 );
+}
+
+TEST_F( PlayerTests, ApplyFrictionX_PlayerIsMovingRightAndHasNoVelocityToSpare_Stops )
+{
+   _config->StartVelocityX = 1;
+   _config->MaxVelocityX = 2;
+   BuildPlayer();
+
+   _player->ApplyFrictionX();
+
+   EXPECT_EQ( _player->GetVelocityX(), 0 );
+}
+
+TEST_F( PlayerTests, ApplyFrictionY_PlayerIsMovingUpAndHasNoVelocityToSpare_Stops )
+{
+   _config->StartVelocityY = -1;
+   _config->MaxVelocityY = 2;
+   BuildPlayer();
+
+   _player->ApplyFrictionY();
+
+   EXPECT_EQ( _player->GetVelocityY(), 0 );
+}
+
+TEST_F( PlayerTests, ApplyFrictionY_PlayerIsMovingDownAndHasNoVelocityToSpare_Stops )
+{
+   _config->StartVelocityY = 1;
+   _config->MaxVelocityY = 2;
+   BuildPlayer();
+
+   _player->ApplyFrictionY();
+
+   EXPECT_EQ( _player->GetVelocityY(), 0 );
+}
