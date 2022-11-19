@@ -3,7 +3,6 @@
 #include <memory>
 
 #include "IPlayer.h"
-#include "Direction.h"
 
 namespace ConsoleGame
 {
@@ -14,13 +13,13 @@ namespace ConsoleGame
    public:
       Player( const std::shared_ptr<PlayerConfig> config );
 
-      int GetPositionX() const { return _positionX; }
-      int GetPositionY() const { return _positionY; }
+      int GetPositionX() const override { return _positionX; }
+      int GetPositionY() const override { return _positionY; }
 
-      int GetVelocityX() const { return _velocityX; }
-      int GetVelocityY() const { return _velocityY; }
+      int GetVelocityX() const override { return _velocityX; }
+      int GetVelocityY() const override { return _velocityY; }
 
-      Direction GetDirection() const { return _direction; }
+      Direction GetDirection() const override { return _direction; }
 
    private:
       const std::shared_ptr<PlayerConfig> _config;
