@@ -203,8 +203,8 @@ shared_ptr<PlayerConfig> BuildPlayerConfig()
    playerConfig->StartVelocityX = 0;
    playerConfig->StartVelocityY = 0;
 
-   playerConfig->MaxVelocityX = 1;
-   playerConfig->MaxVelocityY = 1;
+   playerConfig->MaxVelocityX = 30;
+   playerConfig->MaxVelocityY = 30;
 
    playerConfig->VelocityDeltaX = 1;
    playerConfig->VelocityDeltaY = 1;
@@ -218,8 +218,8 @@ shared_ptr<ArenaConfig> BuildArenaConfig()
 {
    auto arenaConfig = make_shared<ArenaConfig>();
 
-   arenaConfig->Width = 2166;
-   arenaConfig->Height = 936;
+   arenaConfig->Width = 4332;
+   arenaConfig->Height = 1872;
 
    arenaConfig->PlayerStartX = arenaConfig->Width / 2;
    arenaConfig->PlayerStartY = arenaConfig->Height / 2;
