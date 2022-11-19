@@ -20,7 +20,6 @@ Game::Game( const std::shared_ptr<GameConfig> config,
    _eventAggregator( eventAggregator ),
    _player( playerFactory->CreatePlayer() ),
    _state( GameState::Startup ),
-   _playerDirection( config->PlayerConfig->StartDirection ),
    _playerPositionX( config->PlayerStartX ),
    _playerPositionY( config->PlayerStartY )
 {
@@ -48,6 +47,11 @@ void Game::ExecuteCommand( GameCommand command, const shared_ptr<GameCommandArgs
    }
 }
 
+Direction Game::GetPlayerDirection() const
+{
+   return _player->GetDirection();
+}
+
 void Game::MovePlayer( Direction direction )
 {
    switch ( direction )
@@ -57,28 +61,24 @@ void Game::MovePlayer( Direction direction )
          {
             _playerPositionX--;
          }
-         _playerDirection = Direction::Left;
          break;
       case Direction::Up:
          if ( _playerPositionY > 0 )
          {
             _playerPositionY--;
          }
-         _playerDirection = Direction::Up;
          break;
       case Direction::Right:
          if ( _playerPositionX < _config->ArenaWidth - 1 )
          {
             _playerPositionX++;
          }
-         _playerDirection = Direction::Right;
          break;
       case Direction::Down:
          if ( _playerPositionY < _config->ArenaHeight - 1 )
          {
             _playerPositionY++;
          }
-         _playerDirection = Direction::Down;
          break;
    }
 }

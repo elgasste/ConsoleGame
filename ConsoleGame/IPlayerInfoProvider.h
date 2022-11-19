@@ -8,7 +8,5 @@ namespace ConsoleGame
    {
    public:
       virtual Direction GetPlayerDirection() const = 0;
-      virtual int GetPlayerXPosition() const = 0;
-      virtual int GetPlayerYPosition() const = 0;
    };
 }

@@ -5,6 +5,7 @@
 #include "IGameStateProvider.h"
 #include "IGameCommandExecutor.h"
 #include "IPlayerInfoProvider.h"
+#include "IArenaInfoProvider.h"
 
 namespace ConsoleGame
 {
@@ -16,7 +17,8 @@ namespace ConsoleGame
 
    class Game : public IGameStateProvider,
                 public IGameCommandExecutor,
-                public IPlayerInfoProvider
+                public IPlayerInfoProvider,
+                public IArenaInfoProvider
    {
    public:
       Game( const std::shared_ptr<GameConfig> config,
@@ -28,9 +30,10 @@ namespace ConsoleGame
       void ExecuteCommand( GameCommand command ) override;
       void ExecuteCommand( GameCommand command, const std::shared_ptr<GameCommandArgs> args ) override;
 
-      Direction GetPlayerDirection() const override{ return _playerDirection; }
-      int GetPlayerXPosition() const override { return _playerPositionX; }
-      int GetPlayerYPosition() const override { return _playerPositionY; }
+      Direction GetPlayerDirection() const override;
+
+      int GetArenaPlayerXPosition() const override { return _playerPositionX; }
+      int GetArenaPlayerYPosition() const override { return _playerPositionY; }
 
    private:
       void MovePlayer( Direction direction );
@@ -42,7 +45,6 @@ namespace ConsoleGame
 
       GameState _state;
 
-      Direction _playerDirection;
       int _playerPositionX;
       int _playerPositionY;
    };

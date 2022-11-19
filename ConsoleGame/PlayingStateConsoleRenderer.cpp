@@ -2,6 +2,7 @@
 #include "IConsoleBuffer.h"
 #include "ConsoleRenderConfig.h"
 #include "IPlayerInfoProvider.h"
+#include "IArenaInfoProvider.h"
 #include "ConsoleColor.h"
 #include "Direction.h"
 #include "ConsoleSprite.h"
@@ -12,10 +13,12 @@ using namespace ConsoleGame;
 
 PlayingStateConsoleRenderer::PlayingStateConsoleRenderer( const shared_ptr<IConsoleBuffer> consoleBuffer,
                                                           const shared_ptr<ConsoleRenderConfig> renderConfig,
-                                                          const shared_ptr<IPlayerInfoProvider> playerInfoProvider ) :
+                                                          const shared_ptr<IPlayerInfoProvider> playerInfoProvider,
+                                                          const shared_ptr<IArenaInfoProvider> arenaInfoProvider ) :
    _consoleBuffer( consoleBuffer ),
    _renderConfig( renderConfig ),
-   _playerInfoProvider( playerInfoProvider )
+   _playerInfoProvider( playerInfoProvider ),
+   _arenaInfoProvider( arenaInfoProvider )
 {
 }
 
@@ -28,8 +31,8 @@ void PlayingStateConsoleRenderer::Render()
 
    DrawArenaFence();
 
-   auto playerX = _playerInfoProvider->GetPlayerXPosition() + _renderConfig->ArenaFenceX + 1;
-   auto playerY = _playerInfoProvider->GetPlayerYPosition() + _renderConfig->ArenaFenceY + 1;
+   auto playerX = _arenaInfoProvider->GetArenaPlayerXPosition() + _renderConfig->ArenaFenceX + 1;
+   auto playerY = _arenaInfoProvider->GetArenaPlayerYPosition() + _renderConfig->ArenaFenceY + 1;
 
    switch ( _playerInfoProvider->GetPlayerDirection() )
    {
