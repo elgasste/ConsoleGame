@@ -254,5 +254,8 @@
     <ClInclude Include="PlayerFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerConfig.h">
+      <Filter>Header Files\Config</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
