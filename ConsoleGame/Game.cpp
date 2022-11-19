@@ -22,7 +22,9 @@ Game::Game( const std::shared_ptr<GameConfig> config,
    _player( playerFactory->CreatePlayer() ),
    _state( GameState::Startup ),
    _arenaPlayerPositionX( config->ArenaConfig->PlayerStartX ),
-   _arenaPlayerPositionY( config->ArenaConfig->PlayerStartY )
+   _arenaPlayerPositionY( config->ArenaConfig->PlayerStartY ),
+   _playerWasPushedX( false ),
+   _playerWasPushedY( false )
 {
 }
 
@@ -30,12 +32,19 @@ void Game::RunFrame()
 {
    if ( _state == GameState::Playing )
    {
-      // TODO
-      // 1) if the player was not pushed Left or Right on this frame, apply friction on X
-      // 2) if the player was not pushed Up or Down on this frame, apply friction on Y
-      // 3) actually move the player
-      // 4) if the player has hit a wall, call _player->StopX() or StopY()
-      // 5) reset the "was player pushed" flags
+      if ( !_playerWasPushedX )
+      {
+         _player->ApplyFrictionX();
+      }
+      if ( !_playerWasPushedY )
+      {
+         _player->ApplyFrictionY();
+      }
+
+      MovePlayer();
+
+      _playerWasPushedX = false;
+      _playerWasPushedY = false;
    }
 }
 
@@ -68,31 +77,43 @@ Direction Game::GetPlayerDirection() const
 
 void Game::PushPlayer( Direction direction )
 {
-   switch ( direction )
+   _player->Push( direction );
+
+   if ( direction == Direction::Left || direction == Direction::Right )
    {
-      case Direction::Left:
-         if ( _arenaPlayerPositionX > 0 )
-         {
-            _arenaPlayerPositionX--;
-         }
-         break;
-      case Direction::Up:
-         if ( _arenaPlayerPositionY > 0 )
-         {
-            _arenaPlayerPositionY--;
-         }
-         break;
-      case Direction::Right:
-         if ( _arenaPlayerPositionX < _config->ArenaConfig->Width - 1 )
-         {
-            _arenaPlayerPositionX++;
-         }
-         break;
-      case Direction::Down:
-         if ( _arenaPlayerPositionY < _config->ArenaConfig->Height - 1 )
-         {
-            _arenaPlayerPositionY++;
-         }
-         break;
+      _playerWasPushedX = true;
+   }
+   else
+   {
+      _playerWasPushedY = true;
+   }
+}
+
+void Game::MovePlayer()
+{
+   _arenaPlayerPositionX += _player->GetVelocityX();
+
+   if ( _arenaPlayerPositionX < 0 )
+   {
+      _arenaPlayerPositionX = 0;
+      _player->StopX();
+   }
+   else if ( _arenaPlayerPositionX >= _config->ArenaConfig->Width )
+   {
+      _arenaPlayerPositionX = _config->ArenaConfig->Width - 1;
+      _player->StopX();
+   }
+
+   _arenaPlayerPositionY += _player->GetVelocityY();
+
+   if ( _arenaPlayerPositionY < 0 )
+   {
+      _arenaPlayerPositionY = 0;
+      _player->StopY();
+   }
+   else if ( _arenaPlayerPositionY >= _config->ArenaConfig->Height )
+   {
+      _arenaPlayerPositionY = _config->ArenaConfig->Height - 1;
+      _player->StopY();
    }
 }

@@ -41,6 +41,7 @@ namespace ConsoleGame
 
    private:
       void PushPlayer( Direction direction );
+      void MovePlayer();
 
    private:
       const std::shared_ptr<GameConfig> _config;
@@ -51,5 +52,8 @@ namespace ConsoleGame
 
       int _arenaPlayerPositionX;
       int _arenaPlayerPositionY;
+
+      bool _playerWasPushedX;
+      bool _playerWasPushedY;
    };
 }

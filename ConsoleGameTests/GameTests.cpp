@@ -32,6 +32,11 @@ public:
       _playerFactoryMock.reset( new NiceMock<mock_PlayerFactory> );
       _playerMock.reset( new NiceMock<mock_Player> );
 
+      _config->ArenaConfig->Width = 10;
+      _config->ArenaConfig->Height = 8;
+      _config->ArenaConfig->PlayerStartX = 5;
+      _config->ArenaConfig->PlayerStartY = 4;
+
       ON_CALL( *_playerFactoryMock, CreatePlayer() ).WillByDefault( Return( _playerMock ) );
    }
 
@@ -85,132 +90,44 @@ TEST_F( GameTests, ExecuteCommand_Quit_RaisesShutdownEvent )
    _game->ExecuteCommand( GameCommand::Quit );
 }
 
-TEST_F( GameTests, ExecuteCommand_PushPlayerLeftWithinArenaBounds_UpdatesPlayerInfo )
+TEST_F( GameTests, ExecuteCommand_PushPlayerLeft_PushesPlayerLeft )
 {
-   _config->ArenaConfig->Width = 50;
-   _config->ArenaConfig->Height = 30;
-   _config->ArenaConfig->PlayerStartX = 10;
-   _config->ArenaConfig->PlayerStartY = 20;
-
    BuildGame();
+
+   EXPECT_CALL( *_playerMock, Push( Direction::Left ) );
 
    _game->ExecuteCommand( GameCommand::PushPlayer,
                           shared_ptr<PushPlayerCommandArgs>( new PushPlayerCommandArgs( Direction::Left ) ) );
-
-   EXPECT_EQ( _game->GetArenaPlayerXPosition(), 9 );
-   EXPECT_EQ( _game->GetArenaPlayerYPosition(), 20 );
 }
 
-TEST_F( GameTests, ExecuteCommand_PushPlayerUpWithinArenaBounds_UpdatesPlayerInfo )
+TEST_F( GameTests, ExecuteCommand_PushPlayerUp_PushesPlayerUp )
 {
-   _config->ArenaConfig->Width = 50;
-   _config->ArenaConfig->Height = 30;
-   _config->ArenaConfig->PlayerStartX = 10;
-   _config->ArenaConfig->PlayerStartY = 20;
-
    BuildGame();
+
+   EXPECT_CALL( *_playerMock, Push( Direction::Up ) );
 
    _game->ExecuteCommand( GameCommand::PushPlayer,
                           shared_ptr<PushPlayerCommandArgs>( new PushPlayerCommandArgs( Direction::Up ) ) );
-
-   EXPECT_EQ( _game->GetArenaPlayerXPosition(), 10 );
-   EXPECT_EQ( _game->GetArenaPlayerYPosition(), 19 );
 }
 
-TEST_F( GameTests, ExecuteCommand_PushPlayerRightaWithinArenaBounds_UpdatesPlayerInfo )
+TEST_F( GameTests, ExecuteCommand_PushPlayerRight_PushesPlayerRight )
 {
-   _config->ArenaConfig->Width = 50;
-   _config->ArenaConfig->Height = 30;
-   _config->ArenaConfig->PlayerStartX = 10;
-   _config->ArenaConfig->PlayerStartY = 20;
-
    BuildGame();
+
+   EXPECT_CALL( *_playerMock, Push( Direction::Right ) );
 
    _game->ExecuteCommand( GameCommand::PushPlayer,
                           shared_ptr<PushPlayerCommandArgs>( new PushPlayerCommandArgs( Direction::Right ) ) );
-
-   EXPECT_EQ( _game->GetArenaPlayerXPosition(), 11 );
-   EXPECT_EQ( _game->GetArenaPlayerYPosition(), 20 );
 }
 
-TEST_F( GameTests, ExecuteCommand_PushPlayerDownWithinArenaBounds_UpdatesPlayerInfo )
+TEST_F( GameTests, ExecuteCommand_PushPlayerDown_PushesPlayerDown )
 {
-   _config->ArenaConfig->Width = 50;
-   _config->ArenaConfig->Height = 30;
-   _config->ArenaConfig->PlayerStartX = 10;
-   _config->ArenaConfig->PlayerStartY = 20;
-
    BuildGame();
+
+   EXPECT_CALL( *_playerMock, Push( Direction::Down ) );
 
    _game->ExecuteCommand( GameCommand::PushPlayer,
                           shared_ptr<PushPlayerCommandArgs>( new PushPlayerCommandArgs( Direction::Down ) ) );
-
-   EXPECT_EQ( _game->GetArenaPlayerXPosition(), 10 );
-   EXPECT_EQ( _game->GetArenaPlayerYPosition(), 21 );
-}
-
-TEST_F( GameTests, ExecuteCommand_PushPlayerLeftOutsideArenaBounds_DoesNotUpdatePlayerPosition )
-{
-   _config->ArenaConfig->Width = 50;
-   _config->ArenaConfig->Height = 30;
-   _config->ArenaConfig->PlayerStartX = 0;
-   _config->ArenaConfig->PlayerStartY = 20;
-
-   BuildGame();
-
-   _game->ExecuteCommand( GameCommand::PushPlayer,
-                          shared_ptr<PushPlayerCommandArgs>( new PushPlayerCommandArgs( Direction::Left ) ) );
-
-   EXPECT_EQ( _game->GetArenaPlayerXPosition(), 0 );
-   EXPECT_EQ( _game->GetArenaPlayerYPosition(), 20 );
-}
-
-TEST_F( GameTests, ExecuteCommand_PushPlayerUpOutsideArenaBounds_DoesNotUpdatePlayerPosition )
-{
-   _config->ArenaConfig->Width = 50;
-   _config->ArenaConfig->Height = 30;
-   _config->ArenaConfig->PlayerStartX = 10;
-   _config->ArenaConfig->PlayerStartY = 0;
-
-   BuildGame();
-
-   _game->ExecuteCommand( GameCommand::PushPlayer,
-                          shared_ptr<PushPlayerCommandArgs>( new PushPlayerCommandArgs( Direction::Up ) ) );
-
-   EXPECT_EQ( _game->GetArenaPlayerXPosition(), 10 );
-   EXPECT_EQ( _game->GetArenaPlayerYPosition(), 0 );
-}
-
-TEST_F( GameTests, ExecuteCommand_PushPlayerRightOutsideArenaBounds_DoesNotUpdatePlayerPosition )
-{
-   _config->ArenaConfig->Width = 50;
-   _config->ArenaConfig->Height = 30;
-   _config->ArenaConfig->PlayerStartX = 49;
-   _config->ArenaConfig->PlayerStartY = 20;
-
-   BuildGame();
-
-   _game->ExecuteCommand( GameCommand::PushPlayer,
-                          shared_ptr<PushPlayerCommandArgs>( new PushPlayerCommandArgs( Direction::Right ) ) );
-
-   EXPECT_EQ( _game->GetArenaPlayerXPosition(), 49 );
-   EXPECT_EQ( _game->GetArenaPlayerYPosition(), 20 );
-}
-
-TEST_F( GameTests, ExecuteCommand_PushPlayerDownOutsideArenaBounds_DoesNotUpdatePlayerPosition )
-{
-   _config->ArenaConfig->Width = 50;
-   _config->ArenaConfig->Height = 30;
-   _config->ArenaConfig->PlayerStartX = 10;
-   _config->ArenaConfig->PlayerStartY = 29;
-
-   BuildGame();
-
-   _game->ExecuteCommand( GameCommand::PushPlayer,
-                          shared_ptr<PushPlayerCommandArgs>( new PushPlayerCommandArgs( Direction::Down ) ) );
-
-   EXPECT_EQ( _game->GetArenaPlayerXPosition(), 10 );
-   EXPECT_EQ( _game->GetArenaPlayerYPosition(), 29 );
 }
 
 TEST_F( GameTests, GetPlayerDirection_Always_GetsDirectionFromPlayer )
@@ -220,4 +137,140 @@ TEST_F( GameTests, GetPlayerDirection_Always_GetsDirectionFromPlayer )
    BuildGame();
 
    EXPECT_EQ( _game->GetPlayerDirection(), Direction::Up );
+}
+
+TEST_F( GameTests, RunFrame_GameStateIsNotPlaying_DoesNotChangePlayerInfo )
+{
+   BuildGame();
+
+   EXPECT_CALL( *_playerMock, ApplyFrictionX() ).Times( 0 );
+   EXPECT_CALL( *_playerMock, ApplyFrictionY() ).Times( 0 );
+   EXPECT_CALL( *_playerMock, StopX() ).Times( 0 );
+   EXPECT_CALL( *_playerMock, StopY() ).Times( 0 );
+
+   _game->RunFrame();
+}
+
+TEST_F( GameTests, RunFrame_PlayerWasPushedHorizontally_DoesNotApplyXFriction )
+{
+   BuildGame();
+   _game->ExecuteCommand( GameCommand::Start );
+
+   _game->ExecuteCommand( GameCommand::PushPlayer,
+                          shared_ptr<PushPlayerCommandArgs>( new PushPlayerCommandArgs( Direction::Left ) ) );
+
+   EXPECT_CALL( *_playerMock, ApplyFrictionX() ).Times( 0 );
+   EXPECT_CALL( *_playerMock, ApplyFrictionY() );
+
+   _game->RunFrame();
+}
+
+TEST_F( GameTests, RunFrame_PlayerWasPushedVertically_DoesNotApplyYFriction )
+{
+   BuildGame();
+   _game->ExecuteCommand( GameCommand::Start );
+
+   _game->ExecuteCommand( GameCommand::PushPlayer,
+                          shared_ptr<PushPlayerCommandArgs>( new PushPlayerCommandArgs( Direction::Down ) ) );
+
+   EXPECT_CALL( *_playerMock, ApplyFrictionX() );
+   EXPECT_CALL( *_playerMock, ApplyFrictionY() ).Times( 0 );
+
+   _game->RunFrame();
+}
+
+TEST_F( GameTests, RunFrame_PlayerIsMovingLeft_PlayerGetsMovedLeft )
+{
+   ON_CALL( *_playerMock, GetVelocityX() ).WillByDefault( Return( -2 ) );
+   BuildGame();
+   _game->ExecuteCommand( GameCommand::Start );
+
+   _game->RunFrame();
+
+   EXPECT_EQ( _game->GetArenaPlayerXPosition(), 3 );
+}
+
+TEST_F( GameTests, RunFrame_PlayerIsMovingRight_PlayerGetsMovedRight )
+{
+   ON_CALL( *_playerMock, GetVelocityX() ).WillByDefault( Return( 2 ) );
+   BuildGame();
+   _game->ExecuteCommand( GameCommand::Start );
+
+   _game->RunFrame();
+
+   EXPECT_EQ( _game->GetArenaPlayerXPosition(), 7 );
+}
+
+TEST_F( GameTests, RunFrame_PlayerIsMovingUp_PlayerGetsMovedUp )
+{
+   ON_CALL( *_playerMock, GetVelocityY() ).WillByDefault( Return( -2 ) );
+   BuildGame();
+   _game->ExecuteCommand( GameCommand::Start );
+
+   _game->RunFrame();
+
+   EXPECT_EQ( _game->GetArenaPlayerYPosition(), 2 );
+}
+
+TEST_F( GameTests, RunFrame_PlayerIsMovingDown_PlayerGetsMovedDown )
+{
+   ON_CALL( *_playerMock, GetVelocityY() ).WillByDefault( Return( 2 ) );
+   BuildGame();
+   _game->ExecuteCommand( GameCommand::Start );
+
+   _game->RunFrame();
+
+   EXPECT_EQ( _game->GetArenaPlayerYPosition(), 6 );
+}
+
+TEST_F( GameTests, RunFrame_PlayerHitsLeftWall_PlayerIsStoppedHorizontally )
+{
+   ON_CALL( *_playerMock, GetVelocityX() ).WillByDefault( Return( -7 ) );
+   BuildGame();
+   _game->ExecuteCommand( GameCommand::Start );
+
+   EXPECT_CALL( *_playerMock, StopX() );
+
+   _game->RunFrame();
+
+   EXPECT_EQ( _game->GetArenaPlayerXPosition(), 0 );
+}
+
+TEST_F( GameTests, RunFrame_PlayerHitsRightWall_PlayerIsStoppedHorizontally )
+{
+   ON_CALL( *_playerMock, GetVelocityX() ).WillByDefault( Return( 5 ) );
+   BuildGame();
+   _game->ExecuteCommand( GameCommand::Start );
+
+   EXPECT_CALL( *_playerMock, StopX() );
+
+   _game->RunFrame();
+
+   EXPECT_EQ( _game->GetArenaPlayerXPosition(), 9 );
+}
+
+TEST_F( GameTests, RunFrame_PlayerHitsTopWall_PlayerIsStoppedVertically )
+{
+   ON_CALL( *_playerMock, GetVelocityY() ).WillByDefault( Return( -11 ) );
+   BuildGame();
+   _game->ExecuteCommand( GameCommand::Start );
+
+   EXPECT_CALL( *_playerMock, StopY() );
+
+   _game->RunFrame();
+
+   EXPECT_EQ( _game->GetArenaPlayerYPosition(), 0 );
+}
+
+TEST_F( GameTests, RunFrame_PlayerHitsBottomWall_PlayerIsStoppedVertically )
+{
+   ON_CALL( *_playerMock, GetVelocityY() ).WillByDefault( Return( 4 ) );
+   BuildGame();
+   _game->ExecuteCommand( GameCommand::Start );
+
+   EXPECT_CALL( *_playerMock, StopY() );
+
+   _game->RunFrame();
+
+   EXPECT_EQ( _game->GetArenaPlayerYPosition(), 7 );
 }
