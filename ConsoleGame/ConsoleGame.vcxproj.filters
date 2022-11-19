@@ -224,7 +224,7 @@
     <ClInclude Include="GameCommandArgs.h">
       <Filter>Header Files\DataTypes</Filter>
     </ClInclude>
-    <ClInclude Include="MovePlayerCommandArgs.h">
+    <ClInclude Include="PushPlayerCommandArgs.h">
       <Filter>Header Files\CommandArgs</Filter>
     </ClInclude>
     <ClInclude Include="ConsolePixel.h">

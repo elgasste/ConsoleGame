@@ -40,7 +40,7 @@ namespace ConsoleGame
       int GetArenaPlayerYPosition() const override { return _arenaPlayerPositionY; }
 
    private:
-      void MovePlayer( Direction direction );
+      void PushPlayer( Direction direction );
 
    private:
       const std::shared_ptr<GameConfig> _config;

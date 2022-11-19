@@ -212,7 +212,7 @@
     <ClInclude Include="ISleeper.h" />
     <ClInclude Include="KeyboardInputReader.h" />
     <ClInclude Include="KeyCode.h" />
-    <ClInclude Include="MovePlayerCommandArgs.h" />
+    <ClInclude Include="PushPlayerCommandArgs.h" />
     <ClInclude Include="ConsolePixel.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerConfig.h" />

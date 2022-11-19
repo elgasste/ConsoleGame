@@ -9,7 +9,7 @@
 #include "GameCommand.h"
 #include "GameEvent.h"
 #include "Direction.h"
-#include "MovePlayerCommandArgs.h"
+#include "PushPlayerCommandArgs.h"
 
 using namespace std;
 using namespace ConsoleGame;
@@ -54,9 +54,9 @@ void Game::ExecuteCommand( GameCommand command, const shared_ptr<GameCommandArgs
       case GameCommand::Quit:
          _eventAggregator->RaiseEvent( GameEvent::Shutdown );
          break;
-      case GameCommand::MovePlayer:
-         auto direction = static_pointer_cast<MovePlayerCommandArgs>( args )->Direction;
-         MovePlayer( direction );
+      case GameCommand::PushPlayer:
+         auto direction = static_pointer_cast<PushPlayerCommandArgs>( args )->Direction;
+         PushPlayer( direction );
          break;
    }
 }
@@ -66,7 +66,7 @@ Direction Game::GetPlayerDirection() const
    return _player->GetDirection();
 }
 
-void Game::MovePlayer( Direction direction )
+void Game::PushPlayer( Direction direction )
 {
    switch ( direction )
    {

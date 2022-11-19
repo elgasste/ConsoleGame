@@ -5,7 +5,7 @@ namespace ConsoleGame
    enum class GameCommand
    {
       Start = 0,
-      MovePlayer,
+      PushPlayer,
       Quit
    };
 }

@@ -10,7 +10,7 @@
 #include <ConsoleGame/Direction.h>
 #include <ConsoleGame/GameCommand.h>
 #include <ConsoleGame/GameEvent.h>
-#include <ConsoleGame/MovePlayerCommandArgs.h>
+#include <ConsoleGame/PushPlayerCommandArgs.h>
 
 #include "mock_GameEventAggregator.h"
 #include "mock_PlayerFactory.h"
@@ -85,7 +85,7 @@ TEST_F( GameTests, ExecuteCommand_Quit_RaisesShutdownEvent )
    _game->ExecuteCommand( GameCommand::Quit );
 }
 
-TEST_F( GameTests, ExecuteCommand_MovePlayerLeftWithinArenaBounds_UpdatesPlayerInfo )
+TEST_F( GameTests, ExecuteCommand_PushPlayerLeftWithinArenaBounds_UpdatesPlayerInfo )
 {
    _config->ArenaConfig->Width = 50;
    _config->ArenaConfig->Height = 30;
@@ -94,14 +94,14 @@ TEST_F( GameTests, ExecuteCommand_MovePlayerLeftWithinArenaBounds_UpdatesPlayerI
 
    BuildGame();
 
-   _game->ExecuteCommand( GameCommand::MovePlayer,
-                          shared_ptr<MovePlayerCommandArgs>( new MovePlayerCommandArgs( Direction::Left ) ) );
+   _game->ExecuteCommand( GameCommand::PushPlayer,
+                          shared_ptr<PushPlayerCommandArgs>( new PushPlayerCommandArgs( Direction::Left ) ) );
 
    EXPECT_EQ( _game->GetArenaPlayerXPosition(), 9 );
    EXPECT_EQ( _game->GetArenaPlayerYPosition(), 20 );
 }
 
-TEST_F( GameTests, ExecuteCommand_MovePlayerUpWithinArenaBounds_UpdatesPlayerInfo )
+TEST_F( GameTests, ExecuteCommand_PushPlayerUpWithinArenaBounds_UpdatesPlayerInfo )
 {
    _config->ArenaConfig->Width = 50;
    _config->ArenaConfig->Height = 30;
@@ -110,14 +110,14 @@ TEST_F( GameTests, ExecuteCommand_MovePlayerUpWithinArenaBounds_UpdatesPlayerInf
 
    BuildGame();
 
-   _game->ExecuteCommand( GameCommand::MovePlayer,
-                          shared_ptr<MovePlayerCommandArgs>( new MovePlayerCommandArgs( Direction::Up ) ) );
+   _game->ExecuteCommand( GameCommand::PushPlayer,
+                          shared_ptr<PushPlayerCommandArgs>( new PushPlayerCommandArgs( Direction::Up ) ) );
 
    EXPECT_EQ( _game->GetArenaPlayerXPosition(), 10 );
    EXPECT_EQ( _game->GetArenaPlayerYPosition(), 19 );
 }
 
-TEST_F( GameTests, ExecuteCommand_MovePlayerRightaWithinArenaBounds_UpdatesPlayerInfo )
+TEST_F( GameTests, ExecuteCommand_PushPlayerRightaWithinArenaBounds_UpdatesPlayerInfo )
 {
    _config->ArenaConfig->Width = 50;
    _config->ArenaConfig->Height = 30;
@@ -126,14 +126,14 @@ TEST_F( GameTests, ExecuteCommand_MovePlayerRightaWithinArenaBounds_UpdatesPlaye
 
    BuildGame();
 
-   _game->ExecuteCommand( GameCommand::MovePlayer,
-                          shared_ptr<MovePlayerCommandArgs>( new MovePlayerCommandArgs( Direction::Right ) ) );
+   _game->ExecuteCommand( GameCommand::PushPlayer,
+                          shared_ptr<PushPlayerCommandArgs>( new PushPlayerCommandArgs( Direction::Right ) ) );
 
    EXPECT_EQ( _game->GetArenaPlayerXPosition(), 11 );
    EXPECT_EQ( _game->GetArenaPlayerYPosition(), 20 );
 }
 
-TEST_F( GameTests, ExecuteCommand_MovePlayerDownWithinArenaBounds_UpdatesPlayerInfo )
+TEST_F( GameTests, ExecuteCommand_PushPlayerDownWithinArenaBounds_UpdatesPlayerInfo )
 {
    _config->ArenaConfig->Width = 50;
    _config->ArenaConfig->Height = 30;
@@ -142,14 +142,14 @@ TEST_F( GameTests, ExecuteCommand_MovePlayerDownWithinArenaBounds_UpdatesPlayerI
 
    BuildGame();
 
-   _game->ExecuteCommand( GameCommand::MovePlayer,
-                          shared_ptr<MovePlayerCommandArgs>( new MovePlayerCommandArgs( Direction::Down ) ) );
+   _game->ExecuteCommand( GameCommand::PushPlayer,
+                          shared_ptr<PushPlayerCommandArgs>( new PushPlayerCommandArgs( Direction::Down ) ) );
 
    EXPECT_EQ( _game->GetArenaPlayerXPosition(), 10 );
    EXPECT_EQ( _game->GetArenaPlayerYPosition(), 21 );
 }
 
-TEST_F( GameTests, ExecuteCommand_MovePlayerLeftOutsideArenaBounds_DoesNotUpdatePlayerPosition )
+TEST_F( GameTests, ExecuteCommand_PushPlayerLeftOutsideArenaBounds_DoesNotUpdatePlayerPosition )
 {
    _config->ArenaConfig->Width = 50;
    _config->ArenaConfig->Height = 30;
@@ -158,14 +158,14 @@ TEST_F( GameTests, ExecuteCommand_MovePlayerLeftOutsideArenaBounds_DoesNotUpdate
 
    BuildGame();
 
-   _game->ExecuteCommand( GameCommand::MovePlayer,
-                          shared_ptr<MovePlayerCommandArgs>( new MovePlayerCommandArgs( Direction::Left ) ) );
+   _game->ExecuteCommand( GameCommand::PushPlayer,
+                          shared_ptr<PushPlayerCommandArgs>( new PushPlayerCommandArgs( Direction::Left ) ) );
 
    EXPECT_EQ( _game->GetArenaPlayerXPosition(), 0 );
    EXPECT_EQ( _game->GetArenaPlayerYPosition(), 20 );
 }
 
-TEST_F( GameTests, ExecuteCommand_MovePlayerUpOutsideArenaBounds_DoesNotUpdatePlayerPosition )
+TEST_F( GameTests, ExecuteCommand_PushPlayerUpOutsideArenaBounds_DoesNotUpdatePlayerPosition )
 {
    _config->ArenaConfig->Width = 50;
    _config->ArenaConfig->Height = 30;
@@ -174,14 +174,14 @@ TEST_F( GameTests, ExecuteCommand_MovePlayerUpOutsideArenaBounds_DoesNotUpdatePl
 
    BuildGame();
 
-   _game->ExecuteCommand( GameCommand::MovePlayer,
-                          shared_ptr<MovePlayerCommandArgs>( new MovePlayerCommandArgs( Direction::Up ) ) );
+   _game->ExecuteCommand( GameCommand::PushPlayer,
+                          shared_ptr<PushPlayerCommandArgs>( new PushPlayerCommandArgs( Direction::Up ) ) );
 
    EXPECT_EQ( _game->GetArenaPlayerXPosition(), 10 );
    EXPECT_EQ( _game->GetArenaPlayerYPosition(), 0 );
 }
 
-TEST_F( GameTests, ExecuteCommand_MovePlayerRightOutsideArenaBounds_DoesNotUpdatePlayerPosition )
+TEST_F( GameTests, ExecuteCommand_PushPlayerRightOutsideArenaBounds_DoesNotUpdatePlayerPosition )
 {
    _config->ArenaConfig->Width = 50;
    _config->ArenaConfig->Height = 30;
@@ -190,14 +190,14 @@ TEST_F( GameTests, ExecuteCommand_MovePlayerRightOutsideArenaBounds_DoesNotUpdat
 
    BuildGame();
 
-   _game->ExecuteCommand( GameCommand::MovePlayer,
-                          shared_ptr<MovePlayerCommandArgs>( new MovePlayerCommandArgs( Direction::Right ) ) );
+   _game->ExecuteCommand( GameCommand::PushPlayer,
+                          shared_ptr<PushPlayerCommandArgs>( new PushPlayerCommandArgs( Direction::Right ) ) );
 
    EXPECT_EQ( _game->GetArenaPlayerXPosition(), 49 );
    EXPECT_EQ( _game->GetArenaPlayerYPosition(), 20 );
 }
 
-TEST_F( GameTests, ExecuteCommand_MovePlayerDownOutsideArenaBounds_DoesNotUpdatePlayerPosition )
+TEST_F( GameTests, ExecuteCommand_PushPlayerDownOutsideArenaBounds_DoesNotUpdatePlayerPosition )
 {
    _config->ArenaConfig->Width = 50;
    _config->ArenaConfig->Height = 30;
@@ -206,8 +206,8 @@ TEST_F( GameTests, ExecuteCommand_MovePlayerDownOutsideArenaBounds_DoesNotUpdate
 
    BuildGame();
 
-   _game->ExecuteCommand( GameCommand::MovePlayer,
-                          shared_ptr<MovePlayerCommandArgs>( new MovePlayerCommandArgs( Direction::Down ) ) );
+   _game->ExecuteCommand( GameCommand::PushPlayer,
+                          shared_ptr<PushPlayerCommandArgs>( new PushPlayerCommandArgs( Direction::Down ) ) );
 
    EXPECT_EQ( _game->GetArenaPlayerXPosition(), 10 );
    EXPECT_EQ( _game->GetArenaPlayerYPosition(), 29 );
