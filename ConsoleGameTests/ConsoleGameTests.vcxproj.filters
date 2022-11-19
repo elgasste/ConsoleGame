@@ -68,6 +68,9 @@
     <ClInclude Include="mock_ScreenBuffer.h">
       <Filter>Mocks</Filter>
     </ClInclude>
+    <ClInclude Include="mock_Player.h">
+      <Filter>Mocks</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Mocks">
