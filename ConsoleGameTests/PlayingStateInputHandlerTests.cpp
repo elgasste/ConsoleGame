@@ -95,3 +95,15 @@ TEST_F( PlayingStateInputHandlerTests, HandleInput_NoButtonsDown_DoesNotExecuteA
 
    _inputHandler->HandleInput();
 }
+
+TEST_F( PlayingStateInputHandlerTests, HandleInput_MultipleDirectionButtonsAreDown_ExecutesPushPlayerCommandForEach )
+{
+   ON_CALL( *_inputReaderMock, IsButtonDown( GameButton::Left ) ).WillByDefault( Return( true ) );
+   ON_CALL( *_inputReaderMock, IsButtonDown( GameButton::Up ) ).WillByDefault( Return( true ) );
+   ON_CALL( *_inputReaderMock, IsButtonDown( GameButton::Right ) ).WillByDefault( Return( true ) );
+   ON_CALL( *_inputReaderMock, IsButtonDown( GameButton::Down ) ).WillByDefault( Return( true ) );
+
+   EXPECT_CALL( *_commandExecutorMock, ExecuteCommand( GameCommand::PushPlayer, _ ) ).Times( 4 );
+
+   _inputHandler->HandleInput();
+}
