@@ -65,7 +65,7 @@ void PlayingStateConsoleRenderer::DrawArenaFence()
    _consoleBuffer->Draw( _renderConfig->ArenaFenceX + _renderConfig->ArenaCharWidth + 1, _renderConfig->ArenaFenceY + _renderConfig->ArenaCharHeight + 1, '\'' );
 
    // top and bottom fences
-   for ( int left = _renderConfig->ArenaFenceX; left < _renderConfig->ArenaCharWidth + 2; left++ )
+   for ( int left = _renderConfig->ArenaFenceX; left < _renderConfig->ArenaCharWidth + 1; left++ )
    {
       _consoleBuffer->Draw( left + 1, _renderConfig->ArenaFenceY, '-' );
       _consoleBuffer->Draw( left + 1, _renderConfig->ArenaFenceY + _renderConfig->ArenaCharHeight + 1, '-' );
@@ -75,6 +75,6 @@ void PlayingStateConsoleRenderer::DrawArenaFence()
    for ( int top = _renderConfig->ArenaFenceY + 1; top < _renderConfig->ArenaFenceY + _renderConfig->ArenaCharHeight + 1; top++ )
    {
       _consoleBuffer->Draw( _renderConfig->ArenaFenceX, top, '|' );
-      _consoleBuffer->Draw( _renderConfig->ArenaFenceX + _renderConfig->ArenaCharWidth + 2, top, '|' );
+      _consoleBuffer->Draw( _renderConfig->ArenaFenceX + _renderConfig->ArenaCharWidth + 1, top, '|' );
    }
 }
