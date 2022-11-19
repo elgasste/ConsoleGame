@@ -160,6 +160,7 @@
     <ClCompile Include="KeyboardInputReader.cpp" />
     <ClCompile Include="KeyboardWrapper.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerFactory.cpp" />
     <ClCompile Include="PlayingStateConsoleRenderer.cpp" />
     <ClCompile Include="PlayingStateInputHandler.cpp" />
     <ClCompile Include="SleeperWrapper.cpp" />
@@ -187,6 +188,7 @@
     <ClInclude Include="IGameInputConfig.h" />
     <ClInclude Include="IGameRenderConfig.h" />
     <ClInclude Include="IPlayer.h" />
+    <ClInclude Include="IPlayerFactory.h" />
     <ClInclude Include="IScreenBuffer.h" />
     <ClInclude Include="KeyboardWrapper.h" />
     <ClInclude Include="HighResolutionClockWrapper.h" />
@@ -210,6 +212,7 @@
     <ClInclude Include="MovePlayerCommandArgs.h" />
     <ClInclude Include="ConsolePixel.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerFactory.h" />
     <ClInclude Include="PlayingStateConsoleRenderer.h" />
     <ClInclude Include="PlayingStateInputHandler.h" />
     <ClInclude Include="SleeperWrapper.h" />
