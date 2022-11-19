@@ -34,6 +34,7 @@ TEST_F( PlayerTests, Constructor_Always_SetsDefaultPropertiesFromConfig )
    _config->StartPositionY = 2;
    _config->StartVelocityX = 3;
    _config->StartVelocityY = 4;
+   _config->StartDirection = Direction::Right;
 
    BuildPlayer();
 
@@ -41,4 +42,5 @@ TEST_F( PlayerTests, Constructor_Always_SetsDefaultPropertiesFromConfig )
    EXPECT_EQ( _player->GetPositionY(), 2 );
    EXPECT_EQ( _player->GetVelocityX(), 3 );
    EXPECT_EQ( _player->GetVelocityY(), 4 );
+   EXPECT_EQ( _player->GetDirection(), Direction::Right );
 }

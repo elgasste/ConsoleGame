@@ -9,6 +9,7 @@ Player::Player( const shared_ptr<PlayerConfig> config )
      _positionX( config->StartPositionX ),
      _positionY( config->StartPositionY ),
      _velocityX( config->StartVelocityX ),
-     _velocityY( config->StartVelocityY )
+     _velocityY( config->StartVelocityY ),
+     _direction( config->StartDirection )
 {
 }

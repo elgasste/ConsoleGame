@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Direction.h"
+
 namespace ConsoleGame
 {
    class PlayerConfig
@@ -16,5 +18,7 @@ namespace ConsoleGame
 
       int VelocityDeltaX;
       int VelocityDeltaY;
+
+      Direction StartDirection;
    };
 }
