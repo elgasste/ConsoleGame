@@ -30,6 +30,9 @@
     <ClCompile Include="GameRunnerTests.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mock_GameEventAggregator.h">
