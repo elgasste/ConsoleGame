@@ -36,6 +36,9 @@ namespace ConsoleGame
 
       Direction GetPlayerDirection() const override;
 
+      int GetArenaWidth() const override;
+      int GetArenaHeight() const override;
+
       int GetArenaPlayerXPosition() const override { return _arenaPlayerPositionX; }
       int GetArenaPlayerYPosition() const override { return _arenaPlayerPositionY; }
 

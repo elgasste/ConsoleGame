@@ -29,5 +29,8 @@ namespace ConsoleGame
       const std::shared_ptr<ConsoleRenderConfig> _renderConfig;
       const std::shared_ptr<IPlayerInfoProvider> _playerInfoProvider;
       const std::shared_ptr<IArenaInfoProvider> _arenaInfoProvider;
+
+      double _arenaCoordConverterX;
+      double _arenaCoordConverterY;
    };
 }

@@ -75,6 +75,17 @@ Direction Game::GetPlayerDirection() const
    return _player->GetDirection();
 }
 
+// MUFFINS: test these two functions
+int Game::GetArenaWidth() const
+{
+   return _config->ArenaConfig->Width;
+}
+
+int Game::GetArenaHeight() const
+{
+   return _config->ArenaConfig->Height;
+}
+
 void Game::PushPlayer( Direction direction )
 {
    _player->Push( direction );

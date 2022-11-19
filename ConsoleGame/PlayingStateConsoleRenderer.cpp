@@ -18,12 +18,15 @@ PlayingStateConsoleRenderer::PlayingStateConsoleRenderer( const shared_ptr<ICons
    _consoleBuffer( consoleBuffer ),
    _renderConfig( renderConfig ),
    _playerInfoProvider( playerInfoProvider ),
-   _arenaInfoProvider( arenaInfoProvider )
+   _arenaInfoProvider( arenaInfoProvider ),
+   _arenaCoordConverterX( renderConfig->ArenaCharWidth / (double)arenaInfoProvider->GetArenaWidth() ),
+   _arenaCoordConverterY( renderConfig->ArenaCharHeight / (double)arenaInfoProvider->GetArenaHeight() )
 {
 }
 
 void PlayingStateConsoleRenderer::Render()
 {
+   // MUFFINS: arena coords x converter = console coords
    _consoleBuffer->SetDefaultBackgroundColor( ConsoleColor::DarkGrey );
    _consoleBuffer->SetDefaultForegroundColor( ConsoleColor::White );
 
@@ -31,8 +34,11 @@ void PlayingStateConsoleRenderer::Render()
 
    DrawArenaFence();
 
-   auto playerX = _arenaInfoProvider->GetArenaPlayerXPosition() + _renderConfig->ArenaFenceX + 1;
-   auto playerY = _arenaInfoProvider->GetArenaPlayerYPosition() + _renderConfig->ArenaFenceY + 1;
+   auto convertedPlayerX = (short)( _arenaInfoProvider->GetArenaPlayerXPosition() * _arenaCoordConverterX );
+   auto convertedPlayerY = (short)( _arenaInfoProvider->GetArenaPlayerYPosition() * _arenaCoordConverterY );
+
+   auto playerX = convertedPlayerX + _renderConfig->ArenaFenceX + 1;
+   auto playerY = convertedPlayerY + _renderConfig->ArenaFenceY + 1;
 
    switch ( _playerInfoProvider->GetPlayerDirection() )
    {

@@ -218,8 +218,8 @@ shared_ptr<ArenaConfig> BuildArenaConfig()
 {
    auto arenaConfig = make_shared<ArenaConfig>();
 
-   arenaConfig->Width = 114;
-   arenaConfig->Height = 24;
+   arenaConfig->Width = 2166;
+   arenaConfig->Height = 936;
 
    arenaConfig->PlayerStartX = arenaConfig->Width / 2;
    arenaConfig->PlayerStartY = arenaConfig->Height / 2;
