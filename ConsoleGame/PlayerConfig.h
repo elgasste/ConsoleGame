@@ -7,9 +7,6 @@ namespace ConsoleGame
    class PlayerConfig
    {
    public:
-      int StartPositionX;
-      int StartPositionY;
-
       int StartVelocityX;
       int StartVelocityY;
 

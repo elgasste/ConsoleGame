@@ -13,8 +13,7 @@ namespace ConsoleGame
    public:
       Player( const std::shared_ptr<PlayerConfig> config );
 
-      int GetPositionX() const override { return _positionX; }
-      int GetPositionY() const override { return _positionY; }
+      void Push( Direction direction ) override;
 
       int GetVelocityX() const override { return _velocityX; }
       int GetVelocityY() const override { return _velocityY; }
@@ -22,10 +21,10 @@ namespace ConsoleGame
       Direction GetDirection() const override { return _direction; }
 
    private:
-      const std::shared_ptr<PlayerConfig> _config;
+      void ClampVelocity();
 
-      int _positionX;
-      int _positionY;
+   private:
+      const std::shared_ptr<PlayerConfig> _config;
 
       int _velocityX;
       int _velocityY;
