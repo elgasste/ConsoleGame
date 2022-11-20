@@ -56,6 +56,18 @@ TEST_F( PlayingStateInputHandlerTests, HandleInput_LeftButtonIsDown_ExecutesPush
    EXPECT_EQ( static_pointer_cast<PushPlayerCommandArgs>( moveArgs )->Direction, Direction::Left );
 }
 
+TEST_F( PlayingStateInputHandlerTests, HandleInput_UpAndLeftButtonsAreDown_ExecutesPushPlayerUpLeftCommand )
+{
+   shared_ptr<GameCommandArgs> moveArgs;
+   ON_CALL( *_inputReaderMock, IsButtonDown( GameButton::Up ) ).WillByDefault( Return( true ) );
+   ON_CALL( *_inputReaderMock, IsButtonDown( GameButton::Left ) ).WillByDefault( Return( true ) );
+   EXPECT_CALL( *_commandExecutorMock, ExecuteCommand( GameCommand::PushPlayer, _ ) ).WillOnce( SaveArg<1>( &moveArgs ) );
+
+   _inputHandler->HandleInput();
+
+   EXPECT_EQ( static_pointer_cast<PushPlayerCommandArgs>( moveArgs )->Direction, Direction::UpLeft );
+}
+
 TEST_F( PlayingStateInputHandlerTests, HandleInput_UpButtonIsDown_ExecutesPushPlayerUpCommand )
 {
    shared_ptr<GameCommandArgs> moveArgs;
@@ -65,6 +77,18 @@ TEST_F( PlayingStateInputHandlerTests, HandleInput_UpButtonIsDown_ExecutesPushPl
    _inputHandler->HandleInput();
 
    EXPECT_EQ( static_pointer_cast<PushPlayerCommandArgs>( moveArgs )->Direction, Direction::Up );
+}
+
+TEST_F( PlayingStateInputHandlerTests, HandleInput_UpAndRightButtonsAreDown_ExecutesPushPlayerUpRightCommand )
+{
+   shared_ptr<GameCommandArgs> moveArgs;
+   ON_CALL( *_inputReaderMock, IsButtonDown( GameButton::Up ) ).WillByDefault( Return( true ) );
+   ON_CALL( *_inputReaderMock, IsButtonDown( GameButton::Right ) ).WillByDefault( Return( true ) );
+   EXPECT_CALL( *_commandExecutorMock, ExecuteCommand( GameCommand::PushPlayer, _ ) ).WillOnce( SaveArg<1>( &moveArgs ) );
+
+   _inputHandler->HandleInput();
+
+   EXPECT_EQ( static_pointer_cast<PushPlayerCommandArgs>( moveArgs )->Direction, Direction::UpRight );
 }
 
 TEST_F( PlayingStateInputHandlerTests, HandleInput_RightButtonIsDown_ExecutesPushPlayerRightCommand )
@@ -78,6 +102,18 @@ TEST_F( PlayingStateInputHandlerTests, HandleInput_RightButtonIsDown_ExecutesPus
    EXPECT_EQ( static_pointer_cast<PushPlayerCommandArgs>( moveArgs )->Direction, Direction::Right );
 }
 
+TEST_F( PlayingStateInputHandlerTests, HandleInput_DownAndRightButtonsAreDown_ExecutesPushPlayerDownRightCommand )
+{
+   shared_ptr<GameCommandArgs> moveArgs;
+   ON_CALL( *_inputReaderMock, IsButtonDown( GameButton::Down ) ).WillByDefault( Return( true ) );
+   ON_CALL( *_inputReaderMock, IsButtonDown( GameButton::Right ) ).WillByDefault( Return( true ) );
+   EXPECT_CALL( *_commandExecutorMock, ExecuteCommand( GameCommand::PushPlayer, _ ) ).WillOnce( SaveArg<1>( &moveArgs ) );
+
+   _inputHandler->HandleInput();
+
+   EXPECT_EQ( static_pointer_cast<PushPlayerCommandArgs>( moveArgs )->Direction, Direction::DownRight );
+}
+
 TEST_F( PlayingStateInputHandlerTests, HandleInput_DownButtonIsDown_ExecutesPushPlayerDownCommand )
 {
    shared_ptr<GameCommandArgs> moveArgs;
@@ -89,21 +125,21 @@ TEST_F( PlayingStateInputHandlerTests, HandleInput_DownButtonIsDown_ExecutesPush
    EXPECT_EQ( static_pointer_cast<PushPlayerCommandArgs>( moveArgs )->Direction, Direction::Down );
 }
 
-TEST_F( PlayingStateInputHandlerTests, HandleInput_NoButtonsDown_DoesNotExecuteAnyCommand )
+TEST_F( PlayingStateInputHandlerTests, HandleInput_DownAndLeftButtonsAreDown_ExecutesPushPlayerDownLeftCommand )
 {
-   EXPECT_CALL( *_commandExecutorMock, ExecuteCommand( _, _ ) ).Times( 0 );
+   shared_ptr<GameCommandArgs> moveArgs;
+   ON_CALL( *_inputReaderMock, IsButtonDown( GameButton::Down ) ).WillByDefault( Return( true ) );
+   ON_CALL( *_inputReaderMock, IsButtonDown( GameButton::Left ) ).WillByDefault( Return( true ) );
+   EXPECT_CALL( *_commandExecutorMock, ExecuteCommand( GameCommand::PushPlayer, _ ) ).WillOnce( SaveArg<1>( &moveArgs ) );
 
    _inputHandler->HandleInput();
+
+   EXPECT_EQ( static_pointer_cast<PushPlayerCommandArgs>( moveArgs )->Direction, Direction::DownLeft );
 }
 
-TEST_F( PlayingStateInputHandlerTests, HandleInput_MultipleDirectionButtonsAreDown_ExecutesPushPlayerCommandForEach )
+TEST_F( PlayingStateInputHandlerTests, HandleInput_NoButtonsAreDown_DoesNotExecuteAnyCommand )
 {
-   ON_CALL( *_inputReaderMock, IsButtonDown( GameButton::Left ) ).WillByDefault( Return( true ) );
-   ON_CALL( *_inputReaderMock, IsButtonDown( GameButton::Up ) ).WillByDefault( Return( true ) );
-   ON_CALL( *_inputReaderMock, IsButtonDown( GameButton::Right ) ).WillByDefault( Return( true ) );
-   ON_CALL( *_inputReaderMock, IsButtonDown( GameButton::Down ) ).WillByDefault( Return( true ) );
-
-   EXPECT_CALL( *_commandExecutorMock, ExecuteCommand( GameCommand::PushPlayer, _ ) ).Times( 4 );
+   EXPECT_CALL( *_commandExecutorMock, ExecuteCommand( _, _ ) ).Times( 0 );
 
    _inputHandler->HandleInput();
 }

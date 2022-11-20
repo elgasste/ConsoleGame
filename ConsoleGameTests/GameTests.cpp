@@ -90,53 +90,52 @@ TEST_F( GameTests, ExecuteCommand_Quit_RaisesShutdownEvent )
    _game->ExecuteCommand( GameCommand::Quit );
 }
 
-TEST_F( GameTests, ExecuteCommand_PushPlayerLeft_PushesPlayerLeft )
+TEST_F( GameTests, ExecuteCommand_PushPlayer_PushesPlayerInSpecifiedDirection )
 {
    BuildGame();
 
-   EXPECT_CALL( *_playerMock, Push( Direction::Left ) );
+   EXPECT_CALL( *_playerMock, Push( Direction::UpLeft ) );
 
    _game->ExecuteCommand( GameCommand::PushPlayer,
-                          shared_ptr<PushPlayerCommandArgs>( new PushPlayerCommandArgs( Direction::Left ) ) );
-}
-
-TEST_F( GameTests, ExecuteCommand_PushPlayerUp_PushesPlayerUp )
-{
-   BuildGame();
-
-   EXPECT_CALL( *_playerMock, Push( Direction::Up ) );
-
-   _game->ExecuteCommand( GameCommand::PushPlayer,
-                          shared_ptr<PushPlayerCommandArgs>( new PushPlayerCommandArgs( Direction::Up ) ) );
-}
-
-TEST_F( GameTests, ExecuteCommand_PushPlayerRight_PushesPlayerRight )
-{
-   BuildGame();
-
-   EXPECT_CALL( *_playerMock, Push( Direction::Right ) );
-
-   _game->ExecuteCommand( GameCommand::PushPlayer,
-                          shared_ptr<PushPlayerCommandArgs>( new PushPlayerCommandArgs( Direction::Right ) ) );
-}
-
-TEST_F( GameTests, ExecuteCommand_PushPlayerDown_PushesPlayerDown )
-{
-   BuildGame();
-
-   EXPECT_CALL( *_playerMock, Push( Direction::Down ) );
-
-   _game->ExecuteCommand( GameCommand::PushPlayer,
-                          shared_ptr<PushPlayerCommandArgs>( new PushPlayerCommandArgs( Direction::Down ) ) );
+                          shared_ptr<PushPlayerCommandArgs>( new PushPlayerCommandArgs( Direction::UpLeft ) ) );
 }
 
 TEST_F( GameTests, GetPlayerDirection_Always_GetsDirectionFromPlayer )
 {
-   EXPECT_CALL( *_playerMock, GetDirection() ).WillOnce( Return( Direction::Up ) );
+   EXPECT_CALL( *_playerMock, GetDirection() ).WillOnce( Return( Direction::DownRight ) );
 
    BuildGame();
 
-   EXPECT_EQ( _game->GetPlayerDirection(), Direction::Up );
+   EXPECT_EQ( _game->GetPlayerDirection(), Direction::DownRight );
+}
+
+TEST_F( GameTests, IsPlayerMoving_PlayerIsNotMoving_ReturnsFalse )
+{
+   EXPECT_CALL( *_playerMock, GetVelocityX() ).WillOnce( Return( 0 ) );
+   EXPECT_CALL( *_playerMock, GetVelocityY() ).WillOnce( Return( 0 ) );
+
+   BuildGame();
+
+   EXPECT_FALSE( _game->IsPlayerMoving() );
+}
+
+TEST_F( GameTests, IsPlayerMoving_PlayerIsMovingHorizontally_ReturnsTrue )
+{
+   EXPECT_CALL( *_playerMock, GetVelocityX() ).WillOnce( Return( -1 ) );
+
+   BuildGame();
+
+   EXPECT_TRUE( _game->IsPlayerMoving() );
+}
+
+TEST_F( GameTests, IsPlayerMoving_PlayerIsMovingVertically_ReturnsTrue )
+{
+   EXPECT_CALL( *_playerMock, GetVelocityX() ).WillOnce( Return( 0 ) );
+   EXPECT_CALL( *_playerMock, GetVelocityY() ).WillOnce( Return( 3 ) );
+
+   BuildGame();
+
+   EXPECT_TRUE( _game->IsPlayerMoving() );
 }
 
 TEST_F( GameTests, GetArenaWidth_Always_GetsArenaWidthFromConfig )

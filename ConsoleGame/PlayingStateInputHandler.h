@@ -18,6 +18,9 @@ namespace ConsoleGame
       void HandleInput() override;
 
    private:
+      void HandleDirections();
+
+   private:
       const std::shared_ptr<IGameInputReader> _inputReader;
       const std::shared_ptr<IGameCommandExecutor> _commandExecutor;
    };

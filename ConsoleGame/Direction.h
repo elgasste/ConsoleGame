@@ -5,8 +5,12 @@ namespace ConsoleGame
    enum class Direction
    {
       Left = 0,
+      UpLeft,
       Up,
+      UpRight,
       Right,
-      Down
+      DownRight,
+      Down,
+      DownLeft
    };
 }

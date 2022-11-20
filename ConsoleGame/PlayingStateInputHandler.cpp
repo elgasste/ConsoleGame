@@ -22,28 +22,61 @@ void PlayingStateInputHandler::HandleInput()
    {
       _commandExecutor->ExecuteCommand( GameCommand::Quit );
    }
-   else
+
+   HandleDirections();
+}
+
+void PlayingStateInputHandler::HandleDirections()
+{
+   bool leftDown = _inputReader->IsButtonDown( GameButton::Left );
+   bool upDown = _inputReader->IsButtonDown( GameButton::Up );
+   bool rightDown = _inputReader->IsButtonDown( GameButton::Right );
+   bool downDown = _inputReader->IsButtonDown( GameButton::Down );
+
+   if ( leftDown )
    {
-      // allow pressing multiple d-pad buttons at the same time
-      if (_inputReader->IsButtonDown( GameButton::Left ))
+      if ( upDown )
+      {
+         _commandExecutor->ExecuteCommand( GameCommand::PushPlayer,
+                                           shared_ptr<PushPlayerCommandArgs>( new PushPlayerCommandArgs( Direction::UpLeft ) ) );
+      }
+      else if ( downDown )
+      {
+         _commandExecutor->ExecuteCommand( GameCommand::PushPlayer,
+                                           shared_ptr<PushPlayerCommandArgs>( new PushPlayerCommandArgs( Direction::DownLeft ) ) );
+      }
+      else
       {
          _commandExecutor->ExecuteCommand( GameCommand::PushPlayer,
                                            shared_ptr<PushPlayerCommandArgs>( new PushPlayerCommandArgs( Direction::Left ) ) );
       }
-      if (_inputReader->IsButtonDown( GameButton::Right ))
+   }
+   else if ( rightDown )
+   {
+      if ( upDown )
+      {
+         _commandExecutor->ExecuteCommand( GameCommand::PushPlayer,
+                                           shared_ptr<PushPlayerCommandArgs>( new PushPlayerCommandArgs( Direction::UpRight ) ) );
+      }
+      else if ( downDown )
+      {
+         _commandExecutor->ExecuteCommand( GameCommand::PushPlayer,
+                                           shared_ptr<PushPlayerCommandArgs>( new PushPlayerCommandArgs( Direction::DownRight ) ) );
+      }
+      else
       {
          _commandExecutor->ExecuteCommand( GameCommand::PushPlayer,
                                            shared_ptr<PushPlayerCommandArgs>( new PushPlayerCommandArgs( Direction::Right ) ) );
       }
-      if (_inputReader->IsButtonDown( GameButton::Up ))
-      {
-         _commandExecutor->ExecuteCommand( GameCommand::PushPlayer,
-                                           shared_ptr<PushPlayerCommandArgs>( new PushPlayerCommandArgs( Direction::Up ) ) );
-      }
-      if (_inputReader->IsButtonDown( GameButton::Down ))
-      {
-         _commandExecutor->ExecuteCommand( GameCommand::PushPlayer,
-                                           shared_ptr<PushPlayerCommandArgs>( new PushPlayerCommandArgs( Direction::Down ) ) );
-      }
+   }
+   else if ( upDown )
+   {
+      _commandExecutor->ExecuteCommand( GameCommand::PushPlayer,
+                                        shared_ptr<PushPlayerCommandArgs>( new PushPlayerCommandArgs( Direction::Up ) ) );
+   }
+   else if ( downDown )
+   {
+      _commandExecutor->ExecuteCommand( GameCommand::PushPlayer,
+                                        shared_ptr<PushPlayerCommandArgs>( new PushPlayerCommandArgs( Direction::Down ) ) );
    }
 }
