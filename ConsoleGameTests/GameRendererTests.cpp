@@ -5,14 +5,14 @@
 #include <ConsoleGame/GameRenderer.h>
 #include <ConsoleGame/ConsoleRenderConfig.h>
 #include <ConsoleGame/IScreenBuffer.h>
-#include <ConsoleGame/IGameStateProvider.h>
+#include <ConsoleGame/IGameInfoProvider.h>
 #include <ConsoleGame/GameEventAggregator.h>
 #include <ConsoleGame/ConsoleColor.h>
 #include <ConsoleGame/GameState.h>
 #include <ConsoleGame/ConsoleSprite.h>
 
 #include "mock_ScreenBuffer.h"
-#include "mock_GameStateProvider.h"
+#include "mock_GameInfoProvider.h"
 #include "mock_GameRenderer.h"
 
 using namespace std;
@@ -26,7 +26,7 @@ public:
    {
       _renderConfig.reset( new ConsoleRenderConfig );
       _screenBufferMock.reset( new NiceMock<mock_ScreenBuffer> );
-      _stateProviderMock.reset( new NiceMock<mock_GameStateProvider> );
+      _gameInfoProviderMock.reset( new NiceMock<mock_GameInfoProvider> );
       _diagnosticsRendererMock.reset( new NiceMock<mock_GameRenderer> );
       _eventAggregator.reset( new GameEventAggregator );
       _startupStateRendererMock.reset( new NiceMock<mock_GameRenderer> );
@@ -34,14 +34,14 @@ public:
       _renderConfig->DefaultBackgroundColor = ConsoleColor::Black;
       _renderConfig->DefaultForegroundColor = ConsoleColor::Grey;
 
-      ON_CALL( *_stateProviderMock, GetGameState() ).WillByDefault( Return( GameState::Startup ) );
+      ON_CALL( *_gameInfoProviderMock, GetGameState() ).WillByDefault( Return( GameState::Startup ) );
    }
 
    void BuildRenderer()
    {
       _renderer.reset( new GameRenderer( _renderConfig,
                                          _screenBufferMock,
-                                         _stateProviderMock,
+                                         _gameInfoProviderMock,
                                          _diagnosticsRendererMock,
                                          _eventAggregator ) );
 
@@ -51,7 +51,7 @@ public:
 protected:
    shared_ptr<ConsoleRenderConfig> _renderConfig;
    shared_ptr<mock_ScreenBuffer> _screenBufferMock;
-   shared_ptr<mock_GameStateProvider> _stateProviderMock;
+   shared_ptr<mock_GameInfoProvider> _gameInfoProviderMock;
    shared_ptr<mock_GameRenderer> _diagnosticsRendererMock;
    shared_ptr<GameEventAggregator> _eventAggregator;
    shared_ptr<mock_GameRenderer> _startupStateRendererMock;
@@ -92,7 +92,7 @@ TEST_F( GameRendererTests, Render_RendererNotFoundForState_ThrowsException )
 {
    BuildRenderer();
 
-   ON_CALL( *_stateProviderMock, GetGameState() ).WillByDefault( Return( GameState::Playing ) );
+   ON_CALL( *_gameInfoProviderMock, GetGameState() ).WillByDefault( Return( GameState::Playing ) );
 
    EXPECT_THROW( _renderer->Render(), out_of_range );
 }

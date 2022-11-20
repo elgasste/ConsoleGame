@@ -10,6 +10,7 @@ namespace ConsoleGame
    class IGameClock;
    class IGameInputHandler;
    class IGameRenderer;
+   class IGame;
 
    class GameRunner : public IGameRunner
    {
@@ -17,7 +18,8 @@ namespace ConsoleGame
       GameRunner( const std::shared_ptr<IGameEventAggregator> eventAggregator,
                   const std::shared_ptr<IGameClock> clock,
                   const std::shared_ptr<IGameInputHandler> inputHandler,
-                  const std::shared_ptr<IGameRenderer> renderer );
+                  const std::shared_ptr<IGameRenderer> renderer,
+                  const std::shared_ptr<IGame> game );
 
       void Run() override;
 
@@ -28,6 +30,7 @@ namespace ConsoleGame
       const std::shared_ptr<IGameClock> _clock;
       const std::shared_ptr<IGameInputHandler> _inputHandler;
       const std::shared_ptr<IGameRenderer> _renderer;
+      const std::shared_ptr<IGame> _game;
 
       bool _isRunning;
    };

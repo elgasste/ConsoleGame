@@ -2,44 +2,57 @@
 
 #include <memory>
 
-#include "IGameStateProvider.h"
+#include "IGame.h"
 #include "IGameCommandExecutor.h"
-#include "IPlayerInfoProvider.h"
+#include "IGameInfoProvider.h"
 
 namespace ConsoleGame
 {
    class GameConfig;
    enum class Direction;
    class IGameEventAggregator;
+   class IPlayerFactory;
+   class IPlayer;
 
-   class Game : public IGameStateProvider,
-      public IGameCommandExecutor,
-      public IPlayerInfoProvider
+   class Game : public IGame,
+                public IGameCommandExecutor,
+                public IGameInfoProvider
    {
    public:
       Game( const std::shared_ptr<GameConfig> config,
-            const std::shared_ptr<IGameEventAggregator> eventAggregator );
+            const std::shared_ptr<IGameEventAggregator> eventAggregator,
+            const std::shared_ptr<IPlayerFactory> playerFactory );
+
+      void RunFrame() override;
 
       GameState GetGameState() const override { return _state; }
 
       void ExecuteCommand( GameCommand command ) override;
       void ExecuteCommand( GameCommand command, const std::shared_ptr<GameCommandArgs> args ) override;
 
-      Direction GetPlayerDirection() const override{ return _playerDirection; }
-      int GetPlayerXPosition() const override { return _playerPositionX; }
-      int GetPlayerYPosition() const override { return _playerPositionY; }
+      Direction GetPlayerDirection() const override;
+
+      int GetArenaWidth() const override;
+      int GetArenaHeight() const override;
+
+      int GetArenaPlayerXPosition() const override { return _arenaPlayerPositionX; }
+      int GetArenaPlayerYPosition() const override { return _arenaPlayerPositionY; }
 
    private:
-      void MovePlayer( Direction direction );
+      void PushPlayer( Direction direction );
+      void MovePlayer();
 
    private:
       const std::shared_ptr<GameConfig> _config;
       const std::shared_ptr<IGameEventAggregator> _eventAggregator;
+      const std::shared_ptr<IPlayer> _player;
 
       GameState _state;
 
-      Direction _playerDirection;
-      int _playerPositionX;
-      int _playerPositionY;
+      int _arenaPlayerPositionX;
+      int _arenaPlayerPositionY;
+
+      bool _playerWasPushedX;
+      bool _playerWasPushedY;
    };
 }

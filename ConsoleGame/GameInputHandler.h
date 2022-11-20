@@ -8,7 +8,7 @@
 namespace ConsoleGame
 {
    class IGameInputReader;
-   class IGameStateProvider;
+   class IGameInfoProvider;
    class IGameEventAggregator;
    enum class GameState;
 
@@ -16,7 +16,7 @@ namespace ConsoleGame
    {
    public:
       GameInputHandler( const std::shared_ptr<IGameInputReader> inputReader,
-                        const std::shared_ptr<IGameStateProvider> stateProvider,
+                        const std::shared_ptr<IGameInfoProvider> gameInfoProvider,
                         const std::shared_ptr<IGameEventAggregator> eventAggregator );
 
       void AddInputHandlerForGameState( GameState state,
@@ -26,7 +26,7 @@ namespace ConsoleGame
 
    private:
       const std::shared_ptr<IGameInputReader> _inputReader;
-      const std::shared_ptr<IGameStateProvider> _stateProvider;
+      const std::shared_ptr<IGameInfoProvider> _gameInfoProvider;
       const std::shared_ptr<IGameEventAggregator> _eventAggregator;
 
       std::map<GameState, std::shared_ptr<IGameInputHandler>> _stateInputHandlers;

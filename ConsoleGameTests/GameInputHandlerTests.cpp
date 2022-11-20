@@ -8,7 +8,7 @@
 #include <ConsoleGame/GameEvent.h>
 
 #include "mock_GameInputReader.h"
-#include "mock_GameStateProvider.h"
+#include "mock_GameInfoProvider.h"
 #include "mock_GameEventAggregator.h"
 #include "mock_GameInputHandler.h"
 
@@ -22,23 +22,23 @@ public:
    void SetUp() override
    {
       _inputReaderMock.reset( new NiceMock<mock_GameInputReader> );
-      _stateProviderMock.reset( new NiceMock<mock_GameStateProvider> );
+      _gameInfoProviderMock.reset( new NiceMock<mock_GameInfoProvider> );
       _eventAggregatorMock.reset( new NiceMock<mock_GameEventAggregator> );
       _startupInputHandlerMock.reset( new NiceMock<mock_GameInputHandler> );
 
       _inputHandler.reset( new GameInputHandler( _inputReaderMock,
-                                                 _stateProviderMock,
+                                                 _gameInfoProviderMock,
                                                  _eventAggregatorMock ) );
 
       _inputHandler->AddInputHandlerForGameState( GameState::Startup, _startupInputHandlerMock );
 
-      ON_CALL( *_stateProviderMock, GetGameState() ).WillByDefault( Return( GameState::Startup ) );
+      ON_CALL( *_gameInfoProviderMock, GetGameState() ).WillByDefault( Return( GameState::Startup ) );
       ON_CALL( *_inputReaderMock, WasButtonPressed( _ ) ).WillByDefault( Return( false ) );
    }
 
 protected:
    shared_ptr<mock_GameInputReader> _inputReaderMock;
-   shared_ptr<mock_GameStateProvider> _stateProviderMock;
+   shared_ptr<mock_GameInfoProvider> _gameInfoProviderMock;
    shared_ptr<mock_GameEventAggregator> _eventAggregatorMock;
    shared_ptr<mock_GameInputHandler> _startupInputHandlerMock;
 
@@ -69,7 +69,7 @@ TEST_F( GameInputHandlerTests, HandleInput_DiagnosticsButtonWasPressed_RaisesTog
 
 TEST_F( GameInputHandlerTests, HandleInput_InputHandlerNotFoundForState_ThrowsException )
 {
-   ON_CALL( *_stateProviderMock, GetGameState() ).WillByDefault( Return( GameState::Playing ) );
+   ON_CALL( *_gameInfoProviderMock, GetGameState() ).WillByDefault( Return( GameState::Playing ) );
 
    EXPECT_THROW( _inputHandler->HandleInput(), out_of_range );
 }

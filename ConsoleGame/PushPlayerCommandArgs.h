@@ -6,10 +6,10 @@ namespace ConsoleGame
 {
    enum class Direction;
 
-   class MovePlayerCommandArgs : public GameCommandArgs
+   class PushPlayerCommandArgs : public GameCommandArgs
    {
    public:
-      MovePlayerCommandArgs( Direction direction )
+      PushPlayerCommandArgs( Direction direction )
          : Direction ( direction )
       { }
 
