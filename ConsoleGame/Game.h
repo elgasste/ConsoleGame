@@ -3,10 +3,8 @@
 #include <memory>
 
 #include "IGame.h"
-#include "IGameStateProvider.h"
 #include "IGameCommandExecutor.h"
-#include "IPlayerInfoProvider.h"
-#include "IArenaInfoProvider.h"
+#include "IGameInfoProvider.h"
 
 namespace ConsoleGame
 {
@@ -17,10 +15,8 @@ namespace ConsoleGame
    class IPlayer;
 
    class Game : public IGame,
-                public IGameStateProvider,
                 public IGameCommandExecutor,
-                public IPlayerInfoProvider,
-                public IArenaInfoProvider
+                public IGameInfoProvider
    {
    public:
       Game( const std::shared_ptr<GameConfig> config,

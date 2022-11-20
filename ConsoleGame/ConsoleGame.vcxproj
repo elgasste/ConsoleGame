@@ -186,8 +186,8 @@
     <ClInclude Include="ConsoleRenderConfig.h" />
     <ClInclude Include="GameRunner.h" />
     <ClInclude Include="GameState.h" />
-    <ClInclude Include="IArenaInfoProvider.h" />
     <ClInclude Include="IGame.h" />
+    <ClInclude Include="IGameInfoProvider.h" />
     <ClInclude Include="IGameInputConfig.h" />
     <ClInclude Include="IGameRenderConfig.h" />
     <ClInclude Include="IPlayer.h" />
@@ -205,10 +205,8 @@
     <ClInclude Include="IGameRunner.h" />
     <ClInclude Include="GameInputHandler.h" />
     <ClInclude Include="KeyboardInputConfig.h" />
-    <ClInclude Include="IGameStateProvider.h" />
     <ClInclude Include="IHighResolutionClock.h" />
     <ClInclude Include="IKeyboard.h" />
-    <ClInclude Include="IPlayerInfoProvider.h" />
     <ClInclude Include="ISleeper.h" />
     <ClInclude Include="KeyboardInputReader.h" />
     <ClInclude Include="KeyCode.h" />

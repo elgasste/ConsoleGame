@@ -1,6 +1,6 @@
 #include "GameInputHandler.h"
 #include "IGameInputReader.h"
-#include "IGameStateProvider.h"
+#include "IGameInfoProvider.h"
 #include "IGameEventAggregator.h"
 #include "GameButton.h"
 #include "GameEvent.h"
@@ -10,10 +10,10 @@ using namespace std;
 using namespace ConsoleGame;
 
 GameInputHandler::GameInputHandler( const shared_ptr<IGameInputReader> inputReader,
-                                    const shared_ptr<IGameStateProvider> stateProvider,
+                                    const shared_ptr<IGameInfoProvider> gameInfoProvider,
                                     const shared_ptr<IGameEventAggregator> eventAggregator ) :
    _inputReader( inputReader ),
-   _stateProvider( stateProvider ),
+   _gameInfoProvider( gameInfoProvider ),
    _eventAggregator( eventAggregator )
 {
 }
@@ -33,5 +33,5 @@ void GameInputHandler::HandleInput()
       _eventAggregator->RaiseEvent( GameEvent::ToggleDiagnostics );
    }
 
-   _stateInputHandlers.at( _stateProvider->GetGameState() )->HandleInput();
+   _stateInputHandlers.at( _gameInfoProvider->GetGameState() )->HandleInput();
 }

@@ -3,7 +3,7 @@
 #include "GameRenderer.h"
 #include "ConsoleRenderConfig.h"
 #include "IScreenBuffer.h"
-#include "IGameStateProvider.h"
+#include "IGameInfoProvider.h"
 #include "IGameEventAggregator.h"
 #include "GameState.h"
 #include "GameEvent.h"
@@ -14,11 +14,11 @@ using namespace ConsoleGame;
 
 GameRenderer::GameRenderer( const shared_ptr<ConsoleRenderConfig> renderConfig,
                             const shared_ptr<IScreenBuffer> screenBuffer,
-                            const shared_ptr<IGameStateProvider> stateProvider,
+                            const shared_ptr<IGameInfoProvider> gameInfoProvider,
                             const shared_ptr<IGameRenderer> diagnosticsRenderer,
                             const shared_ptr<IGameEventAggregator> eventAggregator ) :
    _screenBuffer( screenBuffer ),
-   _stateProvider( stateProvider ),
+   _gameInfoProvider( gameInfoProvider ),
    _diagnosticsRenderer( diagnosticsRenderer ),
    _showDiagnostics( false ),
    _isCleaningUp( false )
@@ -43,7 +43,7 @@ void GameRenderer::Render()
 
    _screenBuffer->Clear();
 
-   _stateRenderers.at( _stateProvider->GetGameState() )->Render();
+   _stateRenderers.at( _gameInfoProvider->GetGameState() )->Render();
 
    if ( _showDiagnostics )
    {

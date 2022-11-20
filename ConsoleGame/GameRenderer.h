@@ -10,7 +10,7 @@ namespace ConsoleGame
 {
    class ConsoleRenderConfig;
    class IScreenBuffer;
-   class IGameStateProvider;
+   class IGameInfoProvider;
    class IGameEventAggregator;
    enum class GameState;
    enum class GameEvent;
@@ -20,7 +20,7 @@ namespace ConsoleGame
    public:
       GameRenderer( const std::shared_ptr<ConsoleRenderConfig> renderConfig,
                     const std::shared_ptr<IScreenBuffer> screenBuffer,
-                    const std::shared_ptr<IGameStateProvider> stateProvider,
+                    const std::shared_ptr<IGameInfoProvider> gameInfoProvider,
                     const std::shared_ptr<IGameRenderer> diagnosticsRenderer,
                     const std::shared_ptr<IGameEventAggregator> eventAggregator );
 
@@ -34,7 +34,7 @@ namespace ConsoleGame
 
    private:
       const std::shared_ptr<IScreenBuffer> _screenBuffer;
-      const std::shared_ptr<IGameStateProvider> _stateProvider;
+      const std::shared_ptr<IGameInfoProvider> _gameInfoProvider;
       const std::shared_ptr<IGameRenderer> _diagnosticsRenderer;
 
       std::map<GameState, std::shared_ptr<IGameRenderer>> _stateRenderers;

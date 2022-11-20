@@ -38,9 +38,6 @@
     <ClInclude Include="mock_GameEventAggregator.h">
       <Filter>Mocks</Filter>
     </ClInclude>
-    <ClInclude Include="mock_GameStateProvider.h">
-      <Filter>Mocks</Filter>
-    </ClInclude>
     <ClInclude Include="mock_GameInputReader.h">
       <Filter>Mocks</Filter>
     </ClInclude>
@@ -78,6 +75,9 @@
       <Filter>Mocks</Filter>
     </ClInclude>
     <ClInclude Include="mock_Game.h">
+      <Filter>Mocks</Filter>
+    </ClInclude>
+    <ClInclude Include="Mock_GameInfoProvider.h">
       <Filter>Mocks</Filter>
     </ClInclude>
   </ItemGroup>

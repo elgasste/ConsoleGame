@@ -1,8 +1,7 @@
 #include "PlayingStateConsoleRenderer.h"
 #include "IConsoleBuffer.h"
 #include "ConsoleRenderConfig.h"
-#include "IPlayerInfoProvider.h"
-#include "IArenaInfoProvider.h"
+#include "IGameInfoProvider.h"
 #include "ConsoleColor.h"
 #include "Direction.h"
 #include "ConsoleSprite.h"
@@ -13,14 +12,12 @@ using namespace ConsoleGame;
 
 PlayingStateConsoleRenderer::PlayingStateConsoleRenderer( const shared_ptr<IConsoleBuffer> consoleBuffer,
                                                           const shared_ptr<ConsoleRenderConfig> renderConfig,
-                                                          const shared_ptr<IPlayerInfoProvider> playerInfoProvider,
-                                                          const shared_ptr<IArenaInfoProvider> arenaInfoProvider ) :
+                                                          const shared_ptr<IGameInfoProvider> gameInfoProvider ) :
    _consoleBuffer( consoleBuffer ),
    _renderConfig( renderConfig ),
-   _playerInfoProvider( playerInfoProvider ),
-   _arenaInfoProvider( arenaInfoProvider ),
-   _arenaCoordConverterX( renderConfig->ArenaCharWidth / (double)arenaInfoProvider->GetArenaWidth() ),
-   _arenaCoordConverterY( renderConfig->ArenaCharHeight / (double)arenaInfoProvider->GetArenaHeight() )
+   _gameInfoProvider( gameInfoProvider ),
+   _arenaCoordConverterX( renderConfig->ArenaCharWidth / (double)gameInfoProvider->GetArenaWidth() ),
+   _arenaCoordConverterY( renderConfig->ArenaCharHeight / (double)gameInfoProvider->GetArenaHeight() )
 {
 }
 
@@ -33,13 +30,13 @@ void PlayingStateConsoleRenderer::Render()
 
    DrawArenaFence();
 
-   auto convertedPlayerX = (short)( _arenaInfoProvider->GetArenaPlayerXPosition() * _arenaCoordConverterX );
-   auto convertedPlayerY = (short)( _arenaInfoProvider->GetArenaPlayerYPosition() * _arenaCoordConverterY );
+   auto convertedPlayerX = (short)( _gameInfoProvider->GetArenaPlayerXPosition() * _arenaCoordConverterX );
+   auto convertedPlayerY = (short)( _gameInfoProvider->GetArenaPlayerYPosition() * _arenaCoordConverterY );
 
    auto playerX = convertedPlayerX + _renderConfig->ArenaFenceX + 1;
    auto playerY = convertedPlayerY + _renderConfig->ArenaFenceY + 1;
 
-   switch ( _playerInfoProvider->GetPlayerDirection() )
+   switch ( _gameInfoProvider->GetPlayerDirection() )
    {
       case Direction::Left:
          _consoleBuffer->Draw( playerX, playerY, _renderConfig->PlayerSpriteMap[Direction::Left] );
