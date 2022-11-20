@@ -63,6 +63,12 @@ void PlayingStateConsoleRenderer::DrawPlayer()
    auto playerX = convertedPlayerX + _renderConfig->ArenaFenceX + 1;
    auto playerY = convertedPlayerY + _renderConfig->ArenaFenceY + 1;
 
+   if ( !_gameInfoProvider->IsPlayerMoving() )
+   {
+      _consoleBuffer->Draw( playerX, playerY, _renderConfig->PlayerStaticSprite );
+      return;
+   }
+
    int spriteOffsetX = 0;
    int spriteOffsetY = 0;
 
