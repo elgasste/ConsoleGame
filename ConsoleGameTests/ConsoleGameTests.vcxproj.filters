@@ -77,7 +77,7 @@
     <ClInclude Include="mock_Game.h">
       <Filter>Mocks</Filter>
     </ClInclude>
-    <ClInclude Include="Mock_GameInfoProvider.h">
+    <ClInclude Include="mock_GameInfoProvider.h">
       <Filter>Mocks</Filter>
     </ClInclude>
   </ItemGroup>
