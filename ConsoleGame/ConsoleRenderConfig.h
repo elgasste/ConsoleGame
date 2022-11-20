@@ -3,12 +3,12 @@
 #include <map>
 
 #include "IGameRenderConfig.h"
+#include "ConsoleSprite.h"
 
 namespace ConsoleGame
 {
    enum class ConsoleColor;
    enum class Direction;
-   struct ConsoleSprite;
 
    class ConsoleRenderConfig : public IGameRenderConfig
    {
@@ -25,6 +25,7 @@ namespace ConsoleGame
       ConsoleColor DefaultForegroundColor;
       ConsoleColor DefaultBackgroundColor;
 
-      std::map<Direction, ConsoleSprite> PlayerSpriteMap;
+      ConsoleSprite PlayerStaticSprite;
+      std::map<Direction, ConsoleSprite> PlayerMovingSpriteMap;
    };
 }

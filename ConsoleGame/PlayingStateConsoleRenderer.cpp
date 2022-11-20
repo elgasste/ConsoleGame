@@ -84,5 +84,5 @@ void PlayingStateConsoleRenderer::DrawPlayer()
       break;
    }
 
-   _consoleBuffer->Draw( playerX + spriteOffsetX, playerY + spriteOffsetY, _renderConfig->PlayerSpriteMap[direction] );
+   _consoleBuffer->Draw( playerX + spriteOffsetX, playerY + spriteOffsetY, _renderConfig->PlayerMovingSpriteMap[direction] );
 }
