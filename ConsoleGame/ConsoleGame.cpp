@@ -231,14 +231,16 @@ shared_ptr<PlayerConfig> BuildPlayerConfig()
 {
    auto playerConfig = make_shared<PlayerConfig>();
 
-   playerConfig->StartVelocityX = 0;
-   playerConfig->StartVelocityY = 0;
+   playerConfig->StartVelocityX = 0.;
+   playerConfig->StartVelocityY = 0.;
 
-   playerConfig->MaxVelocityX = 30;
-   playerConfig->MaxVelocityY = 30;
+   // this means at max velocity, it should take
+   // 3 seconds to cross the arena horizontally
+   playerConfig->MaxVelocity = 1444.;
 
-   playerConfig->VelocityDeltaX = 1;
-   playerConfig->VelocityDeltaY = 1;
+   // this means it should take a third of a second
+   // to go from 0 to max velocity
+   playerConfig->AccelerationPerSecond = 4332.;
 
    playerConfig->StartDirection = Direction::Right;
 
@@ -249,11 +251,11 @@ shared_ptr<ArenaConfig> BuildArenaConfig()
 {
    auto arenaConfig = make_shared<ArenaConfig>();
 
-   arenaConfig->Width = 4332;
-   arenaConfig->Height = 1872;
+   arenaConfig->Width = 4332.;
+   arenaConfig->Height = 1872.;
 
-   arenaConfig->PlayerStartX = arenaConfig->Width / 2;
-   arenaConfig->PlayerStartY = arenaConfig->Height / 2;
+   arenaConfig->PlayerStartX = arenaConfig->Width / 2.;
+   arenaConfig->PlayerStartY = arenaConfig->Height / 2.;
 
    return arenaConfig;
 }
