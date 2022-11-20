@@ -21,6 +21,7 @@ namespace ConsoleGame
 
    private:
       void DrawArenaFence();
+      void DrawPlayer();
 
    private:
       const std::shared_ptr<IConsoleBuffer> _consoleBuffer;

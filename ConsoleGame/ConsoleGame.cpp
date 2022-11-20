@@ -110,23 +110,51 @@ shared_ptr<ConsoleRenderConfig> BuildConsoleRenderConfig()
 
    renderConfig->PlayerSpriteMap[Direction::Left].Width = 2;
    renderConfig->PlayerSpriteMap[Direction::Left].Height = 1;
-   renderConfig->PlayerSpriteMap[Direction::Left].Pixels.push_back( { 'L', ConsoleColor::White } );
+   renderConfig->PlayerSpriteMap[Direction::Left].Pixels.push_back( { '+', ConsoleColor::White } );
    renderConfig->PlayerSpriteMap[Direction::Left].Pixels.push_back( { '-', ConsoleColor::White } );
+
+   renderConfig->PlayerSpriteMap[Direction::UpLeft].Width = 2;
+   renderConfig->PlayerSpriteMap[Direction::UpLeft].Height = 2;
+   renderConfig->PlayerSpriteMap[Direction::UpLeft].Pixels.push_back( { '+', ConsoleColor::White } );
+   renderConfig->PlayerSpriteMap[Direction::UpLeft].Pixels.push_back( { ' ', ConsoleColor::White } );
+   renderConfig->PlayerSpriteMap[Direction::UpLeft].Pixels.push_back( { ' ', ConsoleColor::White } );
+   renderConfig->PlayerSpriteMap[Direction::UpLeft].Pixels.push_back( { '\\', ConsoleColor::White } );
+
+   renderConfig->PlayerSpriteMap[Direction::Up].Width = 1;
+   renderConfig->PlayerSpriteMap[Direction::Up].Height = 2;
+   renderConfig->PlayerSpriteMap[Direction::Up].Pixels.push_back( { '+', ConsoleColor::White } );
+   renderConfig->PlayerSpriteMap[Direction::Up].Pixels.push_back( { '|', ConsoleColor::White } );
+
+   renderConfig->PlayerSpriteMap[Direction::UpRight].Width = 2;
+   renderConfig->PlayerSpriteMap[Direction::UpRight].Height = 2;
+   renderConfig->PlayerSpriteMap[Direction::UpRight].Pixels.push_back( { ' ', ConsoleColor::White } );
+   renderConfig->PlayerSpriteMap[Direction::UpRight].Pixels.push_back( { '+', ConsoleColor::White } );
+   renderConfig->PlayerSpriteMap[Direction::UpRight].Pixels.push_back( { '/', ConsoleColor::White } );
+   renderConfig->PlayerSpriteMap[Direction::UpRight].Pixels.push_back( { ' ', ConsoleColor::White } );
 
    renderConfig->PlayerSpriteMap[Direction::Right].Width = 2;
    renderConfig->PlayerSpriteMap[Direction::Right].Height = 1;
    renderConfig->PlayerSpriteMap[Direction::Right].Pixels.push_back( { '-', ConsoleColor::White } );
-   renderConfig->PlayerSpriteMap[Direction::Right].Pixels.push_back( { 'R', ConsoleColor::White } );
+   renderConfig->PlayerSpriteMap[Direction::Right].Pixels.push_back( { '+', ConsoleColor::White } );
 
-   renderConfig->PlayerSpriteMap[Direction::Up].Width = 1;
-   renderConfig->PlayerSpriteMap[Direction::Up].Height = 2;
-   renderConfig->PlayerSpriteMap[Direction::Up].Pixels.push_back( { 'U', ConsoleColor::White } );
-   renderConfig->PlayerSpriteMap[Direction::Up].Pixels.push_back( { '|', ConsoleColor::White } );
+   renderConfig->PlayerSpriteMap[Direction::DownRight].Width = 2;
+   renderConfig->PlayerSpriteMap[Direction::DownRight].Height = 2;
+   renderConfig->PlayerSpriteMap[Direction::DownRight].Pixels.push_back( { '\\', ConsoleColor::White } );
+   renderConfig->PlayerSpriteMap[Direction::DownRight].Pixels.push_back( { ' ', ConsoleColor::White } );
+   renderConfig->PlayerSpriteMap[Direction::DownRight].Pixels.push_back( { ' ', ConsoleColor::White } );
+   renderConfig->PlayerSpriteMap[Direction::DownRight].Pixels.push_back( { '+', ConsoleColor::White } );
 
    renderConfig->PlayerSpriteMap[Direction::Down].Width = 1;
    renderConfig->PlayerSpriteMap[Direction::Down].Height = 2;
    renderConfig->PlayerSpriteMap[Direction::Down].Pixels.push_back( { '|', ConsoleColor::White } );
-   renderConfig->PlayerSpriteMap[Direction::Down].Pixels.push_back( { 'D', ConsoleColor::White } );
+   renderConfig->PlayerSpriteMap[Direction::Down].Pixels.push_back( { '+', ConsoleColor::White } );
+
+   renderConfig->PlayerSpriteMap[Direction::DownLeft].Width = 2;
+   renderConfig->PlayerSpriteMap[Direction::DownLeft].Height = 2;
+   renderConfig->PlayerSpriteMap[Direction::DownLeft].Pixels.push_back( { ' ', ConsoleColor::White } );
+   renderConfig->PlayerSpriteMap[Direction::DownLeft].Pixels.push_back( { '/', ConsoleColor::White } );
+   renderConfig->PlayerSpriteMap[Direction::DownLeft].Pixels.push_back( { '+', ConsoleColor::White } );
+   renderConfig->PlayerSpriteMap[Direction::DownLeft].Pixels.push_back( { ' ', ConsoleColor::White } );
 
    return renderConfig;
 }
