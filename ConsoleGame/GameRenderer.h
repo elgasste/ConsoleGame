@@ -29,7 +29,7 @@ namespace ConsoleGame
       void Render() override;
 
    private:
-      void HandleQuitEvent();
+      void HandleShutdownEvent();
       void HandleToggleDiagnosticsEvent();
 
    private:

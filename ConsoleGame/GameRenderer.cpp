@@ -23,7 +23,7 @@ GameRenderer::GameRenderer( const shared_ptr<ConsoleRenderConfig> renderConfig,
    _showDiagnostics( false ),
    _isCleaningUp( false )
 {
-   eventAggregator->RegisterEventHandler( GameEvent::Shutdown, std::bind( &GameRenderer::HandleQuitEvent, this ) );
+   eventAggregator->RegisterEventHandler( GameEvent::Shutdown, std::bind( &GameRenderer::HandleShutdownEvent, this ) );
    eventAggregator->RegisterEventHandler( GameEvent::ToggleDiagnostics, std::bind( &GameRenderer::HandleToggleDiagnosticsEvent, this ) );
 
    _screenBuffer->Initialize();
@@ -53,7 +53,7 @@ void GameRenderer::Render()
    _screenBuffer->Flip();
 }
 
-void GameRenderer::HandleQuitEvent()
+void GameRenderer::HandleShutdownEvent()
 {
    _isCleaningUp = true;
    _screenBuffer->CleanUp();
