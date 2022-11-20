@@ -11,6 +11,7 @@ namespace ConsoleGame
       virtual GameState GetGameState() const = 0;
 
       virtual Direction GetPlayerDirection() const = 0;
+      virtual bool IsPlayerMoving() const = 0;
 
       virtual int GetArenaWidth() const = 0;
       virtual int GetArenaHeight() const = 0;

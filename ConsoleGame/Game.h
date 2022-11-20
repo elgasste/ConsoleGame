@@ -31,6 +31,7 @@ namespace ConsoleGame
       void ExecuteCommand( GameCommand command, const std::shared_ptr<GameCommandArgs> args ) override;
 
       Direction GetPlayerDirection() const override;
+      bool IsPlayerMoving() const override;
 
       int GetArenaWidth() const override;
       int GetArenaHeight() const override;

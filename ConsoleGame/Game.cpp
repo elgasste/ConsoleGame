@@ -75,6 +75,11 @@ Direction Game::GetPlayerDirection() const
    return _player->GetDirection();
 }
 
+bool Game::IsPlayerMoving() const
+{
+   return _player->GetVelocityX() != 0 || _player->GetVelocityY() != 0;
+}
+
 int Game::GetArenaWidth() const
 {
    return _config->ArenaConfig->Width;
