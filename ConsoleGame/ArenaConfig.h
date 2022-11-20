@@ -5,10 +5,10 @@ namespace ConsoleGame
    class ArenaConfig
    {
    public:
-      int Width;
-      int Height;
+      double Width;
+      double Height;
 
-      int PlayerStartX;
-      int PlayerStartY;
+      double PlayerStartX;
+      double PlayerStartY;
    };
 }

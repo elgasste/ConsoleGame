@@ -7,14 +7,12 @@ namespace ConsoleGame
    class PlayerConfig
    {
    public:
-      int StartVelocityX;
-      int StartVelocityY;
+      double StartVelocityX;
+      double StartVelocityY;
 
-      int MaxVelocityX;
-      int MaxVelocityY;
+      double MaxVelocity;
 
-      int VelocityDeltaX;
-      int VelocityDeltaY;
+      double AccelerationPerSecond;
 
       Direction StartDirection;
    };

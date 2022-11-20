@@ -77,15 +77,15 @@ Direction Game::GetPlayerDirection() const
 
 bool Game::IsPlayerMoving() const
 {
-   return _player->GetVelocityX() != 0 || _player->GetVelocityY() != 0;
+   return _player->GetVelocityX() != 0. || _player->GetVelocityY() != 0.;
 }
 
-int Game::GetArenaWidth() const
+double Game::GetArenaWidth() const
 {
    return _config->ArenaConfig->Width;
 }
 
-int Game::GetArenaHeight() const
+double Game::GetArenaHeight() const
 {
    return _config->ArenaConfig->Height;
 }
@@ -106,29 +106,29 @@ void Game::PushPlayer( Direction direction )
 
 void Game::MovePlayer()
 {
-   _arenaPlayerPositionX += _player->GetVelocityX();
+   _arenaPlayerPositionX += ( _player->GetVelocityX() / _config->FramesPerSecond );
 
-   if ( _arenaPlayerPositionX < 0 )
+   if ( _arenaPlayerPositionX < 0. )
    {
-      _arenaPlayerPositionX = 0;
+      _arenaPlayerPositionX = 0.;
       _player->StopX();
    }
    else if ( _arenaPlayerPositionX >= _config->ArenaConfig->Width )
    {
-      _arenaPlayerPositionX = _config->ArenaConfig->Width - 1;
+      _arenaPlayerPositionX = _config->ArenaConfig->Width - 1.;
       _player->StopX();
    }
 
-   _arenaPlayerPositionY += _player->GetVelocityY();
+   _arenaPlayerPositionY += ( _player->GetVelocityY() / _config->FramesPerSecond );
 
-   if ( _arenaPlayerPositionY < 0 )
+   if ( _arenaPlayerPositionY < 0. )
    {
-      _arenaPlayerPositionY = 0;
+      _arenaPlayerPositionY = 0.;
       _player->StopY();
    }
    else if ( _arenaPlayerPositionY >= _config->ArenaConfig->Height )
    {
-      _arenaPlayerPositionY = _config->ArenaConfig->Height - 1;
+      _arenaPlayerPositionY = _config->ArenaConfig->Height - 1.;
       _player->StopY();
    }
 }

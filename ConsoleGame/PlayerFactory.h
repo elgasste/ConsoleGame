@@ -6,16 +6,16 @@
 
 namespace ConsoleGame
 {
-   class PlayerConfig;
+   class GameConfig;
 
    class PlayerFactory : public IPlayerFactory
    {
    public:
-      PlayerFactory( const std::shared_ptr<PlayerConfig> config );
+      PlayerFactory( const std::shared_ptr<GameConfig> config );
 
       const std::shared_ptr<IPlayer> CreatePlayer() const override;
 
    private:
-      const std::shared_ptr<PlayerConfig> _config;
+      const std::shared_ptr<GameConfig> _config;
    };
 }

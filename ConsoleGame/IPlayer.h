@@ -13,8 +13,8 @@ namespace ConsoleGame
       virtual void StopX() = 0;
       virtual void StopY() = 0;
 
-      virtual int GetVelocityX() const = 0;
-      virtual int GetVelocityY() const = 0;
+      virtual double GetVelocityX() const = 0;
+      virtual double GetVelocityY() const = 0;
 
       virtual Direction GetDirection() const = 0;
    };

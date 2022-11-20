@@ -16,35 +16,36 @@ public:
    {
       _config.reset( new PlayerConfig );
 
-      _config->StartVelocityX = 0;
-      _config->StartVelocityY = 0;
-      _config->MaxVelocityX = 10;
-      _config->MaxVelocityY = 10;
-      _config->VelocityDeltaX = 2;
-      _config->VelocityDeltaY = 2;
+      _config->StartVelocityX = 0.;
+      _config->StartVelocityY = 0.;
+      _config->MaxVelocity = 100.;
+      _config->AccelerationPerSecond = 200.;
       _config->StartDirection = Direction::Left;
+
+      _framesPerSecond = 100;
    }
 
    void BuildPlayer()
    {
-      _player.reset( new Player( _config ) );
+      _player.reset( new Player( _config, _framesPerSecond ) );
    }
 
 protected:
    shared_ptr<PlayerConfig> _config;
+   int _framesPerSecond;
 
    shared_ptr<Player> _player;
 };
 
 TEST_F( PlayerTests, Constructor_Always_SetsDefaultPropertiesFromConfig )
 {
-   _config->StartVelocityX = 1;
-   _config->StartVelocityY = 2;
+   _config->StartVelocityX = 100.;
+   _config->StartVelocityY = 200.;
    _config->StartDirection = Direction::Right;
    BuildPlayer();
 
-   EXPECT_EQ( _player->GetVelocityX(), 1 );
-   EXPECT_EQ( _player->GetVelocityY(), 2 );
+   EXPECT_EQ( _player->GetVelocityX(), 100. );
+   EXPECT_EQ( _player->GetVelocityY(), 200. );
    EXPECT_EQ( _player->GetDirection(), Direction::Right );
 }
 
@@ -64,7 +65,7 @@ TEST_F( PlayerTests, Push_LeftAndVelocityHasNotMaxedOut_DecreasesXVelocity )
 
    _player->Push( Direction::Left );
 
-   EXPECT_EQ( _player->GetVelocityX(), -2 );
+   EXPECT_EQ( _player->GetVelocityX(), -2. );
 }
 
 TEST_F( PlayerTests, Push_UpLeftAndVelocityHasNotMaxedOut_DecreasesXAndYVelocity )
@@ -73,8 +74,8 @@ TEST_F( PlayerTests, Push_UpLeftAndVelocityHasNotMaxedOut_DecreasesXAndYVelocity
 
    _player->Push( Direction::UpLeft );
 
-   EXPECT_EQ( _player->GetVelocityX(), -2 );
-   EXPECT_EQ( _player->GetVelocityY(), -2 );
+   EXPECT_EQ( _player->GetVelocityX(), -2. );
+   EXPECT_EQ( _player->GetVelocityY(), -2. );
 }
 
 TEST_F( PlayerTests, Push_UpAndVelocityHasNotMaxedOut_DecreasesYVelocity )
@@ -83,7 +84,7 @@ TEST_F( PlayerTests, Push_UpAndVelocityHasNotMaxedOut_DecreasesYVelocity )
 
    _player->Push( Direction::Up );
 
-   EXPECT_EQ( _player->GetVelocityY(), -2 );
+   EXPECT_EQ( _player->GetVelocityY(), -2. );
 }
 
 TEST_F( PlayerTests, Push_UpRightAndVelocityHasNotMaxedOut_IncreasesXVelocityAndDecreasesYVelocity )
@@ -92,8 +93,8 @@ TEST_F( PlayerTests, Push_UpRightAndVelocityHasNotMaxedOut_IncreasesXVelocityAnd
 
    _player->Push( Direction::UpRight );
 
-   EXPECT_EQ( _player->GetVelocityX(), 2 );
-   EXPECT_EQ( _player->GetVelocityY(), -2 );
+   EXPECT_EQ( _player->GetVelocityX(), 2. );
+   EXPECT_EQ( _player->GetVelocityY(), -2. );
 }
 
 TEST_F( PlayerTests, Push_RightAndVelocityHasNotMaxedOut_IncreasesXVelocity )
@@ -102,7 +103,7 @@ TEST_F( PlayerTests, Push_RightAndVelocityHasNotMaxedOut_IncreasesXVelocity )
 
    _player->Push( Direction::Right );
 
-   EXPECT_EQ( _player->GetVelocityX(), 2 );
+   EXPECT_EQ( _player->GetVelocityX(), 2. );
 }
 
 TEST_F( PlayerTests, Push_DownRightAndVelocityHasNotMaxedOut_IncreasesXAndYVelocity )
@@ -111,8 +112,8 @@ TEST_F( PlayerTests, Push_DownRightAndVelocityHasNotMaxedOut_IncreasesXAndYVeloc
 
    _player->Push( Direction::DownRight );
 
-   EXPECT_EQ( _player->GetVelocityX(), 2 );
-   EXPECT_EQ( _player->GetVelocityY(), 2 );
+   EXPECT_EQ( _player->GetVelocityX(), 2. );
+   EXPECT_EQ( _player->GetVelocityY(), 2. );
 }
 
 TEST_F( PlayerTests, Push_DownAndVelocityHasNotMaxedOut_IncreasesYVelocity )
@@ -121,7 +122,7 @@ TEST_F( PlayerTests, Push_DownAndVelocityHasNotMaxedOut_IncreasesYVelocity )
 
    _player->Push( Direction::Down );
 
-   EXPECT_EQ( _player->GetVelocityY(), 2 );
+   EXPECT_EQ( _player->GetVelocityY(), 2. );
 }
 
 TEST_F( PlayerTests, Push_DownLeftAndVelocityHasNotMaxedOut_DecreasesXVelocityAndIncreasesYVelocity )
@@ -130,48 +131,48 @@ TEST_F( PlayerTests, Push_DownLeftAndVelocityHasNotMaxedOut_DecreasesXVelocityAn
 
    _player->Push( Direction::DownLeft );
 
-   EXPECT_EQ( _player->GetVelocityX(), -2 );
-   EXPECT_EQ( _player->GetVelocityY(), 2 );
+   EXPECT_EQ( _player->GetVelocityX(), -2. );
+   EXPECT_EQ( _player->GetVelocityY(), 2. );
 }
 
 TEST_F( PlayerTests, Push_LeftAndVelocityHasMaxedOut_ClampsToMaxVelocity )
 {
-   _config->VelocityDeltaX = 11;
+   _config->AccelerationPerSecond = 100001.;
    BuildPlayer();
 
    _player->Push( Direction::Left );
 
-   EXPECT_EQ( _player->GetVelocityX(), -10 );
+   EXPECT_EQ( _player->GetVelocityX(), -100. );
 }
 
 TEST_F( PlayerTests, Push_RightAndVelocityHasMaxedOut_ClampsToMaxVelocity )
 {
-   _config->VelocityDeltaX = 11;
+   _config->AccelerationPerSecond = 100001.;
    BuildPlayer();
 
    _player->Push( Direction::Right );
 
-   EXPECT_EQ( _player->GetVelocityX(), 10 );
+   EXPECT_EQ( _player->GetVelocityX(), 100. );
 }
 
 TEST_F( PlayerTests, Push_UpAndVelocityHasMaxedOut_ClampsToMaxVelocity )
 {
-   _config->VelocityDeltaY = 11;
+   _config->AccelerationPerSecond = 10001.;
    BuildPlayer();
 
    _player->Push( Direction::Up );
 
-   EXPECT_EQ( _player->GetVelocityY(), -10 );
+   EXPECT_EQ( _player->GetVelocityY(), -100. );
 }
 
 TEST_F( PlayerTests, Push_DownAndVelocityHasMaxedOut_ClampsToMaxVelocity )
 {
-   _config->VelocityDeltaY = 11;
+   _config->AccelerationPerSecond = 10001.;
    BuildPlayer();
 
    _player->Push( Direction::Down );
 
-   EXPECT_EQ( _player->GetVelocityY(), 10 );
+   EXPECT_EQ( _player->GetVelocityY(), 100. );
 }
 
 TEST_F( PlayerTests, ApplyFrictionX_PlayerIsMovingLeftAndHasVelocityToSpare_DoesNotStop )
@@ -182,7 +183,7 @@ TEST_F( PlayerTests, ApplyFrictionX_PlayerIsMovingLeftAndHasVelocityToSpare_Does
    _player->Push( Direction::Left );
    _player->ApplyFrictionX();
 
-   EXPECT_EQ( _player->GetVelocityX(), -2 );
+   EXPECT_EQ( _player->GetVelocityX(), -2. );
 }
 
 TEST_F( PlayerTests, ApplyFrictionX_PlayerIsMovingRightAndHasVelocityToSpare_DoesNotStop )
@@ -193,7 +194,7 @@ TEST_F( PlayerTests, ApplyFrictionX_PlayerIsMovingRightAndHasVelocityToSpare_Doe
    _player->Push( Direction::Right );
    _player->ApplyFrictionX();
 
-   EXPECT_EQ( _player->GetVelocityX(), 2 );
+   EXPECT_EQ( _player->GetVelocityX(), 2. );
 }
 
 TEST_F( PlayerTests, ApplyFrictionY_PlayerIsMovingUpAndHasVelocityToSpare_DoesNotStop )
@@ -204,7 +205,7 @@ TEST_F( PlayerTests, ApplyFrictionY_PlayerIsMovingUpAndHasVelocityToSpare_DoesNo
    _player->Push( Direction::Up );
    _player->ApplyFrictionY();
 
-   EXPECT_EQ( _player->GetVelocityY(), -2 );
+   EXPECT_EQ( _player->GetVelocityY(), -2. );
 }
 
 TEST_F( PlayerTests, ApplyFrictionY_PlayerIsMovingDownAndHasVelocityToSpare_DoesNotStop )
@@ -215,51 +216,51 @@ TEST_F( PlayerTests, ApplyFrictionY_PlayerIsMovingDownAndHasVelocityToSpare_Does
    _player->Push( Direction::Down );
    _player->ApplyFrictionY();
 
-   EXPECT_EQ( _player->GetVelocityY(), 2 );
+   EXPECT_EQ( _player->GetVelocityY(), 2. );
 }
 
 TEST_F( PlayerTests, ApplyFrictionX_PlayerIsMovingLeftAndHasNoVelocityToSpare_Stops )
 {
-   _config->StartVelocityX = -1;
-   _config->MaxVelocityX = 2;
+   _config->StartVelocityX = -1.;
+   _config->MaxVelocity = 2.;
    BuildPlayer();
 
    _player->ApplyFrictionX();
 
-   EXPECT_EQ( _player->GetVelocityX(), 0 );
+   EXPECT_EQ( _player->GetVelocityX(), 0. );
 }
 
 TEST_F( PlayerTests, ApplyFrictionX_PlayerIsMovingRightAndHasNoVelocityToSpare_Stops )
 {
-   _config->StartVelocityX = 1;
-   _config->MaxVelocityX = 2;
+   _config->StartVelocityX = 1.;
+   _config->MaxVelocity = 2.;
    BuildPlayer();
 
    _player->ApplyFrictionX();
 
-   EXPECT_EQ( _player->GetVelocityX(), 0 );
+   EXPECT_EQ( _player->GetVelocityX(), 0. );
 }
 
 TEST_F( PlayerTests, ApplyFrictionY_PlayerIsMovingUpAndHasNoVelocityToSpare_Stops )
 {
-   _config->StartVelocityY = -1;
-   _config->MaxVelocityY = 2;
+   _config->StartVelocityY = -1.;
+   _config->MaxVelocity = 2.;
    BuildPlayer();
 
    _player->ApplyFrictionY();
 
-   EXPECT_EQ( _player->GetVelocityY(), 0 );
+   EXPECT_EQ( _player->GetVelocityY(), 0. );
 }
 
 TEST_F( PlayerTests, ApplyFrictionY_PlayerIsMovingDownAndHasNoVelocityToSpare_Stops )
 {
-   _config->StartVelocityY = 1;
-   _config->MaxVelocityY = 2;
+   _config->StartVelocityY = 1.;
+   _config->MaxVelocity = 2.;
    BuildPlayer();
 
    _player->ApplyFrictionY();
 
-   EXPECT_EQ( _player->GetVelocityY(), 0 );
+   EXPECT_EQ( _player->GetVelocityY(), 0. );
 }
 
 TEST_F( PlayerTests, StopX_Always_SetsXVelocityToZero )
@@ -269,7 +270,7 @@ TEST_F( PlayerTests, StopX_Always_SetsXVelocityToZero )
    _player->Push( Direction::Right );
    _player->StopX();
 
-   EXPECT_EQ( _player->GetVelocityX(), 0 );
+   EXPECT_EQ( _player->GetVelocityX(), 0. );
 }
 
 TEST_F( PlayerTests, StopY_Always_SetsYVelocityToZero )
@@ -279,5 +280,5 @@ TEST_F( PlayerTests, StopY_Always_SetsYVelocityToZero )
    _player->Push( Direction::Up );
    _player->StopY();
 
-   EXPECT_EQ( _player->GetVelocityY(), 0 );
+   EXPECT_EQ( _player->GetVelocityY(), 0. );
 }
