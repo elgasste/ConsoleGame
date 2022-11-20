@@ -89,11 +89,11 @@ void Game::PushPlayer( Direction direction )
 {
    _player->Push( direction );
 
-   if ( direction == Direction::Left || direction == Direction::Right )
+   if ( direction != Direction::Up && direction != Direction::Down )
    {
       _playerWasPushedX = true;
    }
-   else
+   if ( direction != Direction::Left && direction != Direction::Right )
    {
       _playerWasPushedY = true;
    }
