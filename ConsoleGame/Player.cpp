@@ -6,11 +6,13 @@
 using namespace std;
 using namespace ConsoleGame;
 
-Player::Player( const shared_ptr<PlayerConfig> config ) :
+Player::Player( const shared_ptr<PlayerConfig> config,
+                int framesPerSecond ) :
    _config( config ),
-   _velocityX( config->StartVelocityX ),
-   _velocityY( config->StartVelocityY ),
-   _direction( config->StartDirection )
+   _framesPerSecond( framesPerSecond ),
+   _velocityX( _config->StartVelocityX ),
+   _velocityY( _config->StartVelocityY ),
+   _direction( _config->StartDirection )
 {
 }
 

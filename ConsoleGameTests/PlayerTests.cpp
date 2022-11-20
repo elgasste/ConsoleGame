@@ -23,15 +23,18 @@ public:
       _config->VelocityDeltaX = 2;
       _config->VelocityDeltaY = 2;
       _config->StartDirection = Direction::Left;
+
+      _framesPerSecond = 100;
    }
 
    void BuildPlayer()
    {
-      _player.reset( new Player( _config ) );
+      _player.reset( new Player( _config, _framesPerSecond ) );
    }
 
 protected:
    shared_ptr<PlayerConfig> _config;
+   int _framesPerSecond;
 
    shared_ptr<Player> _player;
 };

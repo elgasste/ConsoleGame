@@ -60,7 +60,7 @@ int main()
    auto keyboardInputReader = shared_ptr<KeyboardInputReader>( new KeyboardInputReader( keyboardInputConfig, keyboard ) );
 
    // game data objects
-   auto playerFactory = shared_ptr<IPlayerFactory>( new PlayerFactory( config->PlayerConfig ) );
+   auto playerFactory = shared_ptr<IPlayerFactory>( new PlayerFactory( config ) );
    auto game = shared_ptr<Game>( new Game( config, eventAggregator, playerFactory ) );
 
    // input objects

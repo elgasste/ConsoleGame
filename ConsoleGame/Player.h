@@ -11,7 +11,8 @@ namespace ConsoleGame
    class Player : public IPlayer
    {
    public:
-      Player( const std::shared_ptr<PlayerConfig> config );
+      Player( const std::shared_ptr<PlayerConfig> config,
+              int framesPerSecond );
 
       void Push( Direction direction ) override;
       void ApplyFrictionX() override;
@@ -29,6 +30,7 @@ namespace ConsoleGame
 
    private:
       const std::shared_ptr<PlayerConfig> _config;
+      int _framesPerSecond;
 
       int _velocityX;
       int _velocityY;
