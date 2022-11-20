@@ -23,13 +23,29 @@ void Player::Push( Direction direction )
    case Direction::Left:
       _velocityX -= _config->VelocityDeltaX;
       break;
-   case Direction::Right:
-      _velocityX += _config->VelocityDeltaX;
+   case Direction::UpLeft:
+      _velocityX -= _config->VelocityDeltaX;
+      _velocityY -= _config->VelocityDeltaY;
       break;
    case Direction::Up:
       _velocityY -= _config->VelocityDeltaY;
       break;
+   case Direction::UpRight:
+      _velocityX += _config->VelocityDeltaX;
+      _velocityY -= _config->VelocityDeltaY;
+      break;
+   case Direction::Right:
+      _velocityX += _config->VelocityDeltaX;
+      break;
+   case Direction::DownRight:
+      _velocityX += _config->VelocityDeltaX;
+      _velocityY += _config->VelocityDeltaY;
+      break;
    case Direction::Down:
+      _velocityY += _config->VelocityDeltaY;
+      break;
+   case Direction::DownLeft:
+      _velocityX -= _config->VelocityDeltaX;
       _velocityY += _config->VelocityDeltaY;
       break;
    }

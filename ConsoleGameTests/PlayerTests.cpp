@@ -67,13 +67,14 @@ TEST_F( PlayerTests, Push_LeftAndVelocityHasNotMaxedOut_DecreasesXVelocity )
    EXPECT_EQ( _player->GetVelocityX(), -2 );
 }
 
-TEST_F( PlayerTests, Push_RightAndVelocityHasNotMaxedOut_IncreasesXVelocity )
+TEST_F( PlayerTests, Push_UpLeftAndVelocityHasNotMaxedOut_DecreasesXAndYVelocity )
 {
    BuildPlayer();
 
-   _player->Push( Direction::Right );
+   _player->Push( Direction::UpLeft );
 
-   EXPECT_EQ( _player->GetVelocityX(), 2 );
+   EXPECT_EQ( _player->GetVelocityX(), -2 );
+   EXPECT_EQ( _player->GetVelocityY(), -2 );
 }
 
 TEST_F( PlayerTests, Push_UpAndVelocityHasNotMaxedOut_DecreasesYVelocity )
@@ -85,12 +86,51 @@ TEST_F( PlayerTests, Push_UpAndVelocityHasNotMaxedOut_DecreasesYVelocity )
    EXPECT_EQ( _player->GetVelocityY(), -2 );
 }
 
+TEST_F( PlayerTests, Push_UpRightAndVelocityHasNotMaxedOut_IncreasesXVelocityAndDecreasesYVelocity )
+{
+   BuildPlayer();
+
+   _player->Push( Direction::UpRight );
+
+   EXPECT_EQ( _player->GetVelocityX(), 2 );
+   EXPECT_EQ( _player->GetVelocityY(), -2 );
+}
+
+TEST_F( PlayerTests, Push_RightAndVelocityHasNotMaxedOut_IncreasesXVelocity )
+{
+   BuildPlayer();
+
+   _player->Push( Direction::Right );
+
+   EXPECT_EQ( _player->GetVelocityX(), 2 );
+}
+
+TEST_F( PlayerTests, Push_DownRightAndVelocityHasNotMaxedOut_IncreasesXAndYVelocity )
+{
+   BuildPlayer();
+
+   _player->Push( Direction::DownRight );
+
+   EXPECT_EQ( _player->GetVelocityX(), 2 );
+   EXPECT_EQ( _player->GetVelocityY(), 2 );
+}
+
 TEST_F( PlayerTests, Push_DownAndVelocityHasNotMaxedOut_IncreasesYVelocity )
 {
    BuildPlayer();
 
    _player->Push( Direction::Down );
 
+   EXPECT_EQ( _player->GetVelocityY(), 2 );
+}
+
+TEST_F( PlayerTests, Push_DownLeftAndVelocityHasNotMaxedOut_DecreasesXVelocityAndIncreasesYVelocity )
+{
+   BuildPlayer();
+
+   _player->Push( Direction::DownLeft );
+
+   EXPECT_EQ( _player->GetVelocityX(), -2 );
    EXPECT_EQ( _player->GetVelocityY(), 2 );
 }
 
