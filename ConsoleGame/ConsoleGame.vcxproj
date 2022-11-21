@@ -193,6 +193,7 @@
     <ClInclude Include="IPlayer.h" />
     <ClInclude Include="IPlayerFactory.h" />
     <ClInclude Include="IScreenBuffer.h" />
+    <ClInclude Include="IThread.h" />
     <ClInclude Include="KeyboardWrapper.h" />
     <ClInclude Include="HighResolutionClockWrapper.h" />
     <ClInclude Include="IGameCommandExecutor.h" />
