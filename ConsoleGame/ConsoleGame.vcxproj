@@ -166,6 +166,7 @@
     <ClCompile Include="SleeperWrapper.cpp" />
     <ClCompile Include="StartupStateConsoleRenderer.cpp" />
     <ClCompile Include="StartupStateInputHandler.cpp" />
+    <ClCompile Include="ThreadWrapper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ArenaConfig.h" />
@@ -221,6 +222,7 @@
     <ClInclude Include="SleeperWrapper.h" />
     <ClInclude Include="StartupStateInputHandler.h" />
     <ClInclude Include="StartupStateConsoleRenderer.h" />
+    <ClInclude Include="ThreadWrapper.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

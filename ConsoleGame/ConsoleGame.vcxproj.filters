@@ -102,6 +102,9 @@
     <ClCompile Include="PlayerFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ThreadWrapper.cpp">
+      <Filter>Source Files\Wrappers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameRunner.h">
@@ -262,6 +265,9 @@
     </ClInclude>
     <ClInclude Include="IThread.h">
       <Filter>Header Files\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadWrapper.h">
+      <Filter>Header Files\Wrappers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
