@@ -6,8 +6,16 @@ I should mention that it's been quite a while since I've written a lot of C++, a
 
 # How To Use This
 
-I'm hoping to add some kind of utility (maybe PowerShell script?) where you can download this repo, enter the name of your game in the utility, and all the code and solution files will auto-update from "ConsoleGame" to whatever you choose. It's not hard to do, honestly I just can't decide on what utility to use.
+To start your own game based on this repo, just take the following steps:
 
-# For Now
+1) Download the repo (or clone it, or whatever you want, just get the repo on your local machine).
+2) In the repo's root folder, run the `SetupRepo.bat` script.
+3) Once you've followed the instructions and (hopefully) successfully given your game a unique name, open the solution file and go nuts!
+4) This is optional, but if you want to clean things up, you can safely delete these:
+   - `SetupRepo.bat`
+   - The entire `ConsoleGameSolutionSetup` folder
+   - The entire `RepoSetupFiles` folder
 
-Meanwhile, head over to the wiki for an overview of how all this stuff works!
+# So How Does This Even Work?
+
+I've included some code to get you started, but you'll want to [head over to the wiki](https://github.com/elgasste/ConsoleGame/wiki) for all kinds of helpful documentation!
