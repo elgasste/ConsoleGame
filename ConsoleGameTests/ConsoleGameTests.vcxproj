@@ -51,6 +51,7 @@
     <ClInclude Include="mock_PlayerFactory.h" />
     <ClInclude Include="mock_ScreenBuffer.h" />
     <ClInclude Include="mock_Sleeper.h" />
+    <ClInclude Include="mock_Thread.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameClockTests.cpp" />

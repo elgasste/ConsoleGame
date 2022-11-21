@@ -10,6 +10,7 @@
 #include "HighResolutionClockWrapper.h"
 #include "SleeperWrapper.h"
 #include "KeyboardWrapper.h"
+#include "ThreadWrapper.h"
 #include "GameEventAggregator.h"
 #include "GameClock.h"
 #include "KeyboardInputReader.h"
@@ -53,6 +54,7 @@ int main()
    auto highResolutionClock = shared_ptr<HighResolutionClockWrapper>( new HighResolutionClockWrapper() );
    auto sleeper = shared_ptr<SleeperWrapper>( new SleeperWrapper() );
    auto keyboard = shared_ptr<IKeyboard>( new KeyboardWrapper() );
+   auto thread = shared_ptr<IThread>( new ThreadWrapper() );
 
    // auxiliary objects
    auto eventAggregator = shared_ptr<GameEventAggregator>( new GameEventAggregator() );
@@ -80,7 +82,7 @@ int main()
    renderer->AddRendererForGameState( GameState::Playing, playingStateConsoleRenderer );
 
    // game loop
-   auto runner = shared_ptr<GameRunner>( new GameRunner( eventAggregator, clock, inputHandler, renderer, game ) );
+   auto runner = shared_ptr<GameRunner>( new GameRunner( eventAggregator, clock, inputHandler, renderer, game, thread ) );
 
    cout << " done!\nLet's goooo!\n";
 

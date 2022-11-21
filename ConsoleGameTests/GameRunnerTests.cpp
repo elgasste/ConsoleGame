@@ -11,6 +11,7 @@
 #include "mock_GameInputHandler.h"
 #include "mock_GameRenderer.h"
 #include "mock_Game.h"
+#include "mock_Thread.h"
 
 using namespace std;
 using namespace testing;
@@ -41,12 +42,14 @@ public:
       _inputHandlerMock.reset( new NiceMock<mock_GameInputHandler> );
       _rendererMock.reset( new NiceMock<mock_GameRenderer> );
       _gameMock.reset( new NiceMock<mock_Game> );
+      _threadMock.reset( new NiceMock<mock_Thread> );
 
       _runner.reset( new GameRunner( _eventAggregator,
                                      _clockMock,
                                      _inputHandlerMock,
                                      _rendererMock,
-                                     _gameMock ) );
+                                     _gameMock,
+                                     _threadMock ) );
 
       FrameCount = 0;
       HandleInputCount = 0;
@@ -65,9 +68,22 @@ protected:
    shared_ptr<mock_GameInputHandler> _inputHandlerMock;
    shared_ptr<mock_GameRenderer> _rendererMock;
    shared_ptr<mock_Game> _gameMock;
+   shared_ptr<mock_Thread> _threadMock;
 
    shared_ptr<GameRunner> _runner;
 };
+
+TEST_F( GameRunnerTests, Constructor_Always_SetsCurrentThreadToHighestPriority )
+{
+   EXPECT_CALL( *_threadMock, SetThisThreadToHighestPriority() );
+
+   _runner.reset( new GameRunner( _eventAggregator,
+                                  _clockMock,
+                                  _inputHandlerMock,
+                                  _rendererMock,
+                                  _gameMock,
+                                  _threadMock ) );
+}
 
 TEST_F( GameRunnerTests, Run_EveryLoop_StartsFrameClock )
 {

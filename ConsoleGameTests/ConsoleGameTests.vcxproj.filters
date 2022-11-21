@@ -80,6 +80,9 @@
     <ClInclude Include="mock_GameInfoProvider.h">
       <Filter>Mocks</Filter>
     </ClInclude>
+    <ClInclude Include="mock_Thread.h">
+      <Filter>Mocks</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Mocks">
