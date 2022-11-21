@@ -6,15 +6,17 @@ I should mention that it's been quite a while since I've written a lot of C++, a
 
 # How To Use This
 
-To start your own game based on this repo, just take the following steps:
+To start your own game based on this repo, just follow these steps:
 
-1) Download the repo (or clone it, or whatever you want, just get the repo on your local machine).
+1) Download the repo (or clone it, or whatever you want, just get it on your local machine).
 2) In the repo's root folder, run the `SetupRepo.bat` script.
 3) Once you've followed the instructions and (hopefully) successfully given your game a unique name, open the solution file and go nuts!
 4) This is optional, but if you want to clean things up, you can safely delete these:
    - `SetupRepo.bat`
    - The entire `ConsoleGameSolutionSetup` folder
    - The entire `RepoSetupFiles` folder
+
+(Note that you don't even have to do step 2, as long as you're okay with the name "ConsoleGame")
 
 # So How Does This Even Work?
 
