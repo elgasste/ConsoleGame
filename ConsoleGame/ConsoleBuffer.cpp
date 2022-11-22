@@ -54,8 +54,8 @@ void ConsoleBuffer::Initialize()
 
    // TODO: as of the Windows 11 update I installed on 11/09/2022,
    // SetConsoleWindowInfo is no longer resizing the console window.
-   // I'm commenting this out because it actually causes a weird issue
-   // where the console scrolls downward indefinitely.
+   // I don't think this actually does anything as of that update,
+   // but hopefully it works for previous versions of Windows...
    SMALL_RECT windowCoords{ 0, 0, _bufferInfo->ConsoleSize.X - 1, _bufferInfo->ConsoleSize.Y - 1 };
    SetConsoleWindowInfo( _bufferInfo->OutputHandle, TRUE, &windowCoords );
 
