@@ -1,3 +1,8 @@
+#define WIN32_LEAN_AND_MEAN
+#include <Windows.h>
+#include <io.h>
+#include <fcntl.h>
+
 #include <iostream>
 
 #include "GameConfig.h"
@@ -40,8 +45,37 @@ shared_ptr<KeyboardInputConfig> BuildKeyboardInputConfig();
 shared_ptr<PlayerConfig> BuildPlayerConfig();
 shared_ptr<ArenaConfig> BuildArenaConfig();
 shared_ptr<GameConfig> BuildGameConfig();
+void LoadAndRun();
 
-int main()
+INT WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine, INT nCmdShow )
+{
+   FILE *fptr;
+
+   AllocConsole();
+   wstring consoleTitle = L"Console Game";
+   SetConsoleTitle( consoleTitle.c_str() );
+
+   // you can't close this window unless I WANT you to
+   EnableMenuItem( GetSystemMenu( GetConsoleWindow(), FALSE ), SC_CLOSE , MF_GRAYED );
+   DrawMenuBar( GetConsoleWindow() );
+
+   auto consoleHandleR = _open_osfhandle( (intptr_t)GetStdHandle( STD_INPUT_HANDLE ), _O_TEXT );
+   fptr = _fdopen( consoleHandleR, "r" );
+   *stdin = *fptr;
+   setvbuf( stdin, NULL, _IONBF, 0 );
+
+   auto consoleHandleW = _open_osfhandle( (intptr_t)GetStdHandle( STD_OUTPUT_HANDLE ), _O_TEXT );
+   fptr = _fdopen( consoleHandleW, "w" );
+   *stdout = *fptr;
+   setvbuf( stdout, NULL, _IONBF, 0 );
+
+   *stderr = *fptr;
+   setvbuf( stderr, NULL, _IONBF, 0 );
+
+   LoadAndRun();
+}
+
+void LoadAndRun()
 {
    cout << "Loading all the things...";
 
