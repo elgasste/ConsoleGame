@@ -47,10 +47,8 @@ shared_ptr<ArenaConfig> BuildArenaConfig();
 shared_ptr<GameConfig> BuildGameConfig();
 void LoadAndRun();
 
-INT WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine, INT nCmdShow )
+INT WINAPI WinMain( _In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ PSTR lpCmdLine, _In_ INT nCmdShow )
 {
-   FILE *fptr;
-
    AllocConsole();
    wstring consoleTitle = L"Console Game";
    SetConsoleTitle( consoleTitle.c_str() );
@@ -60,7 +58,7 @@ INT WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine
    DrawMenuBar( GetConsoleWindow() );
 
    auto consoleHandleR = _open_osfhandle( (intptr_t)GetStdHandle( STD_INPUT_HANDLE ), _O_TEXT );
-   fptr = _fdopen( consoleHandleR, "r" );
+   auto fptr = _fdopen( consoleHandleR, "r" );
    *stdin = *fptr;
    setvbuf( stdin, NULL, _IONBF, 0 );
 
@@ -77,8 +75,6 @@ INT WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine
 
 void LoadAndRun()
 {
-   cout << "Loading all the things...";
-
    // configs
    auto config = BuildGameConfig();
    auto consoleRenderConfig = static_pointer_cast<ConsoleRenderConfig>( config->RenderConfig );
@@ -118,11 +114,7 @@ void LoadAndRun()
    // game loop
    auto runner = shared_ptr<GameRunner>( new GameRunner( eventAggregator, clock, inputHandler, renderer, game, thread ) );
 
-   cout << " done!\nLet's goooo!\n";
-
    runner->Run();
-
-   cout << "Thanks for playing, enjoy your burrito!\n";
 }
 
 shared_ptr<ConsoleRenderConfig> BuildConsoleRenderConfig()
