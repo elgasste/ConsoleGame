@@ -41,6 +41,9 @@ ConsoleBuffer::ConsoleBuffer( const shared_ptr<ConsoleRenderConfig> renderConfig
    GetConsoleScreenBufferInfo( _bufferInfo->OutputHandle, &screenBufferInfo );
    _originalColorAttribute = screenBufferInfo.wAttributes;
 
+   _originalConsoleWidth = ( screenBufferInfo.srWindow.Right - screenBufferInfo.srWindow.Left ) + 1;
+   _originalConsoleHeight = ( screenBufferInfo.srWindow.Bottom - screenBufferInfo.srWindow.Top ) + 1;
+
    for ( int i = 0; i < _bufferInfo->DrawBufferSize; i++ )
    {
       _bufferInfo->DrawBuffer[i] = CHAR_INFO();
@@ -70,13 +73,16 @@ void ConsoleBuffer::Initialize()
 
 void ConsoleBuffer::CleanUp()
 {
-   // TODO: restore the original console dimensions
    SetConsoleTextAttribute( _bufferInfo->OutputHandle, _originalColorAttribute );
-   Clear();
-   Flip();
+
+   SMALL_RECT windowCoords{ 0, 0, _originalConsoleWidth - 1, _originalConsoleHeight - 1 };
+   SetConsoleWindowInfo( _bufferInfo->OutputHandle, TRUE, &windowCoords );
 
    SetCursorVisibility( true );
    SetConsoleCursorPosition( _bufferInfo->OutputHandle, { 0, 0 } );
+
+   Clear();
+   Flip();
 }
 
 void ConsoleBuffer::SetDefaultForegroundColor( ConsoleColor color )
