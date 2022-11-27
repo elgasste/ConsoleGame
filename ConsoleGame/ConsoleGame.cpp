@@ -3,8 +3,6 @@
 #include <io.h>
 #include <fcntl.h>
 
-#include <iostream>
-
 #include "GameConfig.h"
 #include "ConsoleRenderConfig.h"
 #include "KeyboardInputConfig.h"
@@ -45,12 +43,10 @@ shared_ptr<KeyboardInputConfig> BuildKeyboardInputConfig();
 shared_ptr<PlayerConfig> BuildPlayerConfig();
 shared_ptr<ArenaConfig> BuildArenaConfig();
 shared_ptr<GameConfig> BuildGameConfig();
-void LoadAndRun();
+void LoadAndRun( const shared_ptr<IConsoleBuffer> consoleBuffer );
 
-INT WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine, INT nCmdShow )
+INT WINAPI WinMain( _In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ PSTR lpCmdLine, _In_ INT nCmdShow )
 {
-   FILE *fptr;
-
    AllocConsole();
    wstring consoleTitle = L"Console Game";
    SetConsoleTitle( consoleTitle.c_str() );
@@ -60,7 +56,7 @@ INT WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine
    DrawMenuBar( GetConsoleWindow() );
 
    auto consoleHandleR = _open_osfhandle( (intptr_t)GetStdHandle( STD_INPUT_HANDLE ), _O_TEXT );
-   fptr = _fdopen( consoleHandleR, "r" );
+   auto fptr = _fdopen( consoleHandleR, "r" );
    *stdin = *fptr;
    setvbuf( stdin, NULL, _IONBF, 0 );
 
@@ -72,12 +68,14 @@ INT WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine
    *stderr = *fptr;
    setvbuf( stderr, NULL, _IONBF, 0 );
 
-   LoadAndRun();
+   auto consoleBuffer = shared_ptr<ConsoleBuffer>( new ConsoleBuffer( 120, 30 ) );
+   LoadAndRun( consoleBuffer );
 }
 
-void LoadAndRun()
+void LoadAndRun( const shared_ptr<IConsoleBuffer> consoleBuffer )
 {
-   cout << "Loading all the things...";
+   consoleBuffer->Draw( 2, 1, "Loading all the things..." );
+   consoleBuffer->Flip();
 
    // configs
    auto config = BuildGameConfig();
@@ -107,7 +105,6 @@ void LoadAndRun()
    inputHandler->AddInputHandlerForGameState( GameState::Playing, playingStateInputHandler );
 
    // rendering objects
-   auto consoleBuffer = shared_ptr<ConsoleBuffer>( new ConsoleBuffer( consoleRenderConfig ) );
    auto diagnosticsRenderer = shared_ptr<DiagnosticsConsoleRenderer>( new DiagnosticsConsoleRenderer( consoleBuffer, clock, consoleRenderConfig ) );
    auto startupStateConsoleRenderer = shared_ptr<StartupStateConsoleRenderer>( new StartupStateConsoleRenderer( consoleBuffer, consoleRenderConfig, keyboardInputConfig ) );
    auto playingStateConsoleRenderer = shared_ptr<PlayingStateConsoleRenderer>( new PlayingStateConsoleRenderer( consoleBuffer, consoleRenderConfig, game ) );
@@ -118,19 +115,13 @@ void LoadAndRun()
    // game loop
    auto runner = shared_ptr<GameRunner>( new GameRunner( eventAggregator, clock, inputHandler, renderer, game, thread ) );
 
-   cout << " done!\nLet's goooo!\n";
-
    runner->Run();
-
-   cout << "Thanks for playing, enjoy your burrito!\n";
 }
 
 shared_ptr<ConsoleRenderConfig> BuildConsoleRenderConfig()
 {
    auto renderConfig = make_shared<ConsoleRenderConfig>();
 
-   // TODO: don't change these dimensions until we figure out the issue with console resizing.
-   // (see ConsoleDrawer.cpp)
    renderConfig->ConsoleWidth = 120;
    renderConfig->ConsoleHeight = 30;
 

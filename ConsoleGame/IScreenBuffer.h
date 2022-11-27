@@ -1,11 +1,15 @@
 #pragma once
 
+#include <memory>
+
 namespace ConsoleGame
 {
+   class IGameRenderConfig;
+
    class __declspec( novtable ) IScreenBuffer
    {
    public:
-      virtual void Initialize() = 0;
+      virtual void LoadRenderConfig( const std::shared_ptr<IGameRenderConfig> config ) = 0;
       virtual void CleanUp() = 0;
 
       virtual void Clear() = 0;

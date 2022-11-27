@@ -1,7 +1,6 @@
 #pragma once
 
 #include <string>
-#include <memory>
 
 #include "IScreenBuffer.h"
 
@@ -13,7 +12,7 @@ namespace ConsoleGame
    class __declspec( novtable ) IConsoleBuffer : public IScreenBuffer
    {
    public:
-      virtual void Initialize() override = 0;
+      virtual void LoadRenderConfig( std::shared_ptr<IGameRenderConfig> config ) override = 0;
       virtual void CleanUp() override = 0;
 
       virtual void SetDefaultForegroundColor( ConsoleColor color ) = 0;
