@@ -45,7 +45,7 @@ shared_ptr<KeyboardInputConfig> BuildKeyboardInputConfig();
 shared_ptr<PlayerConfig> BuildPlayerConfig();
 shared_ptr<ArenaConfig> BuildArenaConfig();
 shared_ptr<GameConfig> BuildGameConfig();
-void LoadAndRun();
+void LoadAndRun( const shared_ptr<IConsoleBuffer> consoleBuffer );
 
 INT WINAPI WinMain( _In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ PSTR lpCmdLine, _In_ INT nCmdShow )
 {
@@ -70,10 +70,11 @@ INT WINAPI WinMain( _In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
    *stderr = *fptr;
    setvbuf( stderr, NULL, _IONBF, 0 );
 
-   LoadAndRun();
+   auto consoleBuffer = shared_ptr<ConsoleBuffer>( new ConsoleBuffer( 120, 30 ) );
+   LoadAndRun( consoleBuffer );
 }
 
-void LoadAndRun()
+void LoadAndRun( const shared_ptr<IConsoleBuffer> consoleBuffer )
 {
    // configs
    auto config = BuildGameConfig();
@@ -103,7 +104,6 @@ void LoadAndRun()
    inputHandler->AddInputHandlerForGameState( GameState::Playing, playingStateInputHandler );
 
    // rendering objects
-   auto consoleBuffer = shared_ptr<ConsoleBuffer>( new ConsoleBuffer( consoleRenderConfig ) );
    auto diagnosticsRenderer = shared_ptr<DiagnosticsConsoleRenderer>( new DiagnosticsConsoleRenderer( consoleBuffer, clock, consoleRenderConfig ) );
    auto startupStateConsoleRenderer = shared_ptr<StartupStateConsoleRenderer>( new StartupStateConsoleRenderer( consoleBuffer, consoleRenderConfig, keyboardInputConfig ) );
    auto playingStateConsoleRenderer = shared_ptr<PlayingStateConsoleRenderer>( new PlayingStateConsoleRenderer( consoleBuffer, consoleRenderConfig, game ) );

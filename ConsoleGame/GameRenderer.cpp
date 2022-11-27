@@ -26,7 +26,7 @@ GameRenderer::GameRenderer( const shared_ptr<ConsoleRenderConfig> renderConfig,
    eventAggregator->RegisterEventHandler( GameEvent::Shutdown, std::bind( &GameRenderer::HandleShutdownEvent, this ) );
    eventAggregator->RegisterEventHandler( GameEvent::ToggleDiagnostics, std::bind( &GameRenderer::HandleToggleDiagnosticsEvent, this ) );
 
-   _screenBuffer->Initialize();
+   _screenBuffer->LoadRenderConfig( renderConfig );
 }
 
 void GameRenderer::AddRendererForGameState( GameState state, shared_ptr<IGameRenderer> renderer )

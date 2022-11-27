@@ -6,16 +6,15 @@
 
 namespace ConsoleGame
 {
-   class ConsoleRenderConfig;
    struct ConsoleBufferInfo;
 
    class ConsoleBuffer : public IConsoleBuffer
    {
    public:
-      ConsoleBuffer( const std::shared_ptr<ConsoleRenderConfig> renderConfig );
+      ConsoleBuffer( short defaultWidth, short defaultHeight );
       ~ConsoleBuffer();
 
-      void Initialize() override;
+      void LoadRenderConfig( const std::shared_ptr<IGameRenderConfig> renderConfig ) override;
       void CleanUp() override;
 
       void SetDefaultForegroundColor( ConsoleColor color ) override;
@@ -33,12 +32,11 @@ namespace ConsoleGame
       void Flip() override;
 
    private:
+      void ResetDrawBuffer();
       void SetCursorVisibility( bool isVisible );
       unsigned short ConsoleColorsToAttribute( ConsoleColor foregroundColor, ConsoleColor backgroundColor );
 
    private:
-      const std::shared_ptr<ConsoleRenderConfig> _renderConfig;
-
       std::shared_ptr<ConsoleBufferInfo> _bufferInfo;
 
       ConsoleColor _defaultForegroundColor;

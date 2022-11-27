@@ -25,29 +25,24 @@ namespace ConsoleGame
 using namespace std;
 using namespace ConsoleGame;
 
-ConsoleBuffer::ConsoleBuffer( const shared_ptr<ConsoleRenderConfig> renderConfig ) :
-   _renderConfig( renderConfig ),
+ConsoleBuffer::ConsoleBuffer( short defaultWidth, short defaultHeight ) :
    _defaultForegroundColor( ConsoleColor::Grey ),
-   _defaultBackgroundColor( ConsoleColor::Black )
+   _defaultBackgroundColor( ConsoleColor::Black ),
+   _originalConsoleWidth( defaultWidth ),
+   _originalConsoleHeight( defaultHeight )
 {
    _bufferInfo = shared_ptr<ConsoleBufferInfo>( new ConsoleBufferInfo );
    _bufferInfo->OutputHandle = GetStdHandle( STD_OUTPUT_HANDLE );
-   _bufferInfo->ConsoleSize = { _renderConfig->ConsoleWidth, _renderConfig->ConsoleHeight };
-   _bufferInfo->DrawBufferSize = _renderConfig->ConsoleWidth * _renderConfig->ConsoleHeight;
+   _bufferInfo->ConsoleSize = { defaultWidth, defaultHeight };
+   _bufferInfo->DrawBufferSize = defaultWidth * defaultHeight;
    _bufferInfo->DrawBuffer = new CHAR_INFO[_bufferInfo->DrawBufferSize];
-   _bufferInfo->OutputRect = { 0, 0, _renderConfig->ConsoleWidth, _renderConfig->ConsoleHeight };
+   _bufferInfo->OutputRect = { 0, 0, defaultWidth, defaultHeight };
 
    CONSOLE_SCREEN_BUFFER_INFO screenBufferInfo;
    GetConsoleScreenBufferInfo( _bufferInfo->OutputHandle, &screenBufferInfo );
    _originalColorAttribute = screenBufferInfo.wAttributes;
 
-   _originalConsoleWidth = ( screenBufferInfo.srWindow.Right - screenBufferInfo.srWindow.Left ) + 1;
-   _originalConsoleHeight = ( screenBufferInfo.srWindow.Bottom - screenBufferInfo.srWindow.Top ) + 1;
-
-   for ( int i = 0; i < _bufferInfo->DrawBufferSize; i++ )
-   {
-      _bufferInfo->DrawBuffer[i] = CHAR_INFO();
-   }
+   ResetDrawBuffer();
 }
 
 ConsoleBuffer::~ConsoleBuffer()
@@ -55,8 +50,25 @@ ConsoleBuffer::~ConsoleBuffer()
    delete[] _bufferInfo->DrawBuffer;
 }
 
-void ConsoleBuffer::Initialize()
+void ConsoleBuffer::ResetDrawBuffer()
 {
+   for ( int i = 0; i < _bufferInfo->DrawBufferSize; i++ )
+   {
+      _bufferInfo->DrawBuffer[i] = CHAR_INFO();
+   }
+}
+
+void ConsoleBuffer::LoadRenderConfig( const shared_ptr<IGameRenderConfig> config )
+{
+   auto consoleConfig = static_pointer_cast<ConsoleRenderConfig>( config );
+
+   _bufferInfo->ConsoleSize = { consoleConfig->ConsoleWidth, consoleConfig->ConsoleHeight };
+   _bufferInfo->DrawBufferSize = consoleConfig->ConsoleWidth * consoleConfig->ConsoleHeight;
+   _bufferInfo->DrawBuffer = new CHAR_INFO[_bufferInfo->DrawBufferSize];
+   _bufferInfo->OutputRect = { 0, 0, consoleConfig->ConsoleWidth, consoleConfig->ConsoleHeight };
+
+   ResetDrawBuffer();
+
    SetConsoleScreenBufferSize( _bufferInfo->OutputHandle, { _bufferInfo->ConsoleSize.X, _bufferInfo->ConsoleSize.Y } );
 
    SMALL_RECT windowCoords{ 0, 0, _bufferInfo->ConsoleSize.X - 1, _bufferInfo->ConsoleSize.Y - 1 };
@@ -64,8 +76,8 @@ void ConsoleBuffer::Initialize()
 
    SetCursorVisibility( false );
 
-   SetDefaultForegroundColor( _renderConfig->DefaultForegroundColor );
-   SetDefaultBackgroundColor( _renderConfig->DefaultBackgroundColor );
+   SetDefaultForegroundColor( consoleConfig->DefaultForegroundColor );
+   SetDefaultBackgroundColor( consoleConfig->DefaultBackgroundColor );
 
    Clear();
    Flip();
