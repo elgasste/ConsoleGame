@@ -121,8 +121,6 @@ shared_ptr<ConsoleRenderConfig> BuildConsoleRenderConfig()
 {
    auto renderConfig = make_shared<ConsoleRenderConfig>();
 
-   // TODO: don't change these dimensions until we figure out the issue with console resizing.
-   // (see ConsoleDrawer.cpp)
    renderConfig->ConsoleWidth = 120;
    renderConfig->ConsoleHeight = 30;
 
