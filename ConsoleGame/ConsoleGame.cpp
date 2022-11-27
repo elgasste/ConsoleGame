@@ -1,3 +1,4 @@
+#define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
 #include <io.h>
 #include <fcntl.h>
@@ -44,44 +45,37 @@ shared_ptr<KeyboardInputConfig> BuildKeyboardInputConfig();
 shared_ptr<PlayerConfig> BuildPlayerConfig();
 shared_ptr<ArenaConfig> BuildArenaConfig();
 shared_ptr<GameConfig> BuildGameConfig();
-int main();
+void LoadAndRun();
 
-INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine, INT nCmdShow)
+INT WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine, INT nCmdShow )
 {
-   CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
-   int consoleHandleR, consoleHandleW ;
-   long stdioHandle;
    FILE *fptr;
 
    AllocConsole();
-   std::wstring strW = L"Dev Console";
-   SetConsoleTitle( strW.c_str() );
+   wstring consoleTitle = L"Console Game";
+   SetConsoleTitle( consoleTitle.c_str() );
 
-   EnableMenuItem(GetSystemMenu(GetConsoleWindow(), FALSE), SC_CLOSE , MF_GRAYED);
-   DrawMenuBar(GetConsoleWindow());
+   // you can't close this window unless I WANT you to
+   EnableMenuItem( GetSystemMenu( GetConsoleWindow(), FALSE ), SC_CLOSE , MF_GRAYED );
+   DrawMenuBar( GetConsoleWindow() );
 
-   GetConsoleScreenBufferInfo( GetStdHandle(STD_OUTPUT_HANDLE), &consoleInfo );
-
-   stdioHandle = (long)GetStdHandle( STD_INPUT_HANDLE );
-   consoleHandleR = _open_osfhandle( stdioHandle, _O_TEXT );
+   auto consoleHandleR = _open_osfhandle( (intptr_t)GetStdHandle( STD_INPUT_HANDLE ), _O_TEXT );
    fptr = _fdopen( consoleHandleR, "r" );
    *stdin = *fptr;
    setvbuf( stdin, NULL, _IONBF, 0 );
 
-   stdioHandle = (long) GetStdHandle( STD_OUTPUT_HANDLE );
-   consoleHandleW = _open_osfhandle( stdioHandle, _O_TEXT );
+   auto consoleHandleW = _open_osfhandle( (intptr_t)GetStdHandle( STD_OUTPUT_HANDLE ), _O_TEXT );
    fptr = _fdopen( consoleHandleW, "w" );
    *stdout = *fptr;
    setvbuf( stdout, NULL, _IONBF, 0 );
 
-   stdioHandle = (long)GetStdHandle( STD_ERROR_HANDLE );
    *stderr = *fptr;
    setvbuf( stderr, NULL, _IONBF, 0 );
 
-   main();
+   LoadAndRun();
 }
 
-int main()
+void LoadAndRun()
 {
    cout << "Loading all the things...";
 
