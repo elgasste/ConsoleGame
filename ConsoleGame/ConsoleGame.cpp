@@ -3,8 +3,6 @@
 #include <io.h>
 #include <fcntl.h>
 
-#include <iostream>
-
 #include "GameConfig.h"
 #include "ConsoleRenderConfig.h"
 #include "KeyboardInputConfig.h"
