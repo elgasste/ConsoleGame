@@ -43,5 +43,7 @@ namespace ConsoleGame
 
       ConsoleColor _defaultForegroundColor;
       ConsoleColor _defaultBackgroundColor;
+
+      unsigned short _originalColorAttribute;
    };
 }

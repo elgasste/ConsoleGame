@@ -37,6 +37,10 @@ ConsoleBuffer::ConsoleBuffer( const shared_ptr<ConsoleRenderConfig> renderConfig
    _bufferInfo->DrawBuffer = new CHAR_INFO[_bufferInfo->DrawBufferSize];
    _bufferInfo->OutputRect = { 0, 0, _renderConfig->ConsoleWidth, _renderConfig->ConsoleHeight };
 
+   CONSOLE_SCREEN_BUFFER_INFO screenBufferInfo;
+   GetConsoleScreenBufferInfo( _bufferInfo->OutputHandle, &screenBufferInfo );
+   _originalColorAttribute = screenBufferInfo.wAttributes;
+
    for ( int i = 0; i < _bufferInfo->DrawBufferSize; i++ )
    {
       _bufferInfo->DrawBuffer[i] = CHAR_INFO();
@@ -52,15 +56,8 @@ void ConsoleBuffer::Initialize()
 {
    SetConsoleScreenBufferSize( _bufferInfo->OutputHandle, { _bufferInfo->ConsoleSize.X, _bufferInfo->ConsoleSize.Y } );
 
-   // TODO: as of the Windows 11 update I installed on 11/09/2022,
-   // SetConsoleWindowInfo is no longer resizing the console window.
-   // I don't think this actually does anything as of that update,
-   // but hopefully it works for previous versions of Windows...
    SMALL_RECT windowCoords{ 0, 0, _bufferInfo->ConsoleSize.X - 1, _bufferInfo->ConsoleSize.Y - 1 };
    SetConsoleWindowInfo( _bufferInfo->OutputHandle, TRUE, &windowCoords );
-
-   // TODO: I tried this as well, it doesn't work either.
-   //system( format("MODE CON COLS={0} LINES={1}", _consoleSize.X, _consoleSize.Y ).c_str() );
 
    SetCursorVisibility( false );
 
@@ -73,10 +70,8 @@ void ConsoleBuffer::Initialize()
 
 void ConsoleBuffer::CleanUp()
 {
-   // TODO: restore the original console dimensions (not so easy, see above).
-   // also restore the original fg/bg colors, that should be easier.
-   SetDefaultForegroundColor( ConsoleColor::Grey );
-   SetDefaultBackgroundColor( ConsoleColor::Black );
+   // TODO: restore the original console dimensions
+   SetConsoleTextAttribute( _bufferInfo->OutputHandle, _originalColorAttribute );
    Clear();
    Flip();
 
