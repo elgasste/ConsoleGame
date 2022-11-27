@@ -25,18 +25,18 @@ namespace ConsoleGame
 using namespace std;
 using namespace ConsoleGame;
 
-ConsoleBuffer::ConsoleBuffer( short defaultWidth, short defaultHeight ) :
+ConsoleBuffer::ConsoleBuffer() :
    _defaultForegroundColor( ConsoleColor::Grey ),
    _defaultBackgroundColor( ConsoleColor::Black ),
-   _originalConsoleWidth( defaultWidth ),
-   _originalConsoleHeight( defaultHeight )
+   _originalWidth( 120 ),
+   _originalHeight( 30 )
 {
    _bufferInfo = shared_ptr<ConsoleBufferInfo>( new ConsoleBufferInfo );
    _bufferInfo->OutputHandle = GetStdHandle( STD_OUTPUT_HANDLE );
-   _bufferInfo->ConsoleSize = { defaultWidth, defaultHeight };
-   _bufferInfo->DrawBufferSize = defaultWidth * defaultHeight;
+   _bufferInfo->ConsoleSize = { _originalWidth, _originalHeight };
+   _bufferInfo->DrawBufferSize = _originalWidth * _originalHeight;
    _bufferInfo->DrawBuffer = new CHAR_INFO[_bufferInfo->DrawBufferSize];
-   _bufferInfo->OutputRect = { 0, 0, defaultWidth, defaultHeight };
+   _bufferInfo->OutputRect = { 0, 0, _originalWidth, _originalHeight };
 
    CONSOLE_SCREEN_BUFFER_INFO screenBufferInfo;
    GetConsoleScreenBufferInfo( _bufferInfo->OutputHandle, &screenBufferInfo );
@@ -44,9 +44,6 @@ ConsoleBuffer::ConsoleBuffer( short defaultWidth, short defaultHeight ) :
 
    ResetDrawBuffer();
    SetCursorVisibility( false );
-
-   SetDefaultForegroundColor( _defaultForegroundColor );
-   SetDefaultBackgroundColor( _defaultBackgroundColor );
 
    Clear();
    Flip();
@@ -81,6 +78,9 @@ void ConsoleBuffer::LoadRenderConfig( const shared_ptr<IGameRenderConfig> config
    SMALL_RECT windowCoords{ 0, 0, _bufferInfo->ConsoleSize.X - 1, _bufferInfo->ConsoleSize.Y - 1 };
    SetConsoleWindowInfo( _bufferInfo->OutputHandle, TRUE, &windowCoords );
 
+   _defaultForegroundColor = consoleConfig->DefaultForegroundColor;
+   _defaultBackgroundColor = consoleConfig->DefaultBackgroundColor;
+
    Clear();
    Flip();
 }
@@ -89,7 +89,7 @@ void ConsoleBuffer::CleanUp()
 {
    SetConsoleTextAttribute( _bufferInfo->OutputHandle, _originalColorAttribute );
 
-   SMALL_RECT windowCoords{ 0, 0, _originalConsoleWidth - 1, _originalConsoleHeight - 1 };
+   SMALL_RECT windowCoords{ 0, 0, _originalWidth - 1, _originalHeight - 1 };
    SetConsoleWindowInfo( _bufferInfo->OutputHandle, TRUE, &windowCoords );
 
    SetCursorVisibility( true );
