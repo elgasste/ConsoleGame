@@ -43,6 +43,13 @@ ConsoleBuffer::ConsoleBuffer( short defaultWidth, short defaultHeight ) :
    _originalColorAttribute = screenBufferInfo.wAttributes;
 
    ResetDrawBuffer();
+   SetCursorVisibility( false );
+
+   SetDefaultForegroundColor( _defaultForegroundColor );
+   SetDefaultBackgroundColor( _defaultBackgroundColor );
+
+   Clear();
+   Flip();
 }
 
 ConsoleBuffer::~ConsoleBuffer()
@@ -73,11 +80,6 @@ void ConsoleBuffer::LoadRenderConfig( const shared_ptr<IGameRenderConfig> config
 
    SMALL_RECT windowCoords{ 0, 0, _bufferInfo->ConsoleSize.X - 1, _bufferInfo->ConsoleSize.Y - 1 };
    SetConsoleWindowInfo( _bufferInfo->OutputHandle, TRUE, &windowCoords );
-
-   SetCursorVisibility( false );
-
-   SetDefaultForegroundColor( consoleConfig->DefaultForegroundColor );
-   SetDefaultBackgroundColor( consoleConfig->DefaultBackgroundColor );
 
    Clear();
    Flip();
