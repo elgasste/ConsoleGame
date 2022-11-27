@@ -11,7 +11,7 @@ namespace ConsoleGame
    class ConsoleBuffer : public IConsoleBuffer
    {
    public:
-      ConsoleBuffer( short defaultWidth, short defaultHeight );
+      ConsoleBuffer();
       ~ConsoleBuffer();
 
       void LoadRenderConfig( const std::shared_ptr<IGameRenderConfig> renderConfig ) override;
@@ -43,7 +43,7 @@ namespace ConsoleGame
       ConsoleColor _defaultBackgroundColor;
 
       unsigned short _originalColorAttribute;
-      short _originalConsoleWidth;
-      short _originalConsoleHeight;
+      short _originalWidth;
+      short _originalHeight;
    };
 }
