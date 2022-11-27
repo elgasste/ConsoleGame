@@ -74,6 +74,9 @@ INT WINAPI WinMain( _In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
 
 void LoadAndRun( const shared_ptr<IConsoleBuffer> consoleBuffer )
 {
+   consoleBuffer->Draw( 2, 1, "Loading all the things..." );
+   consoleBuffer->Flip();
+
    // configs
    auto config = BuildGameConfig();
    auto consoleRenderConfig = static_pointer_cast<ConsoleRenderConfig>( config->RenderConfig );
