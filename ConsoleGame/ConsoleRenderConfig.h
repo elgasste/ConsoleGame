@@ -13,6 +13,16 @@ namespace ConsoleGame
    class ConsoleRenderConfig : public IGameRenderConfig
    {
    public:
+      ConsoleRenderConfig() :
+         ConsoleWidth( 0 ),
+         ConsoleHeight( 0 ),
+         ArenaCharWidth( 0 ),
+         ArenaCharHeight( 0 ),
+         ArenaFenceX( 0 ),
+         ArenaFenceY( 0 ),
+         DefaultForegroundColor( (ConsoleColor)0 ),
+         DefaultBackgroundColor( (ConsoleColor)0 ) { }
+
       short ConsoleWidth;
       short ConsoleHeight;
 
