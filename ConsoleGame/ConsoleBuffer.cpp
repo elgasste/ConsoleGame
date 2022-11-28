@@ -13,6 +13,17 @@ namespace ConsoleGame
 {
    struct ConsoleBufferInfo
    {
+      ConsoleBufferInfo( HANDLE outputHandle,
+                         COORD consoleSize,
+                         int drawBufferSize,
+                         CHAR_INFO* drawBuffer,
+                         SMALL_RECT outputRect ) :
+         OutputHandle( outputHandle ),
+         ConsoleSize( consoleSize ),
+         DrawBufferSize( drawBufferSize ),
+         DrawBuffer( drawBuffer ),
+         OutputRect( outputRect ) { }
+
       HANDLE OutputHandle;
       COORD ConsoleSize;
       int DrawBufferSize;
@@ -31,12 +42,11 @@ ConsoleBuffer::ConsoleBuffer() :
    _originalWidth( 120 ),
    _originalHeight( 30 )
 {
-   _bufferInfo = shared_ptr<ConsoleBufferInfo>( new ConsoleBufferInfo );
-   _bufferInfo->OutputHandle = GetStdHandle( STD_OUTPUT_HANDLE );
-   _bufferInfo->ConsoleSize = { _originalWidth, _originalHeight };
-   _bufferInfo->DrawBufferSize = _originalWidth * _originalHeight;
-   _bufferInfo->DrawBuffer = new CHAR_INFO[_bufferInfo->DrawBufferSize];
-   _bufferInfo->OutputRect = { 0, 0, _originalWidth, _originalHeight };
+   _bufferInfo = shared_ptr<ConsoleBufferInfo>( new ConsoleBufferInfo( GetStdHandle( STD_OUTPUT_HANDLE ),
+                                                                       { _originalWidth, _originalHeight },
+                                                                       _originalWidth * _originalHeight,
+                                                                       new CHAR_INFO[(__int64)_originalWidth * (__int64)_originalHeight],
+                                                                       { 0, 0, _originalWidth, _originalHeight } ) );
 
    CONSOLE_SCREEN_BUFFER_INFO screenBufferInfo;
    GetConsoleScreenBufferInfo( _bufferInfo->OutputHandle, &screenBufferInfo );
