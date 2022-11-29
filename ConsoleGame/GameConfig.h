@@ -13,9 +13,7 @@ namespace ConsoleGame
    class GameConfig
    {
    public:
-      GameConfig() : FramesPerSecond( 0 ) { }
-
-      int FramesPerSecond;
+      int FramesPerSecond = 0;
 
       std::shared_ptr<IGameRenderConfig> RenderConfig;
       std::shared_ptr<IGameInputConfig> InputConfig;

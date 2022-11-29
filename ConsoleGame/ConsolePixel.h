@@ -6,7 +6,7 @@ namespace ConsoleGame
 
    struct ConsolePixel
    {
-      char Value;
-      ConsoleColor Color;
+      char Value = '\0';
+      ConsoleColor Color = (ConsoleColor)0;
    };
 }
