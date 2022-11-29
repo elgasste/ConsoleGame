@@ -13,27 +13,17 @@ namespace ConsoleGame
    class ConsoleRenderConfig : public IGameRenderConfig
    {
    public:
-      ConsoleRenderConfig() :
-         ConsoleWidth( 0 ),
-         ConsoleHeight( 0 ),
-         ArenaCharWidth( 0 ),
-         ArenaCharHeight( 0 ),
-         ArenaFenceX( 0 ),
-         ArenaFenceY( 0 ),
-         DefaultForegroundColor( (ConsoleColor)0 ),
-         DefaultBackgroundColor( (ConsoleColor)0 ) { }
+      short ConsoleWidth = 0;
+      short ConsoleHeight = 0;
 
-      short ConsoleWidth;
-      short ConsoleHeight;
+      short ArenaCharWidth = 0;
+      short ArenaCharHeight = 0;
 
-      short ArenaCharWidth;
-      short ArenaCharHeight;
+      short ArenaFenceX = 0;
+      short ArenaFenceY = 0;
 
-      short ArenaFenceX;
-      short ArenaFenceY;
-
-      ConsoleColor DefaultForegroundColor;
-      ConsoleColor DefaultBackgroundColor;
+      ConsoleColor DefaultForegroundColor = (ConsoleColor)0;
+      ConsoleColor DefaultBackgroundColor = (ConsoleColor)0;
 
       ConsoleSprite PlayerStaticSprite;
       std::map<Direction, ConsoleSprite> PlayerMovingSpriteMap;
