@@ -6,7 +6,7 @@
 #include "GameConfig.h"
 #include "ConsoleRenderDefs.h"
 #include "KeyboardInputDefs.h"
-#include "PlayerConfig.h"
+#include "PlayerDefs.h"
 #include "ArenaDefs.h"
 #include "KeyCode.h"
 #include "GameButton.h"
@@ -40,7 +40,7 @@ using namespace ConsoleGame;
 // probably be set in some initializer instead of in here.
 shared_ptr<ConsoleRenderDefs> BuildConsoleRenderDefs();
 shared_ptr<KeyboardInputDefs> BuildKeyboardInputDefs();
-shared_ptr<PlayerConfig> BuildPlayerConfig();
+shared_ptr<PlayerDefs> BuildPlayerDefs();
 shared_ptr<ArenaDefs> BuildArenaDefs();
 shared_ptr<GameConfig> BuildGameConfig();
 void LoadAndRun( const shared_ptr<IConsoleBuffer> consoleBuffer );
@@ -254,24 +254,24 @@ shared_ptr<KeyboardInputDefs> BuildKeyboardInputDefs()
    return inputDefs;
 }
 
-shared_ptr<PlayerConfig> BuildPlayerConfig()
+shared_ptr<PlayerDefs> BuildPlayerDefs()
 {
-   auto playerConfig = make_shared<PlayerConfig>();
+   auto playerDefs = make_shared<PlayerDefs>();
 
-   playerConfig->StartVelocityX = 0.;
-   playerConfig->StartVelocityY = 0.;
+   playerDefs->StartVelocityX = 0.;
+   playerDefs->StartVelocityY = 0.;
 
    // this means at max velocity, it should take
    // 3 seconds to cross the arena horizontally
-   playerConfig->MaxVelocity = 1444.;
+   playerDefs->MaxVelocity = 1444.;
 
    // this means it should take a third of a second
    // to go from 0 to max velocity
-   playerConfig->AccelerationPerSecond = 4332.;
+   playerDefs->AccelerationPerSecond = 4332.;
 
-   playerConfig->StartDirection = Direction::Right;
+   playerDefs->StartDirection = Direction::Right;
 
-   return playerConfig;
+   return playerDefs;
 }
 
 shared_ptr<ArenaDefs> BuildArenaDefs()
@@ -295,7 +295,7 @@ shared_ptr<GameConfig> BuildGameConfig()
 
    config->RenderDefs = BuildConsoleRenderDefs();
    config->InputDefs = BuildKeyboardInputDefs();
-   config->PlayerConfig = BuildPlayerConfig();
+   config->PlayerDefs = BuildPlayerDefs();
    config->ArenaDefs = BuildArenaDefs();
 
    return config;

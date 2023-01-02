@@ -4,7 +4,7 @@
 
 #include <ConsoleGame/Game.h>
 #include <ConsoleGame/GameConfig.h>
-#include <ConsoleGame/PlayerConfig.h>
+#include <ConsoleGame/PlayerDefs.h>
 #include <ConsoleGame/ArenaDefs.h>
 #include <ConsoleGame/GameState.h>
 #include <ConsoleGame/Direction.h>
@@ -26,7 +26,7 @@ public:
    void SetUp() override
    {
       _config.reset( new GameConfig );
-      _config->PlayerConfig.reset( new PlayerConfig );
+      _config->PlayerDefs.reset( new PlayerDefs );
       _config->ArenaDefs.reset( new ArenaDefs );
       _eventAggregatorMock.reset( new NiceMock<mock_GameEventAggregator> );
       _playerFactoryMock.reset( new NiceMock<mock_PlayerFactory> );

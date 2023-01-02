@@ -12,5 +12,5 @@ PlayerFactory::PlayerFactory( const shared_ptr<GameConfig> config ) :
 
 const shared_ptr<IPlayer> PlayerFactory::CreatePlayer() const
 {
-   return shared_ptr<IPlayer>( new Player( _config->PlayerConfig, _config->FramesPerSecond ) );
+   return shared_ptr<IPlayer>( new Player( _config->PlayerDefs, _config->FramesPerSecond ) );
 }

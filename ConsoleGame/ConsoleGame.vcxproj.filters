@@ -251,7 +251,7 @@
     <ClInclude Include="PlayerFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerConfig.h">
+    <ClInclude Include="PlayerDefs.h">
       <Filter>Header Files\Config</Filter>
     </ClInclude>
     <ClInclude Include="IGame.h">

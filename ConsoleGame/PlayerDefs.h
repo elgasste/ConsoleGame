@@ -4,7 +4,7 @@
 
 namespace ConsoleGame
 {
-   class PlayerConfig
+   class PlayerDefs
    {
    public:
       double StartVelocityX = 0.;

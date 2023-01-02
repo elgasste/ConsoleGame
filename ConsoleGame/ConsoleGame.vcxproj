@@ -217,7 +217,7 @@
     <ClInclude Include="PushPlayerCommandArgs.h" />
     <ClInclude Include="ConsolePixel.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="PlayerConfig.h" />
+    <ClInclude Include="PlayerDefs.h" />
     <ClInclude Include="PlayerFactory.h" />
     <ClInclude Include="PlayingStateConsoleRenderer.h" />
     <ClInclude Include="PlayingStateInputHandler.h" />

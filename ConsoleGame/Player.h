@@ -6,12 +6,12 @@
 
 namespace ConsoleGame
 {
-   class PlayerConfig;
+   class PlayerDefs;
 
    class Player : public IPlayer
    {
    public:
-      Player( const std::shared_ptr<PlayerConfig> config,
+      Player( const std::shared_ptr<PlayerDefs> playerDefs,
               int framesPerSecond );
 
       void Push( Direction direction ) override;
@@ -29,7 +29,7 @@ namespace ConsoleGame
       void ClampVelocity();
 
    private:
-      const std::shared_ptr<PlayerConfig> _config;
+      const std::shared_ptr<PlayerDefs> _playerDefs;
 
       double _velocityX;
       double _velocityY;

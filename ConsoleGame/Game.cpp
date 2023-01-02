@@ -1,6 +1,5 @@
 #include "Game.h"
 #include "GameConfig.h"
-#include "PlayerConfig.h"
 #include "ArenaDefs.h"
 #include "IGameEventAggregator.h"
 #include "IPlayerFactory.h"
