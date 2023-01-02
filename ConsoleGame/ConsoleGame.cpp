@@ -4,7 +4,7 @@
 #include <fcntl.h>
 
 #include "GameConfig.h"
-#include "ConsoleRenderConfig.h"
+#include "ConsoleRenderDefs.h"
 #include "KeyboardInputConfig.h"
 #include "PlayerConfig.h"
 #include "ArenaDefs.h"
@@ -38,7 +38,7 @@ using namespace ConsoleGame;
 // TODO: I suppose these configs should be loaded from files at some point,
 // but at the very least they should all have default values, and those could
 // probably be set in some initializer instead of in here.
-shared_ptr<ConsoleRenderConfig> BuildConsoleRenderConfig();
+shared_ptr<ConsoleRenderDefs> BuildConsoleRenderDefs();
 shared_ptr<KeyboardInputConfig> BuildKeyboardInputConfig();
 shared_ptr<PlayerConfig> BuildPlayerConfig();
 shared_ptr<ArenaDefs> BuildArenaDefs();
@@ -79,7 +79,7 @@ void LoadAndRun( const shared_ptr<IConsoleBuffer> consoleBuffer )
 
    // configs
    auto config = BuildGameConfig();
-   auto consoleRenderConfig = static_pointer_cast<ConsoleRenderConfig>( config->RenderConfig );
+   auto consoleRenderDefs = static_pointer_cast<ConsoleRenderDefs>( config->RenderDefs );
    auto keyboardInputConfig = static_pointer_cast<KeyboardInputConfig>( config->InputConfig );
 
    // wrappers
@@ -105,10 +105,10 @@ void LoadAndRun( const shared_ptr<IConsoleBuffer> consoleBuffer )
    inputHandler->AddInputHandlerForGameState( GameState::Playing, playingStateInputHandler );
 
    // rendering objects
-   auto diagnosticsRenderer = shared_ptr<DiagnosticsConsoleRenderer>( new DiagnosticsConsoleRenderer( consoleBuffer, clock, consoleRenderConfig ) );
-   auto startupStateConsoleRenderer = shared_ptr<StartupStateConsoleRenderer>( new StartupStateConsoleRenderer( consoleBuffer, consoleRenderConfig, keyboardInputConfig ) );
-   auto playingStateConsoleRenderer = shared_ptr<PlayingStateConsoleRenderer>( new PlayingStateConsoleRenderer( consoleBuffer, consoleRenderConfig, game ) );
-   auto renderer = shared_ptr<GameRenderer>( new GameRenderer( consoleRenderConfig, consoleBuffer, game, diagnosticsRenderer, eventAggregator ) );
+   auto diagnosticsRenderer = shared_ptr<DiagnosticsConsoleRenderer>( new DiagnosticsConsoleRenderer( consoleBuffer, clock, consoleRenderDefs ) );
+   auto startupStateConsoleRenderer = shared_ptr<StartupStateConsoleRenderer>( new StartupStateConsoleRenderer( consoleBuffer, consoleRenderDefs, keyboardInputConfig ) );
+   auto playingStateConsoleRenderer = shared_ptr<PlayingStateConsoleRenderer>( new PlayingStateConsoleRenderer( consoleBuffer, consoleRenderDefs, game ) );
+   auto renderer = shared_ptr<GameRenderer>( new GameRenderer( consoleRenderDefs, consoleBuffer, game, diagnosticsRenderer, eventAggregator ) );
    renderer->AddRendererForGameState( GameState::Startup, startupStateConsoleRenderer );
    renderer->AddRendererForGameState( GameState::Playing, playingStateConsoleRenderer );
 
@@ -118,75 +118,75 @@ void LoadAndRun( const shared_ptr<IConsoleBuffer> consoleBuffer )
    runner->Run();
 }
 
-shared_ptr<ConsoleRenderConfig> BuildConsoleRenderConfig()
+shared_ptr<ConsoleRenderDefs> BuildConsoleRenderDefs()
 {
-   auto renderConfig = make_shared<ConsoleRenderConfig>();
+   auto renderDefs = make_shared<ConsoleRenderDefs>();
 
-   renderConfig->ConsoleWidth = 120;
-   renderConfig->ConsoleHeight = 30;
+   renderDefs->ConsoleWidth = 120;
+   renderDefs->ConsoleHeight = 30;
 
-   renderConfig->ArenaCharWidth = 114;
-   renderConfig->ArenaCharHeight = 24;
+   renderDefs->ArenaCharWidth = 114;
+   renderDefs->ArenaCharHeight = 24;
 
-   renderConfig->ArenaFenceX = 2;
-   renderConfig->ArenaFenceY = 3;
+   renderDefs->ArenaFenceX = 2;
+   renderDefs->ArenaFenceY = 3;
 
-   renderConfig->DefaultForegroundColor = ConsoleColor::Grey;
-   renderConfig->DefaultBackgroundColor = ConsoleColor::Black;
+   renderDefs->DefaultForegroundColor = ConsoleColor::Grey;
+   renderDefs->DefaultBackgroundColor = ConsoleColor::Black;
 
-   renderConfig->PlayerStaticSprite.Width = 1;
-   renderConfig->PlayerStaticSprite.Height = 1;
-   renderConfig->PlayerStaticSprite.Pixels.push_back( { '*', ConsoleColor::White } );
+   renderDefs->PlayerStaticSprite.Width = 1;
+   renderDefs->PlayerStaticSprite.Height = 1;
+   renderDefs->PlayerStaticSprite.Pixels.push_back( { '*', ConsoleColor::White } );
 
-   renderConfig->PlayerMovingSpriteMap[Direction::Left].Width = 2;
-   renderConfig->PlayerMovingSpriteMap[Direction::Left].Height = 1;
-   renderConfig->PlayerMovingSpriteMap[Direction::Left].Pixels.push_back( { '+', ConsoleColor::White } );
-   renderConfig->PlayerMovingSpriteMap[Direction::Left].Pixels.push_back( { '-', ConsoleColor::White } );
+   renderDefs->PlayerMovingSpriteMap[Direction::Left].Width = 2;
+   renderDefs->PlayerMovingSpriteMap[Direction::Left].Height = 1;
+   renderDefs->PlayerMovingSpriteMap[Direction::Left].Pixels.push_back( { '+', ConsoleColor::White } );
+   renderDefs->PlayerMovingSpriteMap[Direction::Left].Pixels.push_back( { '-', ConsoleColor::White } );
 
-   renderConfig->PlayerMovingSpriteMap[Direction::UpLeft].Width = 2;
-   renderConfig->PlayerMovingSpriteMap[Direction::UpLeft].Height = 2;
-   renderConfig->PlayerMovingSpriteMap[Direction::UpLeft].Pixels.push_back( { '+', ConsoleColor::White } );
-   renderConfig->PlayerMovingSpriteMap[Direction::UpLeft].Pixels.push_back( { ' ', ConsoleColor::White } );
-   renderConfig->PlayerMovingSpriteMap[Direction::UpLeft].Pixels.push_back( { ' ', ConsoleColor::White } );
-   renderConfig->PlayerMovingSpriteMap[Direction::UpLeft].Pixels.push_back( { '\\', ConsoleColor::White } );
+   renderDefs->PlayerMovingSpriteMap[Direction::UpLeft].Width = 2;
+   renderDefs->PlayerMovingSpriteMap[Direction::UpLeft].Height = 2;
+   renderDefs->PlayerMovingSpriteMap[Direction::UpLeft].Pixels.push_back( { '+', ConsoleColor::White } );
+   renderDefs->PlayerMovingSpriteMap[Direction::UpLeft].Pixels.push_back( { ' ', ConsoleColor::White } );
+   renderDefs->PlayerMovingSpriteMap[Direction::UpLeft].Pixels.push_back( { ' ', ConsoleColor::White } );
+   renderDefs->PlayerMovingSpriteMap[Direction::UpLeft].Pixels.push_back( { '\\', ConsoleColor::White } );
 
-   renderConfig->PlayerMovingSpriteMap[Direction::Up].Width = 1;
-   renderConfig->PlayerMovingSpriteMap[Direction::Up].Height = 2;
-   renderConfig->PlayerMovingSpriteMap[Direction::Up].Pixels.push_back( { '+', ConsoleColor::White } );
-   renderConfig->PlayerMovingSpriteMap[Direction::Up].Pixels.push_back( { '|', ConsoleColor::White } );
+   renderDefs->PlayerMovingSpriteMap[Direction::Up].Width = 1;
+   renderDefs->PlayerMovingSpriteMap[Direction::Up].Height = 2;
+   renderDefs->PlayerMovingSpriteMap[Direction::Up].Pixels.push_back( { '+', ConsoleColor::White } );
+   renderDefs->PlayerMovingSpriteMap[Direction::Up].Pixels.push_back( { '|', ConsoleColor::White } );
 
-   renderConfig->PlayerMovingSpriteMap[Direction::UpRight].Width = 2;
-   renderConfig->PlayerMovingSpriteMap[Direction::UpRight].Height = 2;
-   renderConfig->PlayerMovingSpriteMap[Direction::UpRight].Pixels.push_back( { ' ', ConsoleColor::White } );
-   renderConfig->PlayerMovingSpriteMap[Direction::UpRight].Pixels.push_back( { '+', ConsoleColor::White } );
-   renderConfig->PlayerMovingSpriteMap[Direction::UpRight].Pixels.push_back( { '/', ConsoleColor::White } );
-   renderConfig->PlayerMovingSpriteMap[Direction::UpRight].Pixels.push_back( { ' ', ConsoleColor::White } );
+   renderDefs->PlayerMovingSpriteMap[Direction::UpRight].Width = 2;
+   renderDefs->PlayerMovingSpriteMap[Direction::UpRight].Height = 2;
+   renderDefs->PlayerMovingSpriteMap[Direction::UpRight].Pixels.push_back( { ' ', ConsoleColor::White } );
+   renderDefs->PlayerMovingSpriteMap[Direction::UpRight].Pixels.push_back( { '+', ConsoleColor::White } );
+   renderDefs->PlayerMovingSpriteMap[Direction::UpRight].Pixels.push_back( { '/', ConsoleColor::White } );
+   renderDefs->PlayerMovingSpriteMap[Direction::UpRight].Pixels.push_back( { ' ', ConsoleColor::White } );
 
-   renderConfig->PlayerMovingSpriteMap[Direction::Right].Width = 2;
-   renderConfig->PlayerMovingSpriteMap[Direction::Right].Height = 1;
-   renderConfig->PlayerMovingSpriteMap[Direction::Right].Pixels.push_back( { '-', ConsoleColor::White } );
-   renderConfig->PlayerMovingSpriteMap[Direction::Right].Pixels.push_back( { '+', ConsoleColor::White } );
+   renderDefs->PlayerMovingSpriteMap[Direction::Right].Width = 2;
+   renderDefs->PlayerMovingSpriteMap[Direction::Right].Height = 1;
+   renderDefs->PlayerMovingSpriteMap[Direction::Right].Pixels.push_back( { '-', ConsoleColor::White } );
+   renderDefs->PlayerMovingSpriteMap[Direction::Right].Pixels.push_back( { '+', ConsoleColor::White } );
 
-   renderConfig->PlayerMovingSpriteMap[Direction::DownRight].Width = 2;
-   renderConfig->PlayerMovingSpriteMap[Direction::DownRight].Height = 2;
-   renderConfig->PlayerMovingSpriteMap[Direction::DownRight].Pixels.push_back( { '\\', ConsoleColor::White } );
-   renderConfig->PlayerMovingSpriteMap[Direction::DownRight].Pixels.push_back( { ' ', ConsoleColor::White } );
-   renderConfig->PlayerMovingSpriteMap[Direction::DownRight].Pixels.push_back( { ' ', ConsoleColor::White } );
-   renderConfig->PlayerMovingSpriteMap[Direction::DownRight].Pixels.push_back( { '+', ConsoleColor::White } );
+   renderDefs->PlayerMovingSpriteMap[Direction::DownRight].Width = 2;
+   renderDefs->PlayerMovingSpriteMap[Direction::DownRight].Height = 2;
+   renderDefs->PlayerMovingSpriteMap[Direction::DownRight].Pixels.push_back( { '\\', ConsoleColor::White } );
+   renderDefs->PlayerMovingSpriteMap[Direction::DownRight].Pixels.push_back( { ' ', ConsoleColor::White } );
+   renderDefs->PlayerMovingSpriteMap[Direction::DownRight].Pixels.push_back( { ' ', ConsoleColor::White } );
+   renderDefs->PlayerMovingSpriteMap[Direction::DownRight].Pixels.push_back( { '+', ConsoleColor::White } );
 
-   renderConfig->PlayerMovingSpriteMap[Direction::Down].Width = 1;
-   renderConfig->PlayerMovingSpriteMap[Direction::Down].Height = 2;
-   renderConfig->PlayerMovingSpriteMap[Direction::Down].Pixels.push_back( { '|', ConsoleColor::White } );
-   renderConfig->PlayerMovingSpriteMap[Direction::Down].Pixels.push_back( { '+', ConsoleColor::White } );
+   renderDefs->PlayerMovingSpriteMap[Direction::Down].Width = 1;
+   renderDefs->PlayerMovingSpriteMap[Direction::Down].Height = 2;
+   renderDefs->PlayerMovingSpriteMap[Direction::Down].Pixels.push_back( { '|', ConsoleColor::White } );
+   renderDefs->PlayerMovingSpriteMap[Direction::Down].Pixels.push_back( { '+', ConsoleColor::White } );
 
-   renderConfig->PlayerMovingSpriteMap[Direction::DownLeft].Width = 2;
-   renderConfig->PlayerMovingSpriteMap[Direction::DownLeft].Height = 2;
-   renderConfig->PlayerMovingSpriteMap[Direction::DownLeft].Pixels.push_back( { ' ', ConsoleColor::White } );
-   renderConfig->PlayerMovingSpriteMap[Direction::DownLeft].Pixels.push_back( { '/', ConsoleColor::White } );
-   renderConfig->PlayerMovingSpriteMap[Direction::DownLeft].Pixels.push_back( { '+', ConsoleColor::White } );
-   renderConfig->PlayerMovingSpriteMap[Direction::DownLeft].Pixels.push_back( { ' ', ConsoleColor::White } );
+   renderDefs->PlayerMovingSpriteMap[Direction::DownLeft].Width = 2;
+   renderDefs->PlayerMovingSpriteMap[Direction::DownLeft].Height = 2;
+   renderDefs->PlayerMovingSpriteMap[Direction::DownLeft].Pixels.push_back( { ' ', ConsoleColor::White } );
+   renderDefs->PlayerMovingSpriteMap[Direction::DownLeft].Pixels.push_back( { '/', ConsoleColor::White } );
+   renderDefs->PlayerMovingSpriteMap[Direction::DownLeft].Pixels.push_back( { '+', ConsoleColor::White } );
+   renderDefs->PlayerMovingSpriteMap[Direction::DownLeft].Pixels.push_back( { ' ', ConsoleColor::White } );
 
-   return renderConfig;
+   return renderDefs;
 }
 
 shared_ptr<KeyboardInputConfig> BuildKeyboardInputConfig()
@@ -293,7 +293,7 @@ shared_ptr<GameConfig> BuildGameConfig()
 
    config->FramesPerSecond = 60;
 
-   config->RenderConfig = BuildConsoleRenderConfig();
+   config->RenderDefs = BuildConsoleRenderDefs();
    config->InputConfig = BuildKeyboardInputConfig();
    config->PlayerConfig = BuildPlayerConfig();
    config->ArenaDefs = BuildArenaDefs();

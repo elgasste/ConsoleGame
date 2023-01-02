@@ -4,7 +4,7 @@
 
 namespace ConsoleGame
 {
-   class IGameRenderConfig;
+   class IGameRenderDefs;
    class IGameInputConfig;
    class PlayerConfig;
    class ArenaDefs;
@@ -15,7 +15,7 @@ namespace ConsoleGame
    public:
       int FramesPerSecond = 0;
 
-      std::shared_ptr<IGameRenderConfig> RenderConfig;
+      std::shared_ptr<IGameRenderDefs> RenderDefs;
       std::shared_ptr<IGameInputConfig> InputConfig;
       std::shared_ptr<PlayerConfig> PlayerConfig;
       std::shared_ptr<ArenaDefs> ArenaDefs;

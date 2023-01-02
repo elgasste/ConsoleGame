@@ -4,7 +4,7 @@
 #include <format>
 
 #include "ConsoleBuffer.h"
-#include "ConsoleRenderConfig.h"
+#include "ConsoleRenderDefs.h"
 #include "ConsoleColor.h"
 #include "ConsoleSprite.h"
 #include "ConsolePixel.h"
@@ -72,14 +72,14 @@ void ConsoleBuffer::ResetDrawBuffer()
    }
 }
 
-void ConsoleBuffer::LoadRenderConfig( const shared_ptr<IGameRenderConfig> config )
+void ConsoleBuffer::LoadRenderDefs( const shared_ptr<IGameRenderDefs> renderDefs )
 {
-   auto consoleConfig = static_pointer_cast<ConsoleRenderConfig>( config );
+   auto consoleRenderDefs = static_pointer_cast<ConsoleRenderDefs>( renderDefs );
 
-   _bufferInfo->ConsoleSize = { consoleConfig->ConsoleWidth, consoleConfig->ConsoleHeight };
-   _bufferInfo->DrawBufferSize = consoleConfig->ConsoleWidth * consoleConfig->ConsoleHeight;
+   _bufferInfo->ConsoleSize = { consoleRenderDefs->ConsoleWidth, consoleRenderDefs->ConsoleHeight };
+   _bufferInfo->DrawBufferSize = consoleRenderDefs->ConsoleWidth * consoleRenderDefs->ConsoleHeight;
    _bufferInfo->DrawBuffer = new CHAR_INFO[_bufferInfo->DrawBufferSize];
-   _bufferInfo->OutputRect = { 0, 0, consoleConfig->ConsoleWidth, consoleConfig->ConsoleHeight };
+   _bufferInfo->OutputRect = { 0, 0, consoleRenderDefs->ConsoleWidth, consoleRenderDefs->ConsoleHeight };
 
    ResetDrawBuffer();
 
@@ -88,8 +88,8 @@ void ConsoleBuffer::LoadRenderConfig( const shared_ptr<IGameRenderConfig> config
    SMALL_RECT windowCoords{ 0, 0, _bufferInfo->ConsoleSize.X - 1, _bufferInfo->ConsoleSize.Y - 1 };
    SetConsoleWindowInfo( _bufferInfo->OutputHandle, TRUE, &windowCoords );
 
-   _defaultForegroundColor = consoleConfig->DefaultForegroundColor;
-   _defaultBackgroundColor = consoleConfig->DefaultBackgroundColor;
+   _defaultForegroundColor = consoleRenderDefs->DefaultForegroundColor;
+   _defaultBackgroundColor = consoleRenderDefs->DefaultBackgroundColor;
 
    Clear();
    Flip();

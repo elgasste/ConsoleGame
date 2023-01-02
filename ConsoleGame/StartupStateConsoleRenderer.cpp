@@ -3,7 +3,7 @@
 
 #include "StartupStateConsoleRenderer.h"
 #include "IConsoleBuffer.h"
-#include "ConsoleRenderConfig.h"
+#include "ConsoleRenderDefs.h"
 #include "KeyboardInputConfig.h"
 #include "ConsoleColor.h"
 
@@ -11,10 +11,10 @@ using namespace std;
 using namespace ConsoleGame;
 
 StartupStateConsoleRenderer::StartupStateConsoleRenderer( const shared_ptr<IConsoleBuffer> consoleBuffer,
-                                                          const shared_ptr<ConsoleRenderConfig> renderConfig,
+                                                          const shared_ptr<ConsoleRenderDefs> renderDefs,
                                                           const shared_ptr<KeyboardInputConfig> inputConfig ) :
    _consoleBuffer( consoleBuffer ),
-   _renderConfig( renderConfig ),
+   _renderDefs( renderDefs ),
    _inputConfig( inputConfig )
 {
 }
@@ -24,7 +24,7 @@ void StartupStateConsoleRenderer::Render()
    _consoleBuffer->SetDefaultBackgroundColor( ConsoleColor::DarkBlue );
    _consoleBuffer->SetDefaultForegroundColor( ConsoleColor::White );
 
-   auto middleX = _renderConfig->ConsoleWidth / 2;
+   auto middleX = _renderDefs->ConsoleWidth / 2;
 
    _consoleBuffer->Draw( middleX - 26, 1, ".==================================================." );
    _consoleBuffer->Draw( middleX - 27, 2, "|          WELCOME TO (INSERT YOUR TITLE)!!          |" );

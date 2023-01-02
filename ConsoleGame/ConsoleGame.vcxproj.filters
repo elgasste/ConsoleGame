@@ -176,7 +176,7 @@
     <ClInclude Include="GameConfig.h">
       <Filter>Header Files\Config</Filter>
     </ClInclude>
-    <ClInclude Include="ConsoleRenderConfig.h">
+    <ClInclude Include="ConsoleRenderDefs.h">
       <Filter>Header Files\Config</Filter>
     </ClInclude>
     <ClInclude Include="KeyboardInputConfig.h">
@@ -230,7 +230,7 @@
     <ClInclude Include="ConsoleSprite.h">
       <Filter>Header Files\DataTypes</Filter>
     </ClInclude>
-    <ClInclude Include="IGameRenderConfig.h">
+    <ClInclude Include="IGameRenderDefs.h">
       <Filter>Header Files\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="IGameInputConfig.h">

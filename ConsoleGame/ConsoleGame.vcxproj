@@ -186,13 +186,13 @@
     <ClInclude Include="GameRenderer.h" />
     <ClInclude Include="GameEvent.h" />
     <ClInclude Include="GameEventAggregator.h" />
-    <ClInclude Include="ConsoleRenderConfig.h" />
+    <ClInclude Include="ConsoleRenderDefs.h" />
     <ClInclude Include="GameRunner.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="IGame.h" />
     <ClInclude Include="IGameInfoProvider.h" />
     <ClInclude Include="IGameInputConfig.h" />
-    <ClInclude Include="IGameRenderConfig.h" />
+    <ClInclude Include="IGameRenderDefs.h" />
     <ClInclude Include="IPlayer.h" />
     <ClInclude Include="IPlayerFactory.h" />
     <ClInclude Include="IScreenBuffer.h" />
