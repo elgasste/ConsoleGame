@@ -173,7 +173,7 @@
     <ClInclude Include="StartupStateConsoleRenderer.h">
       <Filter>Header Files\Render</Filter>
     </ClInclude>
-    <ClInclude Include="GameConfig.h">
+    <ClInclude Include="GameDefs.h">
       <Filter>Header Files\Config</Filter>
     </ClInclude>
     <ClInclude Include="ConsoleRenderDefs.h">

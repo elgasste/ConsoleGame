@@ -3,7 +3,7 @@
 #include <io.h>
 #include <fcntl.h>
 
-#include "GameConfig.h"
+#include "GameDefs.h"
 #include "ConsoleRenderDefs.h"
 #include "KeyboardInputDefs.h"
 #include "PlayerDefs.h"
@@ -42,7 +42,7 @@ shared_ptr<ConsoleRenderDefs> BuildConsoleRenderDefs();
 shared_ptr<KeyboardInputDefs> BuildKeyboardInputDefs();
 shared_ptr<PlayerDefs> BuildPlayerDefs();
 shared_ptr<ArenaDefs> BuildArenaDefs();
-shared_ptr<GameConfig> BuildGameConfig();
+shared_ptr<GameDefs> BuildGameDefs();
 void LoadAndRun( const shared_ptr<IConsoleBuffer> consoleBuffer );
 
 INT WINAPI WinMain( _In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ PSTR lpCmdLine, _In_ INT nCmdShow )
@@ -78,9 +78,9 @@ void LoadAndRun( const shared_ptr<IConsoleBuffer> consoleBuffer )
    consoleBuffer->Flip();
 
    // configs
-   auto config = BuildGameConfig();
-   auto consoleRenderDefs = static_pointer_cast<ConsoleRenderDefs>( config->RenderDefs );
-   auto keyboardInputDefs = static_pointer_cast<KeyboardInputDefs>( config->InputDefs );
+   auto gameDefs = BuildGameDefs();
+   auto consoleRenderDefs = static_pointer_cast<ConsoleRenderDefs>( gameDefs->RenderDefs );
+   auto keyboardInputDefs = static_pointer_cast<KeyboardInputDefs>( gameDefs->InputDefs );
 
    // wrappers
    auto highResolutionClock = shared_ptr<HighResolutionClockWrapper>( new HighResolutionClockWrapper() );
@@ -90,12 +90,12 @@ void LoadAndRun( const shared_ptr<IConsoleBuffer> consoleBuffer )
 
    // auxiliary objects
    auto eventAggregator = shared_ptr<GameEventAggregator>( new GameEventAggregator() );
-   auto clock = shared_ptr<GameClock>( new GameClock( highResolutionClock, sleeper, config->FramesPerSecond ) );
+   auto clock = shared_ptr<GameClock>( new GameClock( highResolutionClock, sleeper, gameDefs->FramesPerSecond ) );
    auto keyboardInputReader = shared_ptr<KeyboardInputReader>( new KeyboardInputReader( keyboardInputDefs, keyboard ) );
 
    // game data objects
-   auto playerFactory = shared_ptr<IPlayerFactory>( new PlayerFactory( config ) );
-   auto game = shared_ptr<Game>( new Game( config, eventAggregator, playerFactory ) );
+   auto playerFactory = shared_ptr<IPlayerFactory>( new PlayerFactory( gameDefs ) );
+   auto game = shared_ptr<Game>( new Game( gameDefs, eventAggregator, playerFactory ) );
 
    // input objects
    auto startupStateInputHandler = shared_ptr<StartupStateInputHandler>( new StartupStateInputHandler( keyboardInputReader, game ) );
@@ -287,16 +287,16 @@ shared_ptr<ArenaDefs> BuildArenaDefs()
    return arenaDefs;
 }
 
-shared_ptr<GameConfig> BuildGameConfig()
+shared_ptr<GameDefs> BuildGameDefs()
 {
-   auto config = make_shared<GameConfig>();
+   auto gameDefs = make_shared<GameDefs>();
 
-   config->FramesPerSecond = 60;
+   gameDefs->FramesPerSecond = 60;
 
-   config->RenderDefs = BuildConsoleRenderDefs();
-   config->InputDefs = BuildKeyboardInputDefs();
-   config->PlayerDefs = BuildPlayerDefs();
-   config->ArenaDefs = BuildArenaDefs();
+   gameDefs->RenderDefs = BuildConsoleRenderDefs();
+   gameDefs->InputDefs = BuildKeyboardInputDefs();
+   gameDefs->PlayerDefs = BuildPlayerDefs();
+   gameDefs->ArenaDefs = BuildArenaDefs();
 
-   return config;
+   return gameDefs;
 }

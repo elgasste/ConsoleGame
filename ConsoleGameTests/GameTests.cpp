@@ -3,7 +3,7 @@
 #include <memory>
 
 #include <ConsoleGame/Game.h>
-#include <ConsoleGame/GameConfig.h>
+#include <ConsoleGame/GameDefs.h>
 #include <ConsoleGame/PlayerDefs.h>
 #include <ConsoleGame/ArenaDefs.h>
 #include <ConsoleGame/GameState.h>
@@ -25,30 +25,30 @@ class GameTests : public Test
 public:
    void SetUp() override
    {
-      _config.reset( new GameConfig );
-      _config->PlayerDefs.reset( new PlayerDefs );
-      _config->ArenaDefs.reset( new ArenaDefs );
+      _gameDefs.reset( new GameDefs );
+      _gameDefs->PlayerDefs.reset( new PlayerDefs );
+      _gameDefs->ArenaDefs.reset( new ArenaDefs );
       _eventAggregatorMock.reset( new NiceMock<mock_GameEventAggregator> );
       _playerFactoryMock.reset( new NiceMock<mock_PlayerFactory> );
       _playerMock.reset( new NiceMock<mock_Player> );
 
-      _config->ArenaDefs->Width = 1000.;
-      _config->ArenaDefs->Height = 800.;
-      _config->ArenaDefs->PlayerStartX = 500.;
-      _config->ArenaDefs->PlayerStartY = 400.;
+      _gameDefs->ArenaDefs->Width = 1000.;
+      _gameDefs->ArenaDefs->Height = 800.;
+      _gameDefs->ArenaDefs->PlayerStartX = 500.;
+      _gameDefs->ArenaDefs->PlayerStartY = 400.;
 
-      _config->FramesPerSecond = 100;
+      _gameDefs->FramesPerSecond = 100;
 
       ON_CALL( *_playerFactoryMock, CreatePlayer() ).WillByDefault( Return( _playerMock ) );
    }
 
    void BuildGame()
    {
-      _game.reset( new Game( _config, _eventAggregatorMock, _playerFactoryMock ) );
+      _game.reset( new Game( _gameDefs, _eventAggregatorMock, _playerFactoryMock ) );
    }
 
 protected:
-   shared_ptr<GameConfig> _config;
+   shared_ptr<GameDefs> _gameDefs;
    shared_ptr<mock_GameEventAggregator> _eventAggregatorMock;
    shared_ptr<mock_PlayerFactory> _playerFactoryMock;
    shared_ptr<mock_Player> _playerMock;
@@ -63,10 +63,10 @@ TEST_F( GameTests, Constructor_Always_SetsGameStateToStartup )
    EXPECT_EQ( _game->GetGameState(), GameState::Startup );
 }
 
-TEST_F( GameTests, Constructor_Always_SetsPlayerInfoBasedOnConfig )
+TEST_F( GameTests, Constructor_Always_SetsPlayerInfoBasedOnDefs )
 {
-   _config->ArenaDefs->PlayerStartX = 10.;
-   _config->ArenaDefs->PlayerStartY = 20.;
+   _gameDefs->ArenaDefs->PlayerStartX = 10.;
+   _gameDefs->ArenaDefs->PlayerStartY = 20.;
 
    BuildGame();
 
@@ -140,17 +140,17 @@ TEST_F( GameTests, IsPlayerMoving_PlayerIsMovingVertically_ReturnsTrue )
    EXPECT_TRUE( _game->IsPlayerMoving() );
 }
 
-TEST_F( GameTests, GetArenaWidth_Always_GetsArenaWidthFromConfig )
+TEST_F( GameTests, GetArenaWidth_Always_GetsArenaWidthFromDefs )
 {
-   _config->ArenaDefs->Width = 11.;
+   _gameDefs->ArenaDefs->Width = 11.;
    BuildGame();
 
    EXPECT_EQ( _game->GetArenaWidth(), 11. );
 }
 
-TEST_F( GameTests, GetArenaHeight_Always_GetsArenaHeightFromConfig )
+TEST_F( GameTests, GetArenaHeight_Always_GetsArenaHeightFromDefs )
 {
-   _config->ArenaDefs->Height = 12.;
+   _gameDefs->ArenaDefs->Height = 12.;
    BuildGame();
 
    EXPECT_EQ( _game->GetArenaHeight(), 12. );

@@ -1,5 +1,5 @@
 #include "Game.h"
-#include "GameConfig.h"
+#include "GameDefs.h"
 #include "ArenaDefs.h"
 #include "IGameEventAggregator.h"
 #include "IPlayerFactory.h"
@@ -13,15 +13,15 @@
 using namespace std;
 using namespace ConsoleGame;
 
-Game::Game( const std::shared_ptr<GameConfig> config,
+Game::Game( const std::shared_ptr<GameDefs> gameDefs,
             const std::shared_ptr<IGameEventAggregator> eventAggregator,
             const std::shared_ptr<IPlayerFactory> playerFactory ) :
-   _config( config ),
+   _gameDefs( gameDefs ),
    _eventAggregator( eventAggregator ),
    _player( playerFactory->CreatePlayer() ),
    _state( GameState::Startup ),
-   _arenaPlayerPositionX( config->ArenaDefs->PlayerStartX ),
-   _arenaPlayerPositionY( config->ArenaDefs->PlayerStartY ),
+   _arenaPlayerPositionX( gameDefs->ArenaDefs->PlayerStartX ),
+   _arenaPlayerPositionY( gameDefs->ArenaDefs->PlayerStartY ),
    _playerWasPushedX( false ),
    _playerWasPushedY( false )
 {
@@ -81,12 +81,12 @@ bool Game::IsPlayerMoving() const
 
 double Game::GetArenaWidth() const
 {
-   return _config->ArenaDefs->Width;
+   return _gameDefs->ArenaDefs->Width;
 }
 
 double Game::GetArenaHeight() const
 {
-   return _config->ArenaDefs->Height;
+   return _gameDefs->ArenaDefs->Height;
 }
 
 void Game::PushPlayer( Direction direction )
@@ -105,29 +105,29 @@ void Game::PushPlayer( Direction direction )
 
 void Game::MovePlayer()
 {
-   _arenaPlayerPositionX += ( _player->GetVelocityX() / _config->FramesPerSecond );
+   _arenaPlayerPositionX += ( _player->GetVelocityX() / _gameDefs->FramesPerSecond );
 
    if ( _arenaPlayerPositionX < 0. )
    {
       _arenaPlayerPositionX = 0.;
       _player->StopX();
    }
-   else if ( _arenaPlayerPositionX >= _config->ArenaDefs->Width )
+   else if ( _arenaPlayerPositionX >= _gameDefs->ArenaDefs->Width )
    {
-      _arenaPlayerPositionX = _config->ArenaDefs->Width - 1.;
+      _arenaPlayerPositionX = _gameDefs->ArenaDefs->Width - 1.;
       _player->StopX();
    }
 
-   _arenaPlayerPositionY += ( _player->GetVelocityY() / _config->FramesPerSecond );
+   _arenaPlayerPositionY += ( _player->GetVelocityY() / _gameDefs->FramesPerSecond );
 
    if ( _arenaPlayerPositionY < 0. )
    {
       _arenaPlayerPositionY = 0.;
       _player->StopY();
    }
-   else if ( _arenaPlayerPositionY >= _config->ArenaDefs->Height )
+   else if ( _arenaPlayerPositionY >= _gameDefs->ArenaDefs->Height )
    {
-      _arenaPlayerPositionY = _config->ArenaDefs->Height - 1.;
+      _arenaPlayerPositionY = _gameDefs->ArenaDefs->Height - 1.;
       _player->StopY();
    }
 }

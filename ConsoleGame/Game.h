@@ -8,7 +8,7 @@
 
 namespace ConsoleGame
 {
-   class GameConfig;
+   class GameDefs;
    enum class Direction;
    class IGameEventAggregator;
    class IPlayerFactory;
@@ -19,7 +19,7 @@ namespace ConsoleGame
                 public IGameInfoProvider
    {
    public:
-      Game( const std::shared_ptr<GameConfig> config,
+      Game( const std::shared_ptr<GameDefs> gameDefs,
             const std::shared_ptr<IGameEventAggregator> eventAggregator,
             const std::shared_ptr<IPlayerFactory> playerFactory );
 
@@ -44,7 +44,7 @@ namespace ConsoleGame
       void MovePlayer();
 
    private:
-      const std::shared_ptr<GameConfig> _config;
+      const std::shared_ptr<GameDefs> _gameDefs;
       const std::shared_ptr<IGameEventAggregator> _eventAggregator;
       const std::shared_ptr<IPlayer> _player;
 

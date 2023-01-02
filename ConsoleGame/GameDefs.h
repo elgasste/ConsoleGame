@@ -10,7 +10,7 @@ namespace ConsoleGame
    class ArenaDefs;
    enum class Direction;
 
-   class GameConfig
+   class GameDefs
    {
    public:
       int FramesPerSecond = 0;
