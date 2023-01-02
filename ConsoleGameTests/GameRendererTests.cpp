@@ -59,7 +59,7 @@ protected:
    shared_ptr<GameRenderer> _renderer;
 };
 
-TEST_F( GameRendererTests, Constructor_Always_LoadsScreenBufferFromConfig )
+TEST_F( GameRendererTests, Constructor_Always_LoadsScreenBufferFromDefs )
 {
    auto baseDefs = static_pointer_cast<IGameRenderDefs>( _renderDefs );
    EXPECT_CALL( *_screenBufferMock, LoadRenderDefs( baseDefs ) );

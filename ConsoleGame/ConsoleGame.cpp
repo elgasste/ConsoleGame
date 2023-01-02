@@ -35,7 +35,7 @@
 using namespace std;
 using namespace ConsoleGame;
 
-// TODO: I suppose these configs should be loaded from files at some point,
+// TODO: I suppose these defs should be loaded from files at some point,
 // but at the very least they should all have default values, and those could
 // probably be set in some initializer instead of in here.
 shared_ptr<ConsoleRenderDefs> BuildConsoleRenderDefs();
@@ -77,7 +77,7 @@ void LoadAndRun( const shared_ptr<IConsoleBuffer> consoleBuffer )
    consoleBuffer->Draw( 2, 1, "Loading all the things..." );
    consoleBuffer->Flip();
 
-   // configs
+   // defs
    auto gameDefs = BuildGameDefs();
    auto consoleRenderDefs = static_pointer_cast<ConsoleRenderDefs>( gameDefs->RenderDefs );
    auto keyboardInputDefs = static_pointer_cast<KeyboardInputDefs>( gameDefs->InputDefs );
