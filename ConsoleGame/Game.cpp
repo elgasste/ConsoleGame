@@ -1,7 +1,7 @@
 #include "Game.h"
 #include "GameConfig.h"
 #include "PlayerConfig.h"
-#include "ArenaConfig.h"
+#include "ArenaDefs.h"
 #include "IGameEventAggregator.h"
 #include "IPlayerFactory.h"
 #include "IPlayer.h"
@@ -21,8 +21,8 @@ Game::Game( const std::shared_ptr<GameConfig> config,
    _eventAggregator( eventAggregator ),
    _player( playerFactory->CreatePlayer() ),
    _state( GameState::Startup ),
-   _arenaPlayerPositionX( config->ArenaConfig->PlayerStartX ),
-   _arenaPlayerPositionY( config->ArenaConfig->PlayerStartY ),
+   _arenaPlayerPositionX( config->ArenaDefs->PlayerStartX ),
+   _arenaPlayerPositionY( config->ArenaDefs->PlayerStartY ),
    _playerWasPushedX( false ),
    _playerWasPushedY( false )
 {
@@ -82,12 +82,12 @@ bool Game::IsPlayerMoving() const
 
 double Game::GetArenaWidth() const
 {
-   return _config->ArenaConfig->Width;
+   return _config->ArenaDefs->Width;
 }
 
 double Game::GetArenaHeight() const
 {
-   return _config->ArenaConfig->Height;
+   return _config->ArenaDefs->Height;
 }
 
 void Game::PushPlayer( Direction direction )
@@ -113,9 +113,9 @@ void Game::MovePlayer()
       _arenaPlayerPositionX = 0.;
       _player->StopX();
    }
-   else if ( _arenaPlayerPositionX >= _config->ArenaConfig->Width )
+   else if ( _arenaPlayerPositionX >= _config->ArenaDefs->Width )
    {
-      _arenaPlayerPositionX = _config->ArenaConfig->Width - 1.;
+      _arenaPlayerPositionX = _config->ArenaDefs->Width - 1.;
       _player->StopX();
    }
 
@@ -126,9 +126,9 @@ void Game::MovePlayer()
       _arenaPlayerPositionY = 0.;
       _player->StopY();
    }
-   else if ( _arenaPlayerPositionY >= _config->ArenaConfig->Height )
+   else if ( _arenaPlayerPositionY >= _config->ArenaDefs->Height )
    {
-      _arenaPlayerPositionY = _config->ArenaConfig->Height - 1.;
+      _arenaPlayerPositionY = _config->ArenaDefs->Height - 1.;
       _player->StopY();
    }
 }

@@ -7,7 +7,7 @@
 #include "ConsoleRenderConfig.h"
 #include "KeyboardInputConfig.h"
 #include "PlayerConfig.h"
-#include "ArenaConfig.h"
+#include "ArenaDefs.h"
 #include "KeyCode.h"
 #include "GameButton.h"
 #include "HighResolutionClockWrapper.h"
@@ -41,7 +41,7 @@ using namespace ConsoleGame;
 shared_ptr<ConsoleRenderConfig> BuildConsoleRenderConfig();
 shared_ptr<KeyboardInputConfig> BuildKeyboardInputConfig();
 shared_ptr<PlayerConfig> BuildPlayerConfig();
-shared_ptr<ArenaConfig> BuildArenaConfig();
+shared_ptr<ArenaDefs> BuildArenaDefs();
 shared_ptr<GameConfig> BuildGameConfig();
 void LoadAndRun( const shared_ptr<IConsoleBuffer> consoleBuffer );
 
@@ -274,17 +274,17 @@ shared_ptr<PlayerConfig> BuildPlayerConfig()
    return playerConfig;
 }
 
-shared_ptr<ArenaConfig> BuildArenaConfig()
+shared_ptr<ArenaDefs> BuildArenaDefs()
 {
-   auto arenaConfig = make_shared<ArenaConfig>();
+   auto arenaDefs = make_shared<ArenaDefs>();
 
-   arenaConfig->Width = 4332.;
-   arenaConfig->Height = 1872.;
+   arenaDefs->Width = 4332.;
+   arenaDefs->Height = 1872.;
 
-   arenaConfig->PlayerStartX = arenaConfig->Width / 2.;
-   arenaConfig->PlayerStartY = arenaConfig->Height / 2.;
+   arenaDefs->PlayerStartX = arenaDefs->Width / 2.;
+   arenaDefs->PlayerStartY = arenaDefs->Height / 2.;
 
-   return arenaConfig;
+   return arenaDefs;
 }
 
 shared_ptr<GameConfig> BuildGameConfig()
@@ -296,7 +296,7 @@ shared_ptr<GameConfig> BuildGameConfig()
    config->RenderConfig = BuildConsoleRenderConfig();
    config->InputConfig = BuildKeyboardInputConfig();
    config->PlayerConfig = BuildPlayerConfig();
-   config->ArenaConfig = BuildArenaConfig();
+   config->ArenaDefs = BuildArenaDefs();
 
    return config;
 }

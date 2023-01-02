@@ -5,7 +5,7 @@
 #include <ConsoleGame/Game.h>
 #include <ConsoleGame/GameConfig.h>
 #include <ConsoleGame/PlayerConfig.h>
-#include <ConsoleGame/ArenaConfig.h>
+#include <ConsoleGame/ArenaDefs.h>
 #include <ConsoleGame/GameState.h>
 #include <ConsoleGame/Direction.h>
 #include <ConsoleGame/GameCommand.h>
@@ -27,15 +27,15 @@ public:
    {
       _config.reset( new GameConfig );
       _config->PlayerConfig.reset( new PlayerConfig );
-      _config->ArenaConfig.reset( new ArenaConfig );
+      _config->ArenaDefs.reset( new ArenaDefs );
       _eventAggregatorMock.reset( new NiceMock<mock_GameEventAggregator> );
       _playerFactoryMock.reset( new NiceMock<mock_PlayerFactory> );
       _playerMock.reset( new NiceMock<mock_Player> );
 
-      _config->ArenaConfig->Width = 1000.;
-      _config->ArenaConfig->Height = 800.;
-      _config->ArenaConfig->PlayerStartX = 500.;
-      _config->ArenaConfig->PlayerStartY = 400.;
+      _config->ArenaDefs->Width = 1000.;
+      _config->ArenaDefs->Height = 800.;
+      _config->ArenaDefs->PlayerStartX = 500.;
+      _config->ArenaDefs->PlayerStartY = 400.;
 
       _config->FramesPerSecond = 100;
 
@@ -65,8 +65,8 @@ TEST_F( GameTests, Constructor_Always_SetsGameStateToStartup )
 
 TEST_F( GameTests, Constructor_Always_SetsPlayerInfoBasedOnConfig )
 {
-   _config->ArenaConfig->PlayerStartX = 10.;
-   _config->ArenaConfig->PlayerStartY = 20.;
+   _config->ArenaDefs->PlayerStartX = 10.;
+   _config->ArenaDefs->PlayerStartY = 20.;
 
    BuildGame();
 
@@ -142,7 +142,7 @@ TEST_F( GameTests, IsPlayerMoving_PlayerIsMovingVertically_ReturnsTrue )
 
 TEST_F( GameTests, GetArenaWidth_Always_GetsArenaWidthFromConfig )
 {
-   _config->ArenaConfig->Width = 11.;
+   _config->ArenaDefs->Width = 11.;
    BuildGame();
 
    EXPECT_EQ( _game->GetArenaWidth(), 11. );
@@ -150,7 +150,7 @@ TEST_F( GameTests, GetArenaWidth_Always_GetsArenaWidthFromConfig )
 
 TEST_F( GameTests, GetArenaHeight_Always_GetsArenaHeightFromConfig )
 {
-   _config->ArenaConfig->Height = 12.;
+   _config->ArenaDefs->Height = 12.;
    BuildGame();
 
    EXPECT_EQ( _game->GetArenaHeight(), 12. );

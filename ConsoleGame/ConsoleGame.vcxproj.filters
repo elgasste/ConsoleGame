@@ -257,7 +257,7 @@
     <ClInclude Include="IGame.h">
       <Filter>Header Files\Interfaces</Filter>
     </ClInclude>
-    <ClInclude Include="ArenaConfig.h">
+    <ClInclude Include="ArenaDefs.h">
       <Filter>Header Files\Config</Filter>
     </ClInclude>
     <ClInclude Include="IGameInfoProvider.h">

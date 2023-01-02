@@ -2,7 +2,7 @@
 
 namespace ConsoleGame
 {
-   class ArenaConfig
+   class ArenaDefs
    {
    public:
       double Width = 0.;

@@ -7,7 +7,7 @@ namespace ConsoleGame
    class IGameRenderConfig;
    class IGameInputConfig;
    class PlayerConfig;
-   class ArenaConfig;
+   class ArenaDefs;
    enum class Direction;
 
    class GameConfig
@@ -18,6 +18,6 @@ namespace ConsoleGame
       std::shared_ptr<IGameRenderConfig> RenderConfig;
       std::shared_ptr<IGameInputConfig> InputConfig;
       std::shared_ptr<PlayerConfig> PlayerConfig;
-      std::shared_ptr<ArenaConfig> ArenaConfig;
+      std::shared_ptr<ArenaDefs> ArenaDefs;
    };
 }

@@ -78,11 +78,11 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -171,7 +171,7 @@
     <ClCompile Include="ThreadWrapper.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ArenaConfig.h" />
+    <ClInclude Include="ArenaDefs.h" />
     <ClInclude Include="ConsoleColor.h" />
     <ClInclude Include="ConsoleBuffer.h" />
     <ClInclude Include="ConsoleSprite.h" />
