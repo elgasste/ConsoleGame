@@ -1,5 +1,5 @@
 #include "KeyboardInputReader.h"
-#include "KeyboardInputConfig.h"
+#include "KeyboardInputDefs.h"
 #include "IKeyboard.h"
 #include "KeyCode.h"
 #include "GameButton.h"
@@ -7,7 +7,7 @@
 using namespace std;
 using namespace ConsoleGame;
 
-KeyboardInputReader::KeyboardInputReader( const shared_ptr<KeyboardInputConfig> inputConfig,
+KeyboardInputReader::KeyboardInputReader( const shared_ptr<KeyboardInputDefs> inputDefs,
                                           const shared_ptr<IKeyboard> keyboard ) :
    _keyboard( keyboard )
 {
@@ -22,7 +22,7 @@ KeyboardInputReader::KeyboardInputReader( const shared_ptr<KeyboardInputConfig> 
    {
       auto button = (GameButton)i;
 
-      for ( auto const& [keyCode, mappedButton] : inputConfig->KeyMap )
+      for ( auto const& [keyCode, mappedButton] : inputDefs->KeyMap )
       {
          if ( mappedButton == button )
          {

@@ -3,14 +3,14 @@
 #include <map>
 #include <string>
 
-#include "IGameInputConfig.h"
+#include "IGameInputDefs.h"
 
 namespace ConsoleGame
 {
    enum class KeyCode;
    enum class GameButton;
 
-   class KeyboardInputConfig : public IGameInputConfig
+   class KeyboardInputDefs : public IGameInputDefs
    {
    public:
       std::map<KeyCode, GameButton> KeyMap;

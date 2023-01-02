@@ -191,7 +191,7 @@
     <ClInclude Include="GameState.h" />
     <ClInclude Include="IGame.h" />
     <ClInclude Include="IGameInfoProvider.h" />
-    <ClInclude Include="IGameInputConfig.h" />
+    <ClInclude Include="IGameInputDefs.h" />
     <ClInclude Include="IGameRenderDefs.h" />
     <ClInclude Include="IPlayer.h" />
     <ClInclude Include="IPlayerFactory.h" />
@@ -208,7 +208,7 @@
     <ClInclude Include="IGameRenderer.h" />
     <ClInclude Include="IGameRunner.h" />
     <ClInclude Include="GameInputHandler.h" />
-    <ClInclude Include="KeyboardInputConfig.h" />
+    <ClInclude Include="KeyboardInputDefs.h" />
     <ClInclude Include="IHighResolutionClock.h" />
     <ClInclude Include="IKeyboard.h" />
     <ClInclude Include="ISleeper.h" />

@@ -179,7 +179,7 @@
     <ClInclude Include="ConsoleRenderDefs.h">
       <Filter>Header Files\Config</Filter>
     </ClInclude>
-    <ClInclude Include="KeyboardInputConfig.h">
+    <ClInclude Include="KeyboardInputDefs.h">
       <Filter>Header Files\Config</Filter>
     </ClInclude>
     <ClInclude Include="DiagnosticsConsoleRenderer.h">
@@ -233,7 +233,7 @@
     <ClInclude Include="IGameRenderDefs.h">
       <Filter>Header Files\Interfaces</Filter>
     </ClInclude>
-    <ClInclude Include="IGameInputConfig.h">
+    <ClInclude Include="IGameInputDefs.h">
       <Filter>Header Files\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="IScreenBuffer.h">

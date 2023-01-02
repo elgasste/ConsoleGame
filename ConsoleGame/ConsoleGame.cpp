@@ -5,7 +5,7 @@
 
 #include "GameConfig.h"
 #include "ConsoleRenderDefs.h"
-#include "KeyboardInputConfig.h"
+#include "KeyboardInputDefs.h"
 #include "PlayerConfig.h"
 #include "ArenaDefs.h"
 #include "KeyCode.h"
@@ -39,7 +39,7 @@ using namespace ConsoleGame;
 // but at the very least they should all have default values, and those could
 // probably be set in some initializer instead of in here.
 shared_ptr<ConsoleRenderDefs> BuildConsoleRenderDefs();
-shared_ptr<KeyboardInputConfig> BuildKeyboardInputConfig();
+shared_ptr<KeyboardInputDefs> BuildKeyboardInputDefs();
 shared_ptr<PlayerConfig> BuildPlayerConfig();
 shared_ptr<ArenaDefs> BuildArenaDefs();
 shared_ptr<GameConfig> BuildGameConfig();
@@ -80,7 +80,7 @@ void LoadAndRun( const shared_ptr<IConsoleBuffer> consoleBuffer )
    // configs
    auto config = BuildGameConfig();
    auto consoleRenderDefs = static_pointer_cast<ConsoleRenderDefs>( config->RenderDefs );
-   auto keyboardInputConfig = static_pointer_cast<KeyboardInputConfig>( config->InputConfig );
+   auto keyboardInputDefs = static_pointer_cast<KeyboardInputDefs>( config->InputDefs );
 
    // wrappers
    auto highResolutionClock = shared_ptr<HighResolutionClockWrapper>( new HighResolutionClockWrapper() );
@@ -91,7 +91,7 @@ void LoadAndRun( const shared_ptr<IConsoleBuffer> consoleBuffer )
    // auxiliary objects
    auto eventAggregator = shared_ptr<GameEventAggregator>( new GameEventAggregator() );
    auto clock = shared_ptr<GameClock>( new GameClock( highResolutionClock, sleeper, config->FramesPerSecond ) );
-   auto keyboardInputReader = shared_ptr<KeyboardInputReader>( new KeyboardInputReader( keyboardInputConfig, keyboard ) );
+   auto keyboardInputReader = shared_ptr<KeyboardInputReader>( new KeyboardInputReader( keyboardInputDefs, keyboard ) );
 
    // game data objects
    auto playerFactory = shared_ptr<IPlayerFactory>( new PlayerFactory( config ) );
@@ -106,7 +106,7 @@ void LoadAndRun( const shared_ptr<IConsoleBuffer> consoleBuffer )
 
    // rendering objects
    auto diagnosticsRenderer = shared_ptr<DiagnosticsConsoleRenderer>( new DiagnosticsConsoleRenderer( consoleBuffer, clock, consoleRenderDefs ) );
-   auto startupStateConsoleRenderer = shared_ptr<StartupStateConsoleRenderer>( new StartupStateConsoleRenderer( consoleBuffer, consoleRenderDefs, keyboardInputConfig ) );
+   auto startupStateConsoleRenderer = shared_ptr<StartupStateConsoleRenderer>( new StartupStateConsoleRenderer( consoleBuffer, consoleRenderDefs, keyboardInputDefs ) );
    auto playingStateConsoleRenderer = shared_ptr<PlayingStateConsoleRenderer>( new PlayingStateConsoleRenderer( consoleBuffer, consoleRenderDefs, game ) );
    auto renderer = shared_ptr<GameRenderer>( new GameRenderer( consoleRenderDefs, consoleBuffer, game, diagnosticsRenderer, eventAggregator ) );
    renderer->AddRendererForGameState( GameState::Startup, startupStateConsoleRenderer );
@@ -189,69 +189,69 @@ shared_ptr<ConsoleRenderDefs> BuildConsoleRenderDefs()
    return renderDefs;
 }
 
-shared_ptr<KeyboardInputConfig> BuildKeyboardInputConfig()
+shared_ptr<KeyboardInputDefs> BuildKeyboardInputDefs()
 {
-   auto inputConfig = make_shared<KeyboardInputConfig>();
+   auto inputDefs = make_shared<KeyboardInputDefs>();
 
    // key code bindings
-   inputConfig->KeyMap[KeyCode::Left] = GameButton::Left;
-   inputConfig->KeyMap[KeyCode::Up] = GameButton::Up;
-   inputConfig->KeyMap[KeyCode::Right] = GameButton::Right;
-   inputConfig->KeyMap[KeyCode::Down] = GameButton::Down;
+   inputDefs->KeyMap[KeyCode::Left] = GameButton::Left;
+   inputDefs->KeyMap[KeyCode::Up] = GameButton::Up;
+   inputDefs->KeyMap[KeyCode::Right] = GameButton::Right;
+   inputDefs->KeyMap[KeyCode::Down] = GameButton::Down;
 
-   inputConfig->KeyMap[KeyCode::Return] = GameButton::Start;
-   inputConfig->KeyMap[KeyCode::Tab] = GameButton::Select;
+   inputDefs->KeyMap[KeyCode::Return] = GameButton::Start;
+   inputDefs->KeyMap[KeyCode::Tab] = GameButton::Select;
 
-   inputConfig->KeyMap[KeyCode::A] = GameButton::A;
-   inputConfig->KeyMap[KeyCode::Return] = GameButton::A;
-   inputConfig->KeyMap[KeyCode::Space] = GameButton::A;
-   inputConfig->KeyMap[KeyCode::B] = GameButton::B;
-   inputConfig->KeyMap[KeyCode::X] = GameButton::X;
-   inputConfig->KeyMap[KeyCode::Y] = GameButton::Y;
+   inputDefs->KeyMap[KeyCode::A] = GameButton::A;
+   inputDefs->KeyMap[KeyCode::Return] = GameButton::A;
+   inputDefs->KeyMap[KeyCode::Space] = GameButton::A;
+   inputDefs->KeyMap[KeyCode::B] = GameButton::B;
+   inputDefs->KeyMap[KeyCode::X] = GameButton::X;
+   inputDefs->KeyMap[KeyCode::Y] = GameButton::Y;
 
-   inputConfig->KeyMap[KeyCode::NumPad1] = GameButton::L1;
-   inputConfig->KeyMap[KeyCode::NumPad2] = GameButton::L2;
-   inputConfig->KeyMap[KeyCode::NumPad3] = GameButton::R1;
-   inputConfig->KeyMap[KeyCode::NumPad4] = GameButton::R2;
+   inputDefs->KeyMap[KeyCode::NumPad1] = GameButton::L1;
+   inputDefs->KeyMap[KeyCode::NumPad2] = GameButton::L2;
+   inputDefs->KeyMap[KeyCode::NumPad3] = GameButton::R1;
+   inputDefs->KeyMap[KeyCode::NumPad4] = GameButton::R2;
 
-   inputConfig->KeyMap[KeyCode::F12] = GameButton::Diagnostics;
+   inputDefs->KeyMap[KeyCode::F12] = GameButton::Diagnostics;
 
    // key names
-   inputConfig->KeyNames[KeyCode::Left] = "Left Arrow";
-   inputConfig->KeyNames[KeyCode::Up] = "Up Arrow";
-   inputConfig->KeyNames[KeyCode::Right] = "Right Arrow";
-   inputConfig->KeyNames[KeyCode::Down] = "Down Arrow";
-   inputConfig->KeyNames[KeyCode::Return] = "Enter";
-   inputConfig->KeyNames[KeyCode::Space] = "Space Bar";
-   inputConfig->KeyNames[KeyCode::Tab] = "Tab";
-   inputConfig->KeyNames[KeyCode::A] = "A";
-   inputConfig->KeyNames[KeyCode::B] = "B";
-   inputConfig->KeyNames[KeyCode::X] = "X";
-   inputConfig->KeyNames[KeyCode::Y] = "Y";
-   inputConfig->KeyNames[KeyCode::NumPad1] = "1";
-   inputConfig->KeyNames[KeyCode::NumPad2] = "2";
-   inputConfig->KeyNames[KeyCode::NumPad3] = "3";
-   inputConfig->KeyNames[KeyCode::NumPad4] = "4";
-   inputConfig->KeyNames[KeyCode::F12] = "F12";
+   inputDefs->KeyNames[KeyCode::Left] = "Left Arrow";
+   inputDefs->KeyNames[KeyCode::Up] = "Up Arrow";
+   inputDefs->KeyNames[KeyCode::Right] = "Right Arrow";
+   inputDefs->KeyNames[KeyCode::Down] = "Down Arrow";
+   inputDefs->KeyNames[KeyCode::Return] = "Enter";
+   inputDefs->KeyNames[KeyCode::Space] = "Space Bar";
+   inputDefs->KeyNames[KeyCode::Tab] = "Tab";
+   inputDefs->KeyNames[KeyCode::A] = "A";
+   inputDefs->KeyNames[KeyCode::B] = "B";
+   inputDefs->KeyNames[KeyCode::X] = "X";
+   inputDefs->KeyNames[KeyCode::Y] = "Y";
+   inputDefs->KeyNames[KeyCode::NumPad1] = "1";
+   inputDefs->KeyNames[KeyCode::NumPad2] = "2";
+   inputDefs->KeyNames[KeyCode::NumPad3] = "3";
+   inputDefs->KeyNames[KeyCode::NumPad4] = "4";
+   inputDefs->KeyNames[KeyCode::F12] = "F12";
 
    // button names
-   inputConfig->ButtonNames[GameButton::Left] = "Left";
-   inputConfig->ButtonNames[GameButton::Up] = "Up";
-   inputConfig->ButtonNames[GameButton::Right] = "Right";
-   inputConfig->ButtonNames[GameButton::Down] = "Down";
-   inputConfig->ButtonNames[GameButton::Start] = "Start";
-   inputConfig->ButtonNames[GameButton::Select] = "Select";
-   inputConfig->ButtonNames[GameButton::A] = "A";
-   inputConfig->ButtonNames[GameButton::B] = "B";
-   inputConfig->ButtonNames[GameButton::X] = "X";
-   inputConfig->ButtonNames[GameButton::Y] = "Y";
-   inputConfig->ButtonNames[GameButton::L1] = "L1";
-   inputConfig->ButtonNames[GameButton::L2] = "L2";
-   inputConfig->ButtonNames[GameButton::R1] = "R1";
-   inputConfig->ButtonNames[GameButton::R2] = "R2";
-   inputConfig->ButtonNames[GameButton::Diagnostics] = "Toggle Diagnostics";
+   inputDefs->ButtonNames[GameButton::Left] = "Left";
+   inputDefs->ButtonNames[GameButton::Up] = "Up";
+   inputDefs->ButtonNames[GameButton::Right] = "Right";
+   inputDefs->ButtonNames[GameButton::Down] = "Down";
+   inputDefs->ButtonNames[GameButton::Start] = "Start";
+   inputDefs->ButtonNames[GameButton::Select] = "Select";
+   inputDefs->ButtonNames[GameButton::A] = "A";
+   inputDefs->ButtonNames[GameButton::B] = "B";
+   inputDefs->ButtonNames[GameButton::X] = "X";
+   inputDefs->ButtonNames[GameButton::Y] = "Y";
+   inputDefs->ButtonNames[GameButton::L1] = "L1";
+   inputDefs->ButtonNames[GameButton::L2] = "L2";
+   inputDefs->ButtonNames[GameButton::R1] = "R1";
+   inputDefs->ButtonNames[GameButton::R2] = "R2";
+   inputDefs->ButtonNames[GameButton::Diagnostics] = "Toggle Diagnostics";
 
-   return inputConfig;
+   return inputDefs;
 }
 
 shared_ptr<PlayerConfig> BuildPlayerConfig()
@@ -294,7 +294,7 @@ shared_ptr<GameConfig> BuildGameConfig()
    config->FramesPerSecond = 60;
 
    config->RenderDefs = BuildConsoleRenderDefs();
-   config->InputConfig = BuildKeyboardInputConfig();
+   config->InputDefs = BuildKeyboardInputDefs();
    config->PlayerConfig = BuildPlayerConfig();
    config->ArenaDefs = BuildArenaDefs();
 
