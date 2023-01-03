@@ -30,11 +30,11 @@ namespace ConsoleGame
       Direction GetPlayerDirection() const override;
       bool IsPlayerMoving() const override;
 
-      double GetArenaWidth() const override;
-      double GetArenaHeight() const override;
+      float GetArenaWidth() const override;
+      float GetArenaHeight() const override;
 
-      double GetArenaPlayerXPosition() const override { return _arenaPlayerPositionX; }
-      double GetArenaPlayerYPosition() const override { return _arenaPlayerPositionY; }
+      float GetArenaPlayerXPosition() const override { return _arenaPlayerPositionX; }
+      float GetArenaPlayerYPosition() const override { return _arenaPlayerPositionY; }
 
    private:
       void PushPlayer( Direction direction );
@@ -47,8 +47,8 @@ namespace ConsoleGame
 
       GameState _state;
 
-      double _arenaPlayerPositionX;
-      double _arenaPlayerPositionY;
+      float _arenaPlayerPositionX;
+      float _arenaPlayerPositionY;
 
       bool _playerWasPushedX;
       bool _playerWasPushedY;

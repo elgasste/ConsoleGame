@@ -7,12 +7,12 @@ namespace ConsoleGame
    class PlayerDefs
    {
    public:
-      double StartVelocityX = 0.;
-      double StartVelocityY = 0.;
+      float StartVelocityX = 0;
+      float StartVelocityY = 0;
 
-      double MaxVelocity = 0.;
+      float MaxVelocity = 0;
 
-      double AccelerationPerSecond = 0.;
+      float AccelerationPerSecond = 0;
 
       Direction StartDirection = (Direction)0;
    };

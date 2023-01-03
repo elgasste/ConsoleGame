@@ -5,10 +5,10 @@ namespace ConsoleGame
    class ArenaDefs
    {
    public:
-      double Width = 0.;
-      double Height = 0.;
+      float Width = 0;
+      float Height = 0;
 
-      double PlayerStartX = 0.;
-      double PlayerStartY = 0.;
+      float PlayerStartX = 0;
+      float PlayerStartY = 0;
    };
 }

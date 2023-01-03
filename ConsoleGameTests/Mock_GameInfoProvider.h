@@ -10,8 +10,8 @@ public:
    MOCK_METHOD( ConsoleGame::GameState, GetGameState, ( ), ( const, override ) );
    MOCK_METHOD( ConsoleGame::Direction, GetPlayerDirection, ( ), ( const, override ) );
    MOCK_METHOD( bool, IsPlayerMoving, ( ), ( const, override ) );
-   MOCK_METHOD( double, GetArenaWidth, ( ), ( const, override ) );
-   MOCK_METHOD( double, GetArenaHeight, ( ), ( const, override ) );
-   MOCK_METHOD( double, GetArenaPlayerXPosition, ( ), ( const, override ) );
-   MOCK_METHOD( double, GetArenaPlayerYPosition, ( ), ( const, override ) );
+   MOCK_METHOD( float, GetArenaWidth, ( ), ( const, override ) );
+   MOCK_METHOD( float, GetArenaHeight, ( ), ( const, override ) );
+   MOCK_METHOD( float, GetArenaPlayerXPosition, ( ), ( const, override ) );
+   MOCK_METHOD( float, GetArenaPlayerYPosition, ( ), ( const, override ) );
 };

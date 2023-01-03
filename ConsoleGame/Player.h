@@ -20,8 +20,8 @@ namespace ConsoleGame
       void StopX() override;
       void StopY() override;
 
-      double GetVelocityX() const override { return _velocityX; }
-      double GetVelocityY() const override { return _velocityY; }
+      float GetVelocityX() const override { return _velocityX; }
+      float GetVelocityY() const override { return _velocityY; }
 
       Direction GetDirection() const override { return _direction; }
 
@@ -31,10 +31,10 @@ namespace ConsoleGame
    private:
       const std::shared_ptr<PlayerDefs> _playerDefs;
 
-      double _velocityX;
-      double _velocityY;
+      float _velocityX;
+      float _velocityY;
 
-      double _velocityDelta;
+      float _velocityDelta;
 
       Direction _direction;
    };
