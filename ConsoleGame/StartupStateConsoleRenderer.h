@@ -7,15 +7,15 @@
 namespace ConsoleGame
 {
    class IConsoleBuffer;
-   class ConsoleRenderConfig;
-   class KeyboardInputConfig;
+   class ConsoleRenderDefs;
+   class KeyboardInputDefs;
 
    class StartupStateConsoleRenderer : public IGameRenderer
    {
    public:
       StartupStateConsoleRenderer( const std::shared_ptr<IConsoleBuffer> consoleBuffer,
-                                   const std::shared_ptr<ConsoleRenderConfig> renderConfig,
-                                   const std::shared_ptr<KeyboardInputConfig> inputConfig );
+                                   const std::shared_ptr<ConsoleRenderDefs> renderDefs,
+                                   const std::shared_ptr<KeyboardInputDefs> inputDefs );
 
       void Render() override;
 
@@ -24,7 +24,7 @@ namespace ConsoleGame
 
    private:
       const std::shared_ptr<IConsoleBuffer> _consoleBuffer;
-      const std::shared_ptr<ConsoleRenderConfig> _renderConfig;
-      const std::shared_ptr<KeyboardInputConfig> _inputConfig;
+      const std::shared_ptr<ConsoleRenderDefs> _renderDefs;
+      const std::shared_ptr<KeyboardInputDefs> _inputDefs;
    };
 }

@@ -2,15 +2,13 @@
 
 #include <map>
 
-#include "IGameRenderConfig.h"
+#include "IGameRenderDefs.h"
 #include "ConsoleSprite.h"
+#include "Direction.h"
 
 namespace ConsoleGame
 {
-   enum class ConsoleColor;
-   enum class Direction;
-
-   class ConsoleRenderConfig : public IGameRenderConfig
+   class ConsoleRenderDefs : public IGameRenderDefs
    {
    public:
       short ConsoleWidth = 0;

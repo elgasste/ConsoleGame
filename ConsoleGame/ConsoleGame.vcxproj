@@ -78,11 +78,11 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -171,7 +171,7 @@
     <ClCompile Include="ThreadWrapper.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ArenaConfig.h" />
+    <ClInclude Include="ArenaDefs.h" />
     <ClInclude Include="ConsoleColor.h" />
     <ClInclude Include="ConsoleBuffer.h" />
     <ClInclude Include="ConsoleSprite.h" />
@@ -182,17 +182,17 @@
     <ClInclude Include="GameClock.h" />
     <ClInclude Include="GameCommand.h" />
     <ClInclude Include="GameCommandArgs.h" />
-    <ClInclude Include="GameConfig.h" />
+    <ClInclude Include="GameDefs.h" />
     <ClInclude Include="GameRenderer.h" />
     <ClInclude Include="GameEvent.h" />
     <ClInclude Include="GameEventAggregator.h" />
-    <ClInclude Include="ConsoleRenderConfig.h" />
+    <ClInclude Include="ConsoleRenderDefs.h" />
     <ClInclude Include="GameRunner.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="IGame.h" />
     <ClInclude Include="IGameInfoProvider.h" />
-    <ClInclude Include="IGameInputConfig.h" />
-    <ClInclude Include="IGameRenderConfig.h" />
+    <ClInclude Include="IGameInputDefs.h" />
+    <ClInclude Include="IGameRenderDefs.h" />
     <ClInclude Include="IPlayer.h" />
     <ClInclude Include="IPlayerFactory.h" />
     <ClInclude Include="IScreenBuffer.h" />
@@ -208,7 +208,7 @@
     <ClInclude Include="IGameRenderer.h" />
     <ClInclude Include="IGameRunner.h" />
     <ClInclude Include="GameInputHandler.h" />
-    <ClInclude Include="KeyboardInputConfig.h" />
+    <ClInclude Include="KeyboardInputDefs.h" />
     <ClInclude Include="IHighResolutionClock.h" />
     <ClInclude Include="IKeyboard.h" />
     <ClInclude Include="ISleeper.h" />
@@ -217,7 +217,7 @@
     <ClInclude Include="PushPlayerCommandArgs.h" />
     <ClInclude Include="ConsolePixel.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="PlayerConfig.h" />
+    <ClInclude Include="PlayerDefs.h" />
     <ClInclude Include="PlayerFactory.h" />
     <ClInclude Include="PlayingStateConsoleRenderer.h" />
     <ClInclude Include="PlayingStateInputHandler.h" />

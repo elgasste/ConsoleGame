@@ -3,7 +3,6 @@
 #include <memory>
 
 #include <ConsoleGame/GameEventAggregator.h>
-#include <ConsoleGame/GameEvent.h>
 
 using namespace std;
 using namespace testing;

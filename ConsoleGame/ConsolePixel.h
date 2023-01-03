@@ -1,9 +1,9 @@
 #pragma once
 
+#include "ConsoleColor.h"
+
 namespace ConsoleGame
 {
-   enum class ConsoleColor;
-
    struct ConsolePixel
    {
       char Value = '\0';

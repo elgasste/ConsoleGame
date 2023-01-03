@@ -5,7 +5,6 @@
 #include "IGameRenderer.h"
 #include "IGame.h"
 #include "IThread.h"
-#include "GameEvent.h"
 
 using namespace ConsoleGame;
 

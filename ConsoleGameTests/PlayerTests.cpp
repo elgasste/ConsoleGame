@@ -3,7 +3,7 @@
 #include <memory>
 
 #include <ConsoleGame/Player.h>
-#include <ConsoleGame/PlayerConfig.h>
+#include <ConsoleGame/PlayerDefs.h>
 
 using namespace std;
 using namespace testing;
@@ -14,34 +14,34 @@ class PlayerTests : public Test
 public:
    void SetUp() override
    {
-      _config.reset( new PlayerConfig );
+      _playerDefs.reset( new PlayerDefs );
 
-      _config->StartVelocityX = 0.;
-      _config->StartVelocityY = 0.;
-      _config->MaxVelocity = 100.;
-      _config->AccelerationPerSecond = 200.;
-      _config->StartDirection = Direction::Left;
+      _playerDefs->StartVelocityX = 0.;
+      _playerDefs->StartVelocityY = 0.;
+      _playerDefs->MaxVelocity = 100.;
+      _playerDefs->AccelerationPerSecond = 200.;
+      _playerDefs->StartDirection = Direction::Left;
 
       _framesPerSecond = 100;
    }
 
    void BuildPlayer()
    {
-      _player.reset( new Player( _config, _framesPerSecond ) );
+      _player.reset( new Player( _playerDefs, _framesPerSecond ) );
    }
 
 protected:
-   shared_ptr<PlayerConfig> _config;
+   shared_ptr<PlayerDefs> _playerDefs;
    int _framesPerSecond;
 
    shared_ptr<Player> _player;
 };
 
-TEST_F( PlayerTests, Constructor_Always_SetsDefaultPropertiesFromConfig )
+TEST_F( PlayerTests, Constructor_Always_SetsDefaultPropertiesFromDefs )
 {
-   _config->StartVelocityX = 100.;
-   _config->StartVelocityY = 200.;
-   _config->StartDirection = Direction::Right;
+   _playerDefs->StartVelocityX = 100.;
+   _playerDefs->StartVelocityY = 200.;
+   _playerDefs->StartDirection = Direction::Right;
    BuildPlayer();
 
    EXPECT_EQ( _player->GetVelocityX(), 100. );
@@ -51,7 +51,7 @@ TEST_F( PlayerTests, Constructor_Always_SetsDefaultPropertiesFromConfig )
 
 TEST_F( PlayerTests, Push_Always_SetsDirection )
 {
-   _config->StartDirection = Direction::Right;
+   _playerDefs->StartDirection = Direction::Right;
    BuildPlayer();
 
    _player->Push( Direction::Up );
@@ -137,7 +137,7 @@ TEST_F( PlayerTests, Push_DownLeftAndVelocityHasNotMaxedOut_DecreasesXVelocityAn
 
 TEST_F( PlayerTests, Push_LeftAndVelocityHasMaxedOut_ClampsToMaxVelocity )
 {
-   _config->AccelerationPerSecond = 100001.;
+   _playerDefs->AccelerationPerSecond = 100001.;
    BuildPlayer();
 
    _player->Push( Direction::Left );
@@ -147,7 +147,7 @@ TEST_F( PlayerTests, Push_LeftAndVelocityHasMaxedOut_ClampsToMaxVelocity )
 
 TEST_F( PlayerTests, Push_RightAndVelocityHasMaxedOut_ClampsToMaxVelocity )
 {
-   _config->AccelerationPerSecond = 100001.;
+   _playerDefs->AccelerationPerSecond = 100001.;
    BuildPlayer();
 
    _player->Push( Direction::Right );
@@ -157,7 +157,7 @@ TEST_F( PlayerTests, Push_RightAndVelocityHasMaxedOut_ClampsToMaxVelocity )
 
 TEST_F( PlayerTests, Push_UpAndVelocityHasMaxedOut_ClampsToMaxVelocity )
 {
-   _config->AccelerationPerSecond = 10001.;
+   _playerDefs->AccelerationPerSecond = 10001.;
    BuildPlayer();
 
    _player->Push( Direction::Up );
@@ -167,7 +167,7 @@ TEST_F( PlayerTests, Push_UpAndVelocityHasMaxedOut_ClampsToMaxVelocity )
 
 TEST_F( PlayerTests, Push_DownAndVelocityHasMaxedOut_ClampsToMaxVelocity )
 {
-   _config->AccelerationPerSecond = 10001.;
+   _playerDefs->AccelerationPerSecond = 10001.;
    BuildPlayer();
 
    _player->Push( Direction::Down );
@@ -221,8 +221,8 @@ TEST_F( PlayerTests, ApplyFrictionY_PlayerIsMovingDownAndHasVelocityToSpare_Does
 
 TEST_F( PlayerTests, ApplyFrictionX_PlayerIsMovingLeftAndHasNoVelocityToSpare_Stops )
 {
-   _config->StartVelocityX = -1.;
-   _config->MaxVelocity = 2.;
+   _playerDefs->StartVelocityX = -1.;
+   _playerDefs->MaxVelocity = 2.;
    BuildPlayer();
 
    _player->ApplyFrictionX();
@@ -232,8 +232,8 @@ TEST_F( PlayerTests, ApplyFrictionX_PlayerIsMovingLeftAndHasNoVelocityToSpare_St
 
 TEST_F( PlayerTests, ApplyFrictionX_PlayerIsMovingRightAndHasNoVelocityToSpare_Stops )
 {
-   _config->StartVelocityX = 1.;
-   _config->MaxVelocity = 2.;
+   _playerDefs->StartVelocityX = 1.;
+   _playerDefs->MaxVelocity = 2.;
    BuildPlayer();
 
    _player->ApplyFrictionX();
@@ -243,8 +243,8 @@ TEST_F( PlayerTests, ApplyFrictionX_PlayerIsMovingRightAndHasNoVelocityToSpare_S
 
 TEST_F( PlayerTests, ApplyFrictionY_PlayerIsMovingUpAndHasNoVelocityToSpare_Stops )
 {
-   _config->StartVelocityY = -1.;
-   _config->MaxVelocity = 2.;
+   _playerDefs->StartVelocityY = -1.;
+   _playerDefs->MaxVelocity = 2.;
    BuildPlayer();
 
    _player->ApplyFrictionY();
@@ -254,8 +254,8 @@ TEST_F( PlayerTests, ApplyFrictionY_PlayerIsMovingUpAndHasNoVelocityToSpare_Stop
 
 TEST_F( PlayerTests, ApplyFrictionY_PlayerIsMovingDownAndHasNoVelocityToSpare_Stops )
 {
-   _config->StartVelocityY = 1.;
-   _config->MaxVelocity = 2.;
+   _playerDefs->StartVelocityY = 1.;
+   _playerDefs->MaxVelocity = 2.;
    BuildPlayer();
 
    _player->ApplyFrictionY();

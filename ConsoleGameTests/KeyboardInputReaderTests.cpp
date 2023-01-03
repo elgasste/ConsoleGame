@@ -3,9 +3,7 @@
 #include <memory>
 
 #include <ConsoleGame/KeyboardInputReader.h>
-#include <ConsoleGame/KeyboardInputConfig.h>
-#include <ConsoleGame/KeyCode.h>
-#include <ConsoleGame/GameButton.h>
+#include <ConsoleGame/KeyboardInputDefs.h>
 
 #include "mock_Keyboard.h"
 
@@ -18,23 +16,23 @@ class KeyboardInputReaderTests : public Test
 public:
    void SetUp() override
    {
-      _inputConfig.reset( new KeyboardInputConfig );
+      _inputDefs.reset( new KeyboardInputDefs );
       _keyboardMock.reset( new NiceMock<mock_Keyboard> );
    }
 
    void AddKeyBinding( KeyCode keyCode, GameButton gameButton )
    {
-      _inputConfig->KeyMap[keyCode] = gameButton;
+      _inputDefs->KeyMap[keyCode] = gameButton;
    }
 
    void BuildInputReader()
    {
-      _inputReader.reset( new KeyboardInputReader( _inputConfig,
+      _inputReader.reset( new KeyboardInputReader( _inputDefs,
                                                    _keyboardMock ) );
    }
 
 protected:
-   shared_ptr<KeyboardInputConfig> _inputConfig;
+   shared_ptr<KeyboardInputDefs> _inputDefs;
    shared_ptr<mock_Keyboard> _keyboardMock;
 
    shared_ptr<KeyboardInputReader> _inputReader;

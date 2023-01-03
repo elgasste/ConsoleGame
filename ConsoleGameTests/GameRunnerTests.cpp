@@ -5,7 +5,6 @@
 
 #include <ConsoleGame/GameRunner.h>
 #include <ConsoleGame/GameEventAggregator.h>
-#include <ConsoleGame/GameEvent.h>
 
 #include "mock_GameClock.h"
 #include "mock_GameInputHandler.h"

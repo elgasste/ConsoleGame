@@ -4,21 +4,20 @@
 #include <map>
 
 #include "IGameRenderer.h"
+#include "GameState.h"
 #include "GameEvent.h"
 
 namespace ConsoleGame
 {
-   class ConsoleRenderConfig;
+   class ConsoleRenderDefs;
    class IScreenBuffer;
    class IGameInfoProvider;
    class IGameEventAggregator;
-   enum class GameState;
-   enum class GameEvent;
 
    class GameRenderer : public IGameRenderer
    {
    public:
-      GameRenderer( const std::shared_ptr<ConsoleRenderConfig> renderConfig,
+      GameRenderer( const std::shared_ptr<ConsoleRenderDefs> renderDefs,
                     const std::shared_ptr<IScreenBuffer> screenBuffer,
                     const std::shared_ptr<IGameInfoProvider> gameInfoProvider,
                     const std::shared_ptr<IGameRenderer> diagnosticsRenderer,

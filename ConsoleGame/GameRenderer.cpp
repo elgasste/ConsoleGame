@@ -1,18 +1,15 @@
 #include <format>
 
 #include "GameRenderer.h"
-#include "ConsoleRenderConfig.h"
+#include "ConsoleRenderDefs.h"
 #include "IScreenBuffer.h"
 #include "IGameInfoProvider.h"
 #include "IGameEventAggregator.h"
-#include "GameState.h"
-#include "GameEvent.h"
-#include "ConsoleColor.h"
 
 using namespace std;
 using namespace ConsoleGame;
 
-GameRenderer::GameRenderer( const shared_ptr<ConsoleRenderConfig> renderConfig,
+GameRenderer::GameRenderer( const shared_ptr<ConsoleRenderDefs> renderDefs,
                             const shared_ptr<IScreenBuffer> screenBuffer,
                             const shared_ptr<IGameInfoProvider> gameInfoProvider,
                             const shared_ptr<IGameRenderer> diagnosticsRenderer,
@@ -26,7 +23,7 @@ GameRenderer::GameRenderer( const shared_ptr<ConsoleRenderConfig> renderConfig,
    eventAggregator->RegisterEventHandler( GameEvent::Shutdown, std::bind( &GameRenderer::HandleShutdownEvent, this ) );
    eventAggregator->RegisterEventHandler( GameEvent::ToggleDiagnostics, std::bind( &GameRenderer::HandleToggleDiagnosticsEvent, this ) );
 
-   _screenBuffer->LoadRenderConfig( renderConfig );
+   _screenBuffer->LoadRenderDefs( renderDefs );
 }
 
 void GameRenderer::AddRendererForGameState( GameState state, shared_ptr<IGameRenderer> renderer )

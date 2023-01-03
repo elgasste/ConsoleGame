@@ -3,8 +3,7 @@
 #include "DiagnosticsConsoleRenderer.h"
 #include "IConsoleBuffer.h"
 #include "IGameClock.h"
-#include "ConsoleRenderConfig.h"
-#include "ConsoleColor.h"
+#include "ConsoleRenderDefs.h"
 
 #define DIAGNOSTICS_WIDTH 30
 
@@ -13,16 +12,16 @@ using namespace ConsoleGame;
 
 DiagnosticsConsoleRenderer::DiagnosticsConsoleRenderer( const shared_ptr<IConsoleBuffer> consoleBuffer,
                                                         const shared_ptr<IGameClock> clock,
-                                                        const shared_ptr<ConsoleRenderConfig> renderConfig ) :
+                                                        const shared_ptr<ConsoleRenderDefs> renderDefs ) :
    _consoleBuffer( consoleBuffer ),
    _clock( clock ),
-   _renderConfig( renderConfig )
+   _renderDefs( renderDefs )
 {
 }
 
 void DiagnosticsConsoleRenderer::Render()
 {
-   auto left = _renderConfig->ConsoleWidth - DIAGNOSTICS_WIDTH;
+   auto left = _renderDefs->ConsoleWidth - DIAGNOSTICS_WIDTH;
 
    auto framesPerSecondString = format( " Frames per second: {0} ", _clock->GetFramesPerSecond() );
    auto totalFramesString = format( " Total frames:      {0} ", _clock->GetTotalFrameCount() );

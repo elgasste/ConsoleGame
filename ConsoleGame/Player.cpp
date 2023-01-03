@@ -1,18 +1,18 @@
 #include <algorithm>
 
 #include "Player.h"
-#include "PlayerConfig.h"
+#include "PlayerDefs.h"
 
 using namespace std;
 using namespace ConsoleGame;
 
-Player::Player( const shared_ptr<PlayerConfig> config,
+Player::Player( const shared_ptr<PlayerDefs> playerDefs,
                 int framesPerSecond ) :
-   _config( config ),
-   _velocityX( _config->StartVelocityX ),
-   _velocityY( _config->StartVelocityY ),
-   _velocityDelta( _config->AccelerationPerSecond / framesPerSecond ),
-   _direction( _config->StartDirection )
+   _playerDefs( playerDefs ),
+   _velocityX( _playerDefs->StartVelocityX ),
+   _velocityY( _playerDefs->StartVelocityY ),
+   _velocityDelta( _playerDefs->AccelerationPerSecond / framesPerSecond ),
+   _direction( _playerDefs->StartDirection )
 {
 }
 
@@ -91,21 +91,21 @@ void Player::StopY()
 
 void Player::ClampVelocity()
 {
-   if ( _velocityX < -( _config->MaxVelocity ) )
+   if ( _velocityX < -( _playerDefs->MaxVelocity ) )
    {
-      _velocityX = -( _config->MaxVelocity );
+      _velocityX = -( _playerDefs->MaxVelocity );
    }
-   else if ( _velocityX > _config->MaxVelocity )
+   else if ( _velocityX > _playerDefs->MaxVelocity )
    {
-      _velocityX = _config->MaxVelocity;
+      _velocityX = _playerDefs->MaxVelocity;
    }
 
-   if ( _velocityY < -( _config->MaxVelocity ) )
+   if ( _velocityY < -( _playerDefs->MaxVelocity ) )
    {
-      _velocityY = -( _config->MaxVelocity );
+      _velocityY = -( _playerDefs->MaxVelocity );
    }
-   else if ( _velocityY > _config->MaxVelocity )
+   else if ( _velocityY > _playerDefs->MaxVelocity )
    {
-      _velocityY = _config->MaxVelocity;
+      _velocityY = _playerDefs->MaxVelocity;
    }
 }

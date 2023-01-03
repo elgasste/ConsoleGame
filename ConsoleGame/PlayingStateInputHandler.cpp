@@ -1,10 +1,7 @@
 #include "PlayingStateInputHandler.h"
 #include "IGameInputReader.h"
 #include "IGameCommandExecutor.h"
-#include "GameButton.h"
-#include "GameCommand.h"
 #include "PushPlayerCommandArgs.h"
-#include "Direction.h"
 
 using namespace std;
 using namespace ConsoleGame;

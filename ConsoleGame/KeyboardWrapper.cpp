@@ -2,7 +2,6 @@
 #include <Windows.h>
 
 #include "KeyboardWrapper.h"
-#include "KeyCode.h"
 
 using namespace ConsoleGame;
 
