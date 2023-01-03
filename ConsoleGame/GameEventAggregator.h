@@ -7,8 +7,6 @@
 
 namespace ConsoleGame
 {
-   enum class GameEvent;
-
    class GameEventAggregator : public IGameEventAggregator
    {
    public:

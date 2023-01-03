@@ -1,10 +1,10 @@
 #pragma once
 
+#include "GameState.h"
+#include "Direction.h"
+
 namespace ConsoleGame
 {
-   enum class GameState;
-   enum class Direction;
-
    class __declspec( novtable ) IGameInfoProvider
    {
    public:

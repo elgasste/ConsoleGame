@@ -1,8 +1,6 @@
 #include "KeyboardInputReader.h"
 #include "KeyboardInputDefs.h"
 #include "IKeyboard.h"
-#include "KeyCode.h"
-#include "GameButton.h"
 
 using namespace std;
 using namespace ConsoleGame;

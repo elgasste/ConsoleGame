@@ -4,10 +4,6 @@
 #include "IGameEventAggregator.h"
 #include "IPlayerFactory.h"
 #include "IPlayer.h"
-#include "GameState.h"
-#include "GameCommand.h"
-#include "GameEvent.h"
-#include "Direction.h"
 #include "PushPlayerCommandArgs.h"
 
 using namespace std;

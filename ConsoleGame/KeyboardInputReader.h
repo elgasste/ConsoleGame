@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "IGameInputReader.h"
+#include "KeyCode.h"
 
 namespace ConsoleGame
 {
@@ -16,8 +17,6 @@ namespace ConsoleGame
 
    class KeyboardInputDefs;
    class IKeyboard;
-   enum class KeyCode;
-   enum class GameButton;
 
    class KeyboardInputReader : public IGameInputReader
    {

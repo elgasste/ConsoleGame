@@ -1,7 +1,6 @@
 #include "StartupStateInputHandler.h"
 #include "IGameInputReader.h"
 #include "IGameCommandExecutor.h"
-#include "GameCommand.h"
 
 using namespace std;
 using namespace ConsoleGame;

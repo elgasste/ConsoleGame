@@ -5,9 +5,6 @@
 
 #include "ConsoleBuffer.h"
 #include "ConsoleRenderDefs.h"
-#include "ConsoleColor.h"
-#include "ConsoleSprite.h"
-#include "ConsolePixel.h"
 
 namespace ConsoleGame
 {

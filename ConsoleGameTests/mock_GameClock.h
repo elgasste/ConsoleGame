@@ -1,7 +1,6 @@
 #pragma once
 
 #include <gmock/gmock.h>
-#include <string>
 
 #include <ConsoleGame/IGameClock.h>
 

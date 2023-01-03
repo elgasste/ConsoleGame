@@ -6,10 +6,6 @@
 #include <ConsoleGame/GameDefs.h>
 #include <ConsoleGame/PlayerDefs.h>
 #include <ConsoleGame/ArenaDefs.h>
-#include <ConsoleGame/GameState.h>
-#include <ConsoleGame/Direction.h>
-#include <ConsoleGame/GameCommand.h>
-#include <ConsoleGame/GameEvent.h>
 #include <ConsoleGame/PushPlayerCommandArgs.h>
 
 #include "mock_GameEventAggregator.h"

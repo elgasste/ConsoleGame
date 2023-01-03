@@ -2,10 +2,6 @@
 #include "IConsoleBuffer.h"
 #include "ConsoleRenderDefs.h"
 #include "IGameInfoProvider.h"
-#include "ConsoleColor.h"
-#include "Direction.h"
-#include "ConsoleSprite.h"
-#include "ConsolePixel.h"
 
 using namespace std;
 using namespace ConsoleGame;

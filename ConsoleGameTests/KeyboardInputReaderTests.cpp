@@ -4,8 +4,6 @@
 
 #include <ConsoleGame/KeyboardInputReader.h>
 #include <ConsoleGame/KeyboardInputDefs.h>
-#include <ConsoleGame/KeyCode.h>
-#include <ConsoleGame/GameButton.h>
 
 #include "mock_Keyboard.h"
 

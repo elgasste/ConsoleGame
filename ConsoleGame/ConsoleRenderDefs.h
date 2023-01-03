@@ -4,12 +4,10 @@
 
 #include "IGameRenderDefs.h"
 #include "ConsoleSprite.h"
+#include "Direction.h"
 
 namespace ConsoleGame
 {
-   enum class ConsoleColor;
-   enum class Direction;
-
    class ConsoleRenderDefs : public IGameRenderDefs
    {
    public:

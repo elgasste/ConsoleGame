@@ -8,7 +8,6 @@ namespace ConsoleGame
    class IGameInputDefs;
    class PlayerDefs;
    class ArenaDefs;
-   enum class Direction;
 
    class GameDefs
    {

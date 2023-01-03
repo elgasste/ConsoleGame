@@ -3,9 +3,6 @@
 #include <memory>
 
 #include <ConsoleGame/GameInputHandler.h>
-#include <ConsoleGame/GameState.h>
-#include <ConsoleGame/GameButton.h>
-#include <ConsoleGame/GameEvent.h>
 
 #include "mock_GameInputReader.h"
 #include "mock_GameInfoProvider.h"

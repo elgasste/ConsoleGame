@@ -4,12 +4,11 @@
 #include <string>
 
 #include "IGameInputDefs.h"
+#include "KeyCode.h"
+#include "GameButton.h"
 
 namespace ConsoleGame
 {
-   enum class KeyCode;
-   enum class GameButton;
-
    class KeyboardInputDefs : public IGameInputDefs
    {
    public:

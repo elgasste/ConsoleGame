@@ -8,8 +8,6 @@
 #include "KeyboardInputDefs.h"
 #include "PlayerDefs.h"
 #include "ArenaDefs.h"
-#include "KeyCode.h"
-#include "GameButton.h"
 #include "HighResolutionClockWrapper.h"
 #include "SleeperWrapper.h"
 #include "KeyboardWrapper.h"
@@ -28,9 +26,6 @@
 #include "PlayingStateConsoleRenderer.h"
 #include "GameRenderer.h"
 #include "GameRunner.h"
-#include "GameState.h"
-#include "ConsoleColor.h"
-#include "Direction.h"
 
 using namespace std;
 using namespace ConsoleGame;

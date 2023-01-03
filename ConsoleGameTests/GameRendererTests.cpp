@@ -7,9 +7,6 @@
 #include <ConsoleGame/IScreenBuffer.h>
 #include <ConsoleGame/IGameInfoProvider.h>
 #include <ConsoleGame/GameEventAggregator.h>
-#include <ConsoleGame/ConsoleColor.h>
-#include <ConsoleGame/GameState.h>
-#include <ConsoleGame/ConsoleSprite.h>
 
 #include "mock_ScreenBuffer.h"
 #include "mock_GameInfoProvider.h"

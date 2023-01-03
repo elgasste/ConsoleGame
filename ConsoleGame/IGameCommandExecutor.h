@@ -2,9 +2,10 @@
 
 #include <memory>
 
+#include "GameCommand.h"
+
 namespace ConsoleGame
 {
-   enum class GameCommand;
    class GameCommandArgs;
 
    class _declspec( novtable ) IGameCommandExecutor

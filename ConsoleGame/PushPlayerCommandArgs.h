@@ -1,16 +1,15 @@
 #pragma once
 
 #include "GameCommandArgs.h"
+#include "Direction.h"
 
 namespace ConsoleGame
 {
-   enum class Direction;
-
    class PushPlayerCommandArgs : public GameCommandArgs
    {
    public:
-      PushPlayerCommandArgs( Direction direction )
-         : Direction ( direction )
+      PushPlayerCommandArgs( Direction direction ) :
+         Direction ( direction )
       { }
 
       Direction Direction;

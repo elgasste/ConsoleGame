@@ -3,12 +3,11 @@
 #include <string>
 
 #include "IScreenBuffer.h"
+#include "ConsoleSprite.h"
+#include "ConsoleColor.h"
 
 namespace ConsoleGame
 {
-   enum class ConsoleColor;
-   struct ConsoleSprite;
-
    class __declspec( novtable ) IConsoleBuffer : public IScreenBuffer
    {
    public:

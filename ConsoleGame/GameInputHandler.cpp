@@ -2,9 +2,6 @@
 #include "IGameInputReader.h"
 #include "IGameInfoProvider.h"
 #include "IGameEventAggregator.h"
-#include "GameButton.h"
-#include "GameEvent.h"
-#include "GameState.h"
 
 using namespace std;
 using namespace ConsoleGame;

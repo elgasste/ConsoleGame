@@ -1,9 +1,9 @@
 #pragma once
 
+#include "KeyCode.h"
+
 namespace ConsoleGame
 {
-   enum class KeyCode;
-
    class __declspec( novtable ) IKeyboard
    {
    public:

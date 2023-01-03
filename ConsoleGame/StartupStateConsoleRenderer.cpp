@@ -1,11 +1,9 @@
-#include <string>
 #include <format>
 
 #include "StartupStateConsoleRenderer.h"
 #include "IConsoleBuffer.h"
 #include "ConsoleRenderDefs.h"
 #include "KeyboardInputDefs.h"
-#include "ConsoleColor.h"
 
 using namespace std;
 using namespace ConsoleGame;

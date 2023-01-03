@@ -3,10 +3,7 @@
 #include <memory>
 
 #include <ConsoleGame/PlayingStateInputHandler.h>
-#include <ConsoleGame/GameButton.h>
-#include <ConsoleGame/GameCommand.h>
 #include <ConsoleGame/PushPlayerCommandArgs.h>
-#include <ConsoleGame/Direction.h>
 
 #include "mock_GameInputReader.h"
 #include "mock_GameCommandExecutor.h"

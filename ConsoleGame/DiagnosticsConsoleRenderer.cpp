@@ -4,7 +4,6 @@
 #include "IConsoleBuffer.h"
 #include "IGameClock.h"
 #include "ConsoleRenderDefs.h"
-#include "ConsoleColor.h"
 
 #define DIAGNOSTICS_WIDTH 30
 

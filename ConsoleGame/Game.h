@@ -1,7 +1,5 @@
 #pragma once
 
-#include <memory>
-
 #include "IGame.h"
 #include "IGameCommandExecutor.h"
 #include "IGameInfoProvider.h"
@@ -9,7 +7,6 @@
 namespace ConsoleGame
 {
    class GameDefs;
-   enum class Direction;
    class IGameEventAggregator;
    class IPlayerFactory;
    class IPlayer;
