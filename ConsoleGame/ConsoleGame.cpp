@@ -253,16 +253,16 @@ shared_ptr<PlayerDefs> BuildPlayerDefs()
 {
    auto playerDefs = make_shared<PlayerDefs>();
 
-   playerDefs->StartVelocityX = 0.;
-   playerDefs->StartVelocityY = 0.;
+   playerDefs->StartVelocityX = 0;
+   playerDefs->StartVelocityY = 0;
 
    // this means at max velocity, it should take
    // 3 seconds to cross the arena horizontally
-   playerDefs->MaxVelocity = 1444.;
+   playerDefs->MaxVelocity = 1444;
 
    // this means it should take a third of a second
    // to go from 0 to max velocity
-   playerDefs->AccelerationPerSecond = 4332.;
+   playerDefs->AccelerationPerSecond = 4332;
 
    playerDefs->StartDirection = Direction::Right;
 
@@ -273,11 +273,11 @@ shared_ptr<ArenaDefs> BuildArenaDefs()
 {
    auto arenaDefs = make_shared<ArenaDefs>();
 
-   arenaDefs->Width = 4332.;
-   arenaDefs->Height = 1872.;
+   arenaDefs->Width = 4332;
+   arenaDefs->Height = 1872;
 
-   arenaDefs->PlayerStartX = arenaDefs->Width / 2.;
-   arenaDefs->PlayerStartY = arenaDefs->Height / 2.;
+   arenaDefs->PlayerStartX = arenaDefs->Width / 2.0f;
+   arenaDefs->PlayerStartY = arenaDefs->Height / 2.0f;
 
    return arenaDefs;
 }

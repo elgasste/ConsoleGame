@@ -57,36 +57,36 @@ void Player::Push( Direction direction )
 
 void Player::ApplyFrictionX()
 {
-   if ( _velocityX < 0. )
+   if ( _velocityX < 0 )
    {
-      _velocityX = min( _velocityX + _velocityDelta, 0. );
+      _velocityX = min( _velocityX + _velocityDelta, 0.0f );
    }
-   else if ( _velocityX > 0. )
+   else if ( _velocityX > 0 )
    {
-      _velocityX = max( _velocityX - _velocityDelta, 0. );
+      _velocityX = max( _velocityX - _velocityDelta, 0.0f );
    }
 }
 
 void Player::ApplyFrictionY()
 {
-   if ( _velocityY < 0. )
+   if ( _velocityY < 0 )
    {
-      _velocityY = min( _velocityY + _velocityDelta, 0. );
+      _velocityY = min( _velocityY + _velocityDelta, 0.0f );
    }
-   else if ( _velocityY > 0. )
+   else if ( _velocityY > 0 )
    {
-      _velocityY = max( _velocityY - _velocityDelta, 0. );
+      _velocityY = max( _velocityY - _velocityDelta, 0.0f );
    }
 }
 
 void Player::StopX()
 {
-   _velocityX = 0.;
+   _velocityX = 0;
 }
 
 void Player::StopY()
 {
-   _velocityY = 0.;
+   _velocityY = 0;
 }
 
 void Player::ClampVelocity()

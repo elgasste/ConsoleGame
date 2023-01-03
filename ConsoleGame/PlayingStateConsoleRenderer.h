@@ -28,7 +28,7 @@ namespace ConsoleGame
       const std::shared_ptr<ConsoleRenderDefs> _renderDefs;
       const std::shared_ptr<IGameInfoProvider> _gameInfoProvider;
 
-      double _arenaCoordConverterX;
-      double _arenaCoordConverterY;
+      float _arenaCoordConverterX;
+      float _arenaCoordConverterY;
    };
 }

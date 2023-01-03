@@ -12,7 +12,7 @@ public:
    MOCK_METHOD( void, ApplyFrictionY, (), ( override ) );
    MOCK_METHOD( void, StopX, (), ( override ) );
    MOCK_METHOD( void, StopY, (), ( override ) );
-   MOCK_METHOD( double, GetVelocityX, ( ), ( const, override ) );
-   MOCK_METHOD( double, GetVelocityY, ( ), ( const, override ) );
+   MOCK_METHOD( float, GetVelocityX, ( ), ( const, override ) );
+   MOCK_METHOD( float, GetVelocityY, ( ), ( const, override ) );
    MOCK_METHOD( ConsoleGame::Direction, GetDirection, ( ), ( const, override ) );
 };

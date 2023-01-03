@@ -28,10 +28,10 @@ public:
       _playerFactoryMock.reset( new NiceMock<mock_PlayerFactory> );
       _playerMock.reset( new NiceMock<mock_Player> );
 
-      _gameDefs->ArenaDefs->Width = 1000.;
-      _gameDefs->ArenaDefs->Height = 800.;
-      _gameDefs->ArenaDefs->PlayerStartX = 500.;
-      _gameDefs->ArenaDefs->PlayerStartY = 400.;
+      _gameDefs->ArenaDefs->Width = 1000;
+      _gameDefs->ArenaDefs->Height = 800;
+      _gameDefs->ArenaDefs->PlayerStartX = 500;
+      _gameDefs->ArenaDefs->PlayerStartY = 400;
 
       _gameDefs->FramesPerSecond = 100;
 
@@ -61,13 +61,13 @@ TEST_F( GameTests, Constructor_Always_SetsGameStateToStartup )
 
 TEST_F( GameTests, Constructor_Always_SetsPlayerInfoBasedOnDefs )
 {
-   _gameDefs->ArenaDefs->PlayerStartX = 10.;
-   _gameDefs->ArenaDefs->PlayerStartY = 20.;
+   _gameDefs->ArenaDefs->PlayerStartX = 10;
+   _gameDefs->ArenaDefs->PlayerStartY = 20;
 
    BuildGame();
 
-   EXPECT_EQ( _game->GetArenaPlayerXPosition(), 10. );
-   EXPECT_EQ( _game->GetArenaPlayerYPosition(), 20. );
+   EXPECT_EQ( _game->GetArenaPlayerXPosition(), 10 );
+   EXPECT_EQ( _game->GetArenaPlayerYPosition(), 20 );
 }
 
 TEST_F( GameTests, ExecuteCommand_Start_SetsGameStateToPlaying )
@@ -109,8 +109,8 @@ TEST_F( GameTests, GetPlayerDirection_Always_GetsDirectionFromPlayer )
 
 TEST_F( GameTests, IsPlayerMoving_PlayerIsNotMoving_ReturnsFalse )
 {
-   EXPECT_CALL( *_playerMock, GetVelocityX() ).WillOnce( Return( 0. ) );
-   EXPECT_CALL( *_playerMock, GetVelocityY() ).WillOnce( Return( 0. ) );
+   EXPECT_CALL( *_playerMock, GetVelocityX() ).WillOnce( Return( 0.0f ) );
+   EXPECT_CALL( *_playerMock, GetVelocityY() ).WillOnce( Return( 0.0f ) );
 
    BuildGame();
 
@@ -119,7 +119,7 @@ TEST_F( GameTests, IsPlayerMoving_PlayerIsNotMoving_ReturnsFalse )
 
 TEST_F( GameTests, IsPlayerMoving_PlayerIsMovingHorizontally_ReturnsTrue )
 {
-   EXPECT_CALL( *_playerMock, GetVelocityX() ).WillOnce( Return( -1. ) );
+   EXPECT_CALL( *_playerMock, GetVelocityX() ).WillOnce( Return( -1.0f ) );
 
    BuildGame();
 
@@ -128,8 +128,8 @@ TEST_F( GameTests, IsPlayerMoving_PlayerIsMovingHorizontally_ReturnsTrue )
 
 TEST_F( GameTests, IsPlayerMoving_PlayerIsMovingVertically_ReturnsTrue )
 {
-   EXPECT_CALL( *_playerMock, GetVelocityX() ).WillOnce( Return( 0. ) );
-   EXPECT_CALL( *_playerMock, GetVelocityY() ).WillOnce( Return( 3. ) );
+   EXPECT_CALL( *_playerMock, GetVelocityX() ).WillOnce( Return( 0.0f ) );
+   EXPECT_CALL( *_playerMock, GetVelocityY() ).WillOnce( Return( 3.0f ) );
 
    BuildGame();
 
@@ -138,18 +138,18 @@ TEST_F( GameTests, IsPlayerMoving_PlayerIsMovingVertically_ReturnsTrue )
 
 TEST_F( GameTests, GetArenaWidth_Always_GetsArenaWidthFromDefs )
 {
-   _gameDefs->ArenaDefs->Width = 11.;
+   _gameDefs->ArenaDefs->Width = 11;
    BuildGame();
 
-   EXPECT_EQ( _game->GetArenaWidth(), 11. );
+   EXPECT_EQ( _game->GetArenaWidth(), 11 );
 }
 
 TEST_F( GameTests, GetArenaHeight_Always_GetsArenaHeightFromDefs )
 {
-   _gameDefs->ArenaDefs->Height = 12.;
+   _gameDefs->ArenaDefs->Height = 12;
    BuildGame();
 
-   EXPECT_EQ( _game->GetArenaHeight(), 12. );
+   EXPECT_EQ( _game->GetArenaHeight(), 12 );
 }
 
 TEST_F( GameTests, RunFrame_GameStateIsNotPlaying_DoesNotChangePlayerInfo )
@@ -194,51 +194,51 @@ TEST_F( GameTests, RunFrame_PlayerWasPushedVertically_DoesNotApplyYFriction )
 
 TEST_F( GameTests, RunFrame_PlayerIsMovingLeft_PlayerGetsMovedLeft )
 {
-   ON_CALL( *_playerMock, GetVelocityX() ).WillByDefault( Return( -200. ) );
+   ON_CALL( *_playerMock, GetVelocityX() ).WillByDefault( Return( -200.0f ) );
    BuildGame();
    _game->ExecuteCommand( GameCommand::Start );
 
    _game->RunFrame();
 
-   EXPECT_EQ( _game->GetArenaPlayerXPosition(), 498. );
+   EXPECT_EQ( _game->GetArenaPlayerXPosition(), 498 );
 }
 
 TEST_F( GameTests, RunFrame_PlayerIsMovingRight_PlayerGetsMovedRight )
 {
-   ON_CALL( *_playerMock, GetVelocityX() ).WillByDefault( Return( 200. ) );
+   ON_CALL( *_playerMock, GetVelocityX() ).WillByDefault( Return( 200.0f ) );
    BuildGame();
    _game->ExecuteCommand( GameCommand::Start );
 
    _game->RunFrame();
 
-   EXPECT_EQ( _game->GetArenaPlayerXPosition(), 502. );
+   EXPECT_EQ( _game->GetArenaPlayerXPosition(), 502 );
 }
 
 TEST_F( GameTests, RunFrame_PlayerIsMovingUp_PlayerGetsMovedUp )
 {
-   ON_CALL( *_playerMock, GetVelocityY() ).WillByDefault( Return( -200. ) );
+   ON_CALL( *_playerMock, GetVelocityY() ).WillByDefault( Return( -200.0f ) );
    BuildGame();
    _game->ExecuteCommand( GameCommand::Start );
 
    _game->RunFrame();
 
-   EXPECT_EQ( _game->GetArenaPlayerYPosition(), 398. );
+   EXPECT_EQ( _game->GetArenaPlayerYPosition(), 398 );
 }
 
 TEST_F( GameTests, RunFrame_PlayerIsMovingDown_PlayerGetsMovedDown )
 {
-   ON_CALL( *_playerMock, GetVelocityY() ).WillByDefault( Return( 200. ) );
+   ON_CALL( *_playerMock, GetVelocityY() ).WillByDefault( Return( 200.0f ) );
    BuildGame();
    _game->ExecuteCommand( GameCommand::Start );
 
    _game->RunFrame();
 
-   EXPECT_EQ( _game->GetArenaPlayerYPosition(), 402. );
+   EXPECT_EQ( _game->GetArenaPlayerYPosition(), 402 );
 }
 
 TEST_F( GameTests, RunFrame_PlayerHitsLeftWall_PlayerIsStoppedHorizontally )
 {
-   ON_CALL( *_playerMock, GetVelocityX() ).WillByDefault( Return( -70001. ) );
+   ON_CALL( *_playerMock, GetVelocityX() ).WillByDefault( Return( -70001.0f ) );
    BuildGame();
    _game->ExecuteCommand( GameCommand::Start );
 
@@ -246,12 +246,12 @@ TEST_F( GameTests, RunFrame_PlayerHitsLeftWall_PlayerIsStoppedHorizontally )
 
    _game->RunFrame();
 
-   EXPECT_EQ( _game->GetArenaPlayerXPosition(), 0. );
+   EXPECT_EQ( _game->GetArenaPlayerXPosition(), 0 );
 }
 
 TEST_F( GameTests, RunFrame_PlayerHitsRightWall_PlayerIsStoppedHorizontally )
 {
-   ON_CALL( *_playerMock, GetVelocityX() ).WillByDefault( Return( 50001. ) );
+   ON_CALL( *_playerMock, GetVelocityX() ).WillByDefault( Return( 50001.0f ) );
    BuildGame();
    _game->ExecuteCommand( GameCommand::Start );
 
@@ -259,12 +259,12 @@ TEST_F( GameTests, RunFrame_PlayerHitsRightWall_PlayerIsStoppedHorizontally )
 
    _game->RunFrame();
 
-   EXPECT_EQ( _game->GetArenaPlayerXPosition(), 999. );
+   EXPECT_EQ( _game->GetArenaPlayerXPosition(), 999 );
 }
 
 TEST_F( GameTests, RunFrame_PlayerHitsTopWall_PlayerIsStoppedVertically )
 {
-   ON_CALL( *_playerMock, GetVelocityY() ).WillByDefault( Return( -40001. ) );
+   ON_CALL( *_playerMock, GetVelocityY() ).WillByDefault( Return( -40001.0f ) );
    BuildGame();
    _game->ExecuteCommand( GameCommand::Start );
 
@@ -272,12 +272,12 @@ TEST_F( GameTests, RunFrame_PlayerHitsTopWall_PlayerIsStoppedVertically )
 
    _game->RunFrame();
 
-   EXPECT_EQ( _game->GetArenaPlayerYPosition(), 0. );
+   EXPECT_EQ( _game->GetArenaPlayerYPosition(), 0 );
 }
 
 TEST_F( GameTests, RunFrame_PlayerHitsBottomWall_PlayerIsStoppedVertically )
 {
-   ON_CALL( *_playerMock, GetVelocityY() ).WillByDefault( Return( 40001. ) );
+   ON_CALL( *_playerMock, GetVelocityY() ).WillByDefault( Return( 40001.0f ) );
    BuildGame();
    _game->ExecuteCommand( GameCommand::Start );
 
@@ -285,5 +285,5 @@ TEST_F( GameTests, RunFrame_PlayerHitsBottomWall_PlayerIsStoppedVertically )
 
    _game->RunFrame();
 
-   EXPECT_EQ( _game->GetArenaPlayerYPosition(), 799. );
+   EXPECT_EQ( _game->GetArenaPlayerYPosition(), 799 );
 }
