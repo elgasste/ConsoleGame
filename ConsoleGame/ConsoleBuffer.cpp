@@ -34,16 +34,44 @@ using namespace std;
 using namespace ConsoleGame;
 
 ConsoleBuffer::ConsoleBuffer() :
-   _defaultForegroundColor( ConsoleColor::Grey ),
-   _defaultBackgroundColor( ConsoleColor::Black ),
-   _originalWidth( 120 ),
-   _originalHeight( 30 )
+   _defaultForegroundColor( (ConsoleColor)0 ),
+   _defaultBackgroundColor( (ConsoleColor)0 ),
+   _originalWidth( 0 ),
+   _originalHeight( 0 ),
+   _originalColorAttribute( 0 ),
+   _drawBufferAllocated( false )
 {
+}
+
+ConsoleBuffer::~ConsoleBuffer()
+{
+   if ( _drawBufferAllocated )
+   {
+      delete[] _bufferInfo->DrawBuffer;
+   }
+}
+
+void ConsoleBuffer::Initialize( ConsoleColor defaultForegroundColor,
+                                ConsoleColor defaultBackgroundColor,
+                                short defaultWidth,
+                                short defaultHeight )
+{
+   _defaultForegroundColor = defaultForegroundColor;
+   _defaultBackgroundColor = defaultBackgroundColor;
+   _originalWidth = defaultWidth;
+   _originalHeight = defaultHeight;
+
+   if ( _drawBufferAllocated )
+   {
+      delete[] _bufferInfo->DrawBuffer;
+   }
+
    _bufferInfo = shared_ptr<ConsoleBufferInfo>( new ConsoleBufferInfo( GetStdHandle( STD_OUTPUT_HANDLE ),
                                                                        { _originalWidth, _originalHeight },
                                                                        _originalWidth * _originalHeight,
                                                                        new CHAR_INFO[(__int64)_originalWidth * (__int64)_originalHeight],
                                                                        { 0, 0, _originalWidth, _originalHeight } ) );
+   _drawBufferAllocated = true;
 
    CONSOLE_SCREEN_BUFFER_INFO screenBufferInfo;
    GetConsoleScreenBufferInfo( _bufferInfo->OutputHandle, &screenBufferInfo );
@@ -54,11 +82,6 @@ ConsoleBuffer::ConsoleBuffer() :
 
    Clear();
    Flip();
-}
-
-ConsoleBuffer::~ConsoleBuffer()
-{
-   delete[] _bufferInfo->DrawBuffer;
 }
 
 void ConsoleBuffer::ResetDrawBuffer()

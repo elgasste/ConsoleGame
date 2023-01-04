@@ -1,7 +1,7 @@
 #include <format>
 
 #include "DiagnosticsConsoleRenderer.h"
-#include "IConsoleBuffer.h"
+#include "ConsoleBuffer.h"
 #include "IGameClock.h"
 #include "ConsoleRenderDefs.h"
 
@@ -10,7 +10,7 @@
 using namespace std;
 using namespace ConsoleGame;
 
-DiagnosticsConsoleRenderer::DiagnosticsConsoleRenderer( const shared_ptr<IConsoleBuffer> consoleBuffer,
+DiagnosticsConsoleRenderer::DiagnosticsConsoleRenderer( const shared_ptr<ConsoleBuffer> consoleBuffer,
                                                         const shared_ptr<IGameClock> clock,
                                                         const shared_ptr<ConsoleRenderDefs> renderDefs ) :
    _consoleBuffer( consoleBuffer ),

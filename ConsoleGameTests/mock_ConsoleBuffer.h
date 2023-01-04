@@ -2,9 +2,9 @@
 
 #include <gmock/gmock.h>
 
-#include <ConsoleGame/IConsoleBuffer.h>
+#include <ConsoleGame/ConsoleBuffer.h>
 
-class mock_ConsoleBuffer : public ConsoleGame::IConsoleBuffer
+class mock_ConsoleBuffer : public ConsoleGame::ConsoleBuffer
 {
 public:
    MOCK_METHOD( void, LoadRenderDefs, ( std::shared_ptr<ConsoleGame::IGameRenderDefs> ), ( override ) );

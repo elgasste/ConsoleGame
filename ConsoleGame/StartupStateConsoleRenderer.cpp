@@ -1,14 +1,14 @@
 #include <format>
 
 #include "StartupStateConsoleRenderer.h"
-#include "IConsoleBuffer.h"
+#include "ConsoleBuffer.h"
 #include "ConsoleRenderDefs.h"
 #include "KeyboardInputDefs.h"
 
 using namespace std;
 using namespace ConsoleGame;
 
-StartupStateConsoleRenderer::StartupStateConsoleRenderer( const shared_ptr<IConsoleBuffer> consoleBuffer,
+StartupStateConsoleRenderer::StartupStateConsoleRenderer( const shared_ptr<ConsoleBuffer> consoleBuffer,
                                                           const shared_ptr<ConsoleRenderDefs> renderDefs,
                                                           const shared_ptr<KeyboardInputDefs> inputDefs ) :
    _consoleBuffer( consoleBuffer ),
