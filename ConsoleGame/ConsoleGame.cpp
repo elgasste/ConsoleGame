@@ -91,7 +91,7 @@ void LoadAndRun( const shared_ptr<ConsoleBuffer> consoleBuffer )
    auto keyboardInputReader = shared_ptr<KeyboardInputReader>( new KeyboardInputReader( keyboardInputDefs, keyboard ) );
 
    // game data objects
-   auto playerFactory = shared_ptr<IPlayerFactory>( new PlayerFactory( gameDefs ) );
+   auto playerFactory = shared_ptr<PlayerFactory>( new PlayerFactory( gameDefs ) );
    auto game = shared_ptr<Game>( new Game( gameDefs, eventAggregator, playerFactory ) );
 
    // input objects

@@ -2,8 +2,8 @@
 #include "GameDefs.h"
 #include "ArenaDefs.h"
 #include "GameEventAggregator.h"
-#include "IPlayerFactory.h"
-#include "IPlayer.h"
+#include "PlayerFactory.h"
+#include "Player.h"
 #include "PushPlayerCommandArgs.h"
 
 using namespace std;
@@ -11,7 +11,7 @@ using namespace ConsoleGame;
 
 Game::Game( const std::shared_ptr<GameDefs> gameDefs,
             const std::shared_ptr<GameEventAggregator> eventAggregator,
-            const std::shared_ptr<IPlayerFactory> playerFactory ) :
+            const std::shared_ptr<PlayerFactory> playerFactory ) :
    _gameDefs( gameDefs ),
    _eventAggregator( eventAggregator ),
    _player( playerFactory->CreatePlayer() ),

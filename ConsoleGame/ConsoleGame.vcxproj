@@ -193,8 +193,6 @@
     <ClInclude Include="IGameInfoProvider.h" />
     <ClInclude Include="IGameInputDefs.h" />
     <ClInclude Include="IGameRenderDefs.h" />
-    <ClInclude Include="IPlayer.h" />
-    <ClInclude Include="IPlayerFactory.h" />
     <ClInclude Include="IScreenBuffer.h" />
     <ClInclude Include="IThread.h" />
     <ClInclude Include="KeyboardWrapper.h" />

@@ -2,9 +2,9 @@
 
 #include <gmock/gmock.h>
 
-#include <ConsoleGame/IPlayer.h>
+#include <ConsoleGame/Player.h>
 
-class mock_Player : public ConsoleGame::IPlayer
+class mock_Player : public ConsoleGame::Player
 {
 public:
    MOCK_METHOD( void, Push, ( ConsoleGame::Direction ), ( override ) );
