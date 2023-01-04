@@ -4,7 +4,7 @@
 #include "ConsoleRenderDefs.h"
 #include "IScreenBuffer.h"
 #include "IGameInfoProvider.h"
-#include "IGameEventAggregator.h"
+#include "GameEventAggregator.h"
 
 using namespace std;
 using namespace ConsoleGame;
@@ -13,7 +13,7 @@ GameRenderer::GameRenderer( const shared_ptr<ConsoleRenderDefs> renderDefs,
                             const shared_ptr<IScreenBuffer> screenBuffer,
                             const shared_ptr<IGameInfoProvider> gameInfoProvider,
                             const shared_ptr<IGameRenderer> diagnosticsRenderer,
-                            const shared_ptr<IGameEventAggregator> eventAggregator ) :
+                            const shared_ptr<GameEventAggregator> eventAggregator ) :
    _screenBuffer( screenBuffer ),
    _gameInfoProvider( gameInfoProvider ),
    _diagnosticsRenderer( diagnosticsRenderer ),

@@ -7,7 +7,7 @@
 namespace ConsoleGame
 {
    class GameDefs;
-   class IGameEventAggregator;
+   class GameEventAggregator;
    class IPlayerFactory;
    class IPlayer;
 
@@ -17,7 +17,7 @@ namespace ConsoleGame
    {
    public:
       Game( const std::shared_ptr<GameDefs> gameDefs,
-            const std::shared_ptr<IGameEventAggregator> eventAggregator,
+            const std::shared_ptr<GameEventAggregator> eventAggregator,
             const std::shared_ptr<IPlayerFactory> playerFactory );
 
       void RunFrame() override;
@@ -42,7 +42,7 @@ namespace ConsoleGame
 
    private:
       const std::shared_ptr<GameDefs> _gameDefs;
-      const std::shared_ptr<IGameEventAggregator> _eventAggregator;
+      const std::shared_ptr<GameEventAggregator> _eventAggregator;
       const std::shared_ptr<IPlayer> _player;
 
       GameState _state;
