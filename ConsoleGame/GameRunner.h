@@ -2,28 +2,26 @@
 
 #include <memory>
 
-#include "IGameRunner.h"
-
 namespace ConsoleGame
 {
-   class IGameEventAggregator;
+   class GameEventAggregator;
    class IGameClock;
    class IGameInputHandler;
    class IGameRenderer;
    class IGame;
    class IThread;
 
-   class GameRunner : public IGameRunner
+   class GameRunner
    {
    public:
-      GameRunner( const std::shared_ptr<IGameEventAggregator> eventAggregator,
+      GameRunner( const std::shared_ptr<GameEventAggregator> eventAggregator,
                   const std::shared_ptr<IGameClock> clock,
                   const std::shared_ptr<IGameInputHandler> inputHandler,
                   const std::shared_ptr<IGameRenderer> renderer,
                   const std::shared_ptr<IGame> game,
                   const std::shared_ptr<IThread> thread );
 
-      void Run() override;
+      virtual void Run();
 
    private:
       void HandleShutdownEvent();

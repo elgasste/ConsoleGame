@@ -10,7 +10,7 @@ PlayerFactory::PlayerFactory( const shared_ptr<GameDefs> gameDefs ) :
 {
 }
 
-const shared_ptr<IPlayer> PlayerFactory::CreatePlayer() const
+const shared_ptr<Player> PlayerFactory::CreatePlayer() const
 {
-   return shared_ptr<IPlayer>( new Player( _gameDefs->PlayerDefs, _gameDefs->FramesPerSecond ) );
+   return shared_ptr<Player>( new Player( _gameDefs->PlayerDefs, _gameDefs->FramesPerSecond ) );
 }

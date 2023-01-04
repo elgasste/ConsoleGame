@@ -6,6 +6,14 @@
 using namespace std;
 using namespace ConsoleGame;
 
+Player::Player() :
+   _velocityX( 0 ),
+   _velocityY( 0 ),
+   _velocityDelta( 0 ),
+   _direction( (Direction)0 )
+{
+}
+
 Player::Player( const shared_ptr<PlayerDefs> playerDefs,
                 int framesPerSecond ) :
    _playerDefs( playerDefs ),

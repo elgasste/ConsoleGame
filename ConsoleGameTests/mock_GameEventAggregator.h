@@ -2,9 +2,9 @@
 
 #include <gmock/gmock.h>
 
-#include <ConsoleGame/IGameEventAggregator.h>
+#include <ConsoleGame/GameEventAggregator.h>
 
-class mock_GameEventAggregator : public ConsoleGame::IGameEventAggregator
+class mock_GameEventAggregator : public ConsoleGame::GameEventAggregator
 {
 public:
    MOCK_METHOD( void, RegisterEventHandler, ( ConsoleGame::GameEvent, std::function<void()> ), ( override ) );

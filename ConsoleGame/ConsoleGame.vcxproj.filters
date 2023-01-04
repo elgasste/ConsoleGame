@@ -119,16 +119,10 @@
     <ClInclude Include="IGameClock.h">
       <Filter>Header Files\Interfaces</Filter>
     </ClInclude>
-    <ClInclude Include="IGameEventAggregator.h">
-      <Filter>Header Files\Interfaces</Filter>
-    </ClInclude>
     <ClInclude Include="IGameInputHandler.h">
       <Filter>Header Files\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="IGameRenderer.h">
-      <Filter>Header Files\Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="IGameRunner.h">
       <Filter>Header Files\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="GameEvent.h">
@@ -141,9 +135,6 @@
       <Filter>Header Files\DataTypes</Filter>
     </ClInclude>
     <ClInclude Include="IGameInputReader.h">
-      <Filter>Header Files\Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="IConsoleBuffer.h">
       <Filter>Header Files\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="ConsoleColor.h">
@@ -239,14 +230,8 @@
     <ClInclude Include="IScreenBuffer.h">
       <Filter>Header Files\Interfaces</Filter>
     </ClInclude>
-    <ClInclude Include="IPlayer.h">
-      <Filter>Header Files\Interfaces</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="IPlayerFactory.h">
-      <Filter>Header Files\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="PlayerFactory.h">
       <Filter>Header Files</Filter>

@@ -2,10 +2,10 @@
 
 #include <gmock/gmock.h>
 
-#include <ConsoleGame/IPlayerFactory.h>
+#include <ConsoleGame/PlayerFactory.h>
 
-class mock_PlayerFactory : public ConsoleGame::IPlayerFactory
+class mock_PlayerFactory : public ConsoleGame::PlayerFactory
 {
 public:
-   MOCK_METHOD( const std::shared_ptr<ConsoleGame::IPlayer>, CreatePlayer, (), ( const, override ) );
+   MOCK_METHOD( const std::shared_ptr<ConsoleGame::Player>, CreatePlayer, (), ( const, override ) );
 };

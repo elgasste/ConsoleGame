@@ -1,17 +1,19 @@
 #pragma once
 
-#include "IPlayerFactory.h"
+#include <memory>
 
 namespace ConsoleGame
 {
    class GameDefs;
+   class Player;
 
-   class PlayerFactory : public IPlayerFactory
+   class PlayerFactory
    {
    public:
+      PlayerFactory() { }
       PlayerFactory( const std::shared_ptr<GameDefs> gameDefs );
 
-      const std::shared_ptr<IPlayer> CreatePlayer() const override;
+      virtual const std::shared_ptr<Player> CreatePlayer() const;
 
    private:
       const std::shared_ptr<GameDefs> _gameDefs;

@@ -2,28 +2,29 @@
 
 #include <memory>
 
-#include "IPlayer.h"
+#include "Direction.h"
 
 namespace ConsoleGame
 {
    class PlayerDefs;
 
-   class Player : public IPlayer
+   class Player
    {
    public:
+      Player();
       Player( const std::shared_ptr<PlayerDefs> playerDefs,
               int framesPerSecond );
 
-      void Push( Direction direction ) override;
-      void ApplyFrictionX() override;
-      void ApplyFrictionY() override;
-      void StopX() override;
-      void StopY() override;
+      virtual void Push( Direction direction );
+      virtual void ApplyFrictionX();
+      virtual void ApplyFrictionY();
+      virtual void StopX();
+      virtual void StopY();
 
-      float GetVelocityX() const override { return _velocityX; }
-      float GetVelocityY() const override { return _velocityY; }
+      virtual float GetVelocityX() const { return _velocityX; }
+      virtual float GetVelocityY() const { return _velocityY; }
 
-      Direction GetDirection() const override { return _direction; }
+      virtual Direction GetDirection() const { return _direction; }
 
    private:
       void ClampVelocity();

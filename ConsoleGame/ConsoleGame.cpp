@@ -38,7 +38,7 @@ shared_ptr<KeyboardInputDefs> BuildKeyboardInputDefs();
 shared_ptr<PlayerDefs> BuildPlayerDefs();
 shared_ptr<ArenaDefs> BuildArenaDefs();
 shared_ptr<GameDefs> BuildGameDefs();
-void LoadAndRun( const shared_ptr<IConsoleBuffer> consoleBuffer );
+void LoadAndRun( const shared_ptr<ConsoleBuffer> consoleBuffer );
 
 INT WINAPI WinMain( _In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ PSTR lpCmdLine, _In_ INT nCmdShow )
 {
@@ -64,10 +64,12 @@ INT WINAPI WinMain( _In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
    setvbuf( stderr, NULL, _IONBF, 0 );
 
    auto consoleBuffer = shared_ptr<ConsoleBuffer>( new ConsoleBuffer() );
+   consoleBuffer->Initialize( ConsoleColor::Grey, ConsoleColor::Black, 120, 30 );
+
    LoadAndRun( consoleBuffer );
 }
 
-void LoadAndRun( const shared_ptr<IConsoleBuffer> consoleBuffer )
+void LoadAndRun( const shared_ptr<ConsoleBuffer> consoleBuffer )
 {
    consoleBuffer->Draw( 2, 1, "Loading all the things..." );
    consoleBuffer->Flip();
@@ -89,7 +91,7 @@ void LoadAndRun( const shared_ptr<IConsoleBuffer> consoleBuffer )
    auto keyboardInputReader = shared_ptr<KeyboardInputReader>( new KeyboardInputReader( keyboardInputDefs, keyboard ) );
 
    // game data objects
-   auto playerFactory = shared_ptr<IPlayerFactory>( new PlayerFactory( gameDefs ) );
+   auto playerFactory = shared_ptr<PlayerFactory>( new PlayerFactory( gameDefs ) );
    auto game = shared_ptr<Game>( new Game( gameDefs, eventAggregator, playerFactory ) );
 
    // input objects

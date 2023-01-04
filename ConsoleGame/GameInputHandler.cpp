@@ -1,14 +1,14 @@
 #include "GameInputHandler.h"
 #include "IGameInputReader.h"
 #include "IGameInfoProvider.h"
-#include "IGameEventAggregator.h"
+#include "GameEventAggregator.h"
 
 using namespace std;
 using namespace ConsoleGame;
 
 GameInputHandler::GameInputHandler( const shared_ptr<IGameInputReader> inputReader,
                                     const shared_ptr<IGameInfoProvider> gameInfoProvider,
-                                    const shared_ptr<IGameEventAggregator> eventAggregator ) :
+                                    const shared_ptr<GameEventAggregator> eventAggregator ) :
    _inputReader( inputReader ),
    _gameInfoProvider( gameInfoProvider ),
    _eventAggregator( eventAggregator )

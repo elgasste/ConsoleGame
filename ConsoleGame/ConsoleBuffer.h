@@ -1,33 +1,39 @@
 #pragma once
 
 #include <memory>
+#include <string>
 
-#include "IConsoleBuffer.h"
+#include "IScreenBuffer.h"
+#include "ConsoleSprite.h"
 
 namespace ConsoleGame
 {
    struct ConsoleBufferInfo;
 
-   class ConsoleBuffer : public IConsoleBuffer
+   class ConsoleBuffer : public IScreenBuffer
    {
    public:
       ConsoleBuffer();
       ~ConsoleBuffer();
 
-      void LoadRenderDefs( const std::shared_ptr<IGameRenderDefs> renderDefs ) override;
-      void CleanUp() override;
+      void Initialize( ConsoleColor defaultForegroundColor,
+                       ConsoleColor defaultBackgroundColor,
+                       short defaultWidth,
+                       short defaultHeight );
+      virtual void LoadRenderDefs( const std::shared_ptr<IGameRenderDefs> renderDefs ) override;
+      virtual void CleanUp() override;
 
-      void SetDefaultForegroundColor( ConsoleColor color ) override;
-      void SetDefaultBackgroundColor( ConsoleColor color ) override;
-      void Clear() override;
+      virtual void SetDefaultForegroundColor( ConsoleColor color );
+      virtual void SetDefaultBackgroundColor( ConsoleColor color );
+      virtual void Clear() override;
 
-      void Draw( int left, int top, char buffer ) override;
-      void Draw( int left, int top, char buffer, ConsoleColor foregroundColor ) override;
-      void Draw( int left, int top, char buffer, ConsoleColor foregroundColor, ConsoleColor backgroundColor ) override;
-      void Draw( int left, int top, const std::string& buffer ) override;
-      void Draw( int left, int top, const std::string& buffer, ConsoleColor foregroundColor ) override;
-      void Draw( int left, int top, const std::string& buffer, ConsoleColor foregroundColor, ConsoleColor backgroundColor ) override;
-      void Draw( int left, int top, const ConsoleSprite& sprite ) override;
+      virtual void Draw( int left, int top, char buffer );
+      virtual void Draw( int left, int top, char buffer, ConsoleColor foregroundColor );
+      virtual void Draw( int left, int top, char buffer, ConsoleColor foregroundColor, ConsoleColor backgroundColor );
+      virtual void Draw( int left, int top, const std::string& buffer );
+      virtual void Draw( int left, int top, const std::string& buffer, ConsoleColor foregroundColor );
+      virtual void Draw( int left, int top, const std::string& buffer, ConsoleColor foregroundColor, ConsoleColor backgroundColor );
+      virtual void Draw( int left, int top, const ConsoleSprite& sprite );
 
       void Flip() override;
 
@@ -45,5 +51,6 @@ namespace ConsoleGame
       unsigned short _originalColorAttribute;
       short _originalWidth;
       short _originalHeight;
+      bool _drawBufferAllocated;
    };
 }
