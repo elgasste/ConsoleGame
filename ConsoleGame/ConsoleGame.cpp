@@ -288,8 +288,6 @@ shared_ptr<GameDefs> BuildGameDefs()
 {
    auto gameDefs = make_shared<GameDefs>();
 
-   gameDefs->FramesPerSecond = 60;
-
    gameDefs->RenderDefs = BuildConsoleRenderDefs();
    gameDefs->InputDefs = BuildKeyboardInputDefs();
    gameDefs->PlayerDefs = BuildPlayerDefs();
