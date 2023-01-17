@@ -22,7 +22,7 @@ namespace ConsoleGame
             const std::shared_ptr<GameEventAggregator> eventAggregator,
             const std::shared_ptr<PlayerFactory> playerFactory );
 
-      void RunFrame() override;
+      void Tick() override;
 
       GameState GetGameState() const override { return _state; }
 

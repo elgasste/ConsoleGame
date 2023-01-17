@@ -26,7 +26,7 @@ Game::Game( const std::shared_ptr<GameDefs> gameDefs,
 {
 }
 
-void Game::RunFrame()
+void Game::Tick()
 {
    if ( _state == GameState::Playing )
    {

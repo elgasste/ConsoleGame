@@ -18,12 +18,12 @@ using namespace ConsoleGame;
 
 int FrameCount = 0;
 int HandleInputCount = 0;
-int RunFrameCount = 0;
+int TickCount = 0;
 int RenderCount = 0;
 
 void IncrementFrameCount() { FrameCount++; }
 void IncrementHandleInputCount () { HandleInputCount++; }
-void IncrementRunFrameCount () { RunFrameCount++; }
+void IncrementTickCount () { TickCount++; }
 void IncrementRenderCount () { RenderCount++; }
 
 void RunWorker( const shared_ptr<GameRunner> runner )
@@ -52,12 +52,12 @@ public:
 
       FrameCount = 0;
       HandleInputCount = 0;
-      RunFrameCount = 0;
+      TickCount = 0;
       RenderCount = 0;
 
       ON_CALL( *_clockMock, EndFrame() ).WillByDefault( Invoke( IncrementFrameCount ) );
       ON_CALL( *_inputHandlerMock, HandleInput() ).WillByDefault( Invoke( IncrementHandleInputCount ) );
-      ON_CALL( *_gameMock, RunFrame() ).WillByDefault( Invoke( IncrementRunFrameCount ) );
+      ON_CALL( *_gameMock, Tick() ).WillByDefault( Invoke( IncrementTickCount ) );
       ON_CALL( *_rendererMock, Render() ).WillByDefault( Invoke( IncrementRenderCount ) );
    }
 
@@ -114,7 +114,7 @@ TEST_F( GameRunnerTests, Run_EveryLoop_RunsGameFrame )
 
    runWorker.join();
 
-   EXPECT_EQ( RunFrameCount, FrameCount );
+   EXPECT_EQ( TickCount, FrameCount );
 }
 
 TEST_F( GameRunnerTests, Run_EveryLoop_RendersGame )

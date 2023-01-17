@@ -5,6 +5,6 @@ namespace ConsoleGame
    class __declspec( novtable ) IGame
    {
    public:
-      virtual void RunFrame() = 0;
+      virtual void Tick() = 0;
    };
 }
