@@ -37,7 +37,7 @@ void GameRunner::Run()
       _game->RunFrame();
       _renderer->Render();
 
-      _clock->WaitForNextFrame();
+      _clock->EndFrame();
    }
 
    _isRunning = false;

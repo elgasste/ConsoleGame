@@ -87,7 +87,7 @@ void LoadAndRun( const shared_ptr<ConsoleBuffer> consoleBuffer )
 
    // auxiliary objects
    auto eventAggregator = shared_ptr<GameEventAggregator>( new GameEventAggregator() );
-   auto clock = shared_ptr<GameClock>( new GameClock( highResolutionClock, sleeper, gameDefs->FramesPerSecond ) );
+   auto clock = shared_ptr<GameClock>( new GameClock( highResolutionClock ) );
    auto keyboardInputReader = shared_ptr<KeyboardInputReader>( new KeyboardInputReader( keyboardInputDefs, keyboard ) );
 
    // game data objects
