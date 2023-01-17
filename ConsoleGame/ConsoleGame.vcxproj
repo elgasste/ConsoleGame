@@ -189,6 +189,7 @@
     <ClInclude Include="ConsoleRenderDefs.h" />
     <ClInclude Include="GameRunner.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="IFrameRateProvider.h" />
     <ClInclude Include="IGame.h" />
     <ClInclude Include="IGameInfoProvider.h" />
     <ClInclude Include="IGameInputDefs.h" />
