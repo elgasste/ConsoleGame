@@ -34,10 +34,10 @@ void GameRunner::Run()
       _clock->StartFrame();
 
       _inputHandler->HandleInput();
-      _game->RunFrame();
+      _game->Tick();
       _renderer->Render();
 
-      _clock->WaitForNextFrame();
+      _clock->EndFrame();
    }
 
    _isRunning = false;

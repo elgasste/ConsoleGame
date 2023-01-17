@@ -1,11 +1,11 @@
 #include "gtest/gtest.h"
 
 #include <memory>
+#include <stdexcept>
 
 #include <ConsoleGame/GameClock.h>
 
 #include "mock_HighResolutionClock.h"
-#include "mock_Sleeper.h"
 
 using namespace std;
 using namespace testing;
@@ -17,79 +17,52 @@ public:
    void SetUp() override
    {
       _highResolutionClockMock.reset( new NiceMock<mock_HighResolutionClock> );
-      _sleeperMock.reset( new NiceMock<mock_Sleeper> );
-      _framesPerSecond = 100;
 
-      _gameClock.reset( new GameClock( _highResolutionClockMock,
-                                       _sleeperMock,
-                                       _framesPerSecond ) );
+      _clock.reset( new GameClock( _highResolutionClockMock ) );
 
-      ON_CALL( *_highResolutionClockMock, Now() ).WillByDefault( Return( 0ll ) );
+      ON_CALL( *_highResolutionClockMock, Now() ).WillByDefault( Return( 0 ) );
    }
 
 protected:
    shared_ptr<mock_HighResolutionClock> _highResolutionClockMock;
-   shared_ptr<mock_Sleeper> _sleeperMock;
-   int _framesPerSecond;
 
-   shared_ptr<GameClock> _gameClock;
+   shared_ptr<GameClock> _clock;
 };
 
 TEST_F( GameClockTests, Constructor_Always_InitializesAllValues )
 {
-   EXPECT_EQ( _gameClock->GetFramesPerSecond(), 100 );
-   EXPECT_EQ( _gameClock->GetTotalFrameCount(), 0 );
-   EXPECT_EQ( _gameClock->GetLagFrameCount(), 0 );
+   EXPECT_EQ( _clock->GetElapsedNanoseconds(), 0 );
+   EXPECT_EQ( _clock->GetCurrentFrame(), 0 );
+   EXPECT_EQ( _clock->GetAverageFrameRate(), 0 );
+   EXPECT_EQ( _clock->GetFrameSeconds(), 0 );
 }
 
 TEST_F( GameClockTests, StartFrame_Always_SetsFrameStartTime )
 {
    EXPECT_CALL( *_highResolutionClockMock, Now() );
 
-   _gameClock->StartFrame();
+   _clock->StartFrame();
 }
 
-TEST_F( GameClockTests, WaitForNextFrame_Always_SetsFrameEndTime )
+TEST_F( GameClockTests, EndFrame_Always_UpdatesProperties )
 {
-   EXPECT_CALL( *_highResolutionClockMock, Now() );
+   _clock->StartFrame();
 
-   _gameClock->StartFrame();
+   EXPECT_CALL( *_highResolutionClockMock, Now() ).WillOnce( Return( 500'000'000 ) ); // 0.5 seconds
 
-   EXPECT_CALL( *_highResolutionClockMock, Now() );
+   _clock->EndFrame();
 
-   _gameClock->WaitForNextFrame();
+   EXPECT_EQ( _clock->GetElapsedNanoseconds(), 500'000'000 );
+   EXPECT_EQ( _clock->GetCurrentFrame(), 1 );
+   EXPECT_EQ( _clock->GetAverageFrameRate(), 2 );
+   EXPECT_EQ( _clock->GetFrameSeconds(), .5 );
 }
 
-TEST_F( GameClockTests, WaitForNextFrame_Always_IncrementsTotalFrames )
+TEST_F( GameClockTests, GetFrameSeconds_Always_ReturnsTotalFrameSeconds )
 {
-   _gameClock->StartFrame();
-   _gameClock->WaitForNextFrame();
+   _clock->StartFrame();
+   EXPECT_CALL( *_highResolutionClockMock, Now() ).WillOnce( Return( 1'000'000'000 ) ); // 1 second
+   _clock->EndFrame();
 
-   EXPECT_EQ( _gameClock->GetTotalFrameCount(), 1 );
-}
-
-TEST_F( GameClockTests, WaitForNextFrame_TimeIsLeftInFrame_SleepsForRemainingTime )
-{
-   _gameClock->StartFrame();
-
-   ON_CALL( *_highResolutionClockMock, Now() ).WillByDefault( Return( 1'000'000ll ) );
-
-   EXPECT_CALL( *_sleeperMock, Sleep( 9'000'000ll ) );
-
-   _gameClock->WaitForNextFrame();
-}
-
-TEST_F( GameClockTests, WaitForNextFrame_FrameIsOverTime_IncrementsLagFrames )
-{
-   _gameClock->StartFrame();
-
-   auto nanoSecondsPerFrame = 1'000'000'000ll / _framesPerSecond;
-
-   ON_CALL( *_highResolutionClockMock, Now() ).WillByDefault( Return( nanoSecondsPerFrame + 1ll ) );
-
-   EXPECT_CALL( *_sleeperMock, Sleep( _ ) ).Times( 0 );
-
-   _gameClock->WaitForNextFrame();
-
-   EXPECT_EQ( _gameClock->GetLagFrameCount(), 1 );
+   EXPECT_EQ( _clock->GetFrameSeconds(), 1. );
 }

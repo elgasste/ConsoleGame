@@ -9,7 +9,6 @@
 #include "PlayerDefs.h"
 #include "ArenaDefs.h"
 #include "HighResolutionClockWrapper.h"
-#include "SleeperWrapper.h"
 #include "KeyboardWrapper.h"
 #include "ThreadWrapper.h"
 #include "GameEventAggregator.h"
@@ -81,18 +80,17 @@ void LoadAndRun( const shared_ptr<ConsoleBuffer> consoleBuffer )
 
    // wrappers
    auto highResolutionClock = shared_ptr<HighResolutionClockWrapper>( new HighResolutionClockWrapper() );
-   auto sleeper = shared_ptr<SleeperWrapper>( new SleeperWrapper() );
    auto keyboard = shared_ptr<IKeyboard>( new KeyboardWrapper() );
    auto thread = shared_ptr<IThread>( new ThreadWrapper() );
 
    // auxiliary objects
    auto eventAggregator = shared_ptr<GameEventAggregator>( new GameEventAggregator() );
-   auto clock = shared_ptr<GameClock>( new GameClock( highResolutionClock, sleeper, gameDefs->FramesPerSecond ) );
+   auto clock = shared_ptr<GameClock>( new GameClock( highResolutionClock ) );
    auto keyboardInputReader = shared_ptr<KeyboardInputReader>( new KeyboardInputReader( keyboardInputDefs, keyboard ) );
 
    // game data objects
-   auto playerFactory = shared_ptr<PlayerFactory>( new PlayerFactory( gameDefs ) );
-   auto game = shared_ptr<Game>( new Game( gameDefs, eventAggregator, playerFactory ) );
+   auto playerFactory = shared_ptr<PlayerFactory>( new PlayerFactory( gameDefs, clock ) );
+   auto game = shared_ptr<Game>( new Game( gameDefs, clock, eventAggregator, playerFactory ) );
 
    // input objects
    auto startupStateInputHandler = shared_ptr<StartupStateInputHandler>( new StartupStateInputHandler( keyboardInputReader, game ) );
@@ -287,8 +285,6 @@ shared_ptr<ArenaDefs> BuildArenaDefs()
 shared_ptr<GameDefs> BuildGameDefs()
 {
    auto gameDefs = make_shared<GameDefs>();
-
-   gameDefs->FramesPerSecond = 60;
 
    gameDefs->RenderDefs = BuildConsoleRenderDefs();
    gameDefs->InputDefs = BuildKeyboardInputDefs();

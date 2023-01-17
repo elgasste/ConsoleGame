@@ -12,8 +12,6 @@ namespace ConsoleGame
    class GameDefs
    {
    public:
-      int FramesPerSecond = 0;
-
       std::shared_ptr<IGameRenderDefs> RenderDefs;
       std::shared_ptr<IGameInputDefs> InputDefs;
       std::shared_ptr<PlayerDefs> PlayerDefs;

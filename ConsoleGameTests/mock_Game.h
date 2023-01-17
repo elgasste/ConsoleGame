@@ -7,5 +7,5 @@
 class mock_Game : public ConsoleGame::IGame
 {
 public:
-   MOCK_METHOD( void, RunFrame, ( ), ( override ) );
+   MOCK_METHOD( void, Tick, ( ), ( override ) );
 };

@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "GameDefs.h"
 #include "ArenaDefs.h"
+#include "IFrameRateProvider.h"
 #include "GameEventAggregator.h"
 #include "PlayerFactory.h"
 #include "Player.h"
@@ -10,9 +11,11 @@ using namespace std;
 using namespace ConsoleGame;
 
 Game::Game( const std::shared_ptr<GameDefs> gameDefs,
+            const std::shared_ptr<IFrameRateProvider> frameRateProvider,
             const std::shared_ptr<GameEventAggregator> eventAggregator,
             const std::shared_ptr<PlayerFactory> playerFactory ) :
    _gameDefs( gameDefs ),
+   _frameRateProvider( frameRateProvider ),
    _eventAggregator( eventAggregator ),
    _player( playerFactory->CreatePlayer() ),
    _state( GameState::Startup ),
@@ -23,7 +26,7 @@ Game::Game( const std::shared_ptr<GameDefs> gameDefs,
 {
 }
 
-void Game::RunFrame()
+void Game::Tick()
 {
    if ( _state == GameState::Playing )
    {
@@ -101,7 +104,7 @@ void Game::PushPlayer( Direction direction )
 
 void Game::MovePlayer()
 {
-   _arenaPlayerPositionX += ( _player->GetVelocityX() / _gameDefs->FramesPerSecond );
+   _arenaPlayerPositionX += ( _player->GetVelocityX() * _frameRateProvider->GetFrameSeconds() );
 
    if ( _arenaPlayerPositionX < 0 )
    {
@@ -114,7 +117,7 @@ void Game::MovePlayer()
       _player->StopX();
    }
 
-   _arenaPlayerPositionY += ( _player->GetVelocityY() / _gameDefs->FramesPerSecond );
+   _arenaPlayerPositionY += ( _player->GetVelocityY() * _frameRateProvider->GetFrameSeconds() );
 
    if ( _arenaPlayerPositionY < 0 )
    {
