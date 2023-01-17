@@ -7,13 +7,14 @@
 namespace ConsoleGame
 {
    class PlayerDefs;
+   class IFrameRateProvider;
 
    class Player
    {
    public:
       Player();
       Player( const std::shared_ptr<PlayerDefs> playerDefs,
-              int framesPerSecond );
+              const std::shared_ptr<IFrameRateProvider> frameRateProvider );
 
       virtual void Push( Direction direction );
       virtual void ApplyFrictionX();
@@ -31,11 +32,10 @@ namespace ConsoleGame
 
    private:
       const std::shared_ptr<PlayerDefs> _playerDefs;
+      const std::shared_ptr<IFrameRateProvider> _frameRateProvider;
 
       float _velocityX;
       float _velocityY;
-
-      float _velocityDelta;
 
       Direction _direction;
    };

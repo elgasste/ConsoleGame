@@ -5,6 +5,8 @@
 #include <ConsoleGame/Player.h>
 #include <ConsoleGame/PlayerDefs.h>
 
+#include "mock_FrameRateProvider.h"
+
 using namespace std;
 using namespace testing;
 using namespace ConsoleGame;
@@ -15,6 +17,7 @@ public:
    void SetUp() override
    {
       _playerDefs.reset( new PlayerDefs );
+      _frameRateProviderMock.reset( new NiceMock<mock_FrameRateProvider> );
 
       _playerDefs->StartVelocityX = 0;
       _playerDefs->StartVelocityY = 0;
@@ -22,17 +25,17 @@ public:
       _playerDefs->AccelerationPerSecond = 200;
       _playerDefs->StartDirection = Direction::Left;
 
-      _framesPerSecond = 100;
+      ON_CALL( *_frameRateProviderMock, GetFrameSeconds() ).WillByDefault( Return( 1.0f / 100.0f ) );
    }
 
    void BuildPlayer()
    {
-      _player.reset( new Player( _playerDefs, _framesPerSecond ) );
+      _player.reset( new Player( _playerDefs, _frameRateProviderMock ) );
    }
 
 protected:
    shared_ptr<PlayerDefs> _playerDefs;
-   int _framesPerSecond;
+   shared_ptr<mock_FrameRateProvider> _frameRateProviderMock;
 
    shared_ptr<Player> _player;
 };

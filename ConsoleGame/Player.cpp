@@ -2,6 +2,7 @@
 
 #include "Player.h"
 #include "PlayerDefs.h"
+#include "IFrameRateProvider.h"
 
 using namespace std;
 using namespace ConsoleGame;
@@ -9,54 +10,54 @@ using namespace ConsoleGame;
 Player::Player() :
    _velocityX( 0 ),
    _velocityY( 0 ),
-   _velocityDelta( 0 ),
    _direction( (Direction)0 )
 {
 }
 
 Player::Player( const shared_ptr<PlayerDefs> playerDefs,
-                int framesPerSecond ) :
+                const shared_ptr<IFrameRateProvider> frameRateProvider ) :
    _playerDefs( playerDefs ),
+   _frameRateProvider( frameRateProvider ),
    _velocityX( _playerDefs->StartVelocityX ),
    _velocityY( _playerDefs->StartVelocityY ),
-   _velocityDelta( _playerDefs->AccelerationPerSecond / framesPerSecond ),
    _direction( _playerDefs->StartDirection )
 {
 }
 
 void Player::Push( Direction direction )
 {
+   auto velocityDelta = _playerDefs->AccelerationPerSecond * _frameRateProvider->GetFrameSeconds();
    _direction = direction;
 
    switch ( direction )
    {
    case Direction::Left:
-      _velocityX -= _velocityDelta;
+      _velocityX -= velocityDelta;
       break;
    case Direction::UpLeft:
-      _velocityX -= _velocityDelta;
-      _velocityY -= _velocityDelta;
+      _velocityX -= velocityDelta;
+      _velocityY -= velocityDelta;
       break;
    case Direction::Up:
-      _velocityY -= _velocityDelta;
+      _velocityY -= velocityDelta;
       break;
    case Direction::UpRight:
-      _velocityX += _velocityDelta;
-      _velocityY -= _velocityDelta;
+      _velocityX += velocityDelta;
+      _velocityY -= velocityDelta;
       break;
    case Direction::Right:
-      _velocityX += _velocityDelta;
+      _velocityX += velocityDelta;
       break;
    case Direction::DownRight:
-      _velocityX += _velocityDelta;
-      _velocityY += _velocityDelta;
+      _velocityX += velocityDelta;
+      _velocityY += velocityDelta;
       break;
    case Direction::Down:
-      _velocityY += _velocityDelta;
+      _velocityY += velocityDelta;
       break;
    case Direction::DownLeft:
-      _velocityX -= _velocityDelta;
-      _velocityY += _velocityDelta;
+      _velocityX -= velocityDelta;
+      _velocityY += velocityDelta;
       break;
    }
 
@@ -65,25 +66,29 @@ void Player::Push( Direction direction )
 
 void Player::ApplyFrictionX()
 {
+   auto velocityDelta = _playerDefs->AccelerationPerSecond * _frameRateProvider->GetFrameSeconds();
+
    if ( _velocityX < 0 )
    {
-      _velocityX = min( _velocityX + _velocityDelta, 0.0f );
+      _velocityX = min( _velocityX + velocityDelta, 0.0f );
    }
    else if ( _velocityX > 0 )
    {
-      _velocityX = max( _velocityX - _velocityDelta, 0.0f );
+      _velocityX = max( _velocityX - velocityDelta, 0.0f );
    }
 }
 
 void Player::ApplyFrictionY()
 {
+   auto velocityDelta = _playerDefs->AccelerationPerSecond * _frameRateProvider->GetFrameSeconds();
+
    if ( _velocityY < 0 )
    {
-      _velocityY = min( _velocityY + _velocityDelta, 0.0f );
+      _velocityY = min( _velocityY + velocityDelta, 0.0f );
    }
    else if ( _velocityY > 0 )
    {
-      _velocityY = max( _velocityY - _velocityDelta, 0.0f );
+      _velocityY = max( _velocityY - velocityDelta, 0.0f );
    }
 }
 
