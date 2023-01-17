@@ -92,7 +92,7 @@ void LoadAndRun( const shared_ptr<ConsoleBuffer> consoleBuffer )
 
    // game data objects
    auto playerFactory = shared_ptr<PlayerFactory>( new PlayerFactory( gameDefs ) );
-   auto game = shared_ptr<Game>( new Game( gameDefs, eventAggregator, playerFactory ) );
+   auto game = shared_ptr<Game>( new Game( gameDefs, clock, eventAggregator, playerFactory ) );
 
    // input objects
    auto startupStateInputHandler = shared_ptr<StartupStateInputHandler>( new StartupStateInputHandler( keyboardInputReader, game ) );

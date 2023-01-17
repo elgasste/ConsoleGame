@@ -8,6 +8,7 @@
 #include <ConsoleGame/ArenaDefs.h>
 #include <ConsoleGame/PushPlayerCommandArgs.h>
 
+#include "mock_FrameRateProvider.h"
 #include "mock_GameEventAggregator.h"
 #include "mock_PlayerFactory.h"
 #include "mock_Player.h"
@@ -24,6 +25,7 @@ public:
       _gameDefs.reset( new GameDefs );
       _gameDefs->PlayerDefs.reset( new PlayerDefs );
       _gameDefs->ArenaDefs.reset( new ArenaDefs );
+      _frameRateProviderMock.reset( new NiceMock<mock_FrameRateProvider> );
       _eventAggregatorMock.reset( new NiceMock<mock_GameEventAggregator> );
       _playerFactoryMock.reset( new NiceMock<mock_PlayerFactory> );
       _playerMock.reset( new NiceMock<mock_Player> );
@@ -33,18 +35,20 @@ public:
       _gameDefs->ArenaDefs->PlayerStartX = 500;
       _gameDefs->ArenaDefs->PlayerStartY = 400;
 
-      _gameDefs->FramesPerSecond = 100;
+      ON_CALL( *_frameRateProviderMock, GetFrameSeconds() ).WillByDefault( Return( 1.0f ) );
 
       ON_CALL( *_playerFactoryMock, CreatePlayer() ).WillByDefault( Return( _playerMock ) );
    }
 
    void BuildGame()
    {
-      _game.reset( new Game( _gameDefs, _eventAggregatorMock, _playerFactoryMock ) );
+      _game.reset( new Game( _gameDefs, _frameRateProviderMock, _eventAggregatorMock, _playerFactoryMock ) );
    }
 
 protected:
    shared_ptr<GameDefs> _gameDefs;
+
+   shared_ptr<mock_FrameRateProvider> _frameRateProviderMock;
    shared_ptr<mock_GameEventAggregator> _eventAggregatorMock;
    shared_ptr<mock_PlayerFactory> _playerFactoryMock;
    shared_ptr<mock_Player> _playerMock;
@@ -194,7 +198,7 @@ TEST_F( GameTests, RunFrame_PlayerWasPushedVertically_DoesNotApplyYFriction )
 
 TEST_F( GameTests, RunFrame_PlayerIsMovingLeft_PlayerGetsMovedLeft )
 {
-   ON_CALL( *_playerMock, GetVelocityX() ).WillByDefault( Return( -200.0f ) );
+   ON_CALL( *_playerMock, GetVelocityX() ).WillByDefault( Return( -2.0f ) );
    BuildGame();
    _game->ExecuteCommand( GameCommand::Start );
 
@@ -205,7 +209,7 @@ TEST_F( GameTests, RunFrame_PlayerIsMovingLeft_PlayerGetsMovedLeft )
 
 TEST_F( GameTests, RunFrame_PlayerIsMovingRight_PlayerGetsMovedRight )
 {
-   ON_CALL( *_playerMock, GetVelocityX() ).WillByDefault( Return( 200.0f ) );
+   ON_CALL( *_playerMock, GetVelocityX() ).WillByDefault( Return( 2.0f ) );
    BuildGame();
    _game->ExecuteCommand( GameCommand::Start );
 
@@ -216,7 +220,7 @@ TEST_F( GameTests, RunFrame_PlayerIsMovingRight_PlayerGetsMovedRight )
 
 TEST_F( GameTests, RunFrame_PlayerIsMovingUp_PlayerGetsMovedUp )
 {
-   ON_CALL( *_playerMock, GetVelocityY() ).WillByDefault( Return( -200.0f ) );
+   ON_CALL( *_playerMock, GetVelocityY() ).WillByDefault( Return( -2.0f ) );
    BuildGame();
    _game->ExecuteCommand( GameCommand::Start );
 
@@ -227,7 +231,7 @@ TEST_F( GameTests, RunFrame_PlayerIsMovingUp_PlayerGetsMovedUp )
 
 TEST_F( GameTests, RunFrame_PlayerIsMovingDown_PlayerGetsMovedDown )
 {
-   ON_CALL( *_playerMock, GetVelocityY() ).WillByDefault( Return( 200.0f ) );
+   ON_CALL( *_playerMock, GetVelocityY() ).WillByDefault( Return( 2.0f ) );
    BuildGame();
    _game->ExecuteCommand( GameCommand::Start );
 

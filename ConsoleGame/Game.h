@@ -7,6 +7,7 @@
 namespace ConsoleGame
 {
    class GameDefs;
+   class IFrameRateProvider;
    class GameEventAggregator;
    class PlayerFactory;
    class Player;
@@ -17,6 +18,7 @@ namespace ConsoleGame
    {
    public:
       Game( const std::shared_ptr<GameDefs> gameDefs,
+            const std::shared_ptr<IFrameRateProvider> frameRateProvider,
             const std::shared_ptr<GameEventAggregator> eventAggregator,
             const std::shared_ptr<PlayerFactory> playerFactory );
 
@@ -42,6 +44,7 @@ namespace ConsoleGame
 
    private:
       const std::shared_ptr<GameDefs> _gameDefs;
+      const std::shared_ptr<IFrameRateProvider> _frameRateProvider;
       const std::shared_ptr<GameEventAggregator> _eventAggregator;
       const std::shared_ptr<Player> _player;
 
