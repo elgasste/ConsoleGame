@@ -13,6 +13,7 @@ GameClock::GameClock( const shared_ptr<IHighResolutionClock> highResolutionClock
    _lastFrameDurationNano( 0 ),
    _totalDurationNano( 0 )
 {
+   _absoluteStartTimeNano = _highResolutionClock->Now();
 }
 
 void GameClock::StartFrame()
