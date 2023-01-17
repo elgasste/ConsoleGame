@@ -9,7 +9,6 @@
 #include "PlayerDefs.h"
 #include "ArenaDefs.h"
 #include "HighResolutionClockWrapper.h"
-#include "SleeperWrapper.h"
 #include "KeyboardWrapper.h"
 #include "ThreadWrapper.h"
 #include "GameEventAggregator.h"
@@ -81,7 +80,6 @@ void LoadAndRun( const shared_ptr<ConsoleBuffer> consoleBuffer )
 
    // wrappers
    auto highResolutionClock = shared_ptr<HighResolutionClockWrapper>( new HighResolutionClockWrapper() );
-   auto sleeper = shared_ptr<SleeperWrapper>( new SleeperWrapper() );
    auto keyboard = shared_ptr<IKeyboard>( new KeyboardWrapper() );
    auto thread = shared_ptr<IThread>( new ThreadWrapper() );
 
